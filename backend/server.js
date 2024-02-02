@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/cart', require('./routes/cartRoutes'));
+app.use('/api/user', require('./routes/userRoutes'));
 
 app.listen(PORT, () => {
   console.log('Port Connected ' + PORT);
