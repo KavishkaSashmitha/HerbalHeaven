@@ -5,18 +5,19 @@ const {
   updateCart,
   deleteCartItems,
 } = require('../controllers/cartController');
+const { protect } = require('../middleware/authMiddleware');
 
 const route = express.Router();
 
 //routes express
 //@private
 //Get Function
-route.get('/', viewCart);
+route.get('/', protect, viewCart);
 
-route.post('/', AddToCart);
+route.post('/', protect, AddToCart);
 
-route.put('/:id', updateCart);
+route.put('/:id', protect, updateCart);
 
-route.delete('/:id', deleteCartItems);
+route.delete('/:id', protect, deleteCartItems);
 
 module.exports = route;
