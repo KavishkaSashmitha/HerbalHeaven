@@ -4,6 +4,7 @@ const {
   dashboard,
   updateUser,
   deleteUser,
+  loginUser,
 } = require('../controllers/userController');
 
 const route = express.Router();
@@ -11,9 +12,9 @@ const route = express.Router();
 //routes express
 //@private
 //Get Function
-route.get('/', signup);
-
-route.post('/', dashboard);
+route.get('/profile', dashboard);
+route.post('/', loginUser);
+route.post('/create', signup);
 
 route.put('/:id', updateUser);
 
