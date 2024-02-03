@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.Register {
+  margin-right: 20%;
+  margin-top: 5%;
+  justify-content: right;
+  display: flex;
+}
+.Signin {
+  margin-right: 20%;
+  margin-top: 5%;
+  justify-content: right;
+  display: flex;
+}
+
+.container {
+  width: 100%;
+}
