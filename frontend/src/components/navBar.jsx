@@ -8,8 +8,10 @@ import {
 } from '@material-tailwind/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../middleware/authContext';
 
 function NavList() {
+  const { isLoggedIn } = useAuth();
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -19,10 +21,10 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
-          to="#"
+          to="/products"
           className="flex items-center hover:text-blue-500 transition-colors"
         >
-          Pages
+          Products
         </Link>
       </Typography>
       <Typography
@@ -35,7 +37,7 @@ function NavList() {
           to="#"
           className="flex items-center hover:text-blue-500 transition-colors"
         >
-          Account
+          Cart
         </Link>
       </Typography>
       <Typography
@@ -44,25 +46,12 @@ function NavList() {
         color="blue-gray"
         className="p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="#"
           className="flex items-center hover:text-blue-500 transition-colors"
         >
           Blocks
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <a
-          href="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
-        >
-          Docs
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -74,8 +63,24 @@ function NavList() {
           to="#"
           className="flex items-center hover:text-blue-500 transition-colors"
         >
-          <Button>Login</Button>
+          Docs
         </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-medium"
+      >
+        {isLoggedIn ? (
+          <Link to="/dashboard">
+            <Button>Dashboard</Button>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <Button>Login</Button>
+          </Link>
+        )}
       </Typography>
     </ul>
   );
@@ -96,35 +101,37 @@ export function NavbarSimple() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-6 py-3 " color="brown">
-      <div className="flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          variant="h6"
-          className="mr-4 cursor-pointer py-1.5"
-        >
-          Material Tailwind
-        </Typography>
-        <div className="hidden lg:block">
-          <NavList />
+    <header>
+      <Navbar className="mx-auto max-w-screen-3xl px-6 py-3  " color="amber">
+        <div className="flex items-center justify-between text-blue-gray-900">
+          <Typography
+            as="a"
+            href="#"
+            variant="h6"
+            className="mr-4 cursor-pointer py-1.5"
+          >
+            <Link to="/">Herbal Heaven</Link>
+          </Typography>
+          <div className="hidden lg:block">
+            <NavList />
+          </div>
+          <IconButton
+            variant="text"
+            className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+            ripple={false}
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+            )}
+          </IconButton>
         </div>
-        <IconButton
-          variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-          ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-          )}
-        </IconButton>
-      </div>
-      <Collapse open={openNav}>
-        <NavList />
-      </Collapse>
-    </Navbar>
+        <Collapse open={openNav}>
+          <NavList />
+        </Collapse>
+      </Navbar>
+    </header>
   );
 }

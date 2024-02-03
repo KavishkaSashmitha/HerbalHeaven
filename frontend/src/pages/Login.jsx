@@ -1,82 +1,115 @@
-// src/components/Login.js
+// Login.js
+
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Input, Button } from '@material-tailwind/react';
 import axios from 'axios';
+import {
+  Button,
+  Card,
+  Checkbox,
+  Input,
+  Typography,
+} from '@material-tailwind/react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../middleware/authContext';
 
-const Login = () => {
-  const history = useHistory();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      // Send login request to your backend with axios
-      const response = await axios.post(
-        'YOUR_BACKEND_LOGIN_ENDPOINT',
-        formData
-      );
+      const response = await axios.post('http://localhost:8070/api/user', {
+        email,
+        password,
+      });
 
-      // Assuming your backend returns a JWT token
-      const { token } = response.data;
+      // Assuming your API returns a token upon successful login
+      const token = response.data.token;
 
-      // Store the token in localStorage or secure storage
+      // Save the token to local storage or a state management solution
       localStorage.setItem('token', token);
 
-      // Redirect to the home page or any desired route
-      history.push('/');
+      // Update the global authentication state
+      login(token);
+
+      // Redirect to the dashboard
+      navigate('/dashboard');
     } catch (error) {
-      console.error('Login failed:', error);
-      // Handle login failure, e.g., show error message
+      console.error('Login failed:', error.response.data);
+      // Handle login failure (show error message, etc.)
     }
   };
 
   return (
-    <div className="flex h-screen justify-center items-center">
-      <div className="w-96">
-        <h1 className="text-4xl font-semibold mb-6">Login</h1>
-        <div className="mb-4">
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
+    <div className="Signin">
+      <Card color="transparent" shadow={false}>
+        <Typography variant="h4" color="blue-gray">
+          Sign In
+        </Typography>
+        <Typography color="gray" className="mt-1 font-normal">
+          Nice to meet you! Enter your details to Login.
+        </Typography>
+        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+          <div className="mb-1 flex flex-col gap-6">
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Your Email
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="name@mail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: 'before:content-none after:content-none',
+              }}
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Password
+            </Typography>
+            <Input
+              type="password"
+              size="lg"
+              placeholder="********"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: 'before:content-none after:content-none',
+              }}
+            />
+          </div>
+          <Checkbox
+            label={
+              <Typography
+                variant="small"
+                color="gray"
+                className="flex items-center font-normal"
+              >
+                I agree the
+                <Link
+                  to="#"
+                  className="font-medium transition-colors hover:text-gray-900"
+                >
+                  &nbsp;Terms and Conditions
+                </Link>
+              </Typography>
+            }
+            containerProps={{ className: '-ml-2.5' }}
           />
-        </div>
-        <div className="mb-4">
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
-        <Button
-          color="blue"
-          buttonType="filled"
-          size="regular"
-          rounded={false}
-          block={false}
-          iconOnly={false}
-          ripple="light"
-          onClick={handleLogin}
-        >
-          Login
-        </Button>
-      </div>
+          <Button className="mt-6" fullWidth onClick={handleLogin}>
+            Sign In
+          </Button>
+          <Typography color="gray" className="mt-4 text-center font-normal">
+            Don't have an account?{' '}
+            <Link to="/signUp" className="font-medium text-gray-900">
+              Sign up
+            </Link>
+          </Typography>
+        </form>
+      </Card>
     </div>
   );
-};
-
-export default Login;
+}
