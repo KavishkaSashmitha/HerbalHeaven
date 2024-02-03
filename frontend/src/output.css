@@ -1029,6 +1029,10 @@ video {
   height: 100vh;
 }
 
+.h-96 {
+  height: 24rem;
+}
+
 .max-h-96 {
   max-height: 24rem;
 }
@@ -1164,6 +1168,10 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-96 {
+  width: 24rem;
 }
 
 .min-w-\[100vw\] {
@@ -2114,6 +2122,10 @@ video {
   background-color: rgb(255 235 59 / 0.2);
 }
 
+.bg-blue-gray-900\/10 {
+  background-color: rgb(38 50 56 / 0.1);
+}
+
 .bg-opacity-60 {
   --tw-bg-opacity: 0.6;
 }
@@ -2988,6 +3000,10 @@ video {
 
 .opacity-50 {
   opacity: 0.5;
+}
+
+.opacity-75 {
+  opacity: 0.75;
 }
 
 .shadow {
@@ -4299,6 +4315,12 @@ video {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.hover\:scale-105:hover {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .hover\:bg-amber-500\/10:hover {
   background-color: rgb(255 193 7 / 0.1);
 }
@@ -4427,6 +4449,12 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.hover\:shadow-none:hover {
+  --tw-shadow: 0 0 rgb(0, 0 / 0, 0);
+  --tw-shadow-colored: 0 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .hover\:shadow-amber-500\/40:hover {
   --tw-shadow-color: rgb(255 193 7 / 0.4);
   --tw-shadow: var(--tw-shadow-colored);
@@ -4535,6 +4563,12 @@ video {
 .focus\:scale-110:focus {
   --tw-scale-x: 1.1;
   --tw-scale-y: 1.1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.focus\:scale-105:focus {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
