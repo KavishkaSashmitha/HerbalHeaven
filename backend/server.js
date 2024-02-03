@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8070;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/cart', require('./routes/cartRoutes'));
+app.use('/api/user/cart', require('./routes/cartRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
 app.use(errorHandler);
 app.listen(PORT, () => {
