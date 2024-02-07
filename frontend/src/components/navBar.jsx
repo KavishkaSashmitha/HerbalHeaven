@@ -34,7 +34,7 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
-          to="#"
+          to="user/cart"
           className="flex items-center hover:text-blue-500 transition-colors"
         >
           Cart
@@ -78,7 +78,7 @@ function NavList() {
           </Link>
         ) : (
           <Link to="/login">
-            <Button>Login</Button>
+            <Button color="teal">Login</Button>
           </Link>
         )}
       </Typography>

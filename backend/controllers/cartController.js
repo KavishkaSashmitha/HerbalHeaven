@@ -7,7 +7,7 @@ const viewCart = asyncHandler(async (req, res) => {
 });
 
 const AddToCart = asyncHandler(async (req, res) => {
-  if (!req.body.productName) {
+  if (!req.body.name) {
     //error handling case
     res.status(400); //.json({ message: 'Please Add Item' });
     //express use
@@ -15,9 +15,11 @@ const AddToCart = asyncHandler(async (req, res) => {
   }
   const cart = await Cart.create({
     user: req.user.id,
-    productName: req.body.productName,
+    name: req.body.name,
     quantity: req.body.quantity,
     price: req.body.price,
+    image: req.body.image,
+    description: req.body.description,
   });
 
   res.status(200).json(cart);
@@ -25,7 +27,7 @@ const AddToCart = asyncHandler(async (req, res) => {
 
 const updateCart = asyncHandler(async (req, res) => {
   const updateCart = await Cart.findById(req.params.id);
-  if (!req.body.productName) {
+  if (!req.body.name) {
     //error handling case
     res.status(400); //.json({ message: 'Please Add Item' });
     //express use

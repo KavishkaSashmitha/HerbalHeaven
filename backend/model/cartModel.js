@@ -8,7 +8,7 @@ const cartSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    productName: {
+    name: {
       type: String,
       required: true,
     },
@@ -19,6 +19,13 @@ const cartSchema = mongoose.Schema(
     },
     price: {
       type: Number,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
+    description: {
+      type: String,
       required: true,
     },
   },

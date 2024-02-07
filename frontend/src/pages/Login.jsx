@@ -9,8 +9,10 @@ import {
   Input,
   Typography,
 } from '@material-tailwind/react';
+import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -20,6 +22,11 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
+      if (!email || !password) {
+        toast.error('Empty Fields');
+        return;
+      }
+
       const response = await axios.post('http://localhost:8070/api/user', {
         email,
         password,
@@ -38,7 +45,9 @@ export default function Login() {
       navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error.response.data);
-      // Handle login failure (show error message, etc.)
+      toast.error('Login Failed');
+      setEmail('');
+      setPassword('');
     }
   };
 

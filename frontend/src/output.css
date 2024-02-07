@@ -908,6 +908,10 @@ video {
   margin-top: 1px;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
