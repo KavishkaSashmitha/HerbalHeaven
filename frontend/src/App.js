@@ -1,11 +1,11 @@
-import {  Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import { NavbarSimple } from './components/navBar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
-import Cart from './pages/Cart';
+import Cart from './pages/cart';
 
 import 'react-toastify/dist/ReactToastify.css';
 
