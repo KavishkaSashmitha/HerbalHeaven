@@ -18,7 +18,7 @@ const Product = ({ product }) => {
     <Card key={product._id} className="w-96 mb-4">
       <CardHeader shadow={false} floated={false} className="h-96">
         <img
-          src="img/p1.png" // Assuming your product object has an 'image' property
+          src={product.image} // Assuming your product object has an 'image' property
           alt="card-image"
           className="h-full w-full object-cover"
         />
@@ -66,7 +66,13 @@ export function EcommerceCard() {
     fetchInfo();
   }, []);
 
-  return <div>{data.map((product) => <Product key={product._id} product={product} />)}</div>;
+  return (
+    <div>
+      {data.map((product) => (
+        <Product key={product._id} product={product} />
+      ))}
+    </div>
+  );
 }
 
 export default EcommerceCard;

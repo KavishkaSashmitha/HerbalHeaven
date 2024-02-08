@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overflow-x: hidden;
+}
+
 .Register {
   margin-right: 20%;
   margin-top: 5%;
@@ -17,4 +21,13 @@
 
 .container {
   width: 100%;
+}
+.p-1 {
+  justify-content: center;
+}
+Navbar {
+  border: 0;
+}
+.search-bar {
+  margin-top: 2%;
 }
