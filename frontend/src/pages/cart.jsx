@@ -50,13 +50,21 @@ const Cart = () => {
           <p>Your cart is empty.</p>
           <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
             <li>
-              <Link to="/products" class="underline" className="text-blue-400">
+              <Link
+                to="/products"
+                class="underline"
+                className="text-orange-600"
+              >
                 {' '}
                 See Products
               </Link>
             </li>
             <li>
-              <Link to="/products" class="underline" className="text-blue-400">
+              <Link
+                to="/products"
+                class="underline"
+                className="text-orange-600"
+              >
                 <EyeIcon className="h-6 w-6 " />
               </Link>
             </li>
