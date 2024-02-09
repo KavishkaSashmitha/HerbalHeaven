@@ -54,7 +54,7 @@ export default function Login() {
   return (
     <div className="Signin">
       <Card color="transparent" shadow={false}>
-        <Typography variant="h4" color="blue-gray">
+        <Typography variant="h4" className="text-green-900">
           Sign In
         </Typography>
         <Typography color="gray" className="mt-1 font-normal">
@@ -69,8 +69,9 @@ export default function Login() {
               size="lg"
               placeholder="name@mail.com"
               value={email}
+              color="green"
               onChange={(e) => setEmail(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              className=" !border-t-blue-gray-200 focus:!border-t-green-500"
               labelProps={{
                 className: 'before:content-none after:content-none',
               }}
@@ -82,9 +83,10 @@ export default function Login() {
               type="password"
               size="lg"
               placeholder="********"
+              color="green"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              className=" !border-t-blue-gray-200 focus:!border-t-green-500"
               labelProps={{
                 className: 'before:content-none after:content-none',
               }}
@@ -108,7 +110,12 @@ export default function Login() {
             }
             containerProps={{ className: '-ml-2.5' }}
           />
-          <Button className="mt-6" fullWidth onClick={handleLogin}>
+          <Button
+            className="mt-6 "
+            color="green"
+            fullWidth
+            onClick={handleLogin}
+          >
             Sign In
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
