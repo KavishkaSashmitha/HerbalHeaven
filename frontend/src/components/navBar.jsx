@@ -26,9 +26,20 @@ function NavList() {
         className="p-1 font-medium"
       >
         {isLoggedIn ? (
-          <Link to="/dashboard">
-            <UserIcon />
-          </Link>
+          <>
+            <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+              <Link
+                to="/user/cart"
+                className="flex items-center hover:text-light-green-300 transition-colors"
+              >
+                <ShoppingBagIcon className="h-6 w-6 " strokeWidth={2} />
+              </Link>
+              <Link to="/dashboard">
+                <UserIcon className="h-6 w-6" strokeWidth={2} />
+                
+              </Link>
+            </ul>
+          </>
         ) : (
           <>
             <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">

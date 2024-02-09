@@ -31,3 +31,16 @@ Navbar {
 .search-bar {
   margin-top: 2%;
 }
+
+.empty-cart {
+  width: 50%;
+  padding: 20px;
+  margin-left: 5%;
+  
+}
+.cart-head {
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  justify-content: center;
+}
