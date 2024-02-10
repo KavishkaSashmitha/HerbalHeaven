@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const Cart = require('../model/cartModel');
+const User = require('../model/userModel');
 
 const viewCart = asyncHandler(async (req, res) => {
   const cart = await Cart.find({ user: req.user.id });
@@ -50,6 +51,7 @@ const updateCart = asyncHandler(async (req, res) => {
   });
   res.status(200).json(updatedCart);
 });
+
 const deleteCartItems = asyncHandler(async (req, res) => {
   const deleteCart = await Cart.findById(req.params.id);
   if (!deleteCart) {
@@ -65,7 +67,7 @@ const deleteCartItems = asyncHandler(async (req, res) => {
   }
 
   //Make sure the logged if  in thuser match the cart user
-  if (Cart.user.toString() !== user.id) {
+  if (deleteCart.user.toString() !== user.id) {
     res.status(401);
     throw new Error('User not Authorized');
   }
