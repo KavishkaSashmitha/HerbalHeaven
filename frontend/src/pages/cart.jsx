@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../middleware/authContext';
 import axios from 'axios';
+import { Card } from '@material-tailwind/react';
+import { Link } from 'react-router-dom';
+import { EyeIcon } from '@heroicons/react/24/outline';
 
 const Cart = () => {
   const { isLoggedIn, token } = useAuth();
@@ -30,7 +33,7 @@ const Cart = () => {
 
   return (
     <div>
-      <h2>Your Cart</h2>
+      <h2 className="cart-head">Your Cart</h2>
       {Array.isArray(cart) && cart.length > 0 ? (
         <ul>
           {cart.map((item) => (
@@ -38,12 +41,35 @@ const Cart = () => {
               <li key={item._id}>
                 {item.name} - ${item.price}
               </li>
-              <li>{item.quantity}</li>
+              <li>1</li>
             </>
           ))}
         </ul>
       ) : (
-        <p>Your cart is empty.</p>
+        <Card className="empty-cart" color="light-green">
+          <p>Your cart is empty.</p>
+          <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+            <li>
+              <Link
+                to="/products"
+                class="underline"
+                className="text-orange-600"
+              >
+                {' '}
+                See Products
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/products"
+                class="underline"
+                className="text-orange-600"
+              >
+                <EyeIcon className="h-6 w-6 " />
+              </Link>
+            </li>
+          </ul>
+        </Card>
       )}
       {isLoggedIn && (
         <p>

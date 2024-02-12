@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overflow-x: hidden;
+}
+
 .Register {
   margin-right: 20%;
   margin-top: 5%;
@@ -17,4 +21,42 @@
 
 .container {
   width: 100%;
+}
+.p-1 {
+  justify-content: center;
+}
+Navbar {
+  border: 0;
+}
+.search-bar {
+  margin-top: 2%;
+}
+
+.empty-cart {
+  width: 50%;
+  padding: 20px;
+  margin-left: 5%;
+}
+.cart-head {
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  justify-content: center;
+}
+.register {
+  width: 400px;
+
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: ease-in-out;
+}
+
+@keyframes example {
+  from {
+    background-color: red;
+  }
+  to {
+    background-color: yellow;
+  }
 }
