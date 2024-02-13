@@ -4,7 +4,6 @@ import {
   Collapse,
   Typography,
   IconButton,
-  Button,
 } from '@material-tailwind/react';
 import {
   Bars3Icon,

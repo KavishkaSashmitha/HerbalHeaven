@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ImageSlider from '../components/Slider';
-import ProductCard from '../components/ProductCard';
-import axios from 'axios';
-import { Button, Card, Input } from '@material-tailwind/react';
+
+import { Card } from '@material-tailwind/react';
 
 function Home() {
   const images = [
