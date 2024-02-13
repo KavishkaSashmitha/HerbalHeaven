@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../middleware/authContext';
 import axios from 'axios';
-import { Card } from '@material-tailwind/react';
+import { Button, Card, IconButton } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
-import { EyeIcon } from '@heroicons/react/24/outline';
+import { EyeIcon, TrashIcon } from '@heroicons/react/24/outline';
+import CartItemCard from '../components/Cart-Card';
+import { StepperWithContent } from '../components/Stepper';
 
 const Cart = () => {
   const { isLoggedIn, token } = useAuth();
@@ -31,52 +33,60 @@ const Cart = () => {
     fetchCartItems();
   }, [isLoggedIn, token]);
 
+  const handleDeleteItem = async (itemId) => {
+    try {
+      if (isLoggedIn) {
+        await axios.delete(`http://localhost:8070/api/user/cart/${itemId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+    } catch (error) {
+      console.error('Error deleting cart item:', error);
+    }
+  };
+
   return (
-    <div>
-      <h2 className="cart-head">Your Cart</h2>
-      {Array.isArray(cart) && cart.length > 0 ? (
-        <ul>
-          {cart.map((item) => (
-            <>
-              <li key={item._id}>
-                {item.name} - ${item.price}
+    <>
+      <div className="cart-items">
+        <h2 className="cart-head">Your Cart</h2>
+        {isLoggedIn && <StepperWithContent />}
+
+        {Array.isArray(cart) && cart.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {cart.map((item) => (
+              <CartItemCard
+                key={item._id}
+                item={item}
+                onDelete={handleDeleteItem}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="empty-cart">
+            <p>Your cart is empty.</p>
+            <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+              <li>
+                <Link to="/products" className="underline text-orange-600">
+                  See Products
+                </Link>
               </li>
-              <li>1</li>
-            </>
-          ))}
-        </ul>
-      ) : (
-        <Card className="empty-cart" color="light-green">
-          <p>Your cart is empty.</p>
-          <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            <li>
-              <Link
-                to="/products"
-                class="underline"
-                className="text-orange-600"
-              >
-                {' '}
-                See Products
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/products"
-                class="underline"
-                className="text-orange-600"
-              >
-                <EyeIcon className="h-6 w-6 " />
-              </Link>
-            </li>
-          </ul>
-        </Card>
-      )}
-      {isLoggedIn && (
-        <p>
-          Display additional content for logged-in users, like checkout options.
-        </p>
-      )}
-    </div>
+              <li>
+                <Link to="/products" className="underline text-orange-600">
+                  <EyeIcon className="h-6 w-6 " />
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
+        <div className="mt-32 flex justify-between">
+          <Link to="/chekout">
+            <Button>Checkout</Button>
+          </Link>
+        </div>
+      </div>
+    </>
   );
 };
 

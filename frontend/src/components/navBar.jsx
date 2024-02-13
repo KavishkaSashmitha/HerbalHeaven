@@ -22,7 +22,59 @@ function NavList() {
       <Typography
         as="li"
         variant="small"
-        color="white-gray"
+        color="white"
+        className="p-1 font-medium lg:items-center"
+      >
+        <Link
+          to="/"
+          className="flex items-center hover:text-light-green-300 transition-colors"
+        >
+          Home
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link
+          to="/products"
+          className="flex items-center hover:text-light-green-300 transition-colors"
+        >
+          Products
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link
+          to="user/cart"
+          className="flex items-center hover:text-light-green-300 transition-colors"
+        >
+          Cart
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link
+          to="#"
+          className="flex items-center hover:text-green-500 transition-colors"
+        >
+          Blogs
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
         className="p-1 font-medium"
       >
         {isLoggedIn ? (
@@ -36,7 +88,6 @@ function NavList() {
               </Link>
               <Link to="/dashboard">
                 <UserIcon className="h-6 w-6" strokeWidth={2} />
-                
               </Link>
             </ul>
           </>
@@ -89,67 +140,17 @@ export function NavbarSimple() {
       >
         <div className="flex items-center justify-between text-white-gray-900">
           <Typography
-            as="a"
             href="/"
             variant="h6"
             className="mr-4 cursor-pointer py-1.5"
           >
-            <Link to="/">Herbal Heaven</Link>
+            <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+              <Link to="/" className="flex flex-inline">
+                Herbal Heaven
+              </Link>
+            </ul>
           </Typography>
-          <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            <Typography
-              as="li"
-              variant="small"
-              color="white-gray"
-              className="p-1 font-medium"
-            >
-              <Link
-                to="/products"
-                className="flex items-center hover:text-light-green-300 transition-colors"
-              >
-                Products
-              </Link>
-            </Typography>
-            <Typography
-              as="li"
-              variant="small"
-              color="white-gray"
-              className="p-1 font-medium"
-            >
-              <Link
-                to="user/cart"
-                className="flex items-center hover:text-light-green-300 transition-colors"
-              >
-                Cart
-              </Link>
-            </Typography>
-            <Typography
-              as="li"
-              variant="small"
-              color="white-gray"
-              className="p-1 font-medium"
-            >
-              <Link
-                to="#"
-                className="flex items-center hover:text-light-green-300 transition-colors"
-              >
-                Blocks
-              </Link>
-            </Typography>
-            <Typography
-              as="li"
-              variant="small"
-              color="white-gray"
-              className="p-1 font-medium"
-            >
-              <Link
-                to="#"
-                className="flex items-center hover:text-green-500 transition-colors"
-              >
-                Docs
-              </Link>
-            </Typography>
-          </ul>
+
           <div className="hidden lg:block">
             <NavList />
           </div>

@@ -27,7 +27,7 @@ export default function Register() {
 
       console.log('Registration successful:', response.data);
       window.alert('Registration success');
-      navigate('/dashboard');
+      navigate('/login');
 
       // Handle success, e.g., redirect to login page
     } catch (error) {
