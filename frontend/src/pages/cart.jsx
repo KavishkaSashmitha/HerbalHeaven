@@ -54,7 +54,7 @@ const Cart = () => {
         {isLoggedIn && <StepperWithContent />}
 
         {Array.isArray(cart) && cart.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ml-4 w-full">
             {cart.map((item) => (
               <CartItemCard
                 key={item._id}
@@ -80,9 +80,9 @@ const Cart = () => {
             </ul>
           </div>
         )}
-        <div className="mt-32 flex justify-between">
-          <Link to="/chekout">
-            <Button>Checkout</Button>
+        <div className="mt-32 flex justify-center mx-auto ">
+          <Link to="/user/payment">
+            <Button color="green">Checkout</Button>
           </Link>
         </div>
       </div>

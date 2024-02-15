@@ -15,7 +15,7 @@ const Product = ({ product }) => {
   const { addToCart } = useAuth();
 
   return (
-    <Card key={product._id} className="w-96 mb-4">
+    <Card key={product._id} className="w-96 mb-4 mt-2  ml-2 bg-light-green-200">
       <CardHeader shadow={false} floated={false} className="h-96">
         <img
           src={product.image} // Assuming your product object has an 'image' property
@@ -24,7 +24,7 @@ const Product = ({ product }) => {
         />
       </CardHeader>
       <CardBody>
-        <div className="mb-2 flex items-center justify-between">
+        <div className="mb-2 flex items-center justify-between ">
           <Typography color="blue-gray" className="font-medium">
             {product.name}
           </Typography>
@@ -42,10 +42,9 @@ const Product = ({ product }) => {
       </CardBody>
       <CardFooter className="pt-0">
         <Button
-          ripple={false}
-          fullWidth={true}
           onClick={() => addToCart(product)}
-          className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+          className="w-full  hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
+          color="green"
         >
           Add to Cart
         </Button>
