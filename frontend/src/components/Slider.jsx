@@ -1,7 +1,7 @@
 // Slider.js
 
-import React from 'react';
-import Slider from 'react-slick';
+import React from "react";
+import Slider from "react-slick/lib/slider";
 
 const settings = {
   dots: true,
@@ -24,9 +24,7 @@ const ImageSlider = ({ images }) => {
         ))}
       </Slider>
 
-          <div className="featured-products">
-              
-      </div>
+      <div className="featured-products"></div>
     </>
   );
 };
