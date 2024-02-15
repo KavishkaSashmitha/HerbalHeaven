@@ -12,8 +12,8 @@ function Payment() {
 
   // Define the steps with their corresponding route paths
   const steps = [
-    { icon: <ShoppingCartIcon className="h-5 w-5" />, path: '/user/cart' },
-    { icon: <CurrencyDollarIcon className="h-5 w-5" />, path: '/user/payment' },
+    { icon: <ShoppingCartIcon className="h-5 w-5"color="green" />, path: '/user/cart' },
+    { icon: <CurrencyDollarIcon className="h-5 w-5" color="green"/>, path: '/user/payment' },
     { icon: <ArchiveBoxIcon className="h-5 w-5" />, path: '/address' },
   ];
 

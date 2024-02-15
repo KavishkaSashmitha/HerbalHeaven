@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../middleware/authContext';
 import axios from 'axios';
-import { Button, Card, IconButton } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
-import { EyeIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { EyeIcon } from '@heroicons/react/24/outline';
 import CartItemCard from '../components/Cart-Card';
 import { StepperWithContent } from '../components/Stepper';
 
@@ -42,6 +42,14 @@ const Cart = () => {
           },
         });
       }
+      const response = await axios.get('http://localhost:8070/api/user/cart', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Update the state with the updated cart data
+      setCart(response.data);
     } catch (error) {
       console.error('Error deleting cart item:', error);
     }

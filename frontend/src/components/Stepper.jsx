@@ -12,10 +12,8 @@ export function StepperWithContent() {
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
 
-  const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
-
   return (
-    <div className="w-auto px-24 py-4 step">
+    <div className="w-auto px-24 py-4 step ">
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
@@ -23,17 +21,17 @@ export function StepperWithContent() {
       >
         <Step isActive={activeStep === 0}>
           <Link to="/user/cart">
-            <ShoppingCartIcon className="h-5 w-5" />
+            <ShoppingCartIcon className="h-5 w-5 " color="green" />
           </Link>
         </Step>
         <Step isActive={activeStep === 1}>
           <Link to="/user/payment">
-            <CurrencyDollarIcon className="h-5 w-5" />
+            <CurrencyDollarIcon className="h-5 w-5" color="green" />
           </Link>
         </Step>
         <Step isActive={activeStep === 2}>
           <Link to="/address">
-            <ArchiveBoxIcon className="h-5 w-5" />
+            <ArchiveBoxIcon className="h-5 w-5" color="green" />
           </Link>
         </Step>
       </Stepper>

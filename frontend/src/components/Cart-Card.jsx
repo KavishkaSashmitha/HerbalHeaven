@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, IconButton, Typography } from '@material-tailwind/react';
 import {
   List,
@@ -9,6 +9,18 @@ import {
 import { Link } from 'react-router-dom';
 
 const CartItemCard = ({ item, onDelete }) => {
+  const [quantity, setQuantity] = useState(item.quantity);
+
+  const handleIncreaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
   return (
     <Card className="w-full ml-4 mb-4 mx-auto bg-light-green-100">
       <List>
@@ -25,10 +37,10 @@ const CartItemCard = ({ item, onDelete }) => {
               {item.name}
             </Typography>
             <Typography variant="small" color="gray" className="text-gray-600">
-              ${item.price}
+              ${item.price * quantity}
             </Typography>
             <ul className="flex flex-inline item-center justify-center gap-1 m-2">
-              <IconButton size="sm">
+              <IconButton size="sm" onClick={handleDecreaseQuantity}>
                 <i className="fas fa-minus" />
               </IconButton>
               <Typography
@@ -36,9 +48,9 @@ const CartItemCard = ({ item, onDelete }) => {
                 color="gray"
                 className="text-gray-600"
               >
-                Quantity: 1
+                {quantity}
               </Typography>
-              <IconButton size="sm">
+              <IconButton size="sm" onClick={handleIncreaseQuantity}>
                 <i className="fas fa-plus" />
               </IconButton>
             </ul>

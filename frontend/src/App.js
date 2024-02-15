@@ -6,7 +6,6 @@ import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
 import Cart from './pages/cart';
-
 import 'react-toastify/dist/ReactToastify.css';
 import UpdateCart from './pages/UpdateCart';
 import Payment from './pages-Kumesh/Payment';
@@ -24,7 +23,6 @@ function App() {
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/user/payment" element={<Payment />} />
         <Route path="/user/cart/update/:id" element={<UpdateCart />} />
-        {/* <Route path="/register" element={<Register />} /> */}
       </Routes>
     </>
   );
