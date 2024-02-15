@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../middleware/authContext';
 import axios from 'axios';
-import { Button, Card, IconButton } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
-import { EyeIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { EyeIcon } from '@heroicons/react/24/outline';
 import CartItemCard from '../components/Cart-Card';
 import { StepperWithContent } from '../components/Stepper';
 
@@ -42,6 +42,14 @@ const Cart = () => {
           },
         });
       }
+      const response = await axios.get('http://localhost:8070/api/user/cart', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Update the state with the updated cart data
+      setCart(response.data);
     } catch (error) {
       console.error('Error deleting cart item:', error);
     }
@@ -54,7 +62,7 @@ const Cart = () => {
         {isLoggedIn && <StepperWithContent />}
 
         {Array.isArray(cart) && cart.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ml-4 w-full">
             {cart.map((item) => (
               <CartItemCard
                 key={item._id}
@@ -80,9 +88,9 @@ const Cart = () => {
             </ul>
           </div>
         )}
-        <div className="mt-32 flex justify-between">
-          <Link to="/chekout">
-            <Button>Checkout</Button>
+        <div className="mt-32 flex justify-center mx-auto ">
+          <Link to="/user/payment">
+            <Button color="green">Checkout</Button>
           </Link>
         </div>
       </div>

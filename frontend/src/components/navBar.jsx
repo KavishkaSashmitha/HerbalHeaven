@@ -135,7 +135,7 @@ export function NavbarSimple() {
     <header>
       <Navbar
         style={{ backgroundColor: '#0F4602', border: 'none' }}
-        className="mx-auto max-w-screen-3xl px-6 py-3 !rounded-none "
+        className="mx-auto max-w-full px-6 py-3 !rounded-none "
       >
         <div className="flex items-center justify-between text-white-gray-900">
           <Typography

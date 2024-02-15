@@ -1,9 +1,6 @@
 import React from 'react';
 import { Stepper, Step, Button, Typography } from '@material-tailwind/react';
 import {
-  CogIcon,
-  UserIcon,
-  BuildingLibraryIcon,
   ShoppingCartIcon,
   CurrencyDollarIcon,
   ArchiveBoxIcon,
@@ -15,28 +12,26 @@ export function StepperWithContent() {
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
 
-  const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
-
   return (
-    <div className="w-auto px-24 py-4 step">
+    <div className="w-auto px-24 py-4 step ">
       <Stepper
         activeStep={activeStep}
         isLastStep={(value) => setIsLastStep(value)}
         isFirstStep={(value) => setIsFirstStep(value)}
       >
-        <Step>
+        <Step isActive={activeStep === 0}>
           <Link to="/user/cart">
-            <ShoppingCartIcon className="h-5 w-5" />
+            <ShoppingCartIcon className="h-5 w-5 " color="green" />
           </Link>
         </Step>
-        <Step>
-          <Link to="/step2">
-            <CurrencyDollarIcon className="h-5 w-5" />
+        <Step isActive={activeStep === 1}>
+          <Link to="/user/payment">
+            <CurrencyDollarIcon className="h-5 w-5" color="green" />
           </Link>
         </Step>
-        <Step>
-          <Link to="/step3">
-            <ArchiveBoxIcon className="h-5 w-5" />
+        <Step isActive={activeStep === 2}>
+          <Link to="/address">
+            <ArchiveBoxIcon className="h-5 w-5" color="green" />
           </Link>
         </Step>
       </Stepper>
