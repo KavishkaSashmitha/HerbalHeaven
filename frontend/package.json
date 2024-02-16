@@ -19,6 +19,7 @@
     "toastify": "^2.0.1",
     "web-vitals": "^2.1.4",
     "sweetalert2": "^11.10.5"
+    
   },
   "scripts": {
     "start": "react-scripts start",

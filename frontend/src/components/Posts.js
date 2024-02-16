@@ -16,7 +16,7 @@ export default class Posts extends Component {
   }
 
   retrievePosts() {
-    axios.get("http://localhost:8000/posts").then((res) => {
+    axios.get("http://localhost:8070/api/posts/posts").then((res) => {
       if (res.data.success) {
         this.setState({
           posts: res.data.existingPosts,
@@ -36,10 +36,12 @@ export default class Posts extends Component {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`/post/delete/${id}`).then((res) => {
-          Swal.fire("Deleted!", "Supplier has been deleted.", "success");
-          this.retrievePosts();
-        });
+        axios
+          .delete(`http://localhost:8070/api/posts/post/delete/${id}`)
+          .then((res) => {
+            Swal.fire("Deleted!", "Supplier has been deleted.", "success");
+            this.retrievePosts();
+          });
       }
     });
   };
@@ -60,7 +62,7 @@ export default class Posts extends Component {
   handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
 
-    axios.get("http://localhost:8000/posts").then((res) => {
+    axios.get("http://localhost:8070/api/posts/posts").then((res) => {
       if (res.data.success) {
         this.filterData(res.data.existingPosts, searchKey);
       }
@@ -83,7 +85,7 @@ export default class Posts extends Component {
             <div class="flex flex-col gap-2 shrink-0 sm:flex-row">
               <a
                 class="flex select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                href="./add"
+                href="./posts/add"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +196,7 @@ export default class Posts extends Component {
                         <div class="flex flex-col">
                           <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
                             <a
-                              href={`/post/${post._id}`}
+                              href={`/posts/post/${post._id}`}
                               style={{ textDecoration: "none" }}
                             >
                               {post.name}
@@ -242,7 +244,7 @@ export default class Posts extends Component {
                     <td class="p-4 border-b border-blue-gray-50">
                       <a
                         className="select-none rounded-lg bg-amber-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                        href={`/edit/${post._id}`}
+                        href={`/posts/edit/${post._id}`}
                       >
                         <i className="fas fa-edit mr-2"></i>Edit
                       </a>

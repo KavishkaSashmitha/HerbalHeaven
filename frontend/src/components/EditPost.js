@@ -16,7 +16,7 @@ export default function EditPost() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/posts/${id}`);
+        const response = await axios.get(`http://localhost:8070/api/posts/posts/${id}`);
         if (response.data.success) {
           setFormData(response.data.post);
         }
@@ -61,7 +61,7 @@ export default function EditPost() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .put(`/post/update/${id}`, data)
+          .put(`http://localhost:8070/api/posts/post/update/${id}`, data)
           .then((res) => {
             if (res.data.success) {
               Swal.fire(

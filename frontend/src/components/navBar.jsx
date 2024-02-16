@@ -110,6 +110,21 @@ export function NavbarSimple() {
                 Products
               </Link>
             </Typography>
+
+            <Typography
+              as="li"
+              variant="small"
+              color="white-gray"
+              className="p-1 font-medium"
+            >
+              <Link
+                to="/posts"
+                className="flex items-center hover:text-light-green-300 transition-colors"
+              >
+                Supplier
+              </Link>
+            </Typography>
+
             <Typography
               as="li"
               variant="small"
