@@ -6,7 +6,11 @@ const postSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    category:{
+    jobrole:{
+        type:String,
+        required:true
+    },
+    gender:{
         type:String,
         required:true
     },
@@ -14,11 +18,15 @@ const postSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    email:{
+        type:String,
+        required:true
+    },
     address:{
         type:String,
         required:true
     },
-    email:{
+    age:{
         type:String,
         required:true
     }

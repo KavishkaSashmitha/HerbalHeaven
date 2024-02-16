@@ -121,7 +121,7 @@ export function NavbarSimple() {
                 to="/posts"
                 className="flex items-center hover:text-light-green-300 transition-colors"
               >
-                Supplier
+                Employee
               </Link>
             </Typography>
 

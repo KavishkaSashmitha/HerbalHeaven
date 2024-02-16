@@ -50,10 +50,12 @@ export default class Posts extends Component {
     const result = posts.filter(
       (post) =>
         post.name.toLowerCase().includes(searchKey) ||
-        post.category.toLowerCase().includes(searchKey) ||
+        post.jobrole.toLowerCase().includes(searchKey) ||
+        post.gender.toLowerCase().includes(searchKey) ||
         post.mobile.toLowerCase().includes(searchKey) ||
+        post.email.toLowerCase().includes(searchKey) ||
         post.address.toLowerCase().includes(searchKey) ||
-        post.email.toLowerCase().includes(searchKey)
+        post.age.toLowerCase().includes(searchKey)
     );
 
     this.setState({ posts: result });
@@ -76,10 +78,10 @@ export default class Posts extends Component {
           <div class="flex items-center justify-between gap-8 mb-8">
             <div>
               <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-                Supplier List
+                Employee List
               </h5>
               <p class="block mt-1 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
-                See information about all suppliers
+                See information about all employee
               </p>
             </div>
             <div class="flex flex-col gap-2 shrink-0 sm:flex-row">
@@ -97,7 +99,7 @@ export default class Posts extends Component {
                 >
                   <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
                 </svg>
-                Add Supplier
+                Add Employee
               </a>
             </div>
           </div>
@@ -145,12 +147,17 @@ export default class Posts extends Component {
                 </th>
                 <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                   <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                    Supplier Name
+                    Employee Name
                   </p>
                 </th>
                 <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                   <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                    Category
+                    Jobrole
+                  </p>
+                </th>
+                <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    Gender
                   </p>
                 </th>
                 <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
@@ -160,12 +167,17 @@ export default class Posts extends Component {
                 </th>
                 <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                   <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    Email
+                  </p>
+                </th>
+                <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                     Address
                   </p>
                 </th>
                 <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                   <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                    Email
+                    age
                   </p>
                 </th>
                 <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
@@ -209,7 +221,16 @@ export default class Posts extends Component {
                       <div class="flex items-center gap-3">
                         <div class="flex flex-col">
                           <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                            {post.category}
+                            {post.jobrole}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-4 border-b border-blue-gray-50">
+                      <div class="flex items-center gap-3">
+                        <div class="flex flex-col">
+                          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                            {post.gender}
                           </p>
                         </div>
                       </div>
@@ -227,6 +248,15 @@ export default class Posts extends Component {
                       <div class="flex items-center gap-3">
                         <div class="flex flex-col">
                           <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                            {post.email}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-4 border-b border-blue-gray-50">
+                      <div class="flex items-center gap-3">
+                        <div class="flex flex-col">
+                          <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
                             {post.address}
                           </p>
                         </div>
@@ -236,7 +266,7 @@ export default class Posts extends Component {
                       <div class="flex items-center gap-3">
                         <div class="flex flex-col">
                           <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                            {post.email}
+                            {post.age}
                           </p>
                         </div>
                       </div>
