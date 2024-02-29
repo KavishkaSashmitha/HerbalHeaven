@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 import {
   Navbar,
   Collapse,
   Typography,
   IconButton,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 import {
   Bars3Icon,
   ShoppingBagIcon,
   UserIcon,
   XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
-import { useAuth } from "../middleware/authContext";
+} from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../middleware/authContext';
 
 function NavList() {
   const { isLoggedIn } = useAuth();
@@ -100,10 +100,14 @@ function NavList() {
           Employee
 
           to="/emp"
-          className="flex items-center hover:text-green-500 transition-colors"
+          className="flex items-center hover:text-light-green-300 transition-colors"
         >
+<<<<<<< Updated upstream
           Suplier
 
+=======
+          Supplier
+>>>>>>> Stashed changes
         </Link>
       </Typography>
 
@@ -161,17 +165,17 @@ export function NavbarSimple() {
     window.innerWidth >= 960 && setOpenNav(false);
 
   React.useEffect(() => {
-    window.addEventListener("resize", handleWindowResize);
+    window.addEventListener('resize', handleWindowResize);
 
     return () => {
-      window.removeEventListener("resize", handleWindowResize);
+      window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
 
   return (
     <header>
       <Navbar
-        style={{ backgroundColor: "#0F4602", border: "none" }}
+        style={{ backgroundColor: '#0F4602', border: 'none' }}
         className="mx-auto max-w-full px-6 py-3 !rounded-none "
       >
         <div className="flex items-center justify-between text-white-gray-900">
