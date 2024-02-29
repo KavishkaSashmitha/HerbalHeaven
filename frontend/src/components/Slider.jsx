@@ -1,5 +1,6 @@
 // Slider.js
 
+
 import React from 'react';
 import Slider from 'react-slick';
 
@@ -24,9 +25,11 @@ const ImageSlider = ({ images }) => {
         ))}
       </Slider>
 
+
           <div className="featured-products">
               
       </div>
+
     </>
   );
 };
