@@ -60,3 +60,46 @@ Navbar {
     background-color: yellow;
   }
 }
+
+.Signin {
+  justify-content: center;
+  width: 80vh;
+  height: 80vh;
+  margin: 20px;
+
+  background-color: #ddfad6;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(194, 248, 221, 0.19);
+  padding: 20px;
+  align-items: center;
+}
+.Register {
+  justify-content: center;
+  width: 80vh;
+  height: 80vh;
+  margin: 20px;
+
+  background-color: #ddfad6;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(194, 248, 221, 0.19);
+  padding: 20px;
+  align-items: center;
+}
+.item-cart {
+  padding: 20px;
+  margin-left: 5%;
+  background-color: #ddfad6;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(194, 248, 221, 0.19);
+}
+.step {
+  width: 100%;
+  margin: 20 auto;
+}
+.item-card {
+  color: #ddfad6;
+}
+

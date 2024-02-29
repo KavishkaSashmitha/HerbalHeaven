@@ -23,6 +23,7 @@ function NavList() {
         variant="small"
         color="white"
         className="p-1 font-medium lg:items-center"
+<
       >
         <Link
           to="/"
@@ -39,6 +40,26 @@ function NavList() {
       >
         <Link
           to="/products"
+
+      >
+        <Link
+          to="/"
+
+          className="flex items-center hover:text-light-green-300 transition-colors"
+        >
+          Home
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link
+
+          to="/products"
+
           className="flex items-center hover:text-light-green-300 transition-colors"
         >
           Products
@@ -51,23 +72,17 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
-          to="user/cart"
-          className="flex items-center hover:text-light-green-300 transition-colors"
-        >
-          Cart
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-medium"
-      >
-        <Link
+
           to="/emp"
           className="flex items-center hover:text-green-500 transition-colors"
         >
           Suplier
+
+          to="user/cart"
+          className="flex items-center hover:text-light-green-300 transition-colors"
+        >
+          Cart
+
         </Link>
       </Typography>
 
@@ -78,10 +93,17 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
+
           to="/post"
           className="flex items-center hover:text-green-500 transition-colors"
         >
           Employee
+
+          to="/emp"
+          className="flex items-center hover:text-green-500 transition-colors"
+        >
+          Suplier
+
         </Link>
       </Typography>
 

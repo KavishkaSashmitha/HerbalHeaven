@@ -3,7 +3,7 @@ import React from 'react';
 
 const ProductCard = ({ product, addToCart }) => {
   return (
-    <div className="bg-white p-4 rounded-md shadow-md">
+    <div className="bg-light-green p-4 rounded-md shadow-md ">
       <img
         src={product.image}
         alt={product.name}
