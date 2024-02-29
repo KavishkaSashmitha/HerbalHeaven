@@ -1,19 +1,18 @@
-import React from 'react';
+import React from "react";
 import {
   Navbar,
   Collapse,
   Typography,
   IconButton,
-  Button,
-} from '@material-tailwind/react';
+} from "@material-tailwind/react";
 import {
   Bars3Icon,
   ShoppingBagIcon,
   UserIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../middleware/authContext';
+} from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
+import { useAuth } from "../middleware/authContext";
 
 function NavList() {
   const { isLoggedIn } = useAuth();
@@ -22,7 +21,74 @@ function NavList() {
       <Typography
         as="li"
         variant="small"
-        color="white-gray"
+        color="white"
+        className="p-1 font-medium lg:items-center"
+      >
+        <Link
+          to="/"
+          className="flex items-center hover:text-light-green-300 transition-colors"
+        >
+          Home
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link
+          to="/products"
+          className="flex items-center hover:text-light-green-300 transition-colors"
+        >
+          Products
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link
+          to="user/cart"
+          className="flex items-center hover:text-light-green-300 transition-colors"
+        >
+          Cart
+        </Link>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link
+          to="/emp"
+          className="flex items-center hover:text-green-500 transition-colors"
+        >
+          Suplier
+        </Link>
+      </Typography>
+
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
+        className="p-1 font-medium"
+      >
+        <Link
+          to="/post"
+          className="flex items-center hover:text-green-500 transition-colors"
+        >
+          Employee
+        </Link>
+      </Typography>
+
+      <Typography
+        as="li"
+        variant="small"
+        color="white"
         className="p-1 font-medium"
       >
         {isLoggedIn ? (
@@ -36,7 +102,6 @@ function NavList() {
               </Link>
               <Link to="/dashboard">
                 <UserIcon className="h-6 w-6" strokeWidth={2} />
-                
               </Link>
             </ul>
           </>
@@ -74,97 +139,32 @@ export function NavbarSimple() {
     window.innerWidth >= 960 && setOpenNav(false);
 
   React.useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);
+    window.addEventListener("resize", handleWindowResize);
 
     return () => {
-      window.removeEventListener('resize', handleWindowResize);
+      window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
 
   return (
     <header>
       <Navbar
-        style={{ backgroundColor: '#0F4602', border: 'none' }}
-        className="mx-auto max-w-screen-3xl px-6 py-3 !rounded-none "
+        style={{ backgroundColor: "#0F4602", border: "none" }}
+        className="mx-auto max-w-full px-6 py-3 !rounded-none "
       >
         <div className="flex items-center justify-between text-white-gray-900">
           <Typography
-            as="a"
             href="/"
             variant="h6"
             className="mr-4 cursor-pointer py-1.5"
           >
-            <Link to="/">Herbal Heaven</Link>
+            <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+              <Link to="/" className="flex flex-inline">
+                Herbal Heaven
+              </Link>
+            </ul>
           </Typography>
-          <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            <Typography
-              as="li"
-              variant="small"
-              color="white-gray"
-              className="p-1 font-medium"
-            >
-              <Link
-                to="/products"
-                className="flex items-center hover:text-light-green-300 transition-colors"
-              >
-                Products
-              </Link>
-            </Typography>
 
-            <Typography
-              as="li"
-              variant="small"
-              color="white-gray"
-              className="p-1 font-medium"
-            >
-              <Link
-                to="/posts"
-                className="flex items-center hover:text-light-green-300 transition-colors"
-              >
-                Employee
-              </Link>
-            </Typography>
-
-            <Typography
-              as="li"
-              variant="small"
-              color="white-gray"
-              className="p-1 font-medium"
-            >
-              <Link
-                to="user/cart"
-                className="flex items-center hover:text-light-green-300 transition-colors"
-              >
-                Cart
-              </Link>
-            </Typography>
-            <Typography
-              as="li"
-              variant="small"
-              color="white-gray"
-              className="p-1 font-medium"
-            >
-              <Link
-                to="#"
-                className="flex items-center hover:text-light-green-300 transition-colors"
-              >
-                Blocks
-              </Link>
-            </Typography>
-            <Typography
-              as="li"
-              variant="small"
-              color="white-gray"
-              className="p-1 font-medium"
-            >
-              <Link
-                to="#"
-                className="flex items-center hover:text-green-500 transition-colors"
-              >
-                Docs
-              </Link>
-            </Typography>
-          </ul>
           <div className="hidden lg:block">
             <NavList />
           </div>
