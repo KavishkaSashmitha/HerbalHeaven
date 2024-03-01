@@ -16,14 +16,14 @@ import { useAuth } from '../middleware/authContext';
 
 function NavList() {
   const { isLoggedIn } = useAuth();
+
   return (
-    <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-medium lg:items-center"
-<
+        className="p-1 font-medium"
       >
         <Link
           to="/"
@@ -40,26 +40,6 @@ function NavList() {
       >
         <Link
           to="/products"
-
-      >
-        <Link
-          to="/"
-
-          className="flex items-center hover:text-light-green-300 transition-colors"
-        >
-          Home
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-medium"
-      >
-        <Link
-
-          to="/products"
-
           className="flex items-center hover:text-light-green-300 transition-colors"
         >
           Products
@@ -72,20 +52,12 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
-
           to="/emp"
           className="flex items-center hover:text-green-500 transition-colors"
         >
-          Suplier
-
-          to="user/cart"
-          className="flex items-center hover:text-light-green-300 transition-colors"
-        >
-          Cart
-
+          Supplier
         </Link>
       </Typography>
-
       <Typography
         as="li"
         variant="small"
@@ -93,24 +65,12 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
-
-          to="/post"
+          to="/posts"
           className="flex items-center hover:text-green-500 transition-colors"
         >
           Employee
-
-          to="/emp"
-          className="flex items-center hover:text-light-green-300 transition-colors"
-        >
-<<<<<<< Updated upstream
-          Suplier
-
-=======
-          Supplier
->>>>>>> Stashed changes
         </Link>
       </Typography>
-
       <Typography
         as="li"
         variant="small"
@@ -118,40 +78,40 @@ function NavList() {
         className="p-1 font-medium"
       >
         {isLoggedIn ? (
-          <>
-            <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+          <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+            <li>
               <Link
                 to="/user/cart"
                 className="flex items-center hover:text-light-green-300 transition-colors"
               >
-                <ShoppingBagIcon className="h-6 w-6 " strokeWidth={2} />
+                <ShoppingBagIcon className="h-6 w-6" strokeWidth={2} />
               </Link>
+            </li>
+            <li>
               <Link to="/dashboard">
                 <UserIcon className="h-6 w-6" strokeWidth={2} />
               </Link>
-            </ul>
-          </>
+            </li>
+          </ul>
         ) : (
-          <>
-            <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-              <li>
-                <Link
-                  to="/cart"
-                  className="flex items-center hover:text-light-green-300 transition-colors"
-                >
-                  <ShoppingBagIcon className="h-6 w-6" strokeWidth={2} />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/login"
-                  className="flex items-center hover:text-light-green-300 transition-colors"
-                >
-                  <UserIcon className="h-6 w-6" strokeWidth={2} />
-                </Link>
-              </li>
-            </ul>
-          </>
+          <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+            <li>
+              <Link
+                to="/user/cart"
+                className="flex items-center hover:text-light-green-300 transition-colors"
+              >
+                <ShoppingBagIcon className="h-6 w-6" strokeWidth={2} />
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/login"
+                className="flex items-center hover:text-light-green-300 transition-colors"
+              >
+                <UserIcon className="h-6 w-6" strokeWidth={2} />
+              </Link>
+            </li>
+          </ul>
         )}
       </Typography>
     </ul>
@@ -184,7 +144,7 @@ export function NavbarSimple() {
             variant="h6"
             className="mr-4 cursor-pointer py-1.5"
           >
-            <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+            <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
               <Link to="/" className="flex flex-inline">
                 Herbal Heaven
               </Link>
@@ -209,7 +169,6 @@ export function NavbarSimple() {
         </div>
         <Collapse open={openNav}>
           <NavList />
-          <ul></ul>
         </Collapse>
       </Navbar>
     </header>
