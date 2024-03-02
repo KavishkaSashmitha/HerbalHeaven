@@ -67,7 +67,7 @@ function NavList() {
           to="/emp"
           className="flex items-center hover:text-green-500 transition-colors"
         >
-          Suplier
+          Supplier
         </Link>
       </Typography>
       <Typography
