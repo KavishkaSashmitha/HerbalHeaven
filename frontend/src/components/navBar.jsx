@@ -71,7 +71,9 @@ function NavList() {
           to="/posts"
           className="flex items-center hover:text-green-500 transition-colors"
         >
+
           Employee
+
         </Link>
       </Typography>
       <Typography

@@ -1,36 +1,37 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
 
 function UpdateUser() {
   const { id } = useParams();
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [age, setAge] = useState();
-  const [jobRole, setJobRole] = useState();
-  const [mobile, setMobile] = useState();
-  const [address, setAddress] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [jobRole, setJobRole] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://localhost:8070/emp/getEmployee/" + id)
+      .get(`http://localhost:8070/emp/getEmployee/${id}`)
       .then((result) => {
-        console.log(result);
-        setName(result.data.name);
-        setEmail(result.data.email);
-        setAge(result.data.age);
-        setJobRole(result.data.jobRole);
-        setMobile(result.data.mobile);
-        setAddress(result.data.address);
+        const userData = result.data;
+        setName(userData.name);
+        setEmail(userData.email);
+        setAge(userData.age);
+        setJobRole(userData.jobRole);
+        setMobile(userData.mobile);
+        setAddress(userData.address);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   const Update = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:8070/emp/updateEmployee/" + id, {
+      .put(`http://localhost:8070/emp/updateEmployee/${id}`, {
         name,
         email,
         age,
@@ -46,82 +47,101 @@ function UpdateUser() {
   };
 
   return (
-    <div>
-      {/* <div className="d-flex vh-100 bg-primary justify-content-center align-items-center"> */}
-      <div className="w-50 bg-white rounded p-3">
-        <form onSubmit={Update}>
-          <h2>Update Supplier</h2>
+    <div
+      className="bg-gray-100"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <Card color="transparent" shadow={false}>
+        <Typography variant="h4" color="blue-gray">
+          Update Supplier
+        </Typography>
+        <div className="w-80 max-w-screen-lg sm:w-96">
+          <form onSubmit={Update}>
+            <div className="mb-4">
+              <Typography variant="h6" color="blue-gray">
+                Name
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="Enter Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
 
-          <div className="mb-2">
-            <label htmlFor="">Name</label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              className="form-control"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
+            <div className="mb-4">
+              <Typography variant="h6" color="blue-gray">
+                Email
+              </Typography>
+              <Input
+                size="lg"
+                type="email"
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-          <div className="mb-2">
-            <label htmlFor="">Email</label>
-            <input
-              type="email"
-              placeholder="Enter Email"
-              className="form-control"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+            <div className="mb-4">
+              <Typography variant="h6" color="blue-gray">
+                Age
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="Enter Age"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+              />
+            </div>
 
-          <div className="mb-2">
-            <label htmlFor="">Age</label>
-            <input
-              type="text"
-              placeholder="Enter Age"
-              className="form-control"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-            />
-          </div>
+            <div className="mb-4">
+              <Typography variant="h6" color="blue-gray">
+                Category
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="Enter Job Role"
+                value={jobRole}
+                onChange={(e) => setJobRole(e.target.value)}
+              />
+            </div>
 
-          <div className="mb-2">
-            <label htmlFor="">Category</label>
-            <input
-              type="text"
-              placeholder="Enter Job Role"
-              className="form-control"
-              value={jobRole}
-              onChange={(e) => setJobRole(e.target.value)}
-            />
-          </div>
+            <div className="mb-4">
+              <Typography variant="h6" color="blue-gray">
+                Mobile
+              </Typography>
+              <Input
+                size="lg"
+                type="tel"
+                placeholder="Enter Mobile"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+              />
+            </div>
 
-          <div className="mb-2">
-            <label htmlFor="">Mobile</label>
-            <input
-              type="mobile"
-              placeholder="Enter Mobile"
-              className="form-control"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-2">
-            <label htmlFor="">Address</label>
-            <input
-              type="text"
-              placeholder="Enter Address"
-              className="form-control"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </div>
-          <button className="btn btn-success">Update</button>
-        </form>
-      </div>
+            <div className="mb-4">
+              <Typography variant="h6" color="blue-gray">
+                Address
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="Enter Address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+            <Button type="submit" color="success" ripple="light" block>
+              Update
+            </Button>
+          </form>
+        </div>
+      </Card>{" "}
     </div>
-    // </div>
   );
 }
 
