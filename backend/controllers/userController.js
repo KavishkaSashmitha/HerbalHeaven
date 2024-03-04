@@ -39,6 +39,7 @@ const signup = AsyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       password: user.password,
+      isAdmin: false,
       token: generateToken(user._id),
     });
   } else {
@@ -60,6 +61,7 @@ const loginUser = AsyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      isAdmin:user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
