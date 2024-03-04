@@ -11,12 +11,14 @@ body {
   margin-top: 5%;
   justify-content: right;
   display: flex;
+  padding: 10px;
 }
 .Signin {
   margin-right: 20%;
   margin-top: 5%;
   justify-content: right;
   display: flex;
+  padding: 10px;
 }
 
 .container {
@@ -102,4 +104,12 @@ Navbar {
 .item-card {
   color: #ddfad6;
 }
-
+@media (max-width: 640px) {
+  .Signin,
+  .Register {
+    width: 90vw;
+  }
+}
+.container {
+  max-width: 100%;
+}

@@ -7,15 +7,18 @@ import {
 } from '@material-tailwind/react';
 import {
   Bars3Icon,
+  ServerStackIcon,
   ShoppingBagIcon,
   UserIcon,
   XMarkIcon,
+  // Make sure to import the AdminIcon or replace it with the appropriate icon for admin
 } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext';
 
 function NavList() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isAdmin } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -88,9 +91,23 @@ function NavList() {
               </Link>
             </li>
             <li>
-              <Link to="/dashboard">
-                <UserIcon className="h-6 w-6" strokeWidth={2} />
-              </Link>
+              {isAdmin ? (
+                <>
+                  <Link to="/admin-dashboard">
+                    <ServerStackIcon className="h-6 w-6" strokeWidth={2} />
+                  </Link>
+                  <Link
+                    to="/dashboard"
+                    className="flex items-center hover:text-light-green-300 transition-colors"
+                  >
+                    <UserIcon className="h-6 w-6" strokeWidth={2} />
+                  </Link>
+                </>
+              ) : (
+                <Link to="/dashboard">
+                  <UserIcon className="h-6 w-6" strokeWidth={2} />
+                </Link>
+              )}
             </li>
           </ul>
         ) : (
@@ -120,6 +137,8 @@ function NavList() {
 
 export function NavbarSimple() {
   const [openNav, setOpenNav] = React.useState(false);
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleWindowResize = () =>
     window.innerWidth >= 960 && setOpenNav(false);

@@ -66,15 +66,22 @@ const Cart = () => {
         <h2 className="cart-head">Your Cart</h2>
         {isLoggedIn && <StepperWithContent />}
         {Array.isArray(cart) && cart.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ml-4 w-full">
-            {cart.map((item) => (
-              <CartItemCard
-                key={item._id}
-                item={item}
-                onDelete={handleDeleteItem}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ml-4 w-full">
+              {cart.map((item) => (
+                <CartItemCard
+                  key={item._id}
+                  item={item}
+                  onDelete={handleDeleteItem}
+                />
+              ))}
+            </div>
+            <div className="mt-32 flex justify-center mx-auto ">
+              <Link to="/user/payment">
+                <Button color="green">Checkout</Button>
+              </Link>
+            </div>
+          </>
         ) : (
           <Card className="empty-cart" color="light-green">
             <p>Your cart is empty.</p>
@@ -92,11 +99,6 @@ const Cart = () => {
             </ul>
           </Card>
         )}
-        <div className="mt-32 flex justify-center mx-auto ">
-          <Link to="/user/payment">
-            <Button color="green">Checkout</Button>
-          </Link>
-        </div>
       </div>
     </>
   );

@@ -38,7 +38,7 @@ export default function Register() {
   };
 
   return (
-    <div className="Register">
+    <div className="Register ">
       <Card color="transparent" shadow={false}>
         <Typography variant="h4" color="blue-gray">
           Sign Up
