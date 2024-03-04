@@ -1,29 +1,32 @@
-import React from "react";
+import React from 'react';
 import {
   Navbar,
   Collapse,
   Typography,
   IconButton,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 import {
   Bars3Icon,
+  ServerStackIcon,
   ShoppingBagIcon,
   UserIcon,
   XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
-import { useAuth } from "../middleware/authContext";
+  // Make sure to import the AdminIcon or replace it with the appropriate icon for admin
+} from '@heroicons/react/24/outline';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../middleware/authContext';
 
 function NavList() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isAdmin } = useAuth();
+  const navigate = useNavigate();
+
   return (
-    <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
         variant="small"
         color="white"
-        className="p-1 font-medium lg:items-center"
-<
+        className="p-1 font-medium"
       >
         <Link
           to="/"
@@ -40,26 +43,6 @@ function NavList() {
       >
         <Link
           to="/products"
-
-      >
-        <Link
-          to="/"
-
-          className="flex items-center hover:text-light-green-300 transition-colors"
-        >
-          Home
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-medium"
-      >
-        <Link
-
-          to="/products"
-
           className="flex items-center hover:text-light-green-300 transition-colors"
         >
           Products
@@ -72,20 +55,12 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
-
           to="/emp"
           className="flex items-center hover:text-green-500 transition-colors"
         >
-          Suplier
-
-          to="user/cart"
-          className="flex items-center hover:text-light-green-300 transition-colors"
-        >
-          Cart
-
+          Supplier
         </Link>
       </Typography>
-
       <Typography
         as="li"
         variant="small"
@@ -93,20 +68,14 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
-
-          to="/post"
+          to="/posts"
           className="flex items-center hover:text-green-500 transition-colors"
         >
+
           Employee
-
-          to="/emp"
-          className="flex items-center hover:text-green-500 transition-colors"
-        >
-          Suplier
 
         </Link>
       </Typography>
-
       <Typography
         as="li"
         variant="small"
@@ -114,40 +83,54 @@ function NavList() {
         className="p-1 font-medium"
       >
         {isLoggedIn ? (
-          <>
-            <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+          <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+            <li>
               <Link
                 to="/user/cart"
                 className="flex items-center hover:text-light-green-300 transition-colors"
               >
-                <ShoppingBagIcon className="h-6 w-6 " strokeWidth={2} />
+                <ShoppingBagIcon className="h-6 w-6" strokeWidth={2} />
               </Link>
-              <Link to="/dashboard">
-                <UserIcon className="h-6 w-6" strokeWidth={2} />
-              </Link>
-            </ul>
-          </>
-        ) : (
-          <>
-            <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-              <li>
-                <Link
-                  to="/cart"
-                  className="flex items-center hover:text-light-green-300 transition-colors"
-                >
-                  <ShoppingBagIcon className="h-6 w-6" strokeWidth={2} />
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/login"
-                  className="flex items-center hover:text-light-green-300 transition-colors"
-                >
+            </li>
+            <li>
+              {isAdmin ? (
+                <>
+                  <Link to="/admin-dashboard">
+                    <ServerStackIcon className="h-6 w-6" strokeWidth={2} />
+                  </Link>
+                  <Link
+                    to="/dashboard"
+                    className="flex items-center hover:text-light-green-300 transition-colors"
+                  >
+                    <UserIcon className="h-6 w-6" strokeWidth={2} />
+                  </Link>
+                </>
+              ) : (
+                <Link to="/dashboard">
                   <UserIcon className="h-6 w-6" strokeWidth={2} />
                 </Link>
-              </li>
-            </ul>
-          </>
+              )}
+            </li>
+          </ul>
+        ) : (
+          <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+            <li>
+              <Link
+                to="/user/cart"
+                className="flex items-center hover:text-light-green-300 transition-colors"
+              >
+                <ShoppingBagIcon className="h-6 w-6" strokeWidth={2} />
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/login"
+                className="flex items-center hover:text-light-green-300 transition-colors"
+              >
+                <UserIcon className="h-6 w-6" strokeWidth={2} />
+              </Link>
+            </li>
+          </ul>
         )}
       </Typography>
     </ul>
@@ -156,22 +139,24 @@ function NavList() {
 
 export function NavbarSimple() {
   const [openNav, setOpenNav] = React.useState(false);
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleWindowResize = () =>
     window.innerWidth >= 960 && setOpenNav(false);
 
   React.useEffect(() => {
-    window.addEventListener("resize", handleWindowResize);
+    window.addEventListener('resize', handleWindowResize);
 
     return () => {
-      window.removeEventListener("resize", handleWindowResize);
+      window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
 
   return (
     <header>
       <Navbar
-        style={{ backgroundColor: "#0F4602", border: "none" }}
+        style={{ backgroundColor: '#0F4602', border: 'none' }}
         className="mx-auto max-w-full px-6 py-3 !rounded-none "
       >
         <div className="flex items-center justify-between text-white-gray-900">
@@ -180,7 +165,7 @@ export function NavbarSimple() {
             variant="h6"
             className="mr-4 cursor-pointer py-1.5"
           >
-            <ul className="my-2 flex flex-col gap-2   lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+            <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
               <Link to="/" className="flex flex-inline">
                 Herbal Heaven
               </Link>
@@ -205,7 +190,6 @@ export function NavbarSimple() {
         </div>
         <Collapse open={openNav}>
           <NavList />
-          <ul></ul>
         </Collapse>
       </Navbar>
     </header>

@@ -32,17 +32,21 @@ export default function Login() {
         password,
       });
 
-      // Assuming your API returns a token upon successful login
       const token = response.data.token;
+      const isAdmin = response.data.isAdmin;
 
       // Save the token to local storage or a state management solution
       localStorage.setItem('token', token);
 
+      if (isAdmin) {
+        // Handle admin-specific navigation
+        navigate('/admin-dashboard');
+      } else {
+        // Redirect regular users to the dashboard
+        navigate('/dashboard');
+      }
       // Update the global authentication state
       login(token);
-
-      // Redirect to the dashboard
-      navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error.response.data);
       toast.error('Login Failed');
