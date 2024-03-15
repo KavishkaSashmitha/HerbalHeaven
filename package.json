@@ -5,13 +5,12 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-
     "start": "nodemon backend/server.js"
-
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@react-pdf/renderer": "^3.3.8",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
@@ -21,7 +20,10 @@
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
     "gwt": "^1.2.0-alpha",
+    "html2canvas": "^1.4.1",
     "jsonwebtoken": "^9.0.2",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "mongoose": "^8.1.1",
     "nodemon": "^3.0.3"
   }
