@@ -34,7 +34,7 @@ function SalaryReport() {
   }, []);
 
   function Calculation() {
-    const basicSalary = hours * rate;
+    const basicSalary = hours * rate + 25000;
     const etfValue = (basicSalary * 3) / 100;
     const epfValue = (basicSalary * 8) / 100;
 
@@ -95,19 +95,16 @@ function SalaryReport() {
     doc.setFontSize(25);
     doc.text("Salary Details", 10, 10);
 
-    doc.setFont("times", "normal");
-    doc.setFontSize(12);
-
     // Generate the table
     doc.autoTable({
-      head: [["Employee Details", ""]],
+      head: [["Employee Details", " "]],
       body: data1,
       margin: { top: 25 },
     });
     doc.autoTable({
       head: [["Description", "Amount"]],
       body: data2,
-      margin: { top: 28 },
+      margin: { top: 29 },
     });
 
     // Save the document
@@ -115,167 +112,255 @@ function SalaryReport() {
   }
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-gray-100 rounded-md">
-      <h1 className="text-3xl mb-6 text-center">SALARY CALCULATOR</h1>
-      <form className="space-y-4">
-        <div>
-          <label name="employeeName">Employee Name:</label>
-          <input
-            type="text"
-            required
-            onChange={(event) => {
-              setEmployeeName(event.target.value);
-              setNameError("");
-            }}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Employee Name"
-          />
-          {nameError && <p className="text-red-500">{nameError}</p>}
-        </div>
+    <body className="bg-gray-900">
+      <div class="">
+        <div class=" w-auto max-w-[56rem] mx-auto">
+          <div class="relative flex flex-col rounded-xl bg-gray-100 bg-clip-border text-gray-700 shadow-md">
+            <div class="relative grid px-1 py-1 m-1 overflow-center text-center text-white bg-gray-800 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
+              <div class="h-1 p-8 mb-4 text-white">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 25 25"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  class="w-10 h-10 text-white"
+                >
+                  <path d="M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z"></path>
+                  <path
+                    fill-rule="evenodd"
+                    d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white">
+                Salary Calculator
+              </h5>
+            </div>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="p-6">
+                <div class="block overflow-visible">
+                  <div class="relative block w-full overflow-hidden !overflow-x-hidden !overflow-y-visible bg-transparent">
+                    <form class="flex flex-col gap-2 mt-12">
+                      <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>Employee Name</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-4">
+                        <input
+                          type="text"
+                          required
+                          onChange={(event) => {
+                            setEmployeeName(event.target.value);
+                            setNameError("");
+                          }}
+                          placeholder="Enter Employee Name"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        />
+                        {nameError && (
+                          <p className="text-red-500">{nameError}</p>
+                        )}
 
-        <div>
-          <label name="jobRole">Job Role:</label>
-          <input
-            type="text"
-            required
-            onChange={(event) => {
-              setJobRole(event.target.value);
-              setNameError("");
-            }}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Employee Job Role"
-          />
-        </div>
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
 
-        <div>
-          <label name="workingHour">Working Hours (h):</label>
-          <input
-            type="number"
-            required
-            onChange={(event) => {
-              setHours(event.target.value);
-            }}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Working Hours"
-          />
-        </div>
-        <div>
-          <label name="hoursRate">Hourly Rate (Rs.):</label>
-          <input
-            type="number"
-            required
-            onChange={(event) => {
-              setRate(event.target.value);
-            }}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Hourly Rate (Rupees)"
-          />
-        </div>
-        <div>
-          <button
-            type="button"
-            onClick={Calculation}
-            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-          >
-            Calculate Salary
-          </button>
-        </div>
+                      <p class="block  font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>Job Role:</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-4">
+                        <input
+                          type="text"
+                          required
+                          onChange={(event) => {
+                            setJobRole(event.target.value);
+                            setNameError("");
+                          }}
+                          placeholder="Employee Job Role"
+                          class="peer  bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        />
 
-        <div>
-          <label name="basicSalary">Basic Salary:</label>
-          <input
-            type="text"
-            required
-            value={`Rs.${bsal}`}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Basic Salary (Rupees)"
-          />
-        </div>
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
 
-        <div>
-          <label name="taxRate">Tax Rate:</label>
-          <input
-            type="text"
-            required
-            value={`Rs.${tax}`}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Tax (Rupees)"
-          />
-        </div>
+                      <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>Working Hours (h):</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-4">
+                        <input
+                          type="number"
+                          required
+                          onChange={(event) => {
+                            setHours(event.target.value);
+                          }}
+                          placeholder="Working Hours"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        />
 
-        <div>
-          <label name="etf">ETF:</label>
-          <input
-            type="text"
-            required
-            value={`Rs.${etf}`}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="ETF (Rupees)"
-          />
-        </div>
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
 
-        <div>
-          <label name="epf">EPF:</label>
-          <input
-            type="text"
-            required
-            value={`Rs.${epf}`}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="EPF (Rupees)"
-          />
-        </div>
+                      <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>Hourly Rate (Rs.):</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-10">
+                        <input
+                          type="number"
+                          required
+                          onChange={(event) => {
+                            setRate(event.target.value);
+                          }}
+                          placeholder="Hourly Rate (Rupees)"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        />
 
-        <div>
-          <label name="transportAllowances">Transport Allowance:</label>
-          <input
-            type="text"
-            required
-            value={`Rs.${tallowance}`}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Transport Allowance (Rupees)"
-          />
-        </div>
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
 
-        <div>
-          <label name="monthlyBonus">Monthly Bonus:</label>
-          <input
-            type="text"
-            required
-            value={`Rs.${mbonus}`}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Monthly Bonus (Rupees)"
-          />
-        </div>
+                      <div>
+                        <button
+                          type="button"
+                          onClick={Calculation}
+                          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+                        >
+                          Calculate Salary
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="block overflow-visible">
+                  <div class="relative block w-full overflow-hidden !overflow-x-hidden !overflow-y-visible bg-transparent">
+                    <form class="flex flex-col gap-2 mt-12">
+                      <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>Basic Salary:</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-4">
+                        <input
+                          type="text"
+                          required
+                          value={`Rs.${bsal}`}
+                          disabled
+                          placeholder="Hourly Rate (Rupees)"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200  !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 "
+                        />
 
-        <div>
-          <label name="netSalary">Net Salary:</label>
-          <input
-            type="text"
-            required
-            value={`Rs.${nsal}`}
-            disabled
-            className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="Net Salary (Rupees)"
-          />
-        </div>
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
 
-        <div>
-          <button
-            type="button"
-            onClick={Generate}
-            className="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600"
-          >
-            Generate Salary Report
-          </button>
+                      <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>Tax Rate:</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-4">
+                        <input
+                          type="text"
+                          required
+                          value={`Rs.${tax}`}
+                          disabled
+                          placeholder="Tax (Rupees)"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 "
+                        />
+
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
+
+                      <p class="block  font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>ETF:</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-4">
+                        <input
+                          type="text"
+                          required
+                          value={`Rs.${etf}`}
+                          disabled
+                          placeholder="ETF (Rupees)"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 "
+                        />
+
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
+
+                      <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>EPF:</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-4">
+                        <input
+                          type="text"
+                          required
+                          value={`Rs.${epf}`}
+                          disabled
+                          placeholder="EPF (Rupees)"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 "
+                        />
+
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
+
+                      <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>Transport Allowance:</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-4">
+                        <input
+                          type="text"
+                          required
+                          value={`Rs.${tallowance}`}
+                          disabled
+                          placeholder="Transport Allowance (Rupees)"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 "
+                        />
+
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
+                      <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>Monthly Bonus:</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-4">
+                        <input
+                          type="text"
+                          required
+                          value={`Rs.${mbonus}`}
+                          disabled
+                          placeholder="Monthly Bonus (Rupees)"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 "
+                        />
+
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
+
+                      <p class="block  font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                        <label>Net Salary</label>
+                      </p>
+                      <div class="relative h-10 w-full min-w-[200px] mb-10">
+                        <input
+                          type="text"
+                          required
+                          value={`Rs.${nsal}`}
+                          disabled
+                          placeholder="Net Salary (Rupees)"
+                          class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 "
+                        />
+
+                        <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                      </div>
+
+                      <div>
+                        <button
+                          type="button"
+                          onClick={Generate}
+                          className="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600"
+                        >
+                          Generate Salary Report
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </body>
   );
 }
 

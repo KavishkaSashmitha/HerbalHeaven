@@ -74,6 +74,7 @@ export default class CreatPost extends Component {
 
   render() {
     return (
+      <body className="bg-gray-900 url">
       <div class="flex items-center justify-center h-screen">
         {this.state.confirmation ? (
           <div
@@ -88,6 +89,7 @@ export default class CreatPost extends Component {
             <h1 style={{ color: "green" }}>Employee Added Successfully!</h1>
           </div>
         ) : (
+          
           <div class=" w-full max-w-[56rem] mx-auto">
             <div class="relative flex flex-col rounded-xl bg-gray-100 bg-clip-border text-gray-700 shadow-md">
               <div class="relative grid px-1 py-1 m-1 overflow-center text-center text-white bg-gray-800 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
@@ -259,8 +261,12 @@ export default class CreatPost extends Component {
               </div>
             </div>
           </div>
+          
         )}
       </div>
+      </body>
     );
-  }
+    }
+    
 }
+  
