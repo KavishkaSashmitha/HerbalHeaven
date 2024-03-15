@@ -1,56 +1,62 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
 function SalaryReport() {
-  const [hours, setHours] = useState();
-  const [rate, setRate] = useState();
-  const [bsal, setBsal] = useState();
-  const [tax, setTax] = useState();
-  const [etf, setEtf] = useState();
-  const [epf, setEpf] = useState();
-  const [tallowance, setTallowance] = useState();
-  const [mbonus, setMbonus] = useState();
-  const [nsal, setNsal] = useState();
+  const [hours, setHours] = useState("");
+  const [rate, setRate] = useState("");
+  const [bsal, setBsal] = useState("");
+  const [tax, setTax] = useState("");
+  const [etf, setEtf] = useState("");
+  const [epf, setEpf] = useState("");
+  const [tallowance, setTallowance] = useState("");
+  const [mbonus, setMbonus] = useState("");
+  const [nsal, setNsal] = useState("");
   const [emp, setEmp] = useState(null);
   const [nameError, setNameError] = useState("");
   const [employeeName, setEmployeeName] = useState("");
   const [jobRole, setJobRole] = useState("");
 
   useEffect(() => {
-    const fetchposts = async () => {
-      const response = await fetch("http://localhost:8070/api/posts/posts");
-      const json = await response.json();
-
-      if (response.ok) {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch("http://localhost:8070/api/posts/posts");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const json = await response.json();
         setEmp(json?.existingPosts);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
-    fetchposts();
+    fetchPosts();
   }, []);
 
   function Calculation() {
-    const bsal = hours * rate;
-    const etf = (bsal * 3) / 100;
-    const epf = (bsal * 8) / 100;
+    const basicSalary = hours * rate;
+    const etfValue = (basicSalary * 3) / 100;
+    const epfValue = (basicSalary * 8) / 100;
 
-    let tax, tallowance, mbonus;
+    let taxValue, transportAllowance, monthlyBonus;
 
-    if (bsal > 100000) {
-      tax = (bsal * 10) / 100;
-      tallowance = (bsal * 30) / 100;
-      mbonus = (bsal * 20) / 100;
-    } else if (bsal > 50000) {
-      tax = (bsal * 5) / 100;
-      tallowance = (bsal * 20) / 100;
-      mbonus = (bsal * 15) / 100;
+    if (basicSalary > 100000) {
+      taxValue = (basicSalary * 10) / 100;
+      transportAllowance = (basicSalary * 30) / 100;
+      monthlyBonus = (basicSalary * 20) / 100;
+    } else if (basicSalary > 50000) {
+      taxValue = (basicSalary * 5) / 100;
+      transportAllowance = (basicSalary * 20) / 100;
+      monthlyBonus = (basicSalary * 15) / 100;
     } else {
-      tax = (bsal * 2) / 100;
-      tallowance = (bsal * 10) / 100;
-      mbonus = (bsal * 10) / 100;
+      taxValue = (basicSalary * 2) / 100;
+      transportAllowance = (basicSalary * 10) / 100;
+      monthlyBonus = (basicSalary * 10) / 100;
     }
 
-    const nsal = bsal + (tallowance + mbonus - (tax + etf + epf));
+    const netSalary =
+      basicSalary +
+      (transportAllowance + monthlyBonus - (taxValue + etfValue + epfValue));
 
     const validEmployee = emp && emp.find((e) => e.name === employeeName);
     if (!validEmployee) {
@@ -59,27 +65,30 @@ function SalaryReport() {
     }
 
     setJobRole(jobRole);
-    setBsal(bsal);
-    setTax(tax);
-    setTallowance(tallowance);
-    setMbonus(mbonus);
-    setEtf(etf);
-    setEpf(epf);
-    setNsal(nsal);
+    setBsal(basicSalary);
+    setTax(taxValue);
+    setTallowance(transportAllowance);
+    setMbonus(monthlyBonus);
+    setEtf(etfValue);
+    setEpf(epfValue);
+    setNsal(netSalary);
   }
 
   function Generate() {
     const doc = new jsPDF();
-    const data = [
+    const data1 = [
       ["Employee Name", `${employeeName}`],
       ["Job Role", `${jobRole}`],
-      ["Basic Salary", `${bsal} Rupees`],
-      ["Tax", `${tax} Rupees`],
-      ["ETF", `${etf} Rupees`],
-      ["EPF", `${epf} Rupees`],
-      ["Transport Allowance", `${tallowance} Rupees`],
-      ["Monthly Bonus", `${mbonus} Rupees`],
-      ["Net Salary", `${nsal} Rupees`],
+    ];
+
+    const data2 = [
+      ["Basic Salary", `Rs.${bsal} /=`],
+      ["Tax", `Rs.${tax} /=`],
+      ["ETF", `Rs.${etf} /=`],
+      ["EPF", `Rs.${epf} /=`],
+      ["Transport Allowance", `Rs.${tallowance} /=`],
+      ["Monthly Bonus", `Rs.${mbonus} /=`],
+      ["Net Salary", `Rs.${nsal} /=`],
     ];
 
     doc.setFont("times", "bold");
@@ -89,102 +98,181 @@ function SalaryReport() {
     doc.setFont("times", "normal");
     doc.setFontSize(12);
 
-    const tableProps = {};
-
     // Generate the table
     doc.autoTable({
+      head: [["Employee Details", ""]],
+      body: data1,
+      margin: { top: 25 },
+    });
+    doc.autoTable({
       head: [["Description", "Amount"]],
-      body: data,
-      ...tableProps,
+      body: data2,
+      margin: { top: 28 },
     });
 
     // Save the document
-    doc.save("salary.pdf");
+    doc.save("Employee Salary.pdf");
   }
 
   return (
-    <div className="center">
-      <h1>SALARY CALCULATOR</h1>
-      <form>
-        <div className="inputbox">
-          <input type="text" required 
-          onChange={(event) => {
-            setJobRole(event.target.value);
-            setNameError("");
-          }}/>
-          <span>Employee Job Role</span>
-        </div>
-        <div className="inputbox">
+    <div className="max-w-md mx-auto p-6 bg-gray-100 rounded-md">
+      <h1 className="text-3xl mb-6 text-center">SALARY CALCULATOR</h1>
+      <form className="space-y-4">
+        <div>
+          <label name="employeeName">Employee Name:</label>
           <input
             type="text"
+            required
             onChange={(event) => {
               setEmployeeName(event.target.value);
               setNameError("");
             }}
-            required
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Employee Name"
           />
-          <span>Employee Name</span>
-
-          {nameError && <p className="error">{nameError}</p>}
+          {nameError && <p className="text-red-500">{nameError}</p>}
         </div>
-        <div className="inputbox">
+
+        <div>
+          <label name="jobRole">Job Role:</label>
+          <input
+            type="text"
+            required
+            onChange={(event) => {
+              setJobRole(event.target.value);
+              setNameError("");
+            }}
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Employee Job Role"
+          />
+        </div>
+
+        <div>
+          <label name="workingHour">Working Hours (h):</label>
           <input
             type="number"
             required
             onChange={(event) => {
               setHours(event.target.value);
             }}
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Working Hours"
           />
-          <span>Working Hours</span>
         </div>
-        <div className="inputbox">
+        <div>
+          <label name="hoursRate">Hourly Rate (Rs.):</label>
           <input
             type="number"
             required
             onChange={(event) => {
               setRate(event.target.value);
             }}
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Hourly Rate (Rupees)"
           />
-          <span>Hourly Rate (Rupees)</span>
         </div>
-        <div className="inputbutton">
-          <input type="button" onClick={Calculation} value="Calculate Salary" />
-        </div>
-        <div className="inputbox">
-          <input type="text" required value={bsal} />
-          <span>Basic Salary (Rupees)</span>
-        </div>
-        <div className="inputbox">
-          <input type="text" required value={tax} />
-          <span>Tax (Rupees)</span>
-        </div>
-        <div className="inputbox">
-          <input type="text" required value={etf} />
-          <span>ETF (Rupees)</span>
-        </div>
-        <div className="inputbox">
-          <input type="text" required value={epf} />
-          <span>EPF (Rupees)</span>
-        </div>
-        <div className="inputbox">
-          <input type="text" required value={tallowance} />
-          <span>Transport Allowance (Rupees)</span>
-        </div>
-        <div className="inputbox">
-          <input type="text" required value={mbonus} />
-          <span>Monthly Bonus (Rupees)</span>
-        </div>
-        <div className="inputbox">
-          <input type="text" required value={nsal} />
-          <span>Net Salary (Rupees)</span>
+        <div>
+          <button
+            type="button"
+            onClick={Calculation}
+            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          >
+            Calculate Salary
+          </button>
         </div>
 
-        <div className="inputbutton">
+        <div>
+          <label name="basicSalary">Basic Salary:</label>
           <input
+            type="text"
+            required
+            value={`Rs.${bsal}`}
+            disabled
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Basic Salary (Rupees)"
+          />
+        </div>
+
+        <div>
+          <label name="taxRate">Tax Rate:</label>
+          <input
+            type="text"
+            required
+            value={`Rs.${tax}`}
+            disabled
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Tax (Rupees)"
+          />
+        </div>
+
+        <div>
+          <label name="etf">ETF:</label>
+          <input
+            type="text"
+            required
+            value={`Rs.${etf}`}
+            disabled
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="ETF (Rupees)"
+          />
+        </div>
+
+        <div>
+          <label name="epf">EPF:</label>
+          <input
+            type="text"
+            required
+            value={`Rs.${epf}`}
+            disabled
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="EPF (Rupees)"
+          />
+        </div>
+
+        <div>
+          <label name="transportAllowances">Transport Allowance:</label>
+          <input
+            type="text"
+            required
+            value={`Rs.${tallowance}`}
+            disabled
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Transport Allowance (Rupees)"
+          />
+        </div>
+
+        <div>
+          <label name="monthlyBonus">Monthly Bonus:</label>
+          <input
+            type="text"
+            required
+            value={`Rs.${mbonus}`}
+            disabled
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Monthly Bonus (Rupees)"
+          />
+        </div>
+
+        <div>
+          <label name="netSalary">Net Salary:</label>
+          <input
+            type="text"
+            required
+            value={`Rs.${nsal}`}
+            disabled
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Net Salary (Rupees)"
+          />
+        </div>
+
+        <div>
+          <button
             type="button"
             onClick={Generate}
-            value="Generate Salary Report"
-          />
+            className="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600"
+          >
+            Generate Salary Report
+          </button>
         </div>
       </form>
     </div>
