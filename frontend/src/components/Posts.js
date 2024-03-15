@@ -226,12 +226,12 @@ export default class Posts extends Component {
                       <div class="flex items-center gap-3">
                         <div class="flex flex-col">
                           <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                            <a
+                            <p
                               href={`/posts/post/${post._id}`}
                               style={{ textDecoration: "none" }}
                             >
                               {post.name}
-                            </a>
+                            </p>
                           </p>
                         </div>
                       </div>
