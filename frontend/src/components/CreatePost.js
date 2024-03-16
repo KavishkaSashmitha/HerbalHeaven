@@ -74,7 +74,7 @@ export default class CreatPost extends Component {
 
   render() {
     return (
-      <body className="bg-gray-900 url">
+      <body className="create-post-bg bg-gray-700">
       <div class="flex items-center justify-center h-screen">
         {this.state.confirmation ? (
           <div

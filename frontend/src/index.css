@@ -1,0 +1,13 @@
+.bg-image {
+  margin: 0;
+  padding: 0;
+  height: 88.7vh;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../public/img/post-bg.jpg");
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+.create-post-bg {
+}
