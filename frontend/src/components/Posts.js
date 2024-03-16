@@ -145,7 +145,7 @@ export default class Posts extends Component {
                     </svg>
                   </div>
                   <input
-                    class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-blue-gray-400 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-400 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                    class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-amber-100 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-400 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" "
                     onChange={this.handleSearchArea}
                   />
@@ -156,7 +156,7 @@ export default class Posts extends Component {
               </div>
             </div>
           </div>
-          <div class="p-5 ">
+          <div class="p-5 h-screen">
             <table class="w-full mt-4 text-left table-auto min-w-max">
               <tr>
                 <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
