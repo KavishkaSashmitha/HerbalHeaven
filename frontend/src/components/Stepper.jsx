@@ -11,7 +11,7 @@ export function StepperWithContent() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
-
+  
   return (
     <div className="w-auto px-24 py-4 step ">
       <Stepper

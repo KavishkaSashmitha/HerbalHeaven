@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../middleware/authContext';
 import axios from 'axios';
-
-import { Link } from 'react-router-dom';
 import { EyeIcon } from '@heroicons/react/24/outline';
-import { Button } from '@material-tailwind/react'; // Assuming Button is from this library
-import { Card } from '@material-tailwind/react'; // Replace with the correct path
+import { Button, Card } from '@material-tailwind/react';
+
+import { Link, useNavigate } from 'react-router-dom';
 
 import CartItemCard from '../components/Cart-Card';
 import { StepperWithContent } from '../components/Stepper';
@@ -13,6 +12,7 @@ import { StepperWithContent } from '../components/Stepper';
 const Cart = () => {
   const { isLoggedIn, token } = useAuth();
   const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -52,11 +52,67 @@ const Cart = () => {
             },
           }
         );
-        // Update the state with the updated cart data
         setCart(response.data);
       }
     } catch (error) {
       console.error('Error deleting cart item:', error);
+    }
+  };
+
+  const handleUpdateQuantity = async (itemId, newQuantity) => {
+    try {
+      if (isLoggedIn) {
+        // Send a PUT request to update the quantity of the item
+        await axios.put(
+          `http://localhost:8070/api/user/cart/${itemId}`,
+          { quantity: newQuantity },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        // Fetch the updated cart items after updating the quantity
+        const response = await axios.get(
+          'http://localhost:8070/api/user/cart',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setCart(response.data);
+      }
+    } catch (error) {
+      console.error('Error updating quantity:', error);
+    }
+  };
+
+  const handleCheckout = async () => {
+    try {
+      if (isLoggedIn) {
+        // Construct an array of objects containing cart item ID and its updated quantity
+        const updatedItems = cart.map((item) => ({
+          id: item._id,
+          quantity: item.quantity, // You need to get the updated quantity from your CartItemCard component
+        }));
+
+        // Send a PUT request to update the quantities of all items in the cart
+        await axios.put(
+          'http://localhost:8070/api/user/cart/update-quantities',
+          updatedItems,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // Optionally, you can navigate to the payment page or any other page after checkout
+        navigate('/user/payment');
+      }
+    } catch (error) {
+      console.error('Error during checkout:', error);
     }
   };
 
@@ -73,13 +129,14 @@ const Cart = () => {
                   key={item._id}
                   item={item}
                   onDelete={handleDeleteItem}
+                  onUpdateQuantity={handleUpdateQuantity} // Pass the function to update quantity
                 />
               ))}
             </div>
             <div className="mt-32 flex justify-center mx-auto ">
-              <Link to="/user/payment">
-                <Button color="green">Checkout</Button>
-              </Link>
+              <Button color="green" onClick={handleCheckout}>
+                Checkout
+              </Button>
             </div>
           </>
         ) : (

@@ -17,6 +17,7 @@ import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
 import AdminDashboard from './pages/adminDashboard';
+import SalaryReport from './components/SalaryReport';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/emp/add" element={<CreateUser />} />
         <Route path="/emp/update/:id" element={<UpdateUser />} />
         <Route path="/emp" element={<User />} />
+        <Route path="/salaryreport" element={<SalaryReport />} />
       </Routes>
     </>
   );

@@ -1,18 +1,11 @@
-// Login.js
-
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  Button,
-  Card,
-  Checkbox,
-  Input,
-  Typography,
-} from '@material-tailwind/react';
+import { Button, Checkbox, Input, Typography } from '@material-tailwind/react';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext';
 import 'react-toastify/dist/ReactToastify.css';
+import backgroundImage from '../assets/sign-in.jpg';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -55,17 +48,37 @@ export default function Login() {
     }
   };
 
+  React.useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    // Re-enable body overflow when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
-    <div className="Signin">
-      <Card color="transparent" shadow={false}>
+    <div
+      className="Signin flex w-full justify-center items-center h-screen"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+      }}
+    >
+      <div
+        className="card-container mx-4 md:mx-0 md:w-96 p-8 rounded-lg"
+        style={{
+          backdropFilter: 'blur(5px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        }}
+      >
         <Typography variant="h4" className="text-green-900">
           Sign In
         </Typography>
         <Typography color="gray" className="mt-1 font-normal">
           Nice to meet you! Enter your details to Login.
         </Typography>
-        <form className=" w-80 max-w-screen-xl sm:w-96">
-          <div className=" flex flex-col gap-6">
+        <form className="w-full">
+          <div className="flex flex-col gap-6">
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Your Email
             </Typography>
@@ -75,10 +88,7 @@ export default function Login() {
               value={email}
               color="green"
               onChange={(e) => setEmail(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-green-500"
-              labelProps={{
-                className: 'before:content-none after:content-none',
-              }}
+              className="border border-gray-400 rounded-lg p-2"
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Password
@@ -90,10 +100,7 @@ export default function Login() {
               color="green"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-green-500"
-              labelProps={{
-                className: 'before:content-none after:content-none',
-              }}
+              className="border border-gray-400 rounded-lg p-2"
             />
           </div>
           <Checkbox
@@ -115,7 +122,7 @@ export default function Login() {
             containerProps={{ className: '-ml-2.5' }}
           />
           <Button
-            className="mt-6 "
+            className="mt-6"
             color="green"
             fullWidth
             onClick={handleLogin}
@@ -129,7 +136,7 @@ export default function Login() {
             </Link>
           </Typography>
         </form>
-      </Card>
+      </div>
     </div>
   );
 }
