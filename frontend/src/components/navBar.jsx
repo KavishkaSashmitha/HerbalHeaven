@@ -66,8 +66,16 @@ export function SidebarWithBurgerMenu() {
           className="h-[calc(100vh-2rem)] w-full p-2 bg-green-100"
         >
           <div className="flex items-center justify-center mt-0 ">
-            <img src="\logo\logo.png" alt="brand" className="h-13 w-13 m-0" />
+            <img
+              src="\logo\logo-2.png"
+              alt="brand"
+              className="h-13 w-12 mb-10 mt-10"
+            />
+            <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-green-600">
+              Herbal Heaven
+            </h5>
           </div>
+
           <div className="p-1">
             <Input
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
@@ -122,12 +130,12 @@ export function SidebarWithBurgerMenu() {
                     Cart
                   </ListItem>
                   <Link to="/emp">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Employee
-                  </ListItem>
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Employee
+                    </ListItem>
                   </Link>
                   <ListItem>
                     <ListItemPrefix>
