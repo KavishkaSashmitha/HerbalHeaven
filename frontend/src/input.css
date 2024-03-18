@@ -62,26 +62,34 @@ Navbar {
     background-color: yellow;
   }
 }
+.Register {
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  height: 90vh;
+}
 
 .Signin {
+  width: 100%;
+  margin: 0;
   justify-content: center;
-  width: 80vh;
-  height: 80vh;
-  margin: 20px;
-
-  background-color: #ddfad6;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-    0 6px 20px 0 rgba(194, 248, 221, 0.19);
-  padding: 20px;
-  align-items: center;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
+.card-container {
+  margin: auto;
+  width: max-content;
+  max-width: 100%; /* Set maximum width */
+  padding: 20px;
+}
+
 .Register {
   justify-content: center;
   width: 80vh;
   height: 80vh;
   margin: 20px;
-
   background-color: #ddfad6;
   border-radius: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
