@@ -6,18 +6,25 @@ import {
   ListItemPrefix,
   Avatar,
 } from '@material-tailwind/react';
-import { Link } from 'react-router-dom';
 
-const CartItemCard = ({ item, onDelete }) => {
-  const [quantity, setQuantity] = useState(item.quantity);
+const CartItemCard = ({ item, onDelete, onUpdateQuantity }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedQuantity, setEditedQuantity] = useState(item.quantity);
 
-  const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1);
+  const handleEditQuantity = () => {
+    setIsEditing(true);
   };
 
-  const handleDecreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+  const handleChangeQuantity = (event) => {
+    setEditedQuantity(event.target.value);
+  };
+
+  const handleSaveQuantity = async () => {
+    try {
+      await onUpdateQuantity(item._id, editedQuantity);
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating quantity:', error);
     }
   };
 
@@ -37,23 +44,25 @@ const CartItemCard = ({ item, onDelete }) => {
               {item.name}
             </Typography>
             <Typography variant="small" color="gray" className="text-gray-600">
-              ${item.price * quantity}
+              ${item.price * editedQuantity}
             </Typography>
-            <ul className="flex flex-inline item-center justify-center gap-1 m-2">
-              <IconButton size="sm" onClick={handleDecreaseQuantity}>
-                <i className="fas fa-minus" />
-              </IconButton>
+            {isEditing ? (
+              <input
+                type="number"
+                value={editedQuantity}
+                onChange={handleChangeQuantity}
+                className="border border-gray-400 rounded-md px-2 py-1 mt-2"
+              />
+            ) : (
               <Typography
                 variant="small"
                 color="gray"
-                className="text-gray-600"
+                className="text-gray-600 cursor-pointer"
+                onClick={handleEditQuantity}
               >
-                {quantity}
+                {editedQuantity}
               </Typography>
-              <IconButton size="sm" onClick={handleIncreaseQuantity}>
-                <i className="fas fa-plus" />
-              </IconButton>
-            </ul>
+            )}
           </div>
         </ListItem>
         <ListItem>
@@ -65,11 +74,23 @@ const CartItemCard = ({ item, onDelete }) => {
             >
               <i className="fas fa-trash" />
             </IconButton>
-            <Link to={`update/${item.id}`}>
-              <IconButton color="light-green" className="mt-2">
+            {isEditing ? (
+              <IconButton
+                color="light-green"
+                className="mt-2"
+                onClick={handleSaveQuantity}
+              >
+                <i className="fas fa-check" />
+              </IconButton>
+            ) : (
+              <IconButton
+                color="light-green"
+                className="mt-2"
+                onClick={handleEditQuantity}
+              >
                 <i className="fas fa-pen" />
               </IconButton>
-            </Link>
+            )}
           </ul>
         </ListItem>
       </List>

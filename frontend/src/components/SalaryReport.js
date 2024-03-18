@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { Breadcrumbs } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
+import { SidebarWithBurgerMenu } from "./navBar";
 
 function SalaryReport() {
   const [hours, setHours] = useState("");
@@ -113,7 +116,20 @@ function SalaryReport() {
 
   return (
     <body className="bg-gray-900">
+      <SidebarWithBurgerMenu />
       <div class="">
+        <Breadcrumbs>
+          <Link to="/">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+          </Link>
+        </Breadcrumbs>
         <div class=" w-auto max-w-[56rem] mx-auto">
           <div class="relative flex flex-col rounded-xl bg-gray-100 bg-clip-border text-gray-700 shadow-md">
             <div class="relative grid px-1 py-1 m-1 overflow-center text-center text-white bg-gray-800 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">

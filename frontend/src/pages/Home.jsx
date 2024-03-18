@@ -3,6 +3,7 @@ import ImageSlider from '../components/Slider';
 import ProductCard from '../components/ProductCard';
 import axios from 'axios';
 import { Button, Card, Input } from '@material-tailwind/react';
+import { SidebarWithBurgerMenu } from '../components/navBar';
 
 function Home() {
   const images = [
@@ -20,6 +21,7 @@ function Home() {
 
   return (
     <>
+    <SidebarWithBurgerMenu />
       <div>
         <ImageSlider images={images} />
       </div>

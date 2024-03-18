@@ -3403,17 +3403,7 @@ video {
   -webkit-appearance: none;
 }
 
-.Register {
-  margin-right: 20%;
-  justify-content: center;
-  display: flex;
-}
 
-.Signin {
-  margin-right: 20%;
-  justify-content: center;
-  display: flex;
-}
 
 .container {
   width: 100%;

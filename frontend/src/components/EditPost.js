@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
+import { SidebarWithBurgerMenu } from "./navBar";
 
 export default function EditPost() {
   const { id } = useParams();
@@ -111,7 +112,9 @@ export default function EditPost() {
   }
 
   return (
+    
     <body className="bg-gray-900 url">
+      <SidebarWithBurgerMenu />
       <div class="flex items-center justify-center h-screen">
         <div class="relative flex  w-full max-w-[56rem] mx-auto flex-col rounded-xl bg-green-50 bg-clip-border text-gray-700 shadow-md">
           <div class="relative grid px-10 py-1 m-1 overflow-hidden text-center text-white bg-gray-700 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
