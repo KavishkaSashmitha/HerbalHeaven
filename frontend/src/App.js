@@ -6,10 +6,10 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/DashBoard";
 import { EcommerceCard } from "./pages/Products";
 import Cart from "./pages/cart";
-import CreatPost from "./components/CreatePost";
-import EditPost from "./components/EditPost";
-import Posts from "./components/Posts";
-import PostDetails from "./components/PostDetails";
+import CreatPost from "./components/CreateEmployee";
+import EditPost from "./components/EditEmployee";
+import Posts from "./components/Employee";
+import PostDetails from "./components/EmployeeDetails";
 import "react-toastify/dist/ReactToastify.css";
 import Payment from "./pages-Kumesh/Payment";
 import CreateUser from "./pages_kavindu/CreateUser";
@@ -22,7 +22,6 @@ import "./index.css";
 function App() {
   return (
     <>
-      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

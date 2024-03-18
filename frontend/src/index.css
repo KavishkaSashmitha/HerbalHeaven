@@ -24,6 +24,17 @@
   background-repeat: no-repeat;
 }
 
+.salaryreport-bg{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../public/img/salary-report-bg.jpg");
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
 /* CSS */
 .overflow-y-scroll::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */
