@@ -10,11 +10,14 @@ import {
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../middleware/authContext';
+import { SidebarWithBurgerMenu } from '../components/navBar';
 
 const Product = ({ product }) => {
   const { addToCart } = useAuth();
 
   return (
+    <>
+    <SidebarWithBurgerMenu />
     <Card key={product._id} className="w-96 mb-4 mt-2  ml-2 bg-light-green-200">
       <CardHeader shadow={false} floated={false} className="h-96">
         <img
@@ -50,6 +53,7 @@ const Product = ({ product }) => {
         </Button>
       </CardFooter>
     </Card>
+    </>
   );
 };
 

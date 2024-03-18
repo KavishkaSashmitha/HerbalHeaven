@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext';
 import 'react-toastify/dist/ReactToastify.css';
 import backgroundImage from '../assets/sign-in.jpg';
+import { SidebarWithBurgerMenu } from '../components/navBar';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -57,6 +58,7 @@ export default function Login() {
   }, []);
 
   return (
+
     <div
       className="Signin flex w-full justify-center items-center h-screen"
       style={{
@@ -64,6 +66,7 @@ export default function Login() {
         backgroundSize: 'cover',
       }}
     >
+      <SidebarWithBurgerMenu />
       <div
         className="card-container mx-4 md:mx-0 md:w-96 p-8 rounded-lg"
         style={{
