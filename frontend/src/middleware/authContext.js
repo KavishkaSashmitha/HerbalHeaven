@@ -43,6 +43,13 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem('userToken');
     }, 1000);
   };
+  const isAdmin = (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).send({ error: 'Permission denied.' });
+    }
+  };
 
   const addToCart = async (product) => {
     setLoadingCart(true);
@@ -53,7 +60,7 @@ export const AuthProvider = ({ children }) => {
           'http://localhost:8070/api/user/cart',
           {
             name: product.name,
-            quantity: product.quantity,
+            quantity: 1,
             price: product.price,
             image: product.image,
             description: product.description,
@@ -68,6 +75,7 @@ export const AuthProvider = ({ children }) => {
         setCart(response.data.cart);
       } else {
         setCart([...cart, product]);
+        toast.warning('Please Login');
       }
     } catch (error) {
       console.error('Error adding to cart:', error);
@@ -84,6 +92,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         token,
         addToCart,
+        isAdmin,
         loading: loadingLogin || loadingLogout || loadingCart,
       }}
     >
