@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import { Link, useNavigate } from 'react-router-dom';
+import { SidebarWithBurgerMenu } from '../components/navBar';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ export default function Register() {
 
   return (
     <div className="Register ">
+      <SidebarWithBurgerMenu />
       <Card color="transparent" shadow={false}>
         <Typography variant="h4" color="blue-gray">
           Sign Up

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useAuth } from '../middleware/authContext';
-import { Button } from '@material-tailwind/react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../middleware/authContext";
+import { Button } from "@material-tailwind/react";
+import { Link, useNavigate } from "react-router-dom";
+import { SidebarWithBurgerMenu } from "../components/navBar";
 
 function DashBoard() {
   const [user, setUser] = useState(null);
@@ -11,7 +12,7 @@ function DashBoard() {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -23,17 +24,18 @@ function DashBoard() {
           },
         })
         .then((response) => {
-          console.log('User Data:', response.data);
+          console.log("User Data:", response.data);
           setUser(response.data);
         })
         .catch((error) => {
-          console.error('Error fetching user details:', error);
+          console.error("Error fetching user details:", error);
         });
     }
   }, [isLoggedIn, token]);
 
   return (
     <div>
+      <SidebarWithBurgerMenu />
       {isLoggedIn && user ? (
         <div>
           <h2>Welcome, {user.name}!</h2>
@@ -41,10 +43,13 @@ function DashBoard() {
           {/* Display other user details as needed */}
         </div>
       ) : (
-        <p>Please log in to access the user profile.</p>
+        <>
+          <p>Please log in to access the user profile.</p>
+          <Link to="/login">
+            <Button>Login here</Button>
+          </Link>
+        </>
       )}
-
-      <Button onClick={handleLogout}>Logout</Button>
     </div>
   );
 }

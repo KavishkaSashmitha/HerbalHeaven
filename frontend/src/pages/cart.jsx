@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import CartItemCard from '../components/Cart-Card';
 import { StepperWithContent } from '../components/Stepper';
+import { SidebarWithBurgerMenu } from '../components/navBar';
 
 const Cart = () => {
   const { isLoggedIn, token } = useAuth();
@@ -118,7 +119,9 @@ const Cart = () => {
 
   return (
     <>
+    <SidebarWithBurgerMenu />
       <div className="cart-items">
+
         <h2 className="cart-head">Your Cart</h2>
         {isLoggedIn && <StepperWithContent />}
         {Array.isArray(cart) && cart.length > 0 ? (
