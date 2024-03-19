@@ -113,12 +113,12 @@ export default function EditPost() {
 
   return (
     
-    <body className="bg-gray-900 url">
+    <body className="edit-post-bg">
       <SidebarWithBurgerMenu />
       <div class="flex items-center justify-center h-screen">
-        <div class="relative flex  w-full max-w-[56rem] mx-auto flex-col rounded-xl bg-green-50 bg-clip-border text-gray-700 shadow-md">
-          <div class="relative grid px-10 py-1 m-1 overflow-hidden text-center text-white bg-gray-700 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
-            <div class="h-1 p-8 mb-4 text-white">
+        <div class="relative flex  w-full max-w-[56rem] mx-auto flex-col rounded-xl border-blue-gray-100 bg-blue-gray-50/50 bg-clip-border text-gray-700 shadow-md">
+          <div class="relative grid px-10 py-1 m-1 overflow-hidden border-blue-gray-100 bg-blue-gray-50/50text-center text-white bg-gray-700 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
+            <div class="h-1 p-8 mb-4 text-white ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 35 35"
