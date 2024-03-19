@@ -3,9 +3,7 @@ import { useAuth } from '../middleware/authContext';
 import axios from 'axios';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import { Button, Card } from '@material-tailwind/react';
-
 import { Link, useNavigate } from 'react-router-dom';
-
 import CartItemCard from '../components/Cart-Card';
 import { StepperWithContent } from '../components/Stepper';
 import { SidebarWithBurgerMenu } from '../components/navBar';
@@ -27,7 +25,13 @@ const Cart = () => {
               },
             }
           );
-          setCart(response.data);
+          // Remove duplicate items from the cart
+          const uniqueCartItems = Array.from(
+            new Set(response.data.map((item) => item.name))
+          ).map((name) => {
+            return response.data.find((item) => item.name === name);
+          });
+          setCart(uniqueCartItems);
         }
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -37,6 +41,12 @@ const Cart = () => {
     fetchCartItems();
   }, [isLoggedIn, token]);
 
+  // Function to calculate the total bill
+  const calculateTotalBill = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
+  // Function to remove an item from the cart
   const handleDeleteItem = async (itemId) => {
     try {
       if (isLoggedIn) {
@@ -45,6 +55,7 @@ const Cart = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+        // Fetch the updated cart items after deletion
         const response = await axios.get(
           'http://localhost:8070/api/user/cart',
           {
@@ -53,7 +64,12 @@ const Cart = () => {
             },
           }
         );
-        setCart(response.data);
+        const uniqueCartItems = Array.from(
+          new Set(response.data.map((item) => item._id))
+        ).map((id) => {
+          return response.data.find((item) => item._id === id);
+        });
+        setCart(uniqueCartItems);
       }
     } catch (error) {
       console.error('Error deleting cart item:', error);
@@ -119,9 +135,8 @@ const Cart = () => {
 
   return (
     <>
-    <SidebarWithBurgerMenu />
+      <SidebarWithBurgerMenu />
       <div className="cart-items">
-
         <h2 className="cart-head">Your Cart</h2>
         {isLoggedIn && <StepperWithContent />}
         {Array.isArray(cart) && cart.length > 0 ? (
@@ -132,10 +147,11 @@ const Cart = () => {
                   key={item._id}
                   item={item}
                   onDelete={handleDeleteItem}
-                  onUpdateQuantity={handleUpdateQuantity} // Pass the function to update quantity
+                  onUpdateQuantity={handleUpdateQuantity}
                 />
               ))}
             </div>
+            <p>Total Bill: ${calculateTotalBill()}</p>
             <div className="mt-32 flex justify-center mx-auto ">
               <Button color="green" onClick={handleCheckout}>
                 Checkout
