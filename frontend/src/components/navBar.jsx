@@ -111,24 +111,28 @@ export function SidebarWithBurgerMenu() {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="p-0">
+                <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Customer
                   </ListItem>
+                  </Link>
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Inventory
                   </ListItem>
+                  <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Cart
                   </ListItem>
+                  </Link>
                   <Link to="/emp">
                     <ListItem>
                       <ListItemPrefix>
@@ -137,34 +141,42 @@ export function SidebarWithBurgerMenu() {
                       Employee
                     </ListItem>
                   </Link>
+                  <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Supplier
                   </ListItem>
+                  </Link>
+                  <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Transport
                   </ListItem>
+                  </Link>
+                  <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Order
                   </ListItem>
+                  </Link>
+                  <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Payment
                   </ListItem>
+                  </Link>
                 </List>
               </AccordionBody>
             </Accordion>
-            <Link to="./SalaryReport">
+            <Link to="#">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
                   <AccordionHeader
