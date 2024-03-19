@@ -48,7 +48,7 @@ const CartItemCard = ({ item, onDelete, onUpdateQuantity }) => {
               {item.name}
             </Typography>
             <Typography variant="small" color="gray" className="text-gray-600">
-              ${item.price * editedQuantity}
+              Rs.{item.price * editedQuantity}
             </Typography>
             {isEditing ? (
               <input
