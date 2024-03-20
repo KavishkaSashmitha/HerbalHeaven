@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { SidebarWithBurgerMenu } from "../components/navBar";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -23,7 +24,7 @@ function CreateUser() {
   const Submit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8070/emp/add", {
+      .post("http://localhost:8070/sup/addsup", {
         name,
         email,
         age,
@@ -33,13 +34,14 @@ function CreateUser() {
       })
       .then((result) => {
         console.log(result);
-        navigate("/emp");
+        navigate("/sup");
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div className="bg-image">
+      <SidebarWithBurgerMenu />
       <div
         style={{
           display: "flex",

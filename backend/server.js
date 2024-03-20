@@ -21,7 +21,7 @@ app.use("/api/products", require("./routes/productRoutes"));
 
 app.use("/api/posts", require("./routes/posts"));
 
-app.use("/emp", require("./routes/empRouter"));
+app.use("/sup", require("./routes/empRouter"));
 
 app.use(errorHandler);
 app.listen(PORT, () => {
