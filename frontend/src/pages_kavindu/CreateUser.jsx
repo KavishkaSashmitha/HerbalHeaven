@@ -40,7 +40,7 @@ function CreateUser() {
   };
 
   return (
-    <div className="bg-image">
+    <div className="bg-image01">
       <SidebarWithBurgerMenu />
       <div
         style={{
