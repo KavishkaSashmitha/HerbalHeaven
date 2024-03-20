@@ -3,6 +3,7 @@ import { Card, Typography, Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Input } from "@material-tailwind/react";
+import { SidebarWithBurgerMenu } from "../components/navBar";
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -10,7 +11,7 @@ const User = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8070/emp/getEmployees")
+      .get("http://localhost:8070/sup/getEmployees")
       .then((result) => setUsers(result.data))
       .catch((err) => console.log(err));
   }, []);
@@ -21,7 +22,7 @@ const User = () => {
     );
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:8070/emp/deleteEmployee/${id}`)
+        .delete(`http://localhost:8070/sup/deleteEmployee/${id}`)
         .then(() => {
           setUsers(users.filter((user) => user._id !== id));
         })
@@ -42,6 +43,7 @@ const User = () => {
 
   return (
     <div className="bg-image">
+      <SidebarWithBurgerMenu />
       <div class="relative mx-4 mt-4 overflow-hidden text-gray-700  ">
         <div class="flex items-center justify-between gap-8 mb-8">
           <div
@@ -150,7 +152,7 @@ const User = () => {
                       </td>
                       <td className="p-4">
                         <Link
-                          to={`/emp/update/${user._id}`}
+                          to={`/sup/update/${user._id}`}
                           className="btn btn-warning"
                         >
                           <Button color="blue">Update</Button>
@@ -166,7 +168,7 @@ const User = () => {
                   ))}
                 </tbody>
               </table>
-              <Link to="/emp/add">
+              <Link to="/sup/addsup">
                 <Button
                   color="amber"
                   className="py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"

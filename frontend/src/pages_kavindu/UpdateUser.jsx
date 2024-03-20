@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { SidebarWithBurgerMenu } from "../components/navBar";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
@@ -23,7 +24,7 @@ function UpdateUser() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8070/emp/getEmployee/${id}`)
+      .get(`http://localhost:8070/sup/getEmployee/${id}`)
       .then((result) => {
         const userData = result.data;
         setName(userData.name);
@@ -39,7 +40,7 @@ function UpdateUser() {
   const Update = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8070/emp/updateEmployee/${id}`, {
+      .put(`http://localhost:8070/sup/updateEmployee/${id}`, {
         name,
         email,
         age,
@@ -49,13 +50,14 @@ function UpdateUser() {
       })
       .then((result) => {
         console.log(result);
-        navigate("/emp");
+        navigate("/sup");
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div className="bg-image h-screen">
+      <SidebarWithBurgerMenu />
       <div
         style={{
           display: "flex",

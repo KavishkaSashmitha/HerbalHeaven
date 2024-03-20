@@ -137,12 +137,15 @@ export function SidebarWithBurgerMenu() {
                       Employee
                     </ListItem>
                   </Link>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Supplier
-                  </ListItem>
+                  <Link to="/sup">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Supplier
+                    </ListItem>
+                  </Link>
+
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
