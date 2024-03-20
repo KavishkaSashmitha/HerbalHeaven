@@ -16,9 +16,13 @@ const CartItemCard = ({ item, onDelete, onUpdateQuantity }) => {
   };
 
   const handleChangeQuantity = (event) => {
-    setEditedQuantity(event.target.value);
+    const inputValue = event.target.value;
+    if (inputValue.trim() !== '') {
+      // Check if the input value is not empty
+      const newQuantity = Math.max(1, parseInt(inputValue));
+      setEditedQuantity(newQuantity);
+    }
   };
-
   const handleSaveQuantity = async () => {
     try {
       await onUpdateQuantity(item._id, editedQuantity);
@@ -44,7 +48,7 @@ const CartItemCard = ({ item, onDelete, onUpdateQuantity }) => {
               {item.name}
             </Typography>
             <Typography variant="small" color="gray" className="text-gray-600">
-              ${item.price * editedQuantity}
+              Rs.{item.price * editedQuantity}
             </Typography>
             {isEditing ? (
               <input

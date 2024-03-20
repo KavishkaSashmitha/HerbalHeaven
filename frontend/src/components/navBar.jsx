@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import {
   IconButton,
   Typography,
@@ -13,7 +13,7 @@ import {
   Input,
   Drawer,
   Card,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 import {
   UserCircleIcon,
   PowerIcon,
@@ -21,14 +21,14 @@ import {
   ChevronRightIcon,
   ChevronDownIcon,
   PresentationChartBarIcon,
-} from "@heroicons/react/24/solid";
+} from '@heroicons/react/24/solid';
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
   XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
-import { useAuth } from "../middleware/authContext"; // Importing the useAuth hook from AuthContext
+} from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
 
 export function SidebarWithBurgerMenu() {
   const [open, setOpen] = React.useState(0);
@@ -50,7 +50,7 @@ export function SidebarWithBurgerMenu() {
         ) : (
           <Bars3Icon
             className="h-8 w-8 stroke-2 "
-            style={{ color: "#c8e6c9" }}
+            style={{ color: '#c8e6c9' }}
           />
         )}
       </IconButton>
@@ -90,7 +90,7 @@ export function SidebarWithBurgerMenu() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? "rotate-180" : ""
+                    open === 1 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -111,24 +111,28 @@ export function SidebarWithBurgerMenu() {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="p-0">
+                <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Customer
                   </ListItem>
+                  </Link>
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Inventory
                   </ListItem>
+                  <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Cart
                   </ListItem>
+                  </Link>
                   <Link to="/emp">
                     <ListItem>
                       <ListItemPrefix>
@@ -137,6 +141,7 @@ export function SidebarWithBurgerMenu() {
                       Employee
                     </ListItem>
                   </Link>
+
                   <Link to="/sup">
                     <ListItem>
                       <ListItemPrefix>
@@ -146,28 +151,34 @@ export function SidebarWithBurgerMenu() {
                     </ListItem>
                   </Link>
 
+
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Transport
                   </ListItem>
+                  </Link>
+                  <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Order
                   </ListItem>
+                  </Link>
+                  <Link to="#">
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Payment
                   </ListItem>
+                  </Link>
                 </List>
               </AccordionBody>
             </Accordion>
-            <Link to="./SalaryReport">
+            <Link to="#">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
                   <AccordionHeader

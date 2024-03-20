@@ -34,6 +34,17 @@
   background-repeat: no-repeat;
 }
 
+.edit-post-bg {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../public/img/edit-employee-bg.jpg");
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
 .salaryreport-bg {
   margin: 0;
   padding: 0;
