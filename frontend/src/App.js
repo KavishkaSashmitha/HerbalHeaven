@@ -23,6 +23,7 @@ function App() {
   return (
     <>
       <Routes>
+        {/* Kavishka */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
@@ -30,14 +31,21 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={<EcommerceCard />} />
         <Route path="/user/cart" element={<Cart />} />
+
+
+
         <Route path="/emp/add" element={<CreatPost />} />
         <Route path="/emp/edit/:id" element={<EditPost />} />
         <Route path="/emp/:id" element={<PostDetails />} />
         <Route path="/emp" element={<Posts />} />
+
+        
         <Route path="/user/payment" element={<Payment />} />
+
         <Route path="/sup/addsup" element={<CreateUser />} />
         <Route path="/sup/update/:id" element={<UpdateUser />} />
         <Route path="/sup" element={<User />} />
+
         <Route path="/salaryreport" element={<SalaryReport />} />
       </Routes>
     </>

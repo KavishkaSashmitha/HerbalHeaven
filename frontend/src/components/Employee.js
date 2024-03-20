@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
-import generatePDF from "./SalaryReport";
-import { SidebarWithBurgerMenu } from "./navBar";
+import React, { Component } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import generatePDF from './SalaryReport';
+import { SidebarWithBurgerMenu } from './navBar';
 
 export default class Posts extends Component {
   constructor(props) {
@@ -12,6 +12,7 @@ export default class Posts extends Component {
 
     this.state = {
       posts: [],
+      isScrollDisabled: false,
     };
   }
 
@@ -20,7 +21,7 @@ export default class Posts extends Component {
   }
 
   retrievePosts() {
-    axios.get("http://localhost:8070/api/posts/posts").then((res) => {
+    axios.get('http://localhost:8070/api/posts/posts').then((res) => {
       if (res.data.success) {
         this.setState({
           posts: res.data.existingPosts,
@@ -31,19 +32,19 @@ export default class Posts extends Component {
 
   onDelete = (id) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You will not be able to recover this supplier!",
-      icon: "warning",
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this supplier!',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         axios
           .delete(`http://localhost:8070/api/posts/post/delete/${id}`)
           .then((res) => {
-            Swal.fire("Deleted!", "Supplier has been deleted.", "success");
+            Swal.fire('Deleted!', 'Supplier has been deleted.', 'success');
             this.retrievePosts();
           });
       }
@@ -68,7 +69,7 @@ export default class Posts extends Component {
   handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
 
-    axios.get("http://localhost:8070/api/posts/posts").then((res) => {
+    axios.get('http://localhost:8070/api/posts/posts').then((res) => {
       if (res.data.success) {
         this.filterData(res.data.existingPosts, searchKey);
       }
@@ -76,6 +77,11 @@ export default class Posts extends Component {
   };
 
   render() {
+    if (this.state.isScrollDisabled) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
     return (
       <>
         <div className="bg-image">
@@ -228,7 +234,7 @@ export default class Posts extends Component {
                               <p class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
                                 <p
                                   href={`/posts/post/${post._id}`}
-                                  style={{ textDecoration: "none" }}
+                                  style={{ textDecoration: 'none' }}
                                 >
                                   {post.name}
                                 </p>

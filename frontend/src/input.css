@@ -121,3 +121,12 @@ Navbar {
 .container {
   max-width: 100%;
 }
+.total-bill {
+  text-align: center;
+  margin: auto;
+  margin-top: 40px;
+}
+.search {
+  margin: auto;
+  margin-bottom: 40px;
+}
