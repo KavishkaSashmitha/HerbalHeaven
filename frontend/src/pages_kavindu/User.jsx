@@ -42,7 +42,7 @@ const User = () => {
   });
 
   return (
-    <div className="bg-image">
+    <div className="bg-image01">
       <SidebarWithBurgerMenu />
       <div class="relative mx-4 mt-4 overflow-hidden text-gray-700  ">
         <div class="flex items-center justify-between gap-8 mb-8">

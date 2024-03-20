@@ -56,7 +56,7 @@ function UpdateUser() {
   };
 
   return (
-    <div className="bg-image h-screen">
+    <div className="bg-image01 h-screen">
       <SidebarWithBurgerMenu />
       <div
         style={{
