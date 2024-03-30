@@ -41,11 +41,18 @@ function App() {
 
         <Route path="/user/payment" element={<Payment />} />
 
+        <Route path="/emp/add" element={<CreateUser />} />
+        <Route path="/emp/update/:id" element={<UpdateUser />} />
+        <Route path="/emp" element={<User />} />
+        <Route path="/salaryreport/:id" element={<SalaryReport />} />
+
+
         <Route path="/sup/addsup" element={<CreateUser />} />
         <Route path="/sup/update/:id" element={<UpdateUser />} />
         <Route path="/sup" element={<User />} />
 
         <Route path="/salaryreport" element={<SalaryReport />} />
+
       </Routes>
     </>
   );

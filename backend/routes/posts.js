@@ -114,4 +114,24 @@ router.delete("/post/delete/:id", (req, res) => {
     });
 });
 
+//update salary
+
+router.put("/post/salary/:id", (req, res) => {
+  const { id } = req.params;
+  const { month, amount } = req.body;
+
+  const salaryUpdate = { [`salary.${month.toLowerCase()}`]: amount };
+  Posts.findByIdAndUpdate(id, {
+    $set: salaryUpdate,
+  })
+    .then(() => {
+      return res.status(200).json({
+        success: "Updated Syccesfully",
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({ error: err });
+    });
+});
+
 module.exports = router;
