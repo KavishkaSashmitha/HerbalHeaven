@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import { Button, Checkbox, Input, Typography } from "@material-tailwind/react";
@@ -7,6 +8,7 @@ import { useAuth } from "../middleware/authContext";
 import "react-toastify/dist/ReactToastify.css";
 import backgroundImage from "../assets/sign-in.jpg";
 import { SidebarWithBurgerMenu } from "../components/navBar";
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -50,14 +52,17 @@ export default function Login() {
   };
 
   React.useEffect(() => {
+
     document.body.style.overflow = "hidden";
     // Re-enable body overflow when component unmounts
     return () => {
       document.body.style.overflow = "auto";
+
     };
   }, []);
 
   return (
+
     <>
       <div style={{
           backgroundImage: `url(${backgroundImage})`,
@@ -75,8 +80,10 @@ export default function Login() {
           }}
         >
           <Typography variant="h4" className="text-green-900">
+
             Sign In
           </Typography>
+
           <Typography color="gray" className="mt-1 font-normal">
             Nice to meet you! Enter your details to Login.
           </Typography>
@@ -143,5 +150,6 @@ export default function Login() {
       </div>
       </div>
     </>
+
   );
 }
