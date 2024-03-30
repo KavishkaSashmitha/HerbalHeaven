@@ -130,3 +130,8 @@ Navbar {
   margin: auto;
   margin-bottom: 40px;
 }
+.cart {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 50px;
+}
