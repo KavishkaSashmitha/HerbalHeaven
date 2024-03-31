@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const empController = require("../controllers/empController");
 
-router.post("/add", empController.add);
+router.post("/addsup", empController.addsup);
 
 router.get("/getEmployees", empController.getEmployees);
 

@@ -12,6 +12,16 @@
   overflow: hidden;
   background-repeat: no-repeat;
 }
+.bg-image01 {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../public/img/supbackground.jpeg");
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
 
 .create-post-bg {
   margin: 0;
@@ -20,6 +30,28 @@
   background-size: cover;
   background-position: center;
   background-image: url("../public/img/add_employee_bg.jpg");
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+.edit-post-bg {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../public/img/edit-employee-bg.jpg");
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+.salaryreport-bg {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../public/img/salary-report-bg.jpg");
   overflow: hidden;
   background-repeat: no-repeat;
 }
@@ -41,5 +73,3 @@
 .overflow-y-scroll::-webkit-scrollbar-thumb:hover {
   background-color: #004d40; /* Thumb color on hover */
 }
-
-

@@ -4,7 +4,7 @@ const empController = {
   //create new employee
 
   //req ekn body ek gnnwa.req ekn body ek arn data base eke store krl record ek add krnw.success unoth res ek succes kiyl ywnwa nethnm error msg kk display krnwa.
-  add: async (req, res) => {
+  addsup: async (req, res) => {
     try {
       const { name, email, age, jobRole, mobile, address } = req.body;
 
