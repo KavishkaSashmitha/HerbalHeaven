@@ -1,19 +1,15 @@
-
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import jsPDF from "jspdf";
 import "jspdf-autotable";
-import generatePDF from "./SalaryReport";
-import { SidebarWithBurgerMenu } from "./navBar";
-import { Link } from "react-router-dom";
-import SalaryReport from "./SalaryReport";
+import { SidebarWithBurgerMenu } from "../components/navBar";
 
 export default class Posts extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      currentPage: 1,
       posts: [],
       isScrollDisabled: false,
     };
@@ -24,7 +20,7 @@ export default class Posts extends Component {
   }
 
   retrievePosts() {
-    axios.get('http://localhost:8070/api/posts/posts').then((res) => {
+    axios.get("http://localhost:8070/api/posts/posts").then((res) => {
       if (res.data.success) {
         this.setState({
           posts: res.data.existingPosts,
@@ -35,19 +31,19 @@ export default class Posts extends Component {
 
   onDelete = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this supplier!',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "You will not be able to recover this supplier!",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         axios
           .delete(`http://localhost:8070/api/posts/post/delete/${id}`)
           .then((res) => {
-            Swal.fire('Deleted!', 'Supplier has been deleted.', 'success');
+            Swal.fire("Deleted!", "Supplier has been deleted.", "success");
             this.retrievePosts();
           });
       }
@@ -72,7 +68,7 @@ export default class Posts extends Component {
   handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
 
-    axios.get('http://localhost:8070/api/posts/posts').then((res) => {
+    axios.get("http://localhost:8070/api/posts/posts").then((res) => {
       if (res.data.success) {
         this.filterData(res.data.existingPosts, searchKey);
       }
@@ -81,9 +77,9 @@ export default class Posts extends Component {
 
   render() {
     if (this.state.isScrollDisabled) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
     return (
       <>
@@ -152,8 +148,8 @@ export default class Posts extends Component {
                 </div>
               </div>
             </div>
-            <div class="p-5 mr-4 h-screen ">
-              <table class="w-full mt-4  text-left table-auto min-w-max  bg-blue-gray-50/50">
+            <div class=" p-5 mr-4 h-screen">
+              <table class="w-full mt-4 text-left table-auto min-w-max  bg-blue-gray-50/50">
                 <tr>
                   <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                     <p class="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
@@ -226,7 +222,7 @@ export default class Posts extends Component {
                               <p class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
                                 <p
                                   href={`/posts/post/${post._id}`}
-                                  style={{ textDecoration: 'none' }}
+                                  style={{ textDecoration: "none" }}
                                 >
                                   {post.name}
                                 </p>
@@ -305,10 +301,10 @@ export default class Posts extends Component {
                         </td>
                         <td class="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
                           <a
-                            className="select-none rounded-lg bg-deep-orange-100 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-deep-orange-900 shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            className="select-none rounded-lg bg-pink-200 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                             href={`/SalaryReport/${post._id}`}
                           >
-                            <i className="fas fa-report mr-2"></i>Salary Report
+                            <i className="fas fa-file mr-2"></i>Salary Report
                           </a>
                         </td>
                       </tr>
