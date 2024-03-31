@@ -78,11 +78,23 @@ export function EcommerceCard() {
   return (
     <div
       style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
+        position: 'relative',
         minHeight: '100vh',
       }}
     >
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          filter: 'blur(10px)', // Adjust the blur intensity as needed
+          zIndex: -1,
+        }}
+      />
       <SidebarWithBurgerMenu />
       <div className="relative flex  w-3/4 gap-2 md:auto search">
         <Input
@@ -102,7 +114,7 @@ export function EcommerceCard() {
           Search
         </Button>
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center">
         {filteredData.map((product) => (
           <Product key={product._id} product={product} addToCart={addToCart} />
         ))}
