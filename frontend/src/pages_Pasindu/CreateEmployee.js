@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { SidebarWithBurgerMenu } from "../components/navBar";
 import { Link } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
+import ProfileMenu from '../components/Profile';
+import { Footer } from '../components/Footer';
 
 export default class CreatPost extends Component {
   constructor(props) {
@@ -77,8 +79,13 @@ export default class CreatPost extends Component {
 
   render() {
     return (
-      <body className="create-post-bg ">
-        <SidebarWithBurgerMenu />
+      <>
+      <div className="create-post-bg ">
+        <div className="relative flex justify-between">
+          <SidebarWithBurgerMenu />
+
+          <ProfileMenu />
+        </div>
         <div class="flex items-center justify-center h-screen">
           {this.state.confirmation ? (
             <div
@@ -96,7 +103,7 @@ export default class CreatPost extends Component {
               </Link>
             </div>
           ) : (
-            <div class=" w-full max-w-[56rem] mx-auto">
+            <div class=" w-full max-w-[56rem] mx-auto mt-7 mb-7">
               <div class="relative flex flex-col rounded-xl border-blue-gray-100 bg-blue-gray-100/50 shadow-md">
                 <div className="bg-blue-gray-50/50  rounded-xl">
                   <div class="relative grid px-1 py-1 m-1 overflow-center text-center text-white bg-gray-800 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
@@ -156,11 +163,11 @@ export default class CreatPost extends Component {
                                   class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                                 >
                                   <option value="">Select Job Role</option>
-                                  <option value="male">Manager</option>
-                                  <option value="male">Supervisor</option>
-                                  <option value="female">Technician</option>
-                                  <option value="female">Driver</option>
-                                  <option value="female">Worker</option>
+                                  <option value="Manager">Manager</option>
+                                  <option value="Supervisor">Supervisor</option>
+                                  <option value="Technician">Technician</option>
+                                  <option value="Driver">Driver</option>
+                                  <option value="Worker">Worker</option>
                                 </select>
                                 <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                               </div>
@@ -282,7 +289,9 @@ export default class CreatPost extends Component {
             </div>
           )}
         </div>
-      </body>
+      </div>
+      <Footer/>
+      </>
     );
   }
 }
