@@ -9,6 +9,7 @@ export default class Posts extends Component {
     super(props);
 
     this.state = {
+      currentPage: 1,
       posts: [],
       isScrollDisabled: false,
     };
@@ -300,10 +301,10 @@ export default class Posts extends Component {
                         </td>
                         <td class="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
                           <a
-                            className="select-none rounded-lg bg-deep-orange-100 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-deep-orange-900 shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            className="select-none rounded-lg bg-pink-200 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                             href={`/SalaryReport/${post._id}`}
                           >
-                            <i className="fas fa-report mr-2"></i>Salary Report
+                            <i className="fas fa-file mr-2"></i>Salary Report
                           </a>
                         </td>
                       </tr>

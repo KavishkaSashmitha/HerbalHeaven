@@ -253,6 +253,7 @@ function SalaryReport() {
         </Breadcrumbs>
         <div class=" w-auto max-w-[56rem] mx-auto ">
           <div class="relative flex flex-col rounded-xl border-blue-gray-100 bg-blue-gray-100/50 text-gray-700 shadow-md">
+          <div className="bg-blue-gray-50/50  rounded-xl">
             <div class="relative grid px-1 py-1 m-1 overflow-center text-center text-white bg-gray-800 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
               <div class="h-1 p-8 mb-4 text-white">
                 <svg
@@ -351,7 +352,7 @@ function SalaryReport() {
                           onClick={Calculation}
                           className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
                         >
-                          Calculate Salary
+                          <i className="fas fa-calculator mr-2"></i>Calculate Salary
                         </button>
                       </div>
                     </form>
@@ -477,15 +478,16 @@ function SalaryReport() {
                         <button
                           type="button"
                           onClick={Generate}
-                          className="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600"
+                          className="w-full bg-orange-500 text-gray-800 p-2 rounded-md hover:bg-orange-700"
                         >
-                          Generate Salary Report
+                          <i className="fas fa-file-pdf mr-2"></i>Generate Salary Report
                         </button>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </div>
