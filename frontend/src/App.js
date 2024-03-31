@@ -1,3 +1,4 @@
+
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import { SidebarWithBurgerMenu } from './components/navBar';
@@ -18,6 +19,7 @@ import User from './pages_kavindu/User';
 import AdminDashboard from './pages/adminDashboard';
 import SalaryReport from './components/SalaryReport';
 import './index.css';
+
 
 
 function App() {
