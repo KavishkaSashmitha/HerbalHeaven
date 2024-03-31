@@ -12,7 +12,7 @@ import {
   Typography,
   Button,
   Input,
-} from '@material-tailwind/react';
+  } from '@material-tailwind/react';
 import { useAuth } from '../middleware/authContext';
 
 const Product = ({ product }) => {
@@ -88,7 +88,7 @@ function Home() {
 
   return (
     <div>
-      <SidebarWithBurgerMenu />
+          <SidebarWithBurgerMenu />
       <div>
         <ImageSlider images={images} />
       </div>
@@ -121,8 +121,8 @@ function Home() {
           <Spinner />
         </div>
       )}
-    </div>
-  );
+      </div>
+        );
 }
 
 export default Home;

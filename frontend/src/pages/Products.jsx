@@ -114,6 +114,9 @@ export function EcommerceCard() {
           Search
         </Button>
       </div>
+      <div>
+        
+      </div>
       <div className="flex flex-wrap justify-center">
         {filteredData.map((product) => (
           <Product key={product._id} product={product} addToCart={addToCart} />
