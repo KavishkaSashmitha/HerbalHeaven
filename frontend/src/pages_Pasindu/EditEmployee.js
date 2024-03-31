@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
-import { SidebarWithBurgerMenu } from "./navBar";
+import { SidebarWithBurgerMenu } from "../components/navBar";
 
 export default function EditPost() {
   const { id } = useParams();
@@ -112,7 +112,6 @@ export default function EditPost() {
   }
 
   return (
-    
     <body className="edit-post-bg">
       <SidebarWithBurgerMenu />
       <div class="flex items-center justify-center h-screen">

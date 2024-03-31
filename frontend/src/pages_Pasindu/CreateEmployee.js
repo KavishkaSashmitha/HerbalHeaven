@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { SidebarWithBurgerMenu } from "./navBar";
+import { SidebarWithBurgerMenu } from "../components/navBar";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 

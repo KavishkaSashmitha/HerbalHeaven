@@ -4,7 +4,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { Breadcrumbs } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { SidebarWithBurgerMenu } from "./navBar";
+import { SidebarWithBurgerMenu } from "../components/navBar";
 import axios from "axios";
 import Swal from "sweetalert2";
 

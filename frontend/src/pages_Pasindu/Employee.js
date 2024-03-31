@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import generatePDF from "./SalaryReport";
-import { SidebarWithBurgerMenu } from "./navBar";
+import { SidebarWithBurgerMenu } from "../components/navBar";
 import { Link } from "react-router-dom";
 import SalaryReport from "./SalaryReport";
 
@@ -146,7 +146,7 @@ export default class Posts extends Component {
               </div>
             </div>
             <div class="p-5 mr-4 h-screen ">
-              <table class="w-full mt-4  text-left table-auto min-w-max  bg-blue-gray-50/50">
+              <table class="w-full mt-4 text-left table-auto min-w-max  bg-blue-gray-50/50">
                 <tr>
                   <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                     <p class="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
