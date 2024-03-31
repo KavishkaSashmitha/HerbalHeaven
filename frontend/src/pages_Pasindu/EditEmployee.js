@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { SidebarWithBurgerMenu } from "../components/navBar";
 
-
 export default function EditPost() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -96,9 +95,6 @@ export default function EditPost() {
       }
     });
   };
-
-
- 
 
   if (confirmation) {
     return (
