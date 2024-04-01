@@ -1,14 +1,3 @@
-
-import React, { Component } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import 'jspdf-autotable';
-import { SidebarWithBurgerMenu } from '../components/navBar';
-import ProfileMenu from '../components/Profile';
-import { Footer } from '../components/Footer';
-import { Button, Input } from '@material-tailwind/react';
-import { Link } from 'react-router-dom';
-
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -16,9 +5,9 @@ import "jspdf-autotable";
 import { SidebarWithBurgerMenu } from "../components/navBar";
 import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
-import { Breadcrumbs, Button, Input } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-
+import { Breadcrumbs } from "@material-tailwind/react";
 
 export default class Posts extends Component {
   constructor(props) {
@@ -332,9 +321,10 @@ export default class Posts extends Component {
                               {post.age}
                             </p>
                           </div>
-
-                        </td>
-                        <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                        </div>
+                      </td>
+                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                        <div>
                           <a
                             className="btn btn-primary mr-2"
                             href={`/emp/edit/${post._id}`}
@@ -344,30 +334,15 @@ export default class Posts extends Component {
                             </Button>
                           </a>
 
-                          <Button
-                            color="red"
+                          <a
                             className=""
                             onClick={() => this.onDelete(post._id)}
                           >
-
+                            <Button color="red">
+                              <i className="fas fa-trash-alt mr-2"></i>Delete
+                            </Button>
+                          </a>
                         </div>
-                      </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
-                        <a
-                          className="btn btn-primary mr-2"
-                          href={`/emp/edit/${post._id}`}
-                        >
-                          <Button color="green">
-                            <i className="fas fa-edit mr-2"></i>Edit
-                          </Button>
-                        </a>
-
-                        <a className="" onClick={() => this.onDelete(post._id)}>
-                          <Button color="red">
-
-                            <i className="fas fa-trash-alt mr-2"></i>Delete
-                          </Button>
-                        </a>
                       </td>
                       <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
                         <a href={`/SalaryReport/${post._id}`}>
