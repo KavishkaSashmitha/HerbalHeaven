@@ -1,7 +1,7 @@
-const Emp = require("../model/empModel");
+const Emp = require("../model/supModel");
 
-const empController = {
-  //create new employee
+const supController = {
+  //create new suppliers
 
   //req ekn body ek gnnwa.req ekn body ek arn data base eke store krl record ek add krnw.success unoth res ek succes kiyl ywnwa nethnm error msg kk display krnwa.
   addsup: async (req, res) => {
@@ -28,7 +28,7 @@ const empController = {
     }
   },
 
-  //read all employees details
+  //read all suppliers details
 
   getEmployees: async (req, res) => {
     try {
@@ -39,7 +39,7 @@ const empController = {
     }
   },
 
-  //view only one employee details
+  //view only one supplier details
 
   getEmployee: async (req, res) => {
     try {
@@ -50,7 +50,7 @@ const empController = {
     }
   },
 
-  //update employee details
+  //update supplier details
 
   updateEmployee: async (req, res) => {
     try {
@@ -70,7 +70,7 @@ const empController = {
     }
   },
 
-  //delete employee
+  //delete supplier
 
   deleteEmployee: async (req, res) => {
     try {
@@ -84,4 +84,4 @@ const empController = {
   },
 };
 
-module.exports = empController;
+module.exports = supController;
