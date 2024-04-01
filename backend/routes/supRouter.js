@@ -3,12 +3,12 @@ const supController = require("../controllers/supController");
 
 router.post("/addsup", supController.addsup);
 
-router.get("/getEmployees", supController.getEmployees);
+router.get("/getSuppliers", supController.getSuppliers);
 
-router.get("/getEmployee/:id", supController.getEmployee);
+router.get("/getSupplier/:id", supController.getSupplier);
 
-router.put("/updateEmployee/:id", supController.updateEmployee);
+router.put("/updateSupplier/:id", supController.updateSupplier);
 
-router.delete("/deleteEmployee/:id", supController.deleteEmployee);
+router.delete("/deleteSupplier/:id", supController.deleteSupplier);
 
 module.exports = router;

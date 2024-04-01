@@ -11,7 +11,7 @@ const User = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8070/sup/getEmployees")
+      .get("http://localhost:8070/sup/getSuppliers")
       .then((result) => setUsers(result.data))
       .catch((err) => console.log(err));
   }, []);
@@ -22,7 +22,7 @@ const User = () => {
     );
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:8070/sup/deleteEmployee/${id}`)
+        .delete(`http://localhost:8070/sup/deleteSupplier/${id}`)
         .then(() => {
           setUsers(users.filter((user) => user._id !== id));
         })

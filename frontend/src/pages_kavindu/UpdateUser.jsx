@@ -24,7 +24,7 @@ function UpdateUser() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8070/sup/getEmployee/${id}`)
+      .get(`http://localhost:8070/sup/getSupplier/${id}`)
       .then((result) => {
         const userData = result.data;
         setName(userData.name);
@@ -40,7 +40,7 @@ function UpdateUser() {
   const Update = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8070/sup/updateEmployee/${id}`, {
+      .put(`http://localhost:8070/sup/updateSupplier/${id}`, {
         name,
         email,
         age,

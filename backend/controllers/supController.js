@@ -1,7 +1,7 @@
 const Supplier = require("../model/supModel");
 
 const supController = {
-  //create new employee
+  //create new supplier
 
   //req ekn body ek gnnwa.req ekn body ek arn data base eke store krl record ek add krnw.success unoth res ek succes kiyl ywnwa nethnm error msg kk display krnwa.
   addsup: async (req, res) => {
@@ -28,9 +28,9 @@ const supController = {
     }
   },
 
-  //read all employees details
+  //read all suppliers details
 
-  getEmployees: async (req, res) => {
+  getSuppliers: async (req, res) => {
     try {
       const suppliers = await Supplier.find();
       return res.status(200).json(suppliers);
@@ -39,9 +39,9 @@ const supController = {
     }
   },
 
-  //view only one employee details
+  //view only one supplier details
 
-  getEmployee: async (req, res) => {
+  getSupplier: async (req, res) => {
     try {
       const supp = await Supplier.findById(req.params.id);
       return res.status(200).json(supp);
@@ -50,9 +50,9 @@ const supController = {
     }
   },
 
-  //update employee details
+  //update supplier details
 
-  updateEmployee: async (req, res) => {
+  updateSupplier: async (req, res) => {
     try {
       const { name, email, age, jobRole, mobile, address } = req.body;
       await Supplier.findByIdAndUpdate(req.params.id, {
@@ -70,9 +70,9 @@ const supController = {
     }
   },
 
-  //delete employee
+  //delete supplier
 
-  deleteEmployee: async (req, res) => {
+  deleteSupplier: async (req, res) => {
     try {
       const supp = await Supplier.findByIdAndDelete(req.params.id);
       if (!supp) return res.status(400).json({ msg: "No employee records!" });
