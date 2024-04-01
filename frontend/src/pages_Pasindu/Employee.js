@@ -6,6 +6,7 @@ import { SidebarWithBurgerMenu } from '../components/navBar';
 import ProfileMenu from '../components/Profile';
 import { Footer } from '../components/Footer';
 import { Button, Input } from '@material-tailwind/react';
+import { Link } from 'react-router-dom';
 
 export default class Posts extends Component {
   constructor(props) {
@@ -291,13 +292,15 @@ export default class Posts extends Component {
                           </div>
                         </td>
                         <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
-                          <Button
-                            color="green"
+                          <a
                             className="btn btn-primary mr-2"
                             href={`/emp/edit/${post._id}`}
                           >
-                            <i className="fas fa-edit mr-2"></i>Edit
-                          </Button>
+                            <Button color="green">
+                              <i className="fas fa-edit mr-2"></i>Edit
+                            </Button>
+                          </a>
+
                           <Button
                             color="red"
                             className=""

@@ -27,6 +27,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProfileMenu from '../components/Profile';
 import { BellIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
 
 const Product = ({ product }) => {
   const { addToCart, isLoggedIn } = useAuth(); // Accessing addToCart function from AuthProvider
@@ -142,7 +143,6 @@ function Home() {
               Search
             </Button>
           </div>
-          
 
           <ProfileMenu />
         </div>
@@ -191,6 +191,9 @@ function Home() {
           Your browser does not support the video tag.
         </video>
       </div>
+      <Link to='/admin-dashboard'>
+        <Typography>dashboard admin</Typography>
+      </Link>
       <Footer />
     </>
   );

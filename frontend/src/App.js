@@ -18,6 +18,7 @@ import User from './pages_kavindu/User';
 import AdminDashboard from './pages/adminDashboard';
 import SalaryReport from './pages_Pasindu/SalaryReport';
 import './index.css';
+import ManagerLogin from './pages/Manager-Login';
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={<EcommerceCard />} />
         <Route path="/user/cart" element={<Cart />} />
+        <Route path="/manager-login" element={<ManagerLogin />} />
+        <Route path="//admin-dashboard" element={<AdminDashboard />} />
 
         <Route path="/emp/add" element={<CreatPost />} />
         <Route path="/emp/edit/:id" element={<EditPost />} />
