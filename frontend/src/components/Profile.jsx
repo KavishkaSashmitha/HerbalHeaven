@@ -17,7 +17,7 @@ const ProfileMenu = () => {
   const { isLoggedIn, logout } = useAuth();
   return (
     <>
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end mr-5 mt-1">
         <IconButton variant="text" color="black" className="mt-2 mb-2 mr-4">
           <BellIcon className="h-4 w-4" />
         </IconButton>

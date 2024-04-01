@@ -23,7 +23,7 @@ export function Footer() {
       <div className="mx-auto w-full max-w-7xl px-8 mt-2">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <div className="flex flex-col items-start justify-center">
-            <Typography variant="h4" className="mb-5 font-bold text-2xl">
+            <Typography variant="h4" className="mb-5 font-bold text-2xl text-green-500">
               Herbal Heaven
             </Typography>
             <img
