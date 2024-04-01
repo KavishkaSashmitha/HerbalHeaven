@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { SidebarWithBurgerMenu } from "../components/navBar";
 import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
+import { Breadcrumbs } from "@material-tailwind/react";
 
 export default function EditPost() {
   const { id } = useParams();
@@ -122,6 +123,42 @@ export default function EditPost() {
 
           <ProfileMenu />
         </div>
+        <div className="m-4">
+          <Breadcrumbs>
+            <Link to="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+              </svg>
+            </Link>
+            <Link to="#">
+                <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                  <span>Dashboard</span>
+
+                  <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+                </li>
+              </Link>
+            <Link to="/emp">
+              <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                <span>Employee</span>
+
+                <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+              </li>
+            </Link>
+            <Link to="/edit">
+              <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                <span>Update Employee</span>
+
+                <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+              </li>
+            </Link>
+          </Breadcrumbs>
+        </div>
+
         <div class="flex items-center justify-center h-screen mt-7 mb-7">
           <div class="relative flex  w-full max-w-[56rem] mx-auto flex-col rounded-xl  border-blue-gray-100 bg-blue-gray-50/50 bg-clip-border text-gray-700 shadow-md">
             <div className="bg-blue-gray-50/50  rounded-xl">
@@ -166,14 +203,20 @@ export default function EditPost() {
                             <label>Jobrole</label>
                           </p>
                           <div class="relative h-10 w-full min-w-[200px]">
-                            <input
+                            <select
                               value={formData.jobrole}
                               type="text"
                               name="jobrole"
                               placeholder="Enter Jobrole"
                               onChange={handleInputChange}
                               class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                            />
+                            >
+                              <option value="Manager">Manager</option>
+                              <option value="Supervisor">Supervisor</option>
+                              <option value="Technician">Technician</option>
+                              <option value="Driver">Driver</option>
+                              <option value="Worker">Worker</option>
+                            </select>
 
                             <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                           </div>

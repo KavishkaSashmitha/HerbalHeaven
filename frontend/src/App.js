@@ -32,10 +32,12 @@ function App() {
         <Route path="/products" element={<EcommerceCard />} />
         <Route path="/user/cart" element={<Cart />} />
 
+        {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
         <Route path="/emp/edit/:id" element={<EditPost />} />
         <Route path="/emp/:id" element={<PostDetails />} />
         <Route path="/emp" element={<Posts />} />
+        <Route path="/salaryreport" element={<SalaryReport />} />
 
         <Route path="/user/payment" element={<Payment />} />
 
@@ -48,7 +50,7 @@ function App() {
         <Route path="/sup/update/:id" element={<UpdateUser />} />
         <Route path="/sup" element={<User />} />
 
-        <Route path="/salaryreport" element={<SalaryReport />} />
+        
       </Routes>
     </>
   );
