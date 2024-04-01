@@ -1,4 +1,3 @@
-
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import { SidebarWithBurgerMenu } from './components/navBar';
@@ -7,26 +6,23 @@ import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
 import Cart from './pages/cart';
-import CreatPost from './components/CreateEmployee';
-import EditPost from './components/EditEmployee';
-import Posts from './components/Employee';
-import PostDetails from './components/EmployeeDetails';
+import CreatPost from './pages_Pasindu/CreateEmployee';
+import EditPost from './pages_Pasindu/EditEmployee';
+import Posts from './pages_Pasindu/Employee';
+import PostDetails from './pages_Pasindu/EmployeeDetails';
 import 'react-toastify/dist/ReactToastify.css';
 import Payment from './pages-Kumesh/Payment';
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
 import AdminDashboard from './pages/adminDashboard';
-import SalaryReport from './components/SalaryReport';
+import SalaryReport from './pages_Pasindu/SalaryReport';
 import './index.css';
-
-
 
 function App() {
   return (
     <>
       <Routes>
-        
         {/* Kavishka */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -48,13 +44,11 @@ function App() {
         <Route path="/emp" element={<User />} />
         <Route path="/salaryreport/:id" element={<SalaryReport />} />
 
-
         <Route path="/sup/addsup" element={<CreateUser />} />
         <Route path="/sup/update/:id" element={<UpdateUser />} />
         <Route path="/sup" element={<User />} />
 
         <Route path="/salaryreport" element={<SalaryReport />} />
-
       </Routes>
     </>
   );

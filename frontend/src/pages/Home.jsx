@@ -12,14 +12,25 @@ import {
   Typography,
   Button,
   Input,
-  } from '@material-tailwind/react';
+  Avatar,
+  Dropdown,
+  MenuItem,
+  MenuHandler,
+  Menu,
+  MenuList, // Import Dropdown component
+} from '@material-tailwind/react';
 import { useAuth } from '../middleware/authContext';
+import { Footer } from '../components/Footer';
+import Slider from 'react-slick'; // Import Slider component from react-slick
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import ProfileMenu from '../components/Profile';
 
 const Product = ({ product }) => {
   const { addToCart, isLoggedIn } = useAuth(); // Accessing addToCart function from AuthProvider
 
   return (
-    <Card key={product._id} className="w-72 mb-4 mt-2 ml-2 bg-light-green-200">
+    <Card key={product._id} className="w-72 mb-4 bg-light-green-200">
       <CardHeader shadow={false} floated={false} className="h-48">
         <img
           src={product.image}
@@ -28,9 +39,9 @@ const Product = ({ product }) => {
         />
       </CardHeader>
       <CardBody>
-        <div className="mb-2 flex items-center justify-between ">
+        <div className="mb-2 flex items-center justify-between">
           <div>
-            <Typography color="blue-gray" className="font-bold variant-h3 ">
+            <Typography color="blue-gray" className="font-bold variant-h3">
               {product.name}
             </Typography>
           </div>
@@ -46,7 +57,7 @@ const Product = ({ product }) => {
         <Button
           onClick={() => addToCart(product)}
           disabled={!isLoggedIn} // Disable button if user is not logged in
-          className="w-full  hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
+          className="w-full hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
           color="green"
         >
           Add to Cart
@@ -86,13 +97,39 @@ function Home() {
       product.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Slick settings for the carousel
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4, // Show 4 cards in the slider
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1000,
+    cssEase: 'linear',
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
   return (
-    <div>
+    <>
+      <div className="relative">
+        <div className="relative flex justify-between">
           <SidebarWithBurgerMenu />
+
+          <ProfileMenu />
+        </div>
+      </div>
       <div>
         <ImageSlider images={images} />
       </div>
-      <div className="relative flex w-full gap-2 md:auto search">
+      <div className="relative flex w-1/2 gap-2 md:auto search">
         <Input
           type="search"
           placeholder="Search"
@@ -110,19 +147,32 @@ function Home() {
           Search
         </Button>
       </div>
-      <div className="flex flex-wrap">
-        {filteredData.map((product) => (
+      <Slider {...settings} className="mt-4 mb-4 mx-auto max-w-7xl">
+        {' '}
+        {/* Add margin-bottom */}
+        {filteredData.slice(0, 5).map((product) => (
           <Product key={product._id} product={product} />
         ))}
-      </div>
+      </Slider>
       {loading && (
         <div className="flex justify-center">
           {/* Show a loading indicator while fetching data */}
           <Spinner />
         </div>
       )}
+
+      <div className="max-w-7xl mx-auto mb-10">
+        <video className="h-full w-full rounded-lg md-auto" controls autoPlay>
+          <source
+            src="https://docs.material-tailwind.com/demo.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
       </div>
-        );
+      <Footer />
+    </>
+  );
 }
 
 export default Home;

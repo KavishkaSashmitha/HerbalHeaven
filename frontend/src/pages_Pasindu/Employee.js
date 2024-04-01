@@ -3,6 +3,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "jspdf-autotable";
 import { SidebarWithBurgerMenu } from "../components/navBar";
+import ProfileMenu from '../components/Profile';
+import { Footer } from '../components/Footer';
 
 export default class Posts extends Component {
   constructor(props) {
@@ -84,7 +86,11 @@ export default class Posts extends Component {
     return (
       <>
         <div className="bg-image">
+        <div className="relative flex justify-between">
           <SidebarWithBurgerMenu />
+
+          <ProfileMenu />
+        </div>
           <div class=" relative flex flex-col w-screen h-auto text-gray-700  ">
             <div class="relative ml-4 mr-8 mt-4 overflow-hidden text-gray-700  ">
               <div class="flex items-center justify-between gap-8 mb-8">
@@ -315,6 +321,7 @@ export default class Posts extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </>
     );
   }
