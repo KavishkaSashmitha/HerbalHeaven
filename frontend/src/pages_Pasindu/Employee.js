@@ -319,6 +319,7 @@ export default class Posts extends Component {
                 </tbody>
               </table>
             </div>
+            
           </div>
         </div>
         <Footer />
