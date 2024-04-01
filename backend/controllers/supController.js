@@ -11,7 +11,7 @@ const supController = {
       if (!name || !email || !age || !jobRole || !mobile || !address)
         return res.status(400).json({ msg: "Please fill the all fields." });
 
-      const newEmp = new Supplier({
+      const newSup = new Supplier({
         name,
         email,
         age,
@@ -20,7 +20,7 @@ const supController = {
         address,
       });
 
-      await newEmp.save();
+      await newSup.save();
 
       return res.status(200).json({ msg: "Employee successfully added." });
     } catch (error) {
@@ -32,8 +32,8 @@ const supController = {
 
   getEmployees: async (req, res) => {
     try {
-      const employees = await Supplier.find();
-      return res.status(200).json(employees);
+      const suppliers = await Supplier.find();
+      return res.status(200).json(suppliers);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -43,8 +43,8 @@ const supController = {
 
   getEmployee: async (req, res) => {
     try {
-      const emp = await Supplier.findById(req.params.id);
-      return res.status(200).json(emp);
+      const supp = await Supplier.findById(req.params.id);
+      return res.status(200).json(supp);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -74,8 +74,8 @@ const supController = {
 
   deleteEmployee: async (req, res) => {
     try {
-      const emp = await Supplier.findByIdAndDelete(req.params.id);
-      if (!emp) return res.status(400).json({ msg: "No employee records!" });
+      const supp = await Supplier.findByIdAndDelete(req.params.id);
+      if (!supp) return res.status(400).json({ msg: "No employee records!" });
 
       return res.status(200).json({ msg: "Succesfully deleted." });
     } catch (error) {
