@@ -35,10 +35,12 @@ function App() {
         <Route path="/manager-login" element={<ManagerLogin />} />
         <Route path="//admin-dashboard" element={<AdminDashboard />} />
 
+        {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
         <Route path="/emp/edit/:id" element={<EditPost />} />
         <Route path="/emp/:id" element={<PostDetails />} />
         <Route path="/emp" element={<Posts />} />
+        <Route path="/salaryreport" element={<SalaryReport />} />
 
         <Route path="/user/payment" element={<Payment />} />
 
@@ -51,7 +53,7 @@ function App() {
         <Route path="/sup/update/:id" element={<UpdateUser />} />
         <Route path="/sup" element={<User />} />
 
-        <Route path="/salaryreport" element={<SalaryReport />} />
+        
       </Routes>
     </>
   );
