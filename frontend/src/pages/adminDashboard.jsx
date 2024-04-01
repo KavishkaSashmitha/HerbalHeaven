@@ -129,7 +129,7 @@ function AdminDashboard() {
           </div>
         </div>
         <div className="p-8 bg-gray-200">
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             <div className="p-4 bg-white border-2 border-gray-300 rounded">
               <div class="py-5">
                 <main class="h-full overflow-y-auto">
