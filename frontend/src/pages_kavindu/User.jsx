@@ -35,7 +35,8 @@ const User = () => {
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.age.toString().includes(searchTerm.toLowerCase()) ||
-      user.jobRole.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.rawMaterial.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.quantity.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.mobile.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.address.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -71,7 +72,8 @@ const User = () => {
                       "Name",
                       "Email",
                       "Age",
-                      "Category",
+                      "Raw Material",
+                      "Quantity",
                       "Mobile",
                       "Address",
                       "Action",
@@ -129,7 +131,16 @@ const User = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {user.jobRole}
+                          {user.rawMaterial}
+                        </Typography>
+                      </td>
+                      <td className="p-4">
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {user.quantity}
                         </Typography>
                       </td>
                       <td className="p-4">

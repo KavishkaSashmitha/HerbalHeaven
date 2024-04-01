@@ -6,16 +6,26 @@ const supController = {
   //req ekn body ek gnnwa.req ekn body ek arn data base eke store krl record ek add krnw.success unoth res ek succes kiyl ywnwa nethnm error msg kk display krnwa.
   addsup: async (req, res) => {
     try {
-      const { name, email, age, jobRole, mobile, address } = req.body;
+      const { name, email, age, rawMaterial, quantity, mobile, address } =
+        req.body;
 
-      if (!name || !email || !age || !jobRole || !mobile || !address)
+      if (
+        !name ||
+        !email ||
+        !age ||
+        !rawMaterial ||
+        !quantity ||
+        !mobile ||
+        !address
+      )
         return res.status(400).json({ msg: "Please fill the all fields." });
 
       const newSup = new Supplier({
         name,
         email,
         age,
-        jobRole,
+        rawMaterial,
+        quantity,
         mobile,
         address,
       });
@@ -54,12 +64,13 @@ const supController = {
 
   updateSupplier: async (req, res) => {
     try {
-      const { name, email, age, jobRole, mobile, address } = req.body;
+      const { name, email, age, rawMaterial, mobile, address } = req.body;
       await Supplier.findByIdAndUpdate(req.params.id, {
         name,
         email,
         age,
-        jobRole,
+        rawMaterial,
+        quantity,
         mobile,
         address,
       });

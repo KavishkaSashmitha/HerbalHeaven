@@ -12,7 +12,10 @@ const supSchema = new Schema({
   age: {
     type: String,
   },
-  jobRole: {
+  rawMaterial: {
+    type: String,
+  },
+  quantity: {
     type: String,
   },
   mobile: {

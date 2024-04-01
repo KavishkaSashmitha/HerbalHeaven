@@ -9,7 +9,6 @@ import {
   CardFooter,
   Typography,
   Input,
-  Button,
 } from "@material-tailwind/react";
 
 function UpdateUser() {
@@ -17,7 +16,8 @@ function UpdateUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
-  const [jobRole, setJobRole] = useState("");
+  const [rawMaterial, setRawMaterial] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
@@ -30,7 +30,8 @@ function UpdateUser() {
         setName(userData.name);
         setEmail(userData.email);
         setAge(userData.age);
-        setJobRole(userData.jobRole);
+        setRawMaterial(userData.rawMaterial);
+        setQuantity(userData.quantity);
         setMobile(userData.mobile);
         setAddress(userData.address);
       })
@@ -44,7 +45,8 @@ function UpdateUser() {
         name,
         email,
         age,
-        jobRole,
+        rawMaterial,
+        quantity,
         mobile,
         address,
       })
@@ -100,11 +102,18 @@ function UpdateUser() {
               onChange={(e) => setAge(e.target.value)}
             />
             <Input
-              label="Category"
+              label="Raw Material"
               size="lg"
-              placeholder="Enter Job Role"
-              value={jobRole}
-              onChange={(e) => setJobRole(e.target.value)}
+              placeholder="Enter Raw Material You Provide"
+              value={rawMaterial}
+              onChange={(e) => setRawMaterial(e.target.value)}
+            />
+            <Input
+              label="Quantity"
+              size="lg"
+              placeholder="Enter Quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
             />
             <Input
               label="Mobile"
