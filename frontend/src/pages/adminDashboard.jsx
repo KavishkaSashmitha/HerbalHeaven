@@ -276,10 +276,10 @@ function AdminDashboard() {
                           </div>
                           <div>
                             <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                              Employees
+                              payment
                             </p>
                             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                              <ul>{documents.length ?? 0}</ul>
+                              30
                             </p>
                           </div>
                         </div>
