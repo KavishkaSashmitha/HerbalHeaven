@@ -1,4 +1,4 @@
-const Emp = require("../model/supModel");
+const Supplier = require("../model/supModel");
 
 const supController = {
   //create new employee
@@ -11,7 +11,7 @@ const supController = {
       if (!name || !email || !age || !jobRole || !mobile || !address)
         return res.status(400).json({ msg: "Please fill the all fields." });
 
-      const newEmp = new Emp({
+      const newEmp = new Supplier({
         name,
         email,
         age,
@@ -32,7 +32,7 @@ const supController = {
 
   getEmployees: async (req, res) => {
     try {
-      const employees = await Emp.find();
+      const employees = await Supplier.find();
       return res.status(200).json(employees);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
@@ -43,7 +43,7 @@ const supController = {
 
   getEmployee: async (req, res) => {
     try {
-      const emp = await Emp.findById(req.params.id);
+      const emp = await Supplier.findById(req.params.id);
       return res.status(200).json(emp);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
@@ -55,7 +55,7 @@ const supController = {
   updateEmployee: async (req, res) => {
     try {
       const { name, email, age, jobRole, mobile, address } = req.body;
-      await Emp.findByIdAndUpdate(req.params.id, {
+      await Supplier.findByIdAndUpdate(req.params.id, {
         name,
         email,
         age,
@@ -74,7 +74,7 @@ const supController = {
 
   deleteEmployee: async (req, res) => {
     try {
-      const emp = await Emp.findByIdAndDelete(req.params.id);
+      const emp = await Supplier.findByIdAndDelete(req.params.id);
       if (!emp) return res.status(400).json({ msg: "No employee records!" });
 
       return res.status(200).json({ msg: "Succesfully deleted." });
