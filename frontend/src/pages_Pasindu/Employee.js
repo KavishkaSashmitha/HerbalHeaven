@@ -135,7 +135,8 @@ export default class Posts extends Component {
                   <Link to="/emp/add">
                     <Button
                       variant="gradient"
-                      className="flex items-center gap-3"
+                      color="yellow"
+                      className="flex items-center gap-3 "
                       href=""
                     >
                       <svg
@@ -339,7 +340,7 @@ export default class Posts extends Component {
                       </td>
                       <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
                         <a href={`/SalaryReport/${post._id}`}>
-                          <Button className="btn btn-secondary">
+                          <Button color="blue" className="btn btn-secondary">
                             <i className="fas fa-file mr-2"></i>Report
                           </Button>
                         </a>
