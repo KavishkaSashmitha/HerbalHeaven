@@ -8,10 +8,12 @@ import CartItemCard from '../components/Cart-Card';
 import { StepperWithContent } from '../components/Stepper';
 import { SidebarWithBurgerMenu } from '../components/navBar';
 import backgroundImage from '../assets/cart-back.jpg';
+import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 
 const Cart = () => {
   const { isLoggedIn, token } = useAuth();
   const [cart, setCart] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const Cart = () => {
           ).map((name) => {
             return response.data.find((item) => item.name === name);
           });
-          setCart(uniqueCartItems);
+          setCart(response.data);
         }
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -65,12 +67,8 @@ const Cart = () => {
             },
           }
         );
-        const uniqueCartItems = Array.from(
-          new Set(response.data.map((item) => item._id))
-        ).map((id) => {
-          return response.data.find((item) => item._id === id);
-        });
-        setCart(uniqueCartItems);
+
+        setCart(response.data);
       }
     } catch (error) {
       console.error('Error deleting cart item:', error);
@@ -99,6 +97,7 @@ const Cart = () => {
             },
           }
         );
+
         setCart(response.data);
       }
     } catch (error) {
@@ -143,9 +142,14 @@ const Cart = () => {
           minHeight: '100vh',
         }}
       >
-        <SidebarWithBurgerMenu />
+        <SidebarWithBurgerMenu cartCount={cart.length} />
         <div className="cart-items">
-          <h2 className="cart-head">Your Cart</h2>
+          <Typography variant="h3" color="white" className="cart">
+            {' '}
+            Your Cart
+            <ShoppingBagIcon className="h-10 w-10  cart" />
+          </Typography>
+
           {isLoggedIn && <StepperWithContent />}
           {Array.isArray(cart) && cart.length > 0 ? (
             <>

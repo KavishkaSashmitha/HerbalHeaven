@@ -33,7 +33,7 @@ const CartItemCard = ({ item, onDelete, onUpdateQuantity }) => {
   };
 
   return (
-    <Card className="w-full ml-4 mb-4 mx-auto bg-light-green-100">
+    <Card className="w-3/4 ml-4 mb-4 mx-auto bg-light-green-100">
       <List>
         <ListItem>
           <ListItemPrefix>
