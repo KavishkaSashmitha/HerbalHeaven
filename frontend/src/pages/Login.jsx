@@ -139,6 +139,12 @@ export default function Login() {
                   Sign up
                 </Link>
               </Typography>
+              <Typography color="gray" className="mt-4 text-center font-normal">
+                Manager?{' '}
+                <Link to="/manager-login" className="font-medium text-gray-900">
+                  Sign In
+                </Link>
+              </Typography>
             </form>
           </div>
         </div>
