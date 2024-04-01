@@ -121,22 +121,8 @@ export default class CreatPost extends Component {
               </Link>
             </Breadcrumbs>
           </div>
-          <div class="flex items-center justify-center h-screen">
             {this.state.confirmation ? (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "100vh",
-                  textAlign: "center",
-                }}
-              >
-                <h1 style={{ color: "green" }}>Employee Added Successfully!</h1>
-                <Link to="/emp">
-                  <Button color="red">Back</Button>
-                </Link>
-              </div>
+              window.location.href = "/emp"
             ) : (
               <div class=" w-full max-w-[56rem] mx-auto mt-7 mb-7">
                 <div class="relative flex flex-col rounded-xl border-blue-gray-100 bg-blue-gray-100/50 shadow-md">
@@ -301,6 +287,8 @@ export default class CreatPost extends Component {
                                     value={this.state.age}
                                     type="number"
                                     name="age"
+                                    min={18}
+                                    max={60}
                                     placeholder="Enter Age"
                                     onChange={this.handInputChange}
                                     class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -328,7 +316,6 @@ export default class CreatPost extends Component {
                 </div>
               </div>
             )}
-          </div>
         </div>
         <Footer />
       </>

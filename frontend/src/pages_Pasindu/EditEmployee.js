@@ -73,12 +73,6 @@ export default function EditPost() {
           .put(`http://localhost:8070/api/posts/post/update/${id}`, data)
           .then((res) => {
             if (res.data.success) {
-              Swal.fire(
-                "Updated!",
-                "Employee information has been updated.",
-                "success"
-              );
-
               setFormData({
                 name: "",
                 jobrole: "",
@@ -100,19 +94,7 @@ export default function EditPost() {
   };
 
   if (confirmation) {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          textAlign: "center",
-        }}
-      >
-        <h1 style={{ color: "green" }}>Employee Updated Successfully!</h1>
-      </div>
-    );
+    window.location.href = "/emp";
   }
 
   return (
@@ -120,7 +102,6 @@ export default function EditPost() {
       <div className="edit-post-bg ">
         <div className="relative flex justify-between">
           <SidebarWithBurgerMenu />
-
           <ProfileMenu />
         </div>
         <div className="m-4">
@@ -136,12 +117,12 @@ export default function EditPost() {
               </svg>
             </Link>
             <Link to="#">
-                <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                  <span>Dashboard</span>
+              <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                <span>Dashboard</span>
 
-                  <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
-                </li>
-              </Link>
+                <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+              </li>
+            </Link>
             <Link to="/emp">
               <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
                 <span>Employee</span>
@@ -149,7 +130,7 @@ export default function EditPost() {
                 <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
               </li>
             </Link>
-            <Link to="/edit">
+            <Link to="">
               <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
                 <span>Update Employee</span>
 

@@ -136,7 +136,7 @@ export default class Posts extends Component {
                   <Link to="/emp/add">
                     <Button
                       variant="gradient"
-                      color="yellow"
+                      color="blue"
                       className="flex items-center gap-3 "
                       href=""
                     >
@@ -185,56 +185,56 @@ export default class Posts extends Component {
               </div>
             </div>
           </div>
-          <div className="m-4 overflow-x-auto">
-            <table className="w-full mt-4  text-left table-auto min-w-max bg-blue-gray-50/50">
+          <div className="m-4 overflow-x-auto ">
+            <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-blue-gray-100 opacity-95">
               <thead>
                 <tr>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4  ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
                       #
                     </p>
                   </th>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4   ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
                       Employee Name
                     </p>
                   </th>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4   ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
                       Jobrole
                     </p>
                   </th>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4   ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
                       Gender
                     </p>
                   </th>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4   ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
                       Mobile
                     </p>
                   </th>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4   ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
                       Email
                     </p>
                   </th>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4   ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
                       Address
                     </p>
                   </th>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4   ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
                       Age
                     </p>
                   </th>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4   ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-gray-900">
                       Action
                     </p>
                   </th>
-                  <th className="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                  <th className="p-4   ">
                     <p className="block font-sans text-x1 antialiased font-bold leading-none text-gray-900">
                       Report
                     </p>
@@ -245,8 +245,13 @@ export default class Posts extends Component {
               <tbody>
                 {this.state.posts.map((post, index) => {
                   return (
-                    <tr key={index}>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                    <tr
+                      key={index}
+                      className={`${
+                        index !== this.state.posts.length - 1 ? "border-b" : ""
+                      }`}
+                    >
+                      <td className="p-4  ">
                         <div className="flex items-center gap-3 ">
                           <div className="flex flex-col ">
                             <p className="block  font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
@@ -255,7 +260,7 @@ export default class Posts extends Component {
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                      <td className="p-4   ">
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
@@ -263,13 +268,14 @@ export default class Posts extends Component {
                                 href={`/posts/post/${post._id}`}
                                 style={{ textDecoration: "none" }}
                               >
-                                {post.name}
+                                {post.name?.charAt(0)?.toUpperCase() +
+                                post.name?.slice(1)}
                               </a>
                             </p>
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                      <td className="p-4   ">
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
@@ -278,16 +284,17 @@ export default class Posts extends Component {
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                      <td className="p-4   ">
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {post.gender}
+                              {post.gender?.charAt(0)?.toUpperCase() +
+                                post.gender?.slice(1)}
                             </p>
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                      <td className="p-4   ">
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
@@ -296,25 +303,27 @@ export default class Posts extends Component {
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                      <td className="p-4   ">
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {post.email}
+                              {post.email?.charAt(0)?.toLowerCase() +
+                                post.email?.slice(1)}
                             </p>
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                      <td className="p-4   ">
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {post.address}
+                              {post.address?.charAt(0)?.toUpperCase() +
+                                post.address?.slice(1)}
                             </p>
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                      <td className="p-4   ">
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
@@ -323,7 +332,7 @@ export default class Posts extends Component {
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                      <td className="p-4   ">
                         <div>
                           <a
                             className="btn btn-primary mr-2"
@@ -344,9 +353,9 @@ export default class Posts extends Component {
                           </a>
                         </div>
                       </td>
-                      <td className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50">
+                      <td className="p-4  ">
                         <a href={`/SalaryReport/${post._id}`}>
-                          <Button color="blue" className="btn btn-secondary">
+                          <Button color="green" className="btn btn-secondary">
                             <i className="fas fa-file mr-2"></i>Report
                           </Button>
                         </a>
