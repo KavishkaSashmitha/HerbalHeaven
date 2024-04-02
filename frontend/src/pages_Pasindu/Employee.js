@@ -80,6 +80,21 @@ export default class Posts extends Component {
     });
   };
 
+  capitalizeSecondPart(name) {
+    if (!name) return "";
+
+    const parts = name.split(" "); // Split the name into parts
+
+    // Iterate over each part and capitalize the first letter
+    for (let i = 0; i < parts.length; i++) {
+      parts[i] =
+        parts[i].charAt(0).toUpperCase() + parts[i].slice(1).toLowerCase();
+    }
+
+    // Join the parts back into a single string
+    return parts.join(" ");
+  }
+
   render() {
     if (this.state.isScrollDisabled) {
       document.body.style.overflow = "hidden";
@@ -268,8 +283,7 @@ export default class Posts extends Component {
                                 href={`/posts/post/${post._id}`}
                                 style={{ textDecoration: "none" }}
                               >
-                                {post.name?.charAt(0)?.toUpperCase() +
-                                post.name?.slice(1)}
+                                {this.capitalizeSecondPart(post.name)}
                               </a>
                             </p>
                           </div>
@@ -307,8 +321,7 @@ export default class Posts extends Component {
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {post.email?.charAt(0)?.toLowerCase() +
-                                post.email?.slice(1)}
+                              {post.email?.toLowerCase()}
                             </p>
                           </div>
                         </div>
@@ -317,8 +330,14 @@ export default class Posts extends Component {
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {post.address?.charAt(0)?.toUpperCase() +
-                                post.address?.slice(1)}
+                              {post.address
+                                ?.split(",")
+                                .map(
+                                  (part) =>
+                                    part.trim().charAt(0).toUpperCase() +
+                                    part.trim().slice(1)
+                                )
+                                .join(", ")}
                             </p>
                           </div>
                         </div>
