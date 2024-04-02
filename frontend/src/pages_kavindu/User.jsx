@@ -73,7 +73,7 @@ const User = () => {
                       "Email",
                       "Age",
                       "Raw Material",
-                      "Quantity",
+                      "Quantity(Kg)",
                       "Mobile",
                       "Address",
                       "Action",

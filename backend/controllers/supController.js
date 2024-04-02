@@ -64,7 +64,8 @@ const supController = {
 
   updateSupplier: async (req, res) => {
     try {
-      const { name, email, age, rawMaterial, mobile, address } = req.body;
+      const { name, email, age, rawMaterial, quantity, mobile, address } =
+        req.body;
       await Supplier.findByIdAndUpdate(req.params.id, {
         name,
         email,
