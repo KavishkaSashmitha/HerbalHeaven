@@ -12,7 +12,7 @@ import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import SalaryReport from "./pages_Pasindu/SalaryReport";
-import GenderPieChart from "./pages_Pasindu/GenderPieChart";
+import GenderPieChart from "./pages_Pasindu/EmployeeChart";
 
 
 import "react-toastify/dist/ReactToastify.css";
