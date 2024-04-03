@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import {
   IconButton,
   Typography,
@@ -13,9 +13,13 @@ import {
   Input,
   Drawer,
   Card,
+<<<<<<< Updated upstream
   Badge,
   Chip,
 } from '@material-tailwind/react';
+=======
+} from "@material-tailwind/react";
+>>>>>>> Stashed changes
 import {
   UserCircleIcon,
   PowerIcon,
@@ -23,15 +27,21 @@ import {
   ChevronRightIcon,
   ChevronDownIcon,
   PresentationChartBarIcon,
-} from '@heroicons/react/24/solid';
+} from "@heroicons/react/24/solid";
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
   XMarkIcon,
+<<<<<<< Updated upstream
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
 import { useCart } from './cartContext';
+=======
+} from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
+import { useAuth } from "../middleware/authContext"; // Importing the useAuth hook from AuthContext
+>>>>>>> Stashed changes
 
 export function SidebarWithBurgerMenu({}) {
   const [open, setOpen] = React.useState(0);
@@ -54,7 +64,7 @@ export function SidebarWithBurgerMenu({}) {
         ) : (
           <Bars3Icon
             className="h-8 w-8 stroke-2 "
-            style={{ color: '#c8e6c9' }}
+            style={{ color: "#c8e6c9" }}
           />
         )}
       </IconButton>
@@ -96,7 +106,7 @@ export function SidebarWithBurgerMenu({}) {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? 'rotate-180' : ''
+                    open === 1 ? "rotate-180" : ""
                   }`}
                 />
               }
@@ -158,10 +168,13 @@ export function SidebarWithBurgerMenu({}) {
                     </ListItem>
                   </Link>
 
+<<<<<<< Updated upstream
 
 
                   <Link to="#">
 
+=======
+>>>>>>> Stashed changes
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -169,10 +182,13 @@ export function SidebarWithBurgerMenu({}) {
                     Transport
                   </ListItem>
 
+<<<<<<< Updated upstream
 
                   </Link>
 
 
+=======
+>>>>>>> Stashed changes
                   <Link to="#">
                     <ListItem>
                       <ListItemPrefix>
