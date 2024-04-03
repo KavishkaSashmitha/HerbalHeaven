@@ -23,4 +23,4 @@ const empSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Emp", empSchema);
+module.exports = mongoose.model("supplier", empSchema);
