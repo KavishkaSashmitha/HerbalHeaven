@@ -99,21 +99,24 @@ function UpdateUser() {
   const Update = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      axios
-        .put(`http://localhost:8070/sup/updateSupplier/${id}`, {
-          name,
-          email,
-          age,
-          rawMaterial,
-          country,
-          mobile,
-          address,
-        })
-        .then((result) => {
-          console.log(result);
-          navigate("/sup");
-        })
-        .catch((err) => console.log(err));
+      const confirmed = window.confirm("Are you sure you want to update?");
+      if (confirmed) {
+        axios
+          .put(`http://localhost:8070/sup/updateSupplier/${id}`, {
+            name,
+            email,
+            age,
+            rawMaterial,
+            country,
+            mobile,
+            address,
+          })
+          .then((result) => {
+            console.log(result);
+            navigate("/sup");
+          })
+          .catch((err) => console.log(err));
+      }
     }
   };
 

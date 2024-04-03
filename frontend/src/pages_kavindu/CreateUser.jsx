@@ -83,21 +83,26 @@ function CreateUser() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      axios
-        .post("http://localhost:8070/sup/addsup", {
-          name,
-          email,
-          age,
-          rawMaterial,
-          country,
-          mobile,
-          address,
-        })
-        .then((result) => {
-          console.log(result);
-          navigate("/sup");
-        })
-        .catch((err) => console.log(err));
+      const confirmed = window.confirm(
+        "Are you sure you want to add a new supplier?"
+      );
+      if (confirmed) {
+        axios
+          .post("http://localhost:8070/sup/addsup", {
+            name,
+            email,
+            age,
+            rawMaterial,
+            country,
+            mobile,
+            address,
+          })
+          .then((result) => {
+            console.log(result);
+            navigate("/sup");
+          })
+          .catch((err) => console.log(err));
+      }
     }
   };
 
