@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { SidebarWithBurgerMenu } from "../components/navBar";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { SidebarWithBurgerMenu } from '../components/navBar';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -10,21 +10,21 @@ import {
   Typography,
   Input,
   Button,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 
 function UpdateUser() {
   const { id } = useParams();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
-  const [jobRole, setJobRole] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [address, setAddress] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState('');
+  const [jobRole, setJobRole] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [address, setAddress] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8070/sup/getEmployee/${id}`)
+      .get(`http://localhost:8070/sup/getSupplier/${id}`)
       .then((result) => {
         const userData = result.data;
         setName(userData.name);
@@ -40,7 +40,7 @@ function UpdateUser() {
   const Update = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8070/sup/updateEmployee/${id}`, {
+      .put(`http://localhost:8070/sup/updateSupplier/${id}`, {
         name,
         email,
         age,
@@ -50,7 +50,7 @@ function UpdateUser() {
       })
       .then((result) => {
         console.log(result);
-        navigate("/sup");
+        navigate('/sup');
       })
       .catch((err) => console.log(err));
   };
@@ -60,10 +60,10 @@ function UpdateUser() {
       <SidebarWithBurgerMenu />
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '',
         }}
       >
         <Card className="w-96">
