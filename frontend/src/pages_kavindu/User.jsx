@@ -73,7 +73,7 @@ const User = () => {
                         "Name",
                         "Email",
                         "Age",
-                        "Raw Material",
+                        "Raw  Material",
                         "Country",
                         "Mobile",
                         "Address",
