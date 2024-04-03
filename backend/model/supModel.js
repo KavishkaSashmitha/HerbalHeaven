@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const empSchema = new Schema({
+const supSchema = new Schema({
   name: {
     type: String,
   },
@@ -12,7 +12,10 @@ const empSchema = new Schema({
   age: {
     type: String,
   },
-  jobRole: {
+  rawMaterial: {
+    type: String,
+  },
+  country: {
     type: String,
   },
   mobile: {
@@ -23,4 +26,4 @@ const empSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Emp", empSchema);
+module.exports = mongoose.model("Supplier", supSchema);
