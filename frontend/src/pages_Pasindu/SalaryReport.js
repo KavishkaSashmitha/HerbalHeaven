@@ -137,19 +137,7 @@ function SalaryReport() {
     });
 
     if (confirmation) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100vh",
-            textAlign: "center",
-          }}
-        >
-          <h1 style={{ color: "green" }}>Salary Updated Successfully!</h1>
-        </div>
-      );
+      window.location.href = "/emp";
     }
 
     const doc = new jsPDF();
@@ -225,18 +213,41 @@ function SalaryReport() {
           <ProfileMenu />
         </div>
         <div class="">
-          <Breadcrumbs>
-            <Link to="/">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-              </svg>
-            </Link>
-          </Breadcrumbs>
+          <div className="ml-4">
+            <Breadcrumbs>
+              <Link to="/">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                </svg>
+              </Link>
+              <Link to="#">
+                <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                  <span>Dashboard</span>
+
+                  <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+                </li>
+              </Link>
+              <Link to="/emp">
+                <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                  <span>Employee</span>
+
+                  <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+                </li>
+              </Link>
+              <Link to="">
+                <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                  <span>Salary Report</span>
+
+                  <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+                </li>
+              </Link>
+            </Breadcrumbs>
+          </div>
           <div class=" w-auto max-w-[56rem] mx-auto mt-7 mb-7">
             <div class="relative flex flex-col rounded-xl border-blue-gray-100 bg-blue-gray-100/50 text-gray-700 shadow-md">
               <div className="bg-blue-gray-50/50  rounded-xl">
