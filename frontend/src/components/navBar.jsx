@@ -16,6 +16,7 @@ import {
   Badge,
   Chip,
 } from "@material-tailwind/react";
+
 import {
   UserCircleIcon,
   PowerIcon,
@@ -160,6 +161,15 @@ export function SidebarWithBurgerMenu({}) {
                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                       </ListItemPrefix>
                       Supplier
+                    </ListItem>
+                  </Link>
+
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Transport
                     </ListItem>
                   </Link>
 
