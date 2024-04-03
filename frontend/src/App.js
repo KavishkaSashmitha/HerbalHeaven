@@ -1,28 +1,29 @@
-import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import { SidebarWithBurgerMenu } from "./components/navBar";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/DashBoard";
-import { EcommerceCard } from "./pages/Products";
-import Cart from "./pages/cart";
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import { SidebarWithBurgerMenu } from './components/navBar';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/DashBoard';
+import { EcommerceCard } from './pages/Products';
+import Cart from './pages/cart';
 
-import CreatPost from "./pages_Pasindu/CreateEmployee";
-import EditPost from "./pages_Pasindu/EditEmployee";
-import Posts from "./pages_Pasindu/Employee";
-import PostDetails from "./pages_Pasindu/EmployeeDetails";
-import SalaryReport from "./pages_Pasindu/SalaryReport";
-import EmployeeChart from "./pages_Pasindu/EmployeeChart";
-import MonthlySalChart from "./pages_Pasindu/EmployeeSalChart";
+import CreatPost from './pages_Pasindu/CreateEmployee';
+import EditPost from './pages_Pasindu/EditEmployee';
+import Posts from './pages_Pasindu/Employee';
+import PostDetails from './pages_Pasindu/EmployeeDetails';
+import SalaryReport from './pages_Pasindu/SalaryReport';
+import EmployeeChart from './pages_Pasindu/EmployeeChart';
+import MonthlySalChart from './pages_Pasindu/EmployeeSalChart';
 
-import "react-toastify/dist/ReactToastify.css";
-import Payment from "./pages-Kumesh/Payment";
-import CreateUser from "./pages_kavindu/CreateUser";
-import UpdateUser from "./pages_kavindu/UpdateUser";
-import User from "./pages_kavindu/User";
-import AdminDashboard from "./pages/adminDashboard";
-import "./index.css";
-import ManagerLogin from "./pages/Manager-Login";
+import 'react-toastify/dist/ReactToastify.css';
+import Payment from './pages-Kumesh/Payment';
+import CreateUser from './pages_kavindu/CreateUser';
+import UpdateUser from './pages_kavindu/UpdateUser';
+import User from './pages_kavindu/User';
+import AdminDashboard from './pages/adminDashboard';
+import './index.css';
+import ManagerLogin from './pages/Manager-Login';
+import { CartDetails } from './pages/Cart-Admin';
 
 function App() {
   return (
@@ -37,7 +38,8 @@ function App() {
         <Route path="/products" element={<EcommerceCard />} />
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/manager-login" element={<ManagerLogin />} />
-        <Route path="//admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/cart-details" element={<CartDetails />} />
 
         {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
