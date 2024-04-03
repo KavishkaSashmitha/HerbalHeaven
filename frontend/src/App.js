@@ -15,15 +15,20 @@ import EmployeeChart from "./pages_Pasindu/EmployeeChart";
 import MonthlySalChart from "./pages_Pasindu/EmployeeSalChart";
 import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
 
-import "react-toastify/dist/ReactToastify.css";
-import Payment from "./pages-Kumesh/Payment";
-import CreateUser from "./pages_kavindu/CreateUser";
-import UpdateUser from "./pages_kavindu/UpdateUser";
-import User from "./pages_kavindu/User";
-import AdminDashboard from "./pages/adminDashboard";
-import "./index.css";
-import ManagerLogin from "./pages/Manager-Login";
-import { CartDetails } from "./pages/Cart-Admin";
+
+import 'react-toastify/dist/ReactToastify.css';
+import Payment from './pages-Kumesh/Payment';
+import CreateUser from './pages_kavindu/CreateUser';
+import UpdateUser from './pages_kavindu/UpdateUser';
+import User from './pages_kavindu/User';
+import AdminDashboard from './pages/adminDashboard';
+import './index.css';
+import ManagerLogin from './pages/Manager-Login';
+import { CartDetails } from './pages/Cart-Admin';
+import CartChart from './pages/Cart-Chart';
+
+
+
 
 function App() {
   return (
@@ -40,6 +45,7 @@ function App() {
         <Route path="/manager-login" element={<ManagerLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/cart-details" element={<CartDetails />} />
+        <Route path="/cart-stats" element={<CartChart />} />
 
         {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
