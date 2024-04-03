@@ -13,13 +13,10 @@ import {
   Input,
   Drawer,
   Card,
-<<<<<<< Updated upstream
   Badge,
   Chip,
-} from '@material-tailwind/react';
-=======
 } from "@material-tailwind/react";
->>>>>>> Stashed changes
+
 import {
   UserCircleIcon,
   PowerIcon,
@@ -32,16 +29,10 @@ import {
   MagnifyingGlassIcon,
   Bars3Icon,
   XMarkIcon,
-<<<<<<< Updated upstream
-} from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
-import { useCart } from './cartContext';
-=======
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useAuth } from "../middleware/authContext"; // Importing the useAuth hook from AuthContext
->>>>>>> Stashed changes
+import { useCart } from "./cartContext";
 
 export function SidebarWithBurgerMenu({}) {
   const [open, setOpen] = React.useState(0);
@@ -58,7 +49,12 @@ export function SidebarWithBurgerMenu({}) {
 
   return (
     <>
-      <IconButton variant="text" size="lg" onClick={openDrawer}>
+      <IconButton
+        className="ml-2"
+        variant="text"
+        size="lg"
+        onClick={openDrawer}
+      >
         {isDrawerOpen ? (
           <XMarkIcon className="h-8 w-8 stroke-2" />
         ) : (
@@ -141,7 +137,7 @@ export function SidebarWithBurgerMenu({}) {
                     </ListItemPrefix>
                     Inventory
                   </ListItem>
-                  <Link to="#">
+                  <Link to="/cart-details">
                     <ListItem>
                       <ListItemPrefix>
                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -149,7 +145,7 @@ export function SidebarWithBurgerMenu({}) {
                       Cart
                     </ListItem>
                   </Link>
-                  
+
                   <Link to="/emp">
                     <ListItem>
                       <ListItemPrefix>
@@ -168,27 +164,24 @@ export function SidebarWithBurgerMenu({}) {
                     </ListItem>
                   </Link>
 
-<<<<<<< Updated upstream
-
-
                   <Link to="#">
-
-=======
->>>>>>> Stashed changes
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Transport
-                  </ListItem>
-
-<<<<<<< Updated upstream
-
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Transport
+                    </ListItem>
                   </Link>
 
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Transport
+                    </ListItem>
+                  </Link>
 
-=======
->>>>>>> Stashed changes
                   <Link to="#">
                     <ListItem>
                       <ListItemPrefix>

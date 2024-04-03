@@ -6,6 +6,10 @@ const viewCart = asyncHandler(async (req, res) => {
   const cart = await Cart.find({ user: req.user.id });
   res.status(200).json(cart);
 });
+const CartDetails = asyncHandler(async (req, res) => {
+  const cart = await Cart.find().populate('user', 'name email');
+  res.status(200).json(cart);
+});
 
 const AddToCart = asyncHandler(async (req, res) => {
   if (!req.body.name) {
@@ -99,4 +103,5 @@ module.exports = {
   updateCart,
   deleteCartItems,
   updateCartQuantity,
+  CartDetails,
 };

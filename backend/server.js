@@ -21,11 +21,7 @@ app.use("/api/products", require("./routes/productRoutes"));
 
 app.use("/api/posts", require("./routes/posts"));
 
-<<<<<<< Updated upstream
-app.use("/sup", require("./routes/supRouter"));
-=======
 app.use("/sup", require("./routes/supplierRouter"));
->>>>>>> Stashed changes
 
 app.use(errorHandler);
 app.listen(PORT, () => {
