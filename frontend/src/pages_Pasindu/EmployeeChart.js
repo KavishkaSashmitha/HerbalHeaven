@@ -9,7 +9,7 @@ import {
 import Chart from "react-apexcharts";
 import MonthlySalChart from "./EmployeeSalChart";
 
-function Example() {
+function EmpChart() {
   const [maleCount, setMaleCount] = useState(0);
   const [femaleCount, setFemaleCount] = useState(0);
   const [otherCount, setOtherCount] = useState(0);
@@ -248,4 +248,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default EmpChart;

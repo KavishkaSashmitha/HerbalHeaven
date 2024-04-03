@@ -1,19 +1,20 @@
-import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import { SidebarWithBurgerMenu } from './components/navBar';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/DashBoard';
-import { EcommerceCard } from './pages/Products';
-import Cart from './pages/cart';
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/DashBoard";
+import { EcommerceCard } from "./pages/Products";
+import Cart from "./pages/cart";
 
-import CreatPost from './pages_Pasindu/CreateEmployee';
-import EditPost from './pages_Pasindu/EditEmployee';
-import Posts from './pages_Pasindu/Employee';
-import PostDetails from './pages_Pasindu/EmployeeDetails';
-import SalaryReport from './pages_Pasindu/SalaryReport';
-import EmployeeChart from './pages_Pasindu/EmployeeChart';
-import MonthlySalChart from './pages_Pasindu/EmployeeSalChart';
+import CreatPost from "./pages_Pasindu/CreateEmployee";
+import EditPost from "./pages_Pasindu/EditEmployee";
+import Posts from "./pages_Pasindu/Employee";
+import PostDetails from "./pages_Pasindu/EmployeeDetails";
+import SalaryReport from "./pages_Pasindu/SalaryReport";
+import EmployeeChart from "./pages_Pasindu/EmployeeChart";
+import MonthlySalChart from "./pages_Pasindu/EmployeeSalChart";
+import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
+
 
 import 'react-toastify/dist/ReactToastify.css';
 import Payment from './pages-Kumesh/Payment';
@@ -25,6 +26,9 @@ import './index.css';
 import ManagerLogin from './pages/Manager-Login';
 import { CartDetails } from './pages/Cart-Admin';
 import CartChart from './pages/Cart-Chart';
+
+
+
 
 function App() {
   return (
@@ -51,6 +55,7 @@ function App() {
         <Route path="/salaryreport" element={<SalaryReport />} />
         <Route path="/EmployeeChart" element={<EmployeeChart />} />
         <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
+        <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} />
 
         <Route path="/user/payment" element={<Payment />} />
 

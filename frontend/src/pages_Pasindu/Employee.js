@@ -376,6 +376,13 @@ export default class Posts extends Component {
                           </Button>
                         </a>
                       </td>
+                      <td className="p-4  ">
+                        <a href={`/Emp_User_Chart/${post._id}`}>
+                          <Button color="green" className="btn btn-secondary">
+                            <i className="fas fa-file mr-2"></i>chart
+                          </Button>
+                        </a>
+                      </td>
                     </tr>
                   );
                 })}
@@ -472,8 +479,8 @@ export default class Posts extends Component {
           <a href="./EmployeeChart">
             <Button>chart</Button>
           </a>
-          <a href="./Emp_User_SalChart">
-            <Button>salChart</Button>
+          <a href="./Emp_User_Chart">
+            <Button>user</Button>
           </a>
         </div>
         <Footer />
