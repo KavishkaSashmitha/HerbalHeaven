@@ -17,17 +17,15 @@ function LineChart() {
   useEffect(() => {
     const fetchUserSalaryData = async () => {
       try {
-        const response = await fetch(`http://localhost:8070/api/posts/posts/${id}`);
+        const response = await fetch(
+          `http://localhost:8070/api/posts/posts/${id}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch user salary data");
         }
         const post = await response.json();
 
-        if (
-            post &&
-            post.salary &&
-          typeof post.salary.january === "number"
-        ) {
+        if (post && post.salary && typeof post.salary.january === "number") {
           setMonthSalary(post.salary.january);
         } else {
           throw new Error("Salary data for January not found for the user");
@@ -49,7 +47,7 @@ function LineChart() {
     series: [
       {
         name: "Salary",
-        data: [monthSalary || 0], // If monthSalary is null, set it to 0
+        data: [monthSalary], // If monthSalary is null, set it to 0
       },
     ],
     options: {
