@@ -16,65 +16,57 @@ import {
   Tooltip,
   Input,
 } from '@material-tailwind/react';
+import { SidebarWithBurgerMenu } from '../components/navBar';
+import ProfileMenu from '../components/Profile';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const TABLE_HEAD = ['Transaction', 'Amount', 'Date', 'Status', 'Account', ''];
-
-const TABLE_ROWS = [
-  {
-    img: 'https://docs.material-tailwind.com/img/logos/logo-spotify.svg',
-    name: 'Spotify',
-    amount: '$2,500',
-    date: 'Wed 3:00pm',
-    status: 'paid',
-    account: 'visa',
-    accountNumber: '1234',
-    expiry: '06/2026',
-  },
-  {
-    img: 'https://docs.material-tailwind.com/img/logos/logo-amazon.svg',
-    name: 'Amazon',
-    amount: '$5,000',
-    date: 'Wed 1:00pm',
-    status: 'paid',
-    account: 'master-card',
-    accountNumber: '1234',
-    expiry: '06/2026',
-  },
-  {
-    img: 'https://docs.material-tailwind.com/img/logos/logo-pinterest.svg',
-    name: 'Pinterest',
-    amount: '$3,400',
-    date: 'Mon 7:40pm',
-    status: 'pending',
-    account: 'master-card',
-    accountNumber: '1234',
-    expiry: '06/2026',
-  },
-  {
-    img: 'https://docs.material-tailwind.com/img/logos/logo-google.svg',
-    name: 'Google',
-    amount: '$1,000',
-    date: 'Wed 5:00pm',
-    status: 'paid',
-    account: 'visa',
-    accountNumber: '1234',
-    expiry: '06/2026',
-  },
-  {
-    img: 'https://docs.material-tailwind.com/img/logos/logo-netflix.svg',
-    name: 'netflix',
-    amount: '$14,000',
-    date: 'Wed 3:30am',
-    status: 'cancelled',
-    account: 'visa',
-    accountNumber: '1234',
-    expiry: '06/2026',
-  },
-];
+const TABLE_HEAD = ['Product', 'Amount', 'Date', 'Carts'];
 
 export function CartDetails() {
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:8070/api/user/cart/cart-details'
+        );
+        setCartItems(response.data);
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
+      }
+    };
+
+    fetchCartItems();
+  }, []);
   return (
     <Card className="h-full w-full">
+      <div className="relative">
+        <div className="relative flex justify-between">
+          <SidebarWithBurgerMenu />
+          <div className="relative flex w-1/2 gap-2 mt-2 mb-2 md:auto justify-center mx-auto">
+            <Input
+              type="search"
+              color="black"
+              label="Type here..."
+              className="pr-20"
+              containerProps={{
+                className: 'min-w-[288px]',
+              }}
+            />
+            <Button
+              size="sm"
+              color="white"
+              className="!absolute right-1 top-1 rounded"
+            >
+              Search
+            </Button>
+          </div>
+
+          <ProfileMenu />
+        </div>
+      </div>
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
           <div>
@@ -119,122 +111,97 @@ export function CartDetails() {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              (
-                {
-                  img,
-                  name,
-                  amount,
-                  date,
-                  status,
-                  account,
-                  accountNumber,
-                  expiry,
-                },
-                index
-              ) => {
-                const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast
-                  ? 'p-4'
-                  : 'p-4 border-b border-blue-gray-50';
-
-                return (
-                  <tr key={name}>
-                    <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        <Avatar
-                          src={img}
-                          alt={name}
-                          size="md"
-                          className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
-                        />
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-bold"
-                        >
-                          {name}
-                        </Typography>
-                      </div>
-                    </td>
-                    <td className={classes}>
+            {cartItems.map((item, index) => (
+              <tr key={index}>
+                <td className="p-4">
+                  <div className="flex items-center gap-3">
+                    <Avatar
+                      src={item.image}
+                      alt={item.name}
+                      size="md"
+                      className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                    />
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-bold"
+                    >
+                      {item.name}
+                    </Typography>
+                  </div>
+                </td>
+                <td className="p-4">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    Rs.{item.price}
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {item.date}
+                  </Typography>
+                </td>
+                <td className="p-4">
+                  <div className="w-max">
+                    <Chip
+                      size="sm"
+                      variant="ghost"
+                      value={item.status}
+                      color={
+                        item.status === 'paid'
+                          ? 'green'
+                          : item.status === 'pending'
+                          ? 'amber'
+                          : 'red'
+                      }
+                    />
+                  </div>
+                </td>
+                <td className="p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
+                      <Avatar
+                        src={
+                          item.account === 'visa'
+                            ? 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png'
+                            : 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png'
+                        }
+                        size="sm"
+                        alt=""
+                        variant="square"
+                        className="h-full w-full object-contain p-1"
+                      />
+                    </div>
+                    <div className="flex flex-col">
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
-                      >
-                        {amount}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
+                        className="font-normal capitalize"
+                      ></Typography>
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
-                      >
-                        {date}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <div className="w-max">
-                        <Chip
-                          size="sm"
-                          variant="ghost"
-                          value={status}
-                          color={
-                            status === 'paid'
-                              ? 'green'
-                              : status === 'pending'
-                              ? 'amber'
-                              : 'red'
-                          }
-                        />
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
-                          <Avatar
-                            src={
-                              account === 'visa'
-                                ? 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png'
-                                : 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png'
-                            }
-                            size="sm"
-                            alt={account}
-                            variant="square"
-                            className="h-full w-full object-contain p-1"
-                          />
-                        </div>
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal capitalize"
-                          >
-                            {account.split('-').join(' ')} {accountNumber}
-                          </Typography>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal opacity-70"
-                          >
-                            {expiry}
-                          </Typography>
-                        </div>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <Tooltip content="Edit User">
-                        <IconButton variant="text">
-                          <PencilIcon className="h-4 w-4" />
-                        </IconButton>
-                      </Tooltip>
-                    </td>
-                  </tr>
-                );
-              }
-            )}
+                        className="font-normal opacity-70"
+                      ></Typography>
+                    </div>
+                  </div>
+                </td>
+                <td className="p-4">
+                  <Tooltip content="Edit User">
+                    <IconButton variant="text">
+                      <PencilIcon className="h-4 w-4" />
+                    </IconButton>
+                  </Tooltip>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </CardBody>
