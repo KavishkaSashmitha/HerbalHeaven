@@ -1,6 +1,6 @@
-const Emp = require("../model/empModel");
+const Emp = require("../model/supModel");
 
-const empController = {
+const supController = {
   //create new employee
 
   //req ekn body ek gnnwa.req ekn body ek arn data base eke store krl record ek add krnw.success unoth res ek succes kiyl ywnwa nethnm error msg kk display krnwa.
@@ -84,4 +84,4 @@ const empController = {
   },
 };
 
-module.exports = empController;
+module.exports = supController;
