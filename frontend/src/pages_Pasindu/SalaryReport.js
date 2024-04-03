@@ -137,19 +137,7 @@ function SalaryReport() {
     });
 
     if (confirmation) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100vh",
-            textAlign: "center",
-          }}
-        >
-          <h1 style={{ color: "green" }}>Salary Updated Successfully!</h1>
-        </div>
-      );
+      window.location.href = "/emp";
     }
 
     const doc = new jsPDF();
