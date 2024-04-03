@@ -24,6 +24,7 @@ import AdminDashboard from './pages/adminDashboard';
 import './index.css';
 import ManagerLogin from './pages/Manager-Login';
 import { CartDetails } from './pages/Cart-Admin';
+import CartChart from './pages/Cart-Chart';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="/manager-login" element={<ManagerLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/cart-details" element={<CartDetails />} />
+        <Route path="/cart-stats" element={<CartChart />} />
 
         {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
