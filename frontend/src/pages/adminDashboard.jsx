@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import {
   Card,
@@ -10,10 +10,27 @@ import {
   MdDashboard,
   MdBarChart,
   IoMdHome,
-} from "@material-tailwind/react";
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Chip,
+  AccordionBody,
+  List,
+  AccordionHeader,
+  Accordion,
+} from '@material-tailwind/react';
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  Cog6ToothIcon,
+  InboxIcon,
+  PowerIcon,
+  PresentationChartBarIcon,
+  ShoppingBagIcon,
+  UserCircleIcon,
+} from '@heroicons/react/24/solid';
 
 function AdminDashboard() {
-  const [open, setOpen] = useState(true);
   const [documents, setDocuments] = useState([]);
 
   const toggleSidebar = () => {
@@ -24,55 +41,160 @@ function AdminDashboard() {
     const fetchDocuments = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8070/api/posts/posts"
+          'http://localhost:8070/api/posts/posts'
         );
         setDocuments(response.data.existingPosts);
       } catch (error) {
-        console.error("Error fetching documents:", error);
+        console.error('Error fetching documents:', error);
       }
     };
 
     fetchDocuments();
   }, []);
+  const [open, setOpen] = React.useState(0);
+
+  const handleOpen = (value) => {
+    setOpen(open === value ? 0 : value);
+  };
 
   return (
     <div className="flex h-screen overflow-scroll">
       <div
         className={`sidebar w-64 bg-teal-400 text-white ${
-          open ? "block" : "hidden"
+          open ? 'block' : 'hidden'
         }`}
       >
-        <div className="text-blue-gray-700 text-base font-bold h-14 px-4 py-5">
-          WELCOME, ADMIN
-        </div>
-        <div className="h-screen">
-          <div className="text-sm">
-            <a
-              href="#"
-              className="block py-3 px-4 border-b-2 border-gray-800 hover:bg-white hover:text-orange-800"
-            >
-              Dashboard
-            </a>
-            <a
-              href="#"
-              className="block py-3 px-4 border-b-2 border-gray-800 hover:bg-white hover:text-orange-800"
-            >
-              Products
-            </a>
-            <a
-              href="#"
-              className="block py-3 px-4 border-b-2 border-gray-800 hover:bg-white hover:text-orange-800"
-            >
-              Sales
-            </a>
-            <a
-              href="#"
-              className="block py-3 px-4 border-b-2 border-gray-800 hover:bg-white hover:text-orange-800"
-            >
-              Orders
-            </a>
+        <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+          <div className="mb-2 p-4">
+            <Typography variant="h5" color="blue-gray">
+              Sidebar
+            </Typography>
           </div>
-        </div>
+          <List>
+            <Accordion
+              open={open === 1}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open === 1 ? 'rotate-180' : ''
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 1}>
+                <AccordionHeader
+                  onClick={() => handleOpen(1)}
+                  className="border-b-0 p-3"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="mr-auto font-normal">
+                    Dashboard
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Analytics
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Reporting
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Projects
+                  </ListItem>
+                </List>
+              </AccordionBody>
+            </Accordion>
+            <Accordion
+              open={open === 2}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open === 2 ? 'rotate-180' : ''
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 2}>
+                <AccordionHeader
+                  onClick={() => handleOpen(2)}
+                  className="border-b-0 p-3"
+                >
+                  <ListItemPrefix>
+                    <ShoppingBagIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="mr-auto font-normal">
+                    E-Commerce
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Orders
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Products
+                  </ListItem>
+                </List>
+              </AccordionBody>
+            </Accordion>
+            <hr className="my-2 border-blue-gray-50" />
+            <ListItem>
+              <ListItemPrefix>
+                <InboxIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Inbox
+              <ListItemSuffix>
+                <Chip
+                  value="14"
+                  size="sm"
+                  variant="ghost"
+                  color="blue-gray"
+                  className="rounded-full"
+                />
+              </ListItemSuffix>
+            </ListItem>
+            <ListItem>
+              <ListItemPrefix>
+                <UserCircleIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Profile
+            </ListItem>
+            <ListItem>
+              <ListItemPrefix>
+                <Cog6ToothIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Settings
+            </ListItem>
+            <ListItem>
+              <ListItemPrefix>
+                <PowerIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Log Out
+            </ListItem>
+          </List>
+        </Card>
       </div>
       <div className="w-full">
         <div className="sticky top-0 bg-blue-gray-300 h-14 px-10 py-4 border-b-4 border-purple-900 flex items-center justify-between">
@@ -123,7 +245,7 @@ function AdminDashboard() {
             <span className="tracking-wide text-sm">
               <span
                 className="hover:underline cursor-pointer"
-                style={{ color: "#20a8d8", fontWeight: 100 }}
+                style={{ color: '#20a8d8', fontWeight: 100 }}
               >
                 Admin
               </span>
@@ -150,7 +272,7 @@ function AdminDashboard() {
           </div>
         </div>
         <div className="p-5 bg-gray-200">
-        <div className="grid grid-cols-1 gap-8 mb-3">
+          <div className="grid grid-cols-1 gap-8 mb-3">
             <div className="p-4 bg-gray-200 border-2 border-gray-200 rounded">
               <div className="py-5">
                 <main className="h-full overflow-y-auto">
