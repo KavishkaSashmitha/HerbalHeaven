@@ -469,8 +469,11 @@ export default class Posts extends Component {
               </button>
             </div>
           </div>
-          <a href="./GenderPieChart">
-            <Button>Button</Button>
+          <a href="./EmployeeChart">
+            <Button>chart</Button>
+          </a>
+          <a href="./Emp_User_SalChart">
+            <Button>salChart</Button>
           </a>
         </div>
         <Footer />

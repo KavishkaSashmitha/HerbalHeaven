@@ -12,8 +12,8 @@ import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import SalaryReport from "./pages_Pasindu/SalaryReport";
-import GenderPieChart from "./pages_Pasindu/EmployeeChart";
-
+import EmployeeChart from "./pages_Pasindu/EmployeeChart";
+import MonthlySalChart from "./pages_Pasindu/EmployeeSalChart";
 
 import "react-toastify/dist/ReactToastify.css";
 import Payment from "./pages-Kumesh/Payment";
@@ -45,7 +45,8 @@ function App() {
         <Route path="/emp/:id" element={<PostDetails />} />
         <Route path="/emp" element={<Posts />} />
         <Route path="/salaryreport" element={<SalaryReport />} />
-        <Route path="/GenderPieChart" element={<GenderPieChart />} />
+        <Route path="/EmployeeChart" element={<EmployeeChart />} />
+        <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
 
         <Route path="/user/payment" element={<Payment />} />
 

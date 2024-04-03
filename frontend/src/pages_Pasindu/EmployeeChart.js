@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import Chart from "react-apexcharts";
-import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
+import MonthlySalChart from "./EmployeeSalChart";
 
 function Example() {
   const [maleCount, setMaleCount] = useState(0);
@@ -168,8 +168,7 @@ function Example() {
             fontFamily: "inherit",
             fontWeight: 400,
           },
-        },
-        max: 10, // Set the maximum value for the y-axis here
+        }, // Set the maximum value for the y-axis here
       },
       grid: {
         show: true,
@@ -195,7 +194,8 @@ function Example() {
   };
 
   return (
-    <div className="flex flex-row justify-between">
+    <div className="">
+    <div className="flex flex-row justify-between mb-5">
       <div className="w-1/2 mr-4">
         <Card className="overflow-visible bg-blue-gray-200 items-start">
           <CardHeader
@@ -240,6 +240,10 @@ function Example() {
           </CardBody>
         </Card>
       </div>
+    </div>
+    
+    <div><MonthlySalChart /></div>
+      
     </div>
   );
 }
