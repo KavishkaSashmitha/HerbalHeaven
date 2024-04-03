@@ -64,21 +64,41 @@ const User = () => {
                 className="mb-4 border-blue-gray-100 bg-blue-gray-50/50"
               />
 
-              <table className="w-full min-w-max table-auto text-left border-blue-gray-100 bg-blue-gray-50/50">
-                <thead>
-                  <tr>
-                    {[
-                      "Name",
-                      "Email",
-                      "Age",
-                      "Category",
-                      "Mobile",
-                      "Address",
-                      "Action",
-                    ].map((head, index) => (
-                      <th
-                        key={index}
-                        className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50"
+
+                <table className="w-full min-w-max table-auto text-left border-blue-gray-100 bg-blue-gray-50/50">
+                  <thead>
+                    <tr>
+                      {[
+                        "Name",
+                        "Email",
+                        "Age",
+                        "Raw  Material",
+                        "Country",
+                        "Mobile",
+                        "Address",
+                        "Action",
+                      ].map((head, index) => (
+                        <th
+                          key={index}
+                          className="p-4 border-b border-blue-gray-100 bg-blue-gray-50/50"
+                        >
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal leading-none opacity-70 border-blue-gray-100 bg-blue-gray-50/50"
+                          >
+                            {head}
+                          </Typography>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredUsers.map((user) => (
+                      <tr
+                        key={user._id}
+                        className=" border-blue-gray-100 bg-blue-gray-50/50"
+
                       >
                         <Typography
                           variant="small"
