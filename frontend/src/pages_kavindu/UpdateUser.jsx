@@ -17,9 +17,10 @@ function UpdateUser() {
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [rawMaterial, setRawMaterial] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [country, setCountry] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,30 +32,89 @@ function UpdateUser() {
         setEmail(userData.email);
         setAge(userData.age);
         setRawMaterial(userData.rawMaterial);
-        setQuantity(userData.quantity);
+        setCountry(userData.country);
         setMobile(userData.mobile);
         setAddress(userData.address);
       })
       .catch((err) => console.log(err));
   }, [id]);
 
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    if (!name) {
+      errors.name = "Name is required";
+      isValid = false;
+    }
+
+    if (!email) {
+      errors.email = "Email is required";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = "Email is invalid";
+      isValid = false;
+    }
+
+    if (!age) {
+      errors.age = "Age is required";
+      isValid = false;
+    } else if (!/^\d+$/.test(age) || age < 0 || age > 100) {
+      errors.age = "Age must be a positive number less than 100";
+      isValid = false;
+    }
+
+    if (!rawMaterial) {
+      errors.rawMaterial = "Raw Material is required";
+      isValid = false;
+    }
+
+    if (!country) {
+      errors.country = "Country is required";
+      isValid = false;
+    }
+
+    if (!mobile) {
+      errors.mobile = "Mobile is required";
+      isValid = false;
+    } else if (!/^\d{10}$/.test(mobile)) {
+      errors.mobile = "Mobile must be 10 digits";
+      isValid = false;
+    }
+
+    if (!/^\d+$/.test(mobile)) {
+      errors.mobile = "Mobile must contain only numbers";
+      isValid = false;
+    }
+
+    if (!address) {
+      errors.address = "Address is required";
+      isValid = false;
+    }
+
+    setErrors(errors);
+    return isValid;
+  };
+
   const Update = (e) => {
     e.preventDefault();
-    axios
-      .put(`http://localhost:8070/sup/updateSupplier/${id}`, {
-        name,
-        email,
-        age,
-        rawMaterial,
-        quantity,
-        mobile,
-        address,
-      })
-      .then((result) => {
-        console.log(result);
-        navigate("/sup");
-      })
-      .catch((err) => console.log(err));
+    if (validateForm()) {
+      axios
+        .put(`http://localhost:8070/sup/updateSupplier/${id}`, {
+          name,
+          email,
+          age,
+          rawMaterial,
+          country,
+          mobile,
+          address,
+        })
+        .then((result) => {
+          console.log(result);
+          navigate("/sup");
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
@@ -82,53 +142,70 @@ function UpdateUser() {
             <Input
               label="Name"
               size="lg"
-              placeholder="Enter Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+                setName(value);
+              }}
+              error={errors.name}
             />
             <Input
               label="Email"
               size="lg"
               type="email"
-              placeholder="Enter Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              error={errors.email}
             />
             <Input
               label="Age"
               size="lg"
-              placeholder="Enter Age"
+              type="number"
               value={age}
-              onChange={(e) => setAge(e.target.value)}
+              onChange={(e) => {
+                let value = e.target.value.replace(/\D/, ""); // Remove non-numeric characters
+                value = value === "" ? "" : Math.min(Math.max(value, 1), 100);
+                setAge(value);
+              }}
+              error={errors.age}
             />
             <Input
               label="Raw Material"
               size="lg"
-              placeholder="Enter Raw Material You Provide"
               value={rawMaterial}
-              onChange={(e) => setRawMaterial(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^A-Za-z]/gi, "");
+                setRawMaterial(value);
+              }}
+              error={errors.rawMaterial}
             />
             <Input
-              label="Quantity"
+              label="Country"
               size="lg"
-              placeholder="Enter Quantity"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
+              value={country}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+                setCountry(value);
+              }}
+              error={errors.country}
             />
             <Input
               label="Mobile"
               size="lg"
-              type="tel"
-              placeholder="Enter Mobile"
               value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
+              onChange={(e) => {
+                if (/^\d{0,10}$/.test(e.target.value)) {
+                  setMobile(e.target.value);
+                }
+              }}
+              error={errors.mobile}
             />
             <Input
               label="Address"
               size="lg"
-              placeholder="Enter Address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              error={errors.address}
             />
           </CardBody>
           <CardFooter className="pt-0">

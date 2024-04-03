@@ -36,7 +36,7 @@ const User = () => {
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.age.toString().includes(searchTerm.toLowerCase()) ||
       user.rawMaterial.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.quantity.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.mobile.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.address.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -73,7 +73,7 @@ const User = () => {
                       "Email",
                       "Age",
                       "Raw Material",
-                      "Quantity(Kg)",
+                      "Country",
                       "Mobile",
                       "Address",
                       "Action",
@@ -140,7 +140,7 @@ const User = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {user.quantity}
+                          {user.country}
                         </Typography>
                       </td>
                       <td className="p-4">
@@ -166,7 +166,7 @@ const User = () => {
                           to={`/sup/update/${user._id}`}
                           className="btn btn-warning"
                         >
-                          <Button color="blue">Update</Button>
+                          <Button color="Black">Update</Button>
                         </Link>
                         <Button
                           color="red"

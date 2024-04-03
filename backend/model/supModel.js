@@ -15,7 +15,7 @@ const supSchema = new Schema({
   rawMaterial: {
     type: String,
   },
-  quantity: {
+  country: {
     type: String,
   },
   mobile: {
