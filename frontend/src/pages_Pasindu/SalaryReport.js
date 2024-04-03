@@ -251,7 +251,7 @@ function SalaryReport() {
                   <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                 </li>
               </Link>
-              <Link to="/salaryReport">
+              <Link to="">
                 <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
                   <span>Salary Report</span>
 

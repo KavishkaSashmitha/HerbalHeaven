@@ -1,24 +1,28 @@
-import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import { SidebarWithBurgerMenu } from './components/navBar';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/DashBoard';
-import { EcommerceCard } from './pages/Products';
-import Cart from './pages/cart';
-import CreatPost from './pages_Pasindu/CreateEmployee';
-import EditPost from './pages_Pasindu/EditEmployee';
-import Posts from './pages_Pasindu/Employee';
-import PostDetails from './pages_Pasindu/EmployeeDetails';
-import 'react-toastify/dist/ReactToastify.css';
-import Payment from './pages-Kumesh/Payment';
-import CreateUser from './pages_kavindu/CreateUser';
-import UpdateUser from './pages_kavindu/UpdateUser';
-import User from './pages_kavindu/User';
-import AdminDashboard from './pages/adminDashboard';
-import SalaryReport from './pages_Pasindu/SalaryReport';
-import './index.css';
-import ManagerLogin from './pages/Manager-Login';
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import { SidebarWithBurgerMenu } from "./components/navBar";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/DashBoard";
+import { EcommerceCard } from "./pages/Products";
+import Cart from "./pages/cart";
+
+import CreatPost from "./pages_Pasindu/CreateEmployee";
+import EditPost from "./pages_Pasindu/EditEmployee";
+import Posts from "./pages_Pasindu/Employee";
+import PostDetails from "./pages_Pasindu/EmployeeDetails";
+import SalaryReport from "./pages_Pasindu/SalaryReport";
+import EmployeeChart from "./pages_Pasindu/EmployeeChart";
+import MonthlySalChart from "./pages_Pasindu/EmployeeSalChart";
+
+import "react-toastify/dist/ReactToastify.css";
+import Payment from "./pages-Kumesh/Payment";
+import CreateUser from "./pages_kavindu/CreateUser";
+import UpdateUser from "./pages_kavindu/UpdateUser";
+import User from "./pages_kavindu/User";
+import AdminDashboard from "./pages/adminDashboard";
+import "./index.css";
+import ManagerLogin from "./pages/Manager-Login";
 
 function App() {
   return (
@@ -41,6 +45,8 @@ function App() {
         <Route path="/emp/:id" element={<PostDetails />} />
         <Route path="/emp" element={<Posts />} />
         <Route path="/salaryreport" element={<SalaryReport />} />
+        <Route path="/EmployeeChart" element={<EmployeeChart />} />
+        <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
 
         <Route path="/user/payment" element={<Payment />} />
 
@@ -52,8 +58,6 @@ function App() {
         <Route path="/sup/addsup" element={<CreateUser />} />
         <Route path="/sup/update/:id" element={<UpdateUser />} />
         <Route path="/sup" element={<User />} />
-
-        
       </Routes>
     </>
   );
