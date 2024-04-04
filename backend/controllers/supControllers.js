@@ -1,21 +1,31 @@
 const Emp = require("../model/supModel");
 
 const supController = {
-  //create new employee
+  //create new suppliers
 
   //req ekn body ek gnnwa.req ekn body ek arn data base eke store krl record ek add krnw.success unoth res ek succes kiyl ywnwa nethnm error msg kk display krnwa.
   addsup: async (req, res) => {
     try {
-      const { name, email, age, jobRole, mobile, address } = req.body;
+      const { name, email, age, rawMaterial, country, mobile, address } =
+        req.body;
 
-      if (!name || !email || !age || !jobRole || !mobile || !address)
+      if (
+        !name ||
+        !email ||
+        !age ||
+        !rawMaterial ||
+        !country ||
+        !mobile ||
+        !address
+      )
         return res.status(400).json({ msg: "Please fill the all fields." });
 
       const newEmp = new Emp({
         name,
         email,
         age,
-        jobRole,
+        rawMaterial,
+        country,
         mobile,
         address,
       });
@@ -28,7 +38,7 @@ const supController = {
     }
   },
 
-  //read all employees details
+  //read all suppliers details
 
   getEmployees: async (req, res) => {
     try {
@@ -50,16 +60,17 @@ const supController = {
     }
   },
 
-  //update employee details
+  //update suppliers details
 
   updateEmployee: async (req, res) => {
     try {
-      const { name, email, age, jobRole, mobile, address } = req.body;
+      const { name, email, age, rawMaterial, mobile, address } = req.body;
       await Emp.findByIdAndUpdate(req.params.id, {
         name,
         email,
         age,
-        jobRole,
+        rawMaterial,
+        country,
         mobile,
         address,
       });
@@ -70,7 +81,7 @@ const supController = {
     }
   },
 
-  //delete employee
+  //delete suppliers all
 
   deleteEmployee: async (req, res) => {
     try {
