@@ -20,25 +20,90 @@ function CreateUser() {
   const [country, setCountry] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  const Submit = (e) => {
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    if (!name) {
+      errors.name = "Name is required";
+      isValid = false;
+    }
+
+    if (!email) {
+      errors.email = "Email is required";
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = "Email is invalid";
+      isValid = false;
+    }
+
+    if (!age) {
+      errors.age = "Age is required";
+      isValid = false;
+    } else if (!/^\d+$/.test(age) || age < 18 || age > 60) {
+      errors.age = "Age must be a positive number less than 100";
+      isValid = false;
+    }
+
+    if (!rawMaterial) {
+      errors.rawMaterial = "Raw Material is required";
+      isValid = false;
+    }
+
+    if (!country) {
+      errors.country = "Country is required";
+      isValid = false;
+    }
+
+    if (!mobile) {
+      errors.mobile = "Mobile is required";
+      isValid = false;
+    } else if (!/^\d{10}$/.test(mobile)) {
+      errors.mobile = "Mobile must be 10 digits";
+      isValid = false;
+    }
+
+    if (!/^\d+$/.test(mobile)) {
+      errors.mobile = "Mobile must contain only numbers";
+      isValid = false;
+    }
+
+    if (!address) {
+      errors.address = "Address is required";
+      isValid = false;
+    }
+
+    setErrors(errors);
+    return isValid;
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8070/sup/addsup", {
-        name,
-        email,
-        age,
-        rawMaterial,
-        country,
-        mobile,
-        address,
-      })
-      .then((result) => {
-        console.log(result);
-        navigate("/sup");
-      })
-      .catch((err) => console.log(err));
+    if (validateForm()) {
+      const confirmed = window.confirm(
+        "Are you sure you want to add a new supplier?"
+      );
+      if (confirmed) {
+        axios
+          .post("http://localhost:8070/sup/addsup", {
+            name,
+            email,
+            age,
+            rawMaterial,
+            country,
+            mobile,
+            address,
+          })
+          .then((result) => {
+            console.log(result);
+            navigate("/sup");
+          })
+          .catch((err) => console.log(err));
+      }
+    }
   };
 
   return (
@@ -67,7 +132,11 @@ function CreateUser() {
               label="Name"
               size="lg"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+                setName(value);
+              }}
+              error={errors.name}
             />
             <Input
               label="Email"
@@ -75,50 +144,68 @@ function CreateUser() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              error={errors.email}
             />
             <Input
               label="Age"
               size="lg"
-              type="text"
+              type="number"
               value={age}
-              onChange={(e) => setAge(e.target.value)}
+              onChange={(e) => {
+                let value = e.target.value.replace(/\D/, ""); // Remove non-numeric characters
+                value = value === "" ? "" : Math.min(Math.max(value, 1), 60);
+                setAge(value);
+              }}
+              error={errors.age}
             />
             <Input
               label="Raw Material"
               size="lg"
               value={rawMaterial}
-              onChange={(e) => setRawMaterial(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^A-Za-z]/gi, "");
+                setRawMaterial(value);
+              }}
+              error={errors.rawMaterial}
             />
             <Input
               label="Country"
               size="lg"
               value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+                setCountry(value);
+              }}
+              error={errors.country}
             />
+
             <Input
               label="Mobile"
               size="lg"
               value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
+              onChange={(e) => {
+                if (/^\d{0,10}$/.test(e.target.value)) {
+                  setMobile(e.target.value);
+                }
+              }}
+              error={errors.mobile}
             />
             <Input
               label="Address"
               size="lg"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              error={errors.address}
             />
           </CardBody>
           <CardFooter className="pt-0">
             <button
-              class="m-2 relative select-none rounded-lg bg-orange-500 py-3.5 px-14 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              className="m-2 relative select-none rounded-lg bg-orange-500 py-3.5 px-14 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               type="submit"
-              onClick={Submit}
+              onClick={handleSubmit}
             >
               &nbsp;Add New Supplier
             </button>
-            {/* <Button onClick={Submit} variant="gradient" fullWidth>
-            Submit
-          </Button> */}
           </CardFooter>
         </Card>
       </div>
