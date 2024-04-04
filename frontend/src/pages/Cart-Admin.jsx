@@ -37,7 +37,6 @@ export function CartDetails() {
   const [cartItems, setCartItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const chartRef = useRef(null);
 
   // Get current items
   const indexOfLastItem = currentPage * itemsPerPage;
