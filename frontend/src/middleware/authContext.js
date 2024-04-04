@@ -1,8 +1,8 @@
-import { Spinner } from '@material-tailwind/react';
-import axios from 'axios';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { Spinner } from "@material-tailwind/react";
+import axios from "axios";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -10,91 +10,93 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [token, setToken] = useState(null);
   const [cart, setCart] = useState([]);
-  const [loading, setLoading] = useState(true); // New loading state
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  const [loadingLogout, setLoadingLogout] = useState(false);
+  const [loadingCart, setLoadingCart] = useState(false);
 
-  // Check for stored token on component mount
   useEffect(() => {
-    const storedToken = localStorage.getItem('userToken');
+    const storedToken = localStorage.getItem("userToken");
 
     if (storedToken) {
       setToken(storedToken);
       setLoggedIn(true);
     }
-
-    setLoading(false);
   }, []);
 
   const login = (newToken) => {
-    setLoading(true); // Set loading to true when starting login
-    // Simulate asynchronous login logic (replace with actual logic)
+    setLoadingLogin(true);
     setTimeout(() => {
       setToken(newToken);
       setLoggedIn(true);
-      setLoading(false); // Set loading to false when login is complete
-
-      // Save the token to localStorage for persistence
-      localStorage.setItem('userToken', newToken);
+      setLoadingLogin(false);
+      localStorage.setItem("userToken", newToken);
     }, 1000);
   };
 
   const logout = () => {
-    setLoading(true); // Set loading to true when starting logout
-    // Simulate asynchronous logout logic (replace with actual logic)
+    setLoadingLogout(true);
     setTimeout(() => {
       setToken(null);
       setLoggedIn(false);
-      setLoading(false);
-      setCart([]); // Set loading to false when logout is complete
-
-      // Remove the token from localStorage on logout
-      localStorage.removeItem('userToken');
+      setLoadingLogout(false);
+      setCart([]);
+      localStorage.removeItem("userToken");
     }, 1000);
+  };
+  const isAdmin = (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).send({ error: "Permission denied." });
+    }
   };
 
   const addToCart = async (product) => {
-    if (isLoggedIn) {
-      try {
-        const { name, quantity, price, image, description } = product; // Destructure the product object
-        if (!name || !quantity || !price || !image || !description) {
-          toast.warning('Invalid product data');
-          return;
-        }
-
+    setLoadingCart(true);
+    try {
+      if (isLoggedIn) {
         // Make a POST request to save cart details in the backend
         const response = await axios.post(
-          'http://localhost:8070/api/user/cart',
+          "http://localhost:8070/api/user/cart",
           {
-            name,
-            quantity,
-            price,
-            image,
-            description,
+            name: product.name,
+            quantity: 1,
+            price: product.price,
+            image: product.image,
+            description: product.description,
           },
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           }
         );
-
-        // Assuming the backend returns an updated cart
         setCart(response.data.cart);
-      } catch (error) {
-        console.error('Error adding to cart:', error);
+      } else {
+        setCart([...cart, product]);
+        toast.warning("Please Login");
       }
-    } else {
-      // Update cart state for non-logged-in users
-      toast.warning('Login please');
-      setCart([...cart, product]);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    } finally {
+      setLoadingCart(false);
     }
   };
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, login, logout, token, addToCart }}
+      value={{
+        isLoggedIn,
+        login,
+        logout,
+        token,
+        addToCart,
+        isAdmin,
+        loading: loadingLogin || loadingLogout || loadingCart,
+      }}
     >
-      {loading ? (
+      {loadingLogin || loadingLogout || loadingCart ? (
         // Render a spinner or loading indicator while loading
         <Spinner />
       ) : (

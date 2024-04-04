@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import { Link, useNavigate } from 'react-router-dom';
+import { SidebarWithBurgerMenu } from '../components/navBar';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function Register() {
 
       console.log('Registration successful:', response.data);
       window.alert('Registration success');
-      navigate('/dashboard');
+      navigate('/login');
 
       // Handle success, e.g., redirect to login page
     } catch (error) {
@@ -38,7 +39,8 @@ export default function Register() {
   };
 
   return (
-    <div className="Register">
+    <div className="Register ">
+      <SidebarWithBurgerMenu />
       <Card color="transparent" shadow={false}>
         <Typography variant="h4" color="blue-gray">
           Sign Up
