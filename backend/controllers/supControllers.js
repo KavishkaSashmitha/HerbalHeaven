@@ -1,7 +1,7 @@
 const Emp = require("../model/supModel");
 
 const supController = {
-  //create new employee
+  //create new suppliers
 
   //req ekn body ek gnnwa.req ekn body ek arn data base eke store krl record ek add krnw.success unoth res ek succes kiyl ywnwa nethnm error msg kk display krnwa.
   addsup: async (req, res) => {
@@ -38,7 +38,7 @@ const supController = {
     }
   },
 
-  //read all employees details
+  //read all suppliers details
 
   getEmployees: async (req, res) => {
     try {
@@ -60,7 +60,7 @@ const supController = {
     }
   },
 
-  //update employee details
+  //update suppliers details
 
   updateEmployee: async (req, res) => {
     try {
@@ -81,7 +81,7 @@ const supController = {
     }
   },
 
-  //delete employee
+  //delete suppliers
 
   deleteEmployee: async (req, res) => {
     try {
