@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../middleware/authContext';
 import { SidebarWithBurgerMenu } from '../components/navBar';
 import backgroundImage from '../assets/product-list.jpg';
+import ProfileMenu from '../components/Profile';
 
 const Product = ({ product, addToCart }) => {
   return (
@@ -95,7 +96,31 @@ export function EcommerceCard() {
           zIndex: -1,
         }}
       />
-      <SidebarWithBurgerMenu />
+      <div className="relative flex justify-between">
+        <SidebarWithBurgerMenu />
+        <div className="relative flex w-1/2 gap-2 mt-2 mb-2 md:auto justify-center mx-auto">
+          <Input
+            type="search"
+            color="black"
+            label="Type here..."
+            className="pr-20"
+            containerProps={{
+              className: 'min-w-[288px]',
+            }}
+            onChange={handleSearch}
+          />
+          <Button
+            size="sm"
+            color="white"
+            className="!absolute right-1 top-1 rounded"
+          >
+            Search
+          </Button>
+        </div>
+
+        <ProfileMenu />
+      </div>
+
       <div className="relative flex  w-3/4 gap-2 md:auto search">
         <Input
           type="search"
@@ -108,15 +133,12 @@ export function EcommerceCard() {
             className: 'before:content-none after:content-none',
           }}
           style={{ backgroundColor: '#f0f4f8', color: '#1b5e20' }}
-          onChange={handleSearch}
         />
         <Button size="md" className="rounded-lg ">
           Search
         </Button>
       </div>
-      <div>
-        
-      </div>
+      <div></div>
       <div className="flex flex-wrap justify-center">
         {filteredData.map((product) => (
           <Product key={product._id} product={product} addToCart={addToCart} />

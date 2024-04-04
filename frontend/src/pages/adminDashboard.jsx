@@ -6,10 +6,6 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Avatar,
-  MdDashboard,
-  MdBarChart,
-  IoMdHome,
   ListItem,
   ListItemPrefix,
   ListItemSuffix,
@@ -29,6 +25,8 @@ import {
   ShoppingBagIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/solid';
+import AdminNavbar from '../components/AdminNavbar';
+import Sidebar from '../components/AdminSidebar';
 
 function AdminDashboard() {
   const [documents, setDocuments] = useState([]);
@@ -64,213 +62,11 @@ function AdminDashboard() {
           open ? 'block' : 'hidden'
         }`}
       >
-        <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
-          <div className="mb-2 p-4">
-            <Typography variant="h5" color="blue-gray">
-              Sidebar
-            </Typography>
-          </div>
-          <List>
-            <Accordion
-              open={open === 1}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? 'rotate-180' : ''
-                  }`}
-                />
-              }
-            >
-              <ListItem className="p-0" selected={open === 1}>
-                <AccordionHeader
-                  onClick={() => handleOpen(1)}
-                  className="border-b-0 p-3"
-                >
-                  <ListItemPrefix>
-                    <PresentationChartBarIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  <Typography color="blue-gray" className="mr-auto font-normal">
-                    Dashboard
-                  </Typography>
-                </AccordionHeader>
-              </ListItem>
-              <AccordionBody className="py-1">
-                <List className="p-0">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Analytics
-                  </ListItem>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Reporting
-                  </ListItem>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Projects
-                  </ListItem>
-                </List>
-              </AccordionBody>
-            </Accordion>
-            <Accordion
-              open={open === 2}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 2 ? 'rotate-180' : ''
-                  }`}
-                />
-              }
-            >
-              <ListItem className="p-0" selected={open === 2}>
-                <AccordionHeader
-                  onClick={() => handleOpen(2)}
-                  className="border-b-0 p-3"
-                >
-                  <ListItemPrefix>
-                    <ShoppingBagIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  <Typography color="blue-gray" className="mr-auto font-normal">
-                    E-Commerce
-                  </Typography>
-                </AccordionHeader>
-              </ListItem>
-              <AccordionBody className="py-1">
-                <List className="p-0">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Orders
-                  </ListItem>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Products
-                  </ListItem>
-                </List>
-              </AccordionBody>
-            </Accordion>
-            <hr className="my-2 border-blue-gray-50" />
-            <ListItem>
-              <ListItemPrefix>
-                <InboxIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Inbox
-              <ListItemSuffix>
-                <Chip
-                  value="14"
-                  size="sm"
-                  variant="ghost"
-                  color="blue-gray"
-                  className="rounded-full"
-                />
-              </ListItemSuffix>
-            </ListItem>
-            <ListItem>
-              <ListItemPrefix>
-                <UserCircleIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Profile
-            </ListItem>
-            <ListItem>
-              <ListItemPrefix>
-                <Cog6ToothIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Settings
-            </ListItem>
-            <ListItem>
-              <ListItemPrefix>
-                <PowerIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Log Out
-            </ListItem>
-          </List>
-        </Card>
+        <Sidebar open={open} handleOpen={setOpen} />
       </div>
       <div className="w-full">
-        <div className="sticky top-0 bg-blue-gray-300 h-14 px-10 py-4 border-b-4 border-purple-900 flex items-center justify-between">
-          <div className="flex items-center space-x-12 text-sm text-white">
-            <i
-              className="fas fa-bars text-xl cursor-pointer"
-              onClick={toggleSidebar}
-            ></i>
-            <a href="#" className="font-thin">
-              Dashboard
-            </a>
-            <a href="#" className="font-thin">
-              User
-            </a>
-            <a href="#" className="font-thin">
-              Settings
-            </a>
-          </div>
-          <div className="flex items-center space-x-8 text-gray-400 text-base">
-            <span className="relative inline-block cursor-pointer">
-              <i className="fas fa-bell"></i>
-              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-thin leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                99
-              </span>
-            </span>
-            <span className="relative inline-block cursor-pointer">
-              <i className="fas fa-list"></i>
-              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-thin leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-purple-600 rounded-full">
-                99
-              </span>
-            </span>
-            <span className="relative inline-block cursor-pointer">
-              <i className="fas fa-envelope"></i>
-              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-thin leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-yellow-600 rounded-full">
-                9
-              </span>
-            </span>
-            <i className="fas fa-user-circle fa-lg cursor-pointer"></i>
-            <i className="fas fa-cog fa-2x text-white cursor-pointer animate-spin hover:text-blue-gray-700"></i>
-          </div>
-        </div>
-        <div className="sticky top-14 bg-white h-12 px-10 py-4 border-b-2 border-gray-200 flex items-center justify-between">
-          <div className="flex items-center space-x-2 text-gray-400 text-base">
-            <span className="text-black tracking-wider font-thin text-sm">
-              Home
-            </span>
-            <span>/</span>
-            <span className="tracking-wide text-sm">
-              <span
-                className="hover:underline cursor-pointer"
-                style={{ color: '#20a8d8', fontWeight: 100 }}
-              >
-                Admin
-              </span>
-            </span>
-            <span>/</span>
-            <span className="text-black tracking-wider font-thin text-sm opacity-50">
-              Dashboard
-            </span>
-          </div>
-          <div className="flex items-center space-x-6 text-base text-black">
-            <i className="fas fa-comment-alt mr-1 text-purple-500"></i>
-            <a href="#" className="mr-3 text-black">
-              <i className="fas fa-chart-line text-purple-500"></i>
-              <span className="hover:text-purple-400 text-opacity-50 tracking-wider font-thin">
-                Dashboard
-              </span>
-            </a>
-            <a href="#" className="text-black">
-              <i className="fas fa-cog text-purple-500"></i>
-              <span className="hover:text-purple-400 text-opacity-50 tracking-wider font-thin">
-                Setting
-              </span>
-            </a>
-          </div>
-        </div>
+        <AdminNavbar toggleSidebar={toggleSidebar} />
+
         <div className="p-5 bg-gray-200">
           <div className="grid grid-cols-1 gap-8 mb-3">
             <div className="p-4 bg-gray-200 border-2 border-gray-200 rounded">
