@@ -1,34 +1,38 @@
-import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/DashBoard";
-import { EcommerceCard } from "./pages/Products";
-import Cart from "./pages/cart";
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/DashBoard';
+import { EcommerceCard } from './pages/Products';
+import Cart from './pages/cart';
 
-import CreatPost from "./pages_Pasindu/CreateEmployee";
-import EditPost from "./pages_Pasindu/EditEmployee";
-import Posts from "./pages_Pasindu/Employee";
-import PostDetails from "./pages_Pasindu/EmployeeDetails";
-import SalaryReport from "./pages_Pasindu/SalaryReport";
-import EmployeeChart from "./pages_Pasindu/EmployeeChart";
-import MonthlySalChart from "./pages_Pasindu/EmployeeSalChart";
-import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
-
+import CreatPost from './pages_Pasindu/CreateEmployee';
+import EditPost from './pages_Pasindu/EditEmployee';
+import Posts from './pages_Pasindu/Employee';
+import PostDetails from './pages_Pasindu/EmployeeDetails';
+import SalaryReport from './pages_Pasindu/SalaryReport';
+import EmployeeChart from './pages_Pasindu/EmployeeChart';
+import MonthlySalChart from './pages_Pasindu/EmployeeSalChart';
+import Emp_User_Chart from './pages_Pasindu/Emp_User_Chart';
 
 import 'react-toastify/dist/ReactToastify.css';
+
 import Payment from './pages-Kumesh/Payment';
+
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
+
+import Transport from './pages_Malshan/Transport';
+import Add_Driver from './pages_Malshan/Add_Driver';
+import Edit_Driver from './pages_Malshan/Edit_Driver';
+import Driver_Details from './pages_Malshan/Driver_Details';
+
 import AdminDashboard from './pages/adminDashboard';
 import './index.css';
 import ManagerLogin from './pages/Manager-Login';
 import { CartDetails } from './pages/Cart-Admin';
 import CartChart from './pages/Cart-Chart';
-
-
-
 
 function App() {
   return (
@@ -56,6 +60,12 @@ function App() {
         <Route path="/EmployeeChart" element={<EmployeeChart />} />
         <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
         <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} />
+
+        {/*Malshan*/}
+        <Route path="/transport" element={<Transport />} />
+        <Route path="/transport/add" element={<Add_Driver />} />
+        <Route path="/transport/edit/:id" element={<Edit_Driver />} />
+        <Route path="/transport/:id" element={<Driver_Details />} />
 
         <Route path="/user/payment" element={<Payment />} />
 

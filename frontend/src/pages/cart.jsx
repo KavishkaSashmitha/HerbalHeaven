@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../middleware/authContext';
 import axios from 'axios';
 import { EyeIcon } from '@heroicons/react/24/outline';
-import { Button, Card, Typography } from '@material-tailwind/react';
+import { Button, Card, Input, Typography } from '@material-tailwind/react';
 import { Link, useNavigate } from 'react-router-dom';
 import CartItemCard from '../components/Cart-Card';
 import { StepperWithContent } from '../components/Stepper';
 import { SidebarWithBurgerMenu } from '../components/navBar';
 import backgroundImage from '../assets/cart-back.jpg';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid';
+import ProfileMenu from '../components/Profile';
 
 const Cart = () => {
   const { isLoggedIn, token } = useAuth();
@@ -142,7 +143,30 @@ const Cart = () => {
           minHeight: '100vh',
         }}
       >
-        <SidebarWithBurgerMenu cartCount={cart.length} />
+        <div className="relative flex justify-between">
+          <SidebarWithBurgerMenu cartCount={cart.length} />
+          <div className="relative flex w-1/2 gap-2 mt-2 mb-2 md:auto justify-center mx-auto">
+            <Input
+              type="search"
+              color="black"
+              label="Type here..."
+              className="pr-20"
+              containerProps={{
+                className: 'min-w-[288px]',
+              }}
+            />
+            <Button
+              size="sm"
+              color="white"
+              className="!absolute right-1 top-1 rounded"
+            >
+              Search
+            </Button>
+          </div>
+
+          <ProfileMenu />
+        </div>
+        ;
         <div className="cart-items">
           <Typography variant="h3" color="white" className="cart">
             {' '}
