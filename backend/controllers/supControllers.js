@@ -49,7 +49,7 @@ const supController = {
     }
   },
 
-  //view only one employee details
+  //view only one suppliers details
 
   getEmployee: async (req, res) => {
     try {
@@ -64,7 +64,8 @@ const supController = {
 
   updateEmployee: async (req, res) => {
     try {
-      const { name, email, age, rawMaterial, mobile, address } = req.body;
+      const { name, email, age, rawMaterial, country, mobile, address } =
+        req.body;
       await Emp.findByIdAndUpdate(req.params.id, {
         name,
         email,
@@ -81,7 +82,7 @@ const supController = {
     }
   },
 
-  //delete suppliers all
+  //delete suppliers
 
   deleteEmployee: async (req, res) => {
     try {
