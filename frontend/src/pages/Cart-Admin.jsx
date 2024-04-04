@@ -24,6 +24,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AdminNavbar from '../components/AdminNavbar';
 import Sidebar from '../components/AdminSidebar';
+import { DefaultSidebar } from '../components/Manager-Sidebar';
 
 const TABLE_HEAD = [
   'Product',
@@ -126,13 +127,11 @@ export function CartDetails() {
     <>
       <div className="flex h-screen overflow-scroll ">
         <div
-          className={`sidebar w-64 bg-teal-400 text-white ${
-            open ? 'block' : 'hidden'
-          }`}
+          className={`sidebar w-64   text-white ${open ? 'block' : 'hidden'}`}
         >
-          <Sidebar open={open} handleOpen={setOpen} />
+          <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="w-full">
+        <div className="w-full h-full">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
           <Card className="h-full ">

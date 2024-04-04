@@ -57,11 +57,7 @@ function AdminDashboard() {
 
   return (
     <div className="flex h-screen overflow-scroll">
-      <div
-        className={`sidebar w-64 bg-teal-400 text-white ${
-          open ? 'block' : 'hidden'
-        }`}
-      >
+      <div className={` ${open ? 'block' : 'hidden'}`}>
         <Sidebar open={open} handleOpen={setOpen} />
       </div>
       <div className="w-full">
