@@ -12,7 +12,10 @@ const empSchema = new Schema({
   age: {
     type: String,
   },
-  jobRole: {
+  rawMaterial: {
+    type: String,
+  },
+  country: {
     type: String,
   },
   mobile: {

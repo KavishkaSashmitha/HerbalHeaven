@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { SidebarWithBurgerMenu } from '../components/navBar';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { SidebarWithBurgerMenu } from "../components/navBar";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -10,16 +10,17 @@ import {
   Typography,
   Input,
   Button,
-} from '@material-tailwind/react';
+} from "@material-tailwind/react";
 
 function UpdateUser() {
   const { id } = useParams();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [age, setAge] = useState('');
-  const [jobRole, setJobRole] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [address, setAddress] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [rawMaterial, setRawMaterial] = useState("");
+  const [country, setCountry] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,7 +31,8 @@ function UpdateUser() {
         setName(userData.name);
         setEmail(userData.email);
         setAge(userData.age);
-        setJobRole(userData.jobRole);
+        setRawMaterial(userData.rawMaterial);
+        setCountry(userData.country);
         setMobile(userData.mobile);
         setAddress(userData.address);
       })
@@ -44,13 +46,14 @@ function UpdateUser() {
         name,
         email,
         age,
-        jobRole,
+        rawMaterial,
+        country,
         mobile,
         address,
       })
       .then((result) => {
         console.log(result);
-        navigate('/sup');
+        navigate("/sup");
       })
       .catch((err) => console.log(err));
   };
@@ -60,10 +63,10 @@ function UpdateUser() {
       <SidebarWithBurgerMenu />
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "",
         }}
       >
         <Card className="w-96">
@@ -100,11 +103,18 @@ function UpdateUser() {
               onChange={(e) => setAge(e.target.value)}
             />
             <Input
-              label="Category"
+              label="Raw Material"
               size="lg"
-              placeholder="Enter Job Role"
-              value={jobRole}
-              onChange={(e) => setJobRole(e.target.value)}
+              placeholder="Enter Raw Material"
+              value={rawMaterial}
+              onChange={(e) => setRawMaterial(e.target.value)}
+            />
+            <Input
+              label="Country"
+              size="lg"
+              placeholder="Enter Country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
             />
             <Input
               label="Mobile"
