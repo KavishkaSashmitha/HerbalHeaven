@@ -81,7 +81,7 @@ const supController = {
     }
   },
 
-  //delete suppliers
+  //delete suppliers all
 
   deleteEmployee: async (req, res) => {
     try {
