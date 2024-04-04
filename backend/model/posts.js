@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
   name: {
@@ -29,6 +29,11 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+
   salary: {
     type: Map,
     of: Number,
@@ -37,4 +42,4 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Employee", postSchema);
+module.exports = mongoose.model('Employee', postSchema);
