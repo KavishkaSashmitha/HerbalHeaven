@@ -1,5 +1,7 @@
 // Navbar.js
+import { Avatar } from '@material-tailwind/react';
 import React from 'react';
+import ProfileMenu from './Profile';
 
 function AdminNavbar({ toggleSidebar }) {
   return (
@@ -19,28 +21,7 @@ function AdminNavbar({ toggleSidebar }) {
           Settings
         </a>
       </div>
-      <div className="flex items-center space-x-8 text-gray-400 text-base">
-        <span className="relative inline-block cursor-pointer">
-          <i className="fas fa-bell"></i>
-          <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-thin leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-            99
-          </span>
-        </span>
-        <span className="relative inline-block cursor-pointer">
-          <i className="fas fa-list"></i>
-          <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-thin leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-purple-600 rounded-full">
-            99
-          </span>
-        </span>
-        <span className="relative inline-block cursor-pointer">
-          <i className="fas fa-envelope"></i>
-          <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-thin leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-yellow-600 rounded-full">
-            9
-          </span>
-        </span>
-        <i className="fas fa-user-circle fa-lg cursor-pointer"></i>
-        <i className="fas fa-cog fa-2x text-white cursor-pointer animate-spin hover:text-blue-gray-700"></i>
-      </div>
+      <ProfileMenu />
     </div>
   );
 }

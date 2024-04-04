@@ -1,4 +1,4 @@
-import { PencilIcon } from '@heroicons/react/24/solid';
+import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import {
   ArrowDownTrayIcon,
   MagnifyingGlassIcon,
@@ -36,7 +36,19 @@ const TABLE_HEAD = [
 export function CartDetails() {
   const [cartItems, setCartItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(4);
+
+  const getUniqueUsers = () => {
+    const uniqueUsers = {};
+    cartItems.forEach((item) => {
+      if (!uniqueUsers[item.user.email]) {
+        uniqueUsers[item.user.email] = { email: item.user.email, count: 1 };
+      } else {
+        uniqueUsers[item.user.email].count += 1;
+      }
+    });
+    return Object.values(uniqueUsers);
+  };
 
   // Get current items
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -76,9 +88,43 @@ export function CartDetails() {
   const toggleSidebar = () => {
     setOpen(!open);
   };
+  // Extract unique email addresses from cartItems
+  const uniqueEmails = new Set(
+    cartItems.map((item) => (item.user ? item.user.email : null))
+  );
+
+  // Remove null values if there are any
+  uniqueEmails.delete(null);
+
+  // Get the count of unique email addresses
+  const uniqueEmailCount = uniqueEmails.size;
+
+  //most added product
+  const productInfo = {};
+  cartItems.forEach((item) => {
+    if (!productInfo[item.name]) {
+      productInfo[item.name] = {
+        count: 1,
+        name: item.name,
+        image: item.image,
+      };
+    } else {
+      productInfo[item.name].count++;
+    }
+  });
+
+  // Find the most repeated product
+  let mostRepeatedProduct = null;
+  let maxCount = 0;
+  for (const productName in productInfo) {
+    if (productInfo[productName].count > maxCount) {
+      maxCount = productInfo[productName].count;
+      mostRepeatedProduct = productInfo[productName];
+    }
+  }
   return (
     <>
-      <div className="flex h-screen ">
+      <div className="flex h-screen overflow-scroll ">
         <div
           className={`sidebar w-64 bg-teal-400 text-white ${
             open ? 'block' : 'hidden'
@@ -89,7 +135,7 @@ export function CartDetails() {
         <div className="w-full">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card className="h-full">
+          <Card className="h-full ">
             <CardHeader floated={false} shadow={false} className="rounded-none">
               <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
                 <div>
@@ -113,6 +159,70 @@ export function CartDetails() {
                       Stats
                     </Button>
                   </Link>
+                </div>
+                <div className="container  mx-auto grid justify-center">
+                  <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                    <div className="card w-full">
+                      <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                        <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                          <UserCircleIcon className="h-10 w-10" />
+                        </div>
+                        <div>
+                          <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                            Users
+                          </p>
+                          <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                            {uniqueEmailCount} Users
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="card w-full">
+                      {mostRepeatedProduct && (
+                        <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                          <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                            <img
+                              src={mostRepeatedProduct.image}
+                              alt={mostRepeatedProduct.name}
+                              className="w-10 h-10 rounded-full"
+                            />
+                          </div>
+                          <div>
+                            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                              Most Added Product
+                            </p>
+
+                            <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                              {mostRepeatedProduct.name}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="card w-full">
+                      <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                        <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                          <svg
+                            class="w-10 h-10"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                            Suppliers
+                          </p>
+                          <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                            20
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </CardHeader>
