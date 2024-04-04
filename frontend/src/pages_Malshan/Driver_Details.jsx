@@ -12,7 +12,7 @@ export default class Driver_Details extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
 
-    axios.get(`/transport/${id}`).then((res) => {
+    axios.get(`http://localhost:8070/api/transports/transport/${id}`).then((res) => {
       if (res.data.success) {
         this.setState({
           transport: res.data.transport

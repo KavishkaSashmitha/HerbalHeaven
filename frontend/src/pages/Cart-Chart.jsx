@@ -40,7 +40,7 @@ const CartDetails = () => {
     items.forEach((item) => {
       if (mergedItems[item.name]) {
         // If item name already exists, aggregate its price
-        mergedItems[item.name].price += item.price;
+        mergedItems[item.name].quantity += item.quantity;
       } else {
         // Otherwise, add the item to mergedItems
         mergedItems[item.name] = { ...item };
@@ -64,8 +64,8 @@ const CartDetails = () => {
         labels: cartItems.map((item) => item.name),
         datasets: [
           {
-            label: 'Amount',
-            data: cartItems.map((item) => item.price),
+            label: 'Quantity',
+            data: cartItems.map((item) => item.quantity),
             backgroundColor: 'rgba(54, 162, 235, 0.6)',
             borderColor: 'rgba(54, 162, 235, 1)',
             borderWidth: 1,
