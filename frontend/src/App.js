@@ -17,10 +17,18 @@ import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
 
 
 import 'react-toastify/dist/ReactToastify.css';
+
 import Payment from './pages-Kumesh/Payment';
+
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
+
+import  Transport from './pages_Malshan/Transport';
+import  Add_Driver from './pages_Malshan/Add_Driver';
+import  Edit_Driver from './pages_Malshan/Edit_Driver';
+import  Driver_Details from './pages_Malshan/Driver_Details';
+
 import AdminDashboard from './pages/adminDashboard';
 import './index.css';
 import ManagerLogin from './pages/Manager-Login';
@@ -56,6 +64,12 @@ function App() {
         <Route path="/EmployeeChart" element={<EmployeeChart />} />
         <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
         <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} />
+
+{/*Mlashan*/ }
+<Route path="/transport" element={<Transport />} />
+<Route path="/add" element={<Add_Driver />} />
+<Route path="/edit/:id" element={<Edit_Driver />} />
+<Route path="/transport/:id" element={<Driver_Details />} />
 
         <Route path="/user/payment" element={<Payment />} />
 

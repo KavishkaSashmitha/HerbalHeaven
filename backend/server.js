@@ -23,6 +23,8 @@ app.use("/api/posts", require("./routes/posts"));
 
 app.use("/sup", require("./routes/supplierRouter"));
 
+app.use("/api/transports",require("./routes/transports"));
+
 app.use(errorHandler);
 app.listen(PORT, () => {
   console.log("Port Connected " + PORT);
