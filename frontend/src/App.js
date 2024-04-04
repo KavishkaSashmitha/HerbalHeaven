@@ -28,6 +28,11 @@ import Add_Driver from './pages_Malshan/Add_Driver';
 import Edit_Driver from './pages_Malshan/Edit_Driver';
 import Driver_Details from './pages_Malshan/Driver_Details';
 
+import CreateOrder from './pages_Ridmi/CreateOrder';
+import EditOrder from './pages_Ridmi/EditOrder';
+import Order from './pages_Ridmi/Order';
+import OrderDetails from './pages_Ridmi/OrderDetails';
+
 import AdminDashboard from './pages/adminDashboard';
 import './index.css';
 import ManagerLogin from './pages/Manager-Login';
@@ -67,6 +72,12 @@ function App() {
         <Route path="/transport/edit/:id" element={<Edit_Driver />} />
         <Route path="/transport/:id" element={<Driver_Details />} />
 
+        {/*Ridmi*/}
+        <Route path="/order" exact component={<Order/>}/>
+        <Route path="/add" component={<CreateOrder/>}/>
+        <Route path="/edit/:id" component={<EditOrder/>}/>
+        <Route path="/order/:id" component={<OrderDetails/>}/>
+       
         <Route path="/user/payment" element={<Payment />} />
 
         <Route path="/emp/add" element={<CreateUser />} />
