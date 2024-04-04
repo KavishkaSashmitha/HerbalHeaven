@@ -23,12 +23,14 @@ function LineChart() {
         if (!response.ok) {
           throw new Error("Failed to fetch user salary data");
         }
-        const post = await response.json();
+        const data = await response.json();
+        const post = data?.post;
+        
 
-        if (post && post.salary && typeof post.salary.january === "number") {
+        if (post && post.salary && typeof post.salary.january == "number") {
           setMonthSalary(post.salary.january);
         } else {
-          throw new Error("Salary data for January not found for the user");
+          throw new Error("Salary data not found for the user");
         }
       } catch (error) {
         setError(error.message);
