@@ -25,6 +25,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "mongoose": "^8.1.1",
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.0.3",
+    "react-datepicker": "^6.6.0"
   }
 }

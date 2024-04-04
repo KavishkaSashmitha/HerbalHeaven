@@ -4,6 +4,8 @@ import { SidebarWithBurgerMenu } from "./components/navBar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/DashBoard";
+import EditProfile from "./pages/EditProfile";
+
 import { EcommerceCard } from "./pages/Products";
 import Cart from "./pages/cart";
 import CreatPost from "./components/CreatePost";
@@ -40,6 +42,8 @@ function App() {
         <Route path="/emp/update/:id" element={<UpdateUser />} />
         <Route path="/emp" element={<User />} />
         <Route path="/salaryreport" element={<SalaryReport />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        
       </Routes>
     </>
   );
