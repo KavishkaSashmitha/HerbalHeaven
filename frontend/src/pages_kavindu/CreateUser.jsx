@@ -16,7 +16,8 @@ function CreateUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
-  const [jobRole, setJobRole] = useState("");
+  const [rawMaterial, setRawMaterial] = useState("");
+  const [country, setCountry] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
@@ -28,7 +29,8 @@ function CreateUser() {
         name,
         email,
         age,
-        jobRole,
+        rawMaterial,
+        country,
         mobile,
         address,
       })
@@ -82,10 +84,16 @@ function CreateUser() {
               onChange={(e) => setAge(e.target.value)}
             />
             <Input
-              label="Category"
+              label="Raw Material"
               size="lg"
-              value={jobRole}
-              onChange={(e) => setJobRole(e.target.value)}
+              value={rawMaterial}
+              onChange={(e) => setRawMaterial(e.target.value)}
+            />
+            <Input
+              label="Country"
+              size="lg"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
             />
             <Input
               label="Mobile"
