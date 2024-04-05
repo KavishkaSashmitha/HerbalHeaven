@@ -61,8 +61,11 @@ function SalaryReport() {
 
     // Clear errors state if there are no validation errors and a month is selected
     setErrors({});
+
+    // Perform other actions after validation, if needed
+    Calculation();
   };
-  
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -232,7 +235,6 @@ function SalaryReport() {
     // Join the parts back into a single string
     return parts.join(" ");
   }
-
 
   return (
     <>
@@ -422,10 +424,7 @@ function SalaryReport() {
                           <div>
                             <button
                               type="button"
-                              onClick={(e) => {
-                                onSubmit(e);
-                                Calculation();
-                              }}
+                              onClick={onSubmit}
                               className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
                             >
                               <i className="fas fa-calculator mr-2"></i>
