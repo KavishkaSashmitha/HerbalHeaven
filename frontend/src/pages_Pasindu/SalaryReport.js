@@ -26,7 +26,6 @@ function SalaryReport() {
   const [jobRole, setJobRole] = useState("");
   const [rate, setHourlyRate] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -64,7 +63,7 @@ function SalaryReport() {
   }, []);
 
   function Calculation() {
-    const basicSalary = hours * rate + 25000;
+    const basicSalary = hours * rate;
     const etfValue = (basicSalary * 3) / 100;
     const epfValue = (basicSalary * 8) / 100;
 
@@ -122,12 +121,17 @@ function SalaryReport() {
           })
           .then((res) => {
             if (res.data.success) {
-              Swal.fire(
-                "Updated!",
-                "Employee salary information has been updated.",
-                "success"
-              );
-              setConfirmation(true);
+              Swal.fire({
+                title: "Updated!",
+                text: "Employee salary information has been updated.",
+                icon: "success",
+                confirmButtonText: "Ok",
+                reverseButtons: true,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = "/emp";
+                }
+              });
             }
           })
           .catch((error) => {
@@ -135,10 +139,6 @@ function SalaryReport() {
           });
       }
     });
-
-    if (confirmation) {
-      window.location.href = "/emp";
-    }
 
     const doc = new jsPDF();
     const data1 = [
@@ -188,7 +188,7 @@ function SalaryReport() {
       case "technician":
         setHourlyRate(350);
         break;
-      case "triver":
+      case "driver":
         setHourlyRate(300);
         break;
       case "worker":
