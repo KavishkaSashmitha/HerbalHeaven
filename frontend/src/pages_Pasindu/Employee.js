@@ -224,7 +224,7 @@ export default function Posts() {
             </div>
           </div>
 
-          <CardBody>
+          <CardBody className="p-4">
             <div className="overflow-x-auto ">
               <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-blue-gray-100 opacity-95">
                 <thead>
@@ -277,6 +277,11 @@ export default function Posts() {
                     <th className="p-4   ">
                       <p className="block font-sans text-x1 antialiased font-bold leading-none text-gray-900">
                         Report
+                      </p>
+                    </th>
+                    <th className="p-4   ">
+                      <p className="block font-sans text-x1 antialiased font-bold leading-none text-gray-900">
+                        Sal Chart
                       </p>
                     </th>
                   </tr>
@@ -379,14 +384,19 @@ export default function Posts() {
                             href={`/emp/edit/${post._id}`}
                           >
                             <Button color="green">
-                              <i className="fas fa-edit mr-2"></i>Edit
+                              <i
+                                className="fas fa-edit"
+                                style={{ fontSize: "20px" }}
+                              ></i>
                             </Button>
                           </a>
 
                           <a className="" onClick={() => onDelete(post._id)}>
                             <Button color="red">
-                              <i className="fas fa-trash-alt mr-2"></i>
-                              Delete
+                              <i
+                                className="fas fa-trash-alt"
+                                style={{ fontSize: "20px" }}
+                              ></i>
                             </Button>
                           </a>
                         </div>
@@ -394,14 +404,20 @@ export default function Posts() {
                       <td className="p-4  ">
                         <a href={`/SalaryReport/${post._id}`}>
                           <Button color="green" className="btn btn-secondary">
-                            <i className="fas fa-file mr-2"></i>Report
+                            <i
+                              className="fas fa-file"
+                              style={{ fontSize: "20px" }}
+                            ></i>
                           </Button>
                         </a>
                       </td>
-                      <td className="p-4  ">
+                      <td className="p-4">
                         <a href={`/Emp_User_Chart/${post._id}`}>
                           <Button color="green" className="btn btn-secondary">
-                            <i className="fas fa-file mr-2"></i>chart
+                            <i
+                              className="fas fa-chart-simple"
+                              style={{ fontSize: "20px" }}
+                            ></i>
                           </Button>
                         </a>
                       </td>
@@ -411,7 +427,7 @@ export default function Posts() {
               </table>
             </div>
           </CardBody>
-          <CardFooter className="flex items-center justify-between border-t border-transparent p-1">
+          <CardFooter className="flex items-center justify-between border-t border-transparent p-4">
             <Button
               className="bg-blue-500 text-cyan-50"
               variant="outlined"
@@ -444,14 +460,15 @@ export default function Posts() {
               Next
             </Button>
           </CardFooter>
-          <div>
-            <a href="./EmployeeChart">
-              <Button>chart</Button>
-            </a>
-            <a href="./Emp_User_Chart">
-              <Button>user</Button>
-            </a>
-          </div>
+        </div>
+
+        <div>
+          <a href="./EmployeeChart">
+            <Button>chart</Button>
+          </a>
+          <a href="./Emp_User_Chart">
+            <Button>user</Button>
+          </a>
         </div>
 
         <Footer />
