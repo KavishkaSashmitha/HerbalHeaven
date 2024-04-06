@@ -107,7 +107,7 @@ const User = () => {
                               to={`/sup/update/${user._id}`}
                               className="btn btn-warning"
                             >
-                              <Button color="amber">Update</Button>
+                              <Button color="black">Update</Button>
                             </Link>
                             <Button
                               color="red"
