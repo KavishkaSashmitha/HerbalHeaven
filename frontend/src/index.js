@@ -16,9 +16,9 @@ import { CartProvider } from './components/cartContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <ToastContainer />
     <ThemeProvider>
       <AuthProvider>
-        <ToastContainer />
         <CartProvider>
           <Router>
             <App />

@@ -84,6 +84,7 @@ export const AuthProvider = ({ children }) => {
             quantity: 1,
             price: product.price,
             image: product.image,
+            stock: product.quantity,
             description: product.description,
           },
           {
@@ -93,6 +94,7 @@ export const AuthProvider = ({ children }) => {
             },
           }
         );
+        toast.success('Item added Succesfully!');
         setCart(response.data.cart);
       } else {
         setCart([...cart, product]);

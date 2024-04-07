@@ -1,104 +1,141 @@
 import React, { useState } from 'react';
-import { Card, IconButton, Typography } from '@material-tailwind/react';
 import {
-  List,
-  ListItem,
-  ListItemPrefix,
-  Avatar,
+  Button,
+  Checkbox,
+  IconButton,
+  Typography,
 } from '@material-tailwind/react';
+import Swal from 'sweetalert2';
 
-const CartItemCard = ({ item, onDelete, onUpdateQuantity }) => {
-  const [isEditing, setIsEditing] = useState(false);
+const CartItemCard = ({
+  item,
+  onDelete,
+  onUpdateQuantity,
+  isSelected,
+  onToggleSelect,
+  onCheckout,
+}) => {
   const [editedQuantity, setEditedQuantity] = useState(item.quantity);
-
-  const handleEditQuantity = () => {
-    setIsEditing(true);
-  };
+  const [editing, setEditing] = useState(false);
 
   const handleChangeQuantity = (event) => {
-    const inputValue = event.target.value;
-    if (inputValue.trim() !== '') {
-      // Check if the input value is not empty
-      const newQuantity = Math.max(1, parseInt(inputValue));
-      setEditedQuantity(newQuantity);
+    let newQuantity = parseInt(event.target.value.trim());
+    if (isNaN(newQuantity)) {
+      newQuantity = item.quantity;
+    } else {
+      newQuantity = Math.min(Math.max(1, newQuantity), item.stock);
     }
+    setEditedQuantity(newQuantity);
   };
-  const handleSaveQuantity = async () => {
+
+  const handleIncreaseQuantity = () => {
+    setEditedQuantity(Math.min(editedQuantity + 1, item.stock));
+  };
+
+  const handleDecreaseQuantity = () => {
+    setEditedQuantity(Math.max(1, editedQuantity - 1));
+  };
+
+  const handleEdit = () => {
+    setEditing(true);
+  };
+
+  const handleUpdate = async () => {
     try {
       await onUpdateQuantity(item._id, editedQuantity);
-      setIsEditing(false);
+      setEditing(false);
     } catch (error) {
       console.error('Error updating quantity:', error);
     }
   };
 
+  const handleDeleteConfirmation = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to delete this item from the cart.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onDelete(item._id);
+      }
+    });
+  };
+
   return (
-    <Card className="w-3/4 ml-4 mb-4 mx-auto bg-light-green-100">
-      <List>
-        <ListItem>
-          <ListItemPrefix>
-            <Avatar variant="circular" alt={item.name} src={item.image} />
-          </ListItemPrefix>
-          <div className="flex flex-col items-center justify-center">
-            <Typography
-              variant="h6"
-              color="blue-gray"
-              className="text-lg font-semibold"
-            >
-              {item.name}
-            </Typography>
-            <Typography variant="small" color="gray" className="text-gray-600">
-              Rs.{item.price * editedQuantity}
-            </Typography>
-            {isEditing ? (
-              <input
-                type="number"
-                value={editedQuantity}
-                onChange={handleChangeQuantity}
-                className="border border-gray-400 rounded-md px-2 py-1 mt-2"
-              />
-            ) : (
-              <Typography
-                variant="small"
-                color="gray"
-                className="text-gray-600 cursor-pointer"
-                onClick={handleEditQuantity}
-              >
-                {editedQuantity}
-              </Typography>
-            )}
-          </div>
-        </ListItem>
-        <ListItem>
-          <ul className="flex justify-center mx-auto gap-2">
+    <div className="bg-white w-full rounded-lg shadow-md p-4 mb-4 flex flex-col lg:flex-row items-center">
+      <Checkbox
+        checked={isSelected}
+        onChange={() => onToggleSelect(item._id)}
+      />
+      <img
+        variant="circular"
+        alt={item.name}
+        src={item.image}
+        className="h-20 w-20 mb-4 lg:mb-0 lg:mr-4"
+      />
+      <div className="flex-grow">
+        <Typography
+          variant="h6"
+          color="blue-gray"
+          className="text-lg font-semibold"
+        >
+          Name: {item.name}
+        </Typography>
+        <Typography
+          variant="h6"
+          color="blue-gray"
+          className="text-m font-semibold"
+        >
+          Quantity: {item.quantity}
+        </Typography>
+        <Typography variant="small" color="gray">
+          Item Price: Rs.{item.price * editedQuantity}
+        </Typography>
+        {editing ? (
+          <div className="flex items-center mt-2">
             <IconButton
-              color="red"
-              className="mt-2"
-              onClick={() => onDelete(item._id)}
+              color="light-green"
+              onClick={handleDecreaseQuantity}
+              className="mr-2"
             >
-              <i className="fas fa-trash" />
+              <i className="fas fa-minus" />
             </IconButton>
-            {isEditing ? (
-              <IconButton
-                color="light-green"
-                className="mt-2"
-                onClick={handleSaveQuantity}
-              >
-                <i className="fas fa-check" />
-              </IconButton>
-            ) : (
-              <IconButton
-                color="light-green"
-                className="mt-2"
-                onClick={handleEditQuantity}
-              >
-                <i className="fas fa-pen" />
-              </IconButton>
-            )}
-          </ul>
-        </ListItem>
-      </List>
-    </Card>
+            <input
+              type="number"
+              value={editedQuantity}
+              onChange={handleChangeQuantity}
+              max={item.stock}
+              className="border border-gray-400 rounded-md px-2 py-1 w-16 text-center mr-2"
+            />
+            <IconButton
+              color="light-green"
+              onClick={handleIncreaseQuantity}
+              className="mr-2"
+            >
+              <i className="fas fa-plus" />
+            </IconButton>
+            <IconButton color="green" onClick={handleUpdate} className="mr-2">
+              <i className="fas fa-check" />
+            </IconButton>
+          </div>
+        ) : (
+          <IconButton color="light-green" onClick={handleEdit} className="mr-2">
+            <i className="fas fa-pencil-alt" />
+          </IconButton>
+        )}
+      </div>
+      <IconButton
+        color="red"
+        onClick={handleDeleteConfirmation}
+        className="ml-auto"
+      >
+        <i className="fas fa-trash" />
+      </IconButton>
+    </div>
   );
 };
 
