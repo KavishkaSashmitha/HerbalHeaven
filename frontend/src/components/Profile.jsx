@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Avatar,
+  Badge,
   Button,
   IconButton,
   Menu,
@@ -9,17 +10,24 @@ import {
   MenuList,
   Typography,
 } from '@material-tailwind/react';
-import { BellIcon } from '@heroicons/react/24/solid';
+import { BellIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../middleware/authContext';
 import { Link } from 'react-router-dom';
+import { useCart } from './cartContext';
 
 const ProfileMenu = () => {
   const { isLoggedIn, logout } = useAuth();
+  const { cartCount } = useCart();
   return (
     <>
       <div className="flex items-center justify-end mr-5 mt-1">
-        <IconButton variant="text" color="black" className="mt-2 mb-2 mr-4">
-          <BellIcon className="h-4 w-4" />
+        <Badge content={cartCount} overlap="circular" placement="top-end">
+          <IconButton variant="text" color="black" className=" mb-2 mr-0">
+            <ShoppingCartIcon className="h-8 w-6" />
+          </IconButton>
+        </Badge>
+        <IconButton variant="text" color="black" className="mb-2 ml-4">
+          <BellIcon className="h-6 w-6" />
         </IconButton>
 
         {isLoggedIn ? (

@@ -24,6 +24,7 @@ const AddToCart = asyncHandler(async (req, res) => {
     quantity: req.body.quantity,
     price: req.body.price,
     image: req.body.image,
+    stock: req.body.stock,
     description: req.body.description,
   });
 

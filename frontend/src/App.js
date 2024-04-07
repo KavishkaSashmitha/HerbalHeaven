@@ -31,8 +31,9 @@ import Driver_Details from './pages_Malshan/Driver_Details';
 import AdminDashboard from './pages/adminDashboard';
 import './index.css';
 import ManagerLogin from './pages/Manager-Login';
-import { CartDetails } from './pages/Cart-Admin';
+import { CartAdmin, CartDetails } from './pages/Cart-Admin';
 import CartChart from './pages/Cart-Chart';
+import OTPVerification from './interfaces/Otp';
 
 function App() {
   return (
@@ -48,8 +49,9 @@ function App() {
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/manager-login" element={<ManagerLogin />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/cart-details" element={<CartDetails />} />
+        <Route path="/cart-Admin" element={<CartAdmin />} />
         <Route path="/cart-stats" element={<CartChart />} />
+        <Route path="/otp" element={<OTPVerification />} />
 
         {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
