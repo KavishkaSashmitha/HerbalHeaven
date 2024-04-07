@@ -34,7 +34,7 @@ const TABLE_HEAD = [
   'Send Notifications',
 ];
 
-export function CartDetails() {
+export function CartAdmin() {
   const [cartItems, setCartItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(4);
