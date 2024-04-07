@@ -26,7 +26,7 @@ import Slider from 'react-slick'; // Import Slider component from react-slick
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProfileMenu from '../components/Profile';
-import { BellIcon } from '@heroicons/react/24/solid';
+import { BellIcon, ChevronDownIcon, HomeIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 
 const Product = ({ product }) => {
@@ -119,6 +119,7 @@ function Home() {
       },
     ],
   };
+  const [openMenu, setOpenMenu] = React.useState(false);
 
   return (
     <>
@@ -145,6 +146,65 @@ function Home() {
           </div>
 
           <ProfileMenu />
+        </div>
+      </div>
+      <div className="sticky top-0 bg-green-800 h-16 px-6 sm:px-10 py-4  flex items-center justify-between z-50">
+        <div className="flex items-center space-x-8 text-sm text-white">
+          <Link to="/">
+            <Button
+              variant="text"
+              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+            >
+              Home
+            </Button>
+          </Link>
+          <Menu open={openMenu} handler={setOpenMenu} allowHover>
+            <MenuHandler>
+              <Button
+                variant="text"
+                className="flex items-center  gap-3 text-white text-base font-normal capitalize tracking-normal"
+              >
+                Beauty Products{' '}
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`h-3.5 w-3.5 transition-transform ${
+                    openMenu ? 'rotate-180' : ''
+                  }`}
+                />
+              </Button>
+            </MenuHandler>
+            <MenuList>
+              <Link to="/cart-Admin">
+                <MenuItem>Cart</MenuItem>
+              </Link>
+              <MenuItem>Menu Item 2</MenuItem>
+              <MenuItem>Menu Item 3</MenuItem>
+            </MenuList>
+          </Menu>
+          <Link to="/">
+            <Button
+              variant="text"
+              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+            >
+              Products
+            </Button>
+          </Link>
+          <Link to="/">
+            <Button
+              variant="text"
+              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+            >
+              Immunity Products
+            </Button>
+          </Link>
+          <Link to="/">
+            <Button
+              variant="text"
+              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+            >
+              Oils
+            </Button>
+          </Link>
         </div>
       </div>
       <div>
@@ -191,7 +251,7 @@ function Home() {
           Your browser does not support the video tag.
         </video>
       </div>
-      <Link to='/admin-dashboard'>
+      <Link to="/admin-dashboard">
         <Typography>dashboard admin</Typography>
       </Link>
       <Footer />
