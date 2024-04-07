@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [loadingLogin, setLoadingLogin] = useState(false);
   const [loadingLogout, setLoadingLogout] = useState(false);
   const [loadingCart, setLoadingCart] = useState(false);
+  const [isAdminLog, setIsAdminLog] = useState(false);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('userToken');
@@ -23,55 +24,45 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (newToken) => {
-    setLoadingLogin(true);
-    setTimeout(() => {
-      setToken(newToken);
-      setLoggedIn(true);
-      setLoadingLogin(false);
-      localStorage.setItem('userToken', newToken);
-    }, 1000);
+    setToken(newToken);
+    setLoggedIn(true);
+    localStorage.setItem('userToken', newToken);
   };
 
   const logout = () => {
-    setLoadingLogout(true);
-    setTimeout(() => {
-      setToken(null);
-      setLoggedIn(false);
-      setLoadingLogout(false);
-      setCart([]);
-      localStorage.removeItem('userToken');
-    }, 1000);
+    setToken(null);
+    setLoggedIn(false);
+    setIsAdminLog(false);
+    setCart([]);
+    localStorage.removeItem('userToken');
   };
 
-  const isAdmin = (req, res, next) => {
-    if (req.user && req.user.isAdmin) {
-      next();
-    } else {
-      res.status(403).send({ error: 'Permission denied.' });
-    }
+  const isAdmin = () => {
+    return isAdminLog;
   };
 
-  const staffLogin = async (email, password) => {
-    setLoadingLogin(true);
-    try {
-      const response = await axios.post(
-        'http://localhost:8070/api/posts/post/save',
-        { email, password }
-      );
+  // const staffLogin = async (email, password) => {
+  //   setLoadingLogin(true);
+  //   try {
+  //     const response = await axios.post(
+  //       'http://localhost:8070/api/posts/post/save',
+  //       { email, password }
+  //     );
 
-      if (response.data.success) {
-        login(response.data.token);
-        toast.success('Staff login successful');
-      } else {
-        toast.error(response.data.error);
-      }
-    } catch (error) {
-      console.error('Error occurred during staff login:', error);
-      toast.error('Error occurred during staff login');
-    } finally {
-      setLoadingLogin(false);
-    }
-  };
+  //     if (response.data.success) {
+  //       login(response.data.token);
+  //       setIsAdminLog(response.data.isAdmin); // Set isAdminLog based on response
+  //       toast.success('Login successful');
+  //     } else {
+  //       toast.error(response.data.error);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error occurred during login:', error);
+  //     toast.error('Error occurred during login');
+  //   } finally {
+  //     setLoadingLogin(false);
+  //   }
+  // };
 
   const addToCart = async (product) => {
     setLoadingCart(true);
@@ -116,7 +107,7 @@ export const AuthProvider = ({ children }) => {
         token,
         addToCart,
         isAdmin,
-        staffLogin,
+
         loading: loadingLogin || loadingLogout || loadingCart,
       }}
     >

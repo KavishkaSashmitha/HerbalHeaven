@@ -3,10 +3,13 @@ import axios from 'axios';
 import { Button } from '@material-tailwind/react';
 import backgroundImage from '../assets/sign-in.jpg';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const OTPVerification = () => {
   const [email, setEmail] = useState('');
   const [otp, setOTP] = useState('');
+  const [isAdminLog, setIsAdminLog] = useState(false);
+  const navigate = useNavigate();
 
   const sendOTP = async () => {
     try {
@@ -27,9 +30,7 @@ const OTPVerification = () => {
         console.log(otpResponse.data);
       } else {
         // User does not exist or is not an admin, show toast
-        // You need to implement toast functionality here
         toast.error('Not a Manager here');
-        console.log('User does not exist or is not an admin.');
       }
     } catch (error) {
       console.error(error);
@@ -43,6 +44,11 @@ const OTPVerification = () => {
         { email, otp }
       );
       console.log(response.data);
+      if (response.data.success) {
+        setIsAdminLog(true);
+        console.log(setIsAdminLog);
+        navigate('/admin-dashboard');
+      }
     } catch (error) {
       console.error(error);
     }

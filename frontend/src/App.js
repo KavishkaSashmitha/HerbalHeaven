@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
+import React from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -34,53 +35,73 @@ import ManagerLogin from './pages/Manager-Login';
 import { CartAdmin, CartDetails } from './pages/Cart-Admin';
 import CartChart from './pages/Cart-Chart';
 import OTPVerification from './interfaces/Otp';
+import { useAuth } from './middleware/authContext';
 
 function App() {
+  const { isLoggedIn, isAdminLog } = useAuth();
+
   return (
-    <>
-      <Routes>
-        {/* Kavishka */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/signUp" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<EcommerceCard />} />
-        <Route path="/user/cart" element={<Cart />} />
-        <Route path="/manager-login" element={<ManagerLogin />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/cart-Admin" element={<CartAdmin />} />
-        <Route path="/cart-stats" element={<CartChart />} />
-        <Route path="/otp" element={<OTPVerification />} />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signUp" element={<Register />} />
 
-        {/* Pasindu */}
-        <Route path="/emp/add" element={<CreatPost />} />
-        <Route path="/emp/edit/:id" element={<EditPost />} />
-        <Route path="/emp/:id" element={<PostDetails />} />
-        <Route path="/emp" element={<Posts />} />
-        <Route path="/salaryreport" element={<SalaryReport />} />
-        <Route path="/EmployeeChart" element={<EmployeeChart />} />
-        <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
-        <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} />
+      {/* Routes that require authentication */}
+      <Route
+        path="/dashboard"
+        element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
+      />
+      <Route path="/products" element={<EcommerceCard />} />
+      <Route
+        path="/user/cart"
+        element={isLoggedIn ? <Cart /> : <Navigate to="/login" />}
+      />
+      <Route path="/manager-login" element={<ManagerLogin />} />
+      <Route
+        path="/admin-dashboard"
+        element={isAdminLog ? <AdminDashboard /> : <Home />}
+      />
 
-        {/*Malshan*/}
-        <Route path="/transport" element={<Transport />} />
-        <Route path="/transport/add" element={<Add_Driver />} />
-        <Route path="/transport/edit/:id" element={<Edit_Driver />} />
-        <Route path="/transport/:id" element={<Driver_Details />} />
+      <Route
+        path="/cart-Admin"
+        element={isLoggedIn ? <CartAdmin /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/cart-stats"
+        element={isLoggedIn ? <CartChart /> : <Navigate to="/login" />}
+      />
 
-        <Route path="/user/payment" element={<Payment />} />
+      {/* OTP Verification */}
+      <Route path="/otp" element={<OTPVerification />} />
 
-        <Route path="/emp/add" element={<CreateUser />} />
-        <Route path="/emp/update/:id" element={<UpdateUser />} />
-        <Route path="/emp" element={<User />} />
-        <Route path="/salaryreport/:id" element={<SalaryReport />} />
+      {/* Pasindu */}
+      <Route path="/emp/add" element={<CreatPost />} />
+      <Route path="/emp/edit/:id" element={<EditPost />} />
+      <Route path="/emp/:id" element={<PostDetails />} />
+      <Route path="/emp" element={<Posts />} />
+      <Route path="/salaryreport" element={<SalaryReport />} />
+      <Route path="/EmployeeChart" element={<EmployeeChart />} />
+      <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
+      <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} />
 
-        <Route path="/sup/addsup" element={<CreateUser />} />
-        <Route path="/sup/update/:id" element={<UpdateUser />} />
-        <Route path="/sup" element={<User />} />
-      </Routes>
-    </>
+      {/* Malshan */}
+      <Route path="/transport" element={<Transport />} />
+      <Route path="/transport/add" element={<Add_Driver />} />
+      <Route path="/transport/edit/:id" element={<Edit_Driver />} />
+      <Route path="/transport/:id" element={<Driver_Details />} />
+
+      <Route path="/user/payment" element={<Payment />} />
+
+      {/* Kavindu */}
+      <Route path="/emp/add" element={<CreateUser />} />
+      <Route path="/emp/update/:id" element={<UpdateUser />} />
+      <Route path="/emp" element={<User />} />
+      <Route path="/salaryreport/:id" element={<SalaryReport />} />
+
+      <Route path="/sup/addsup" element={<CreateUser />} />
+      <Route path="/sup/update/:id" element={<UpdateUser />} />
+      <Route path="/sup" element={<User />} />
+    </Routes>
   );
 }
 
