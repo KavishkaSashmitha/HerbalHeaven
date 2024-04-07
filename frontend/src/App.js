@@ -14,6 +14,7 @@ import SalaryReport from './pages_Pasindu/SalaryReport';
 import EmployeeChart from './pages_Pasindu/EmployeeChart';
 import MonthlySalChart from './pages_Pasindu/EmployeeSalChart';
 import Emp_User_Chart from './pages_Pasindu/Emp_User_Chart';
+import Display_Employee_Details from './pages_Pasindu/Display_Employee_Details';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -62,6 +63,7 @@ function App() {
         <Route path="/EmployeeChart" element={<EmployeeChart />} />
         <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
         <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} />
+        <Route path="/Display_Employee_Details/:id" element={<Display_Employee_Details />} />
 
         {/*Malshan*/}
         <Route path="/transport" element={<Transport />} />
