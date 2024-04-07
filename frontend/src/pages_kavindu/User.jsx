@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Input, Card, Typography, Button } from "@material-tailwind/react";
 import { Footer } from "../components/Footer";
+import ProfileMenu from "../components/Profile";
 import { SidebarWithBurgerMenu } from "../components/navBar";
 
 const User = () => {
@@ -34,6 +35,7 @@ const User = () => {
     <>
       <div className="bg-image01">
         <SidebarWithBurgerMenu />
+        <ProfileMenu />
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700  ">
           <div className="flex items-center justify-between gap-8 mb-8">
             <div
@@ -115,6 +117,12 @@ const User = () => {
                             >
                               Delete
                             </Button>
+                            <Link
+                              to={`/sup/supreport/${user._id}`}
+                              className="btn btn-warning"
+                            >
+                              <Button color="green">Supplier Report</Button>
+                            </Link>
                           </td>
                         </tr>
                       ))}

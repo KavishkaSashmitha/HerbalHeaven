@@ -168,7 +168,7 @@ function UpdateUser() {
                 type="number"
                 value={age}
                 onChange={(e) => {
-                  let value = e.target.value.replace(/\D/, ""); // Remove non-numeric characters
+                  let value = e.target.value.replace(/\D/, "");
                   value = value === "" ? "" : Math.min(Math.max(value, 1), 100);
                   setAge(value);
                 }}
@@ -187,22 +187,29 @@ function UpdateUser() {
                   Ginkgo Biloba
                 </Select.Option>
                 <Select.Option value="Echinacea">Echinacea</Select.Option>
+                <Select.Option value="Tumeric">Tumeric</Select.Option>
               </Select>
               {errors.rawMaterial && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.rawMaterial}
                 </p>
               )}
-              <Input
-                label="Country"
+              <Select
                 size="lg"
                 value={country}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
-                  setCountry(value);
-                }}
-                error={errors.country}
-              />
+                onChange={(value) => setCountry(value)}
+                error={errors.country ? true : false}
+              >
+                <Select.Option value="">Select Country</Select.Option>
+                <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
+                <Select.Option value="India">India</Select.Option>
+                <Select.Option value="Pakisthan">Pakisthan</Select.Option>
+                <Select.Option value="China">China</Select.Option>
+                <Select.Option value="Japan">Japan</Select.Option>
+              </Select>
+              {errors.country && (
+                <p className="text-red-500 text-sm mt-1">{errors.country}</p>
+              )}
               <Input
                 label="Mobile"
                 size="lg"
