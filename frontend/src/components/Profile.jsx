@@ -18,8 +18,10 @@ import {
 } from '@material-tailwind/react';
 import { BellIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../middleware/authContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './cartContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const ProfileMenu = () => {
   const { isLoggedIn, login, logout } = useAuth();
@@ -28,18 +30,38 @@ const ProfileMenu = () => {
   const handleOpen = () => setOpen((cur) => !cur);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (email, password) => {
     try {
-      // Call the login function with email and password
-      await login(email, password);
-      // Close the dialog after successful login
+      if (!email || !password) {
+        toast.error('Empty Fields');
+        return;
+      }
+
+      const response = await axios.post('http://localhost:8070/api/user', {
+        email,
+        password,
+      });
+
+      const token = response.data.token;
+
+      // Save the token to local storage or a state management solution
+      localStorage.setItem('token', token);
+
+      // Update the global authentication state
+      login(token);
+
+      navigate('/dashboard');
       setOpen(false);
     } catch (error) {
-      // Handle login errors
-      console.error('Login failed:', error.message);
+      console.error('Login failed:', error.response.data);
+      toast.error('Login Failed');
+      setEmail('');
+      setPassword('');
     }
   };
+
   return (
     <>
       <div className="flex items-center justify-end mr-5 mt-2 mb-2">
@@ -173,9 +195,96 @@ const ProfileMenu = () => {
             </MenuList>
           </Menu>
         ) : (
-          <Link to="/login">
-            <Button>Login</Button>
-          </Link>
+          <>
+            <Button onClick={handleOpen}>Sign In</Button>
+            <Dialog
+              size="xs"
+              open={open}
+              handler={handleOpen}
+              className="bg-transparent shadow-none"
+            >
+              <Card className="mx-auto w-full max-w-[24rem]">
+                <CardBody className="flex flex-col gap-4">
+                  <Typography variant="h4" color="blue-gray">
+                    Sign In
+                  </Typography>
+                  <Typography
+                    className="mb-3 font-normal"
+                    variant="paragraph"
+                    color="gray"
+                  >
+                    Enter your email and password to Sign In.
+                  </Typography>
+                  <Typography className="-mb-2" variant="h6">
+                    Your Email
+                  </Typography>
+                  <Input
+                    label="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    size="lg"
+                  />
+                  <Typography className="-mb-2" variant="h6">
+                    Your Password
+                  </Typography>
+                  <Input
+                    label="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    size="lg"
+                  />
+                  <div className="-ml-2.5 -mt-3">
+                    <Checkbox label="Remember Me" />
+                  </div>
+                </CardBody>
+                <CardFooter className="pt-0">
+                  <Button
+                    variant="gradient"
+                    onClick={() => handleLogin(email, password)}
+                    fullWidth
+                  >
+                    Sign In
+                  </Button>
+                  <Typography
+                    variant="small"
+                    className="mt-4 flex justify-center"
+                  >
+                    Don&apos;t have an account?
+                    <Link to="/signup">
+                      <Typography
+                        as="a"
+                        href="#signup"
+                        variant="small"
+                        color="blue-gray"
+                        className="ml-1 font-bold"
+                        onClick={handleOpen}
+                      >
+                        Sign up
+                      </Typography>
+                    </Link>
+                  </Typography>
+                  <Typography
+                    variant="small"
+                    className="mt-4 flex justify-center"
+                  >
+                    Staff?
+                    <Link to="/signup">
+                      <Typography
+                        as="a"
+                        href="#signup"
+                        variant="small"
+                        color="blue-gray"
+                        className="ml-1 font-bold"
+                        onClick={handleOpen}
+                      >
+                        LogIn
+                      </Typography>
+                    </Link>
+                  </Typography>
+                </CardFooter>
+              </Card>
+            </Dialog>
+          </>
         )}
       </div>
     </>
