@@ -1,27 +1,21 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import {
-  Card,
-  Input,
-  Button,
-  Typography,
-  Checkbox,
-} from "@material-tailwind/react";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Card, Input, Button, Typography } from '@material-tailwind/react';
 
 function CreateUser() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
-  const [jobRole, setJobRole] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [address, setAddress] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState('');
+  const [jobRole, setJobRole] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [address, setAddress] = useState('');
   const navigate = useNavigate();
 
   const Submit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8070/emp/add", {
+      .post('http://localhost:8070/emp/add', {
         name,
         email,
         age,
@@ -31,7 +25,7 @@ function CreateUser() {
       })
       .then((result) => {
         console.log(result);
-        navigate("/emp");
+        navigate('/emp');
       })
       .catch((err) => console.log(err));
   };
@@ -40,10 +34,10 @@ function CreateUser() {
     <div
       className="bg-gray-100"
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "130vh",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '130vh',
       }}
     >
       <Card color="transparent" shadow={false}>
@@ -65,7 +59,7 @@ function CreateUser() {
               onChange={(e) => setName(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
-                className: "before:content-none after:content-none",
+                className: 'before:content-none after:content-none',
               }}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -79,7 +73,7 @@ function CreateUser() {
               onChange={(e) => setEmail(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
-                className: "before:content-none after:content-none",
+                className: 'before:content-none after:content-none',
               }}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -93,7 +87,7 @@ function CreateUser() {
               onChange={(e) => setAge(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
-                className: "before:content-none after:content-none",
+                className: 'before:content-none after:content-none',
               }}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -106,7 +100,7 @@ function CreateUser() {
               onChange={(e) => setJobRole(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
-                className: "before:content-none after:content-none",
+                className: 'before:content-none after:content-none',
               }}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -119,7 +113,7 @@ function CreateUser() {
               onChange={(e) => setMobile(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
-                className: "before:content-none after:content-none",
+                className: 'before:content-none after:content-none',
               }}
             />
             <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -132,7 +126,7 @@ function CreateUser() {
               onChange={(e) => setAddress(e.target.value)}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
-                className: "before:content-none after:content-none",
+                className: 'before:content-none after:content-none',
               }}
             />
           </div>

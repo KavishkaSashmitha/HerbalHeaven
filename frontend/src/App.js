@@ -1,28 +1,30 @@
-import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import { SidebarWithBurgerMenu } from "./components/navBar";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Dashboard from "./pages/DashBoard";
-import { EcommerceCard } from "./pages/Products";
-import Cart from "./pages/cart";
-import CreatPost from "./components/CreatePost";
-import EditPost from "./components/EditPost";
-import Posts from "./components/Posts";
-import PostDetails from "./components/PostDetails";
-import "react-toastify/dist/ReactToastify.css";
-import Payment from "./pages-Kumesh/Payment";
-import CreateUser from "./pages_kavindu/CreateUser";
-import UpdateUser from "./pages_kavindu/UpdateUser";
-import User from "./pages_kavindu/User";
-import AdminDashboard from "./pages/adminDashboard";
-import SalaryReport from "./components/SalaryReport";
-import "./index.css";
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import { SidebarWithBurgerMenu } from './components/navBar';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/DashBoard';
+import { EcommerceCard } from './pages/Products';
+import Cart from './pages/cart';
+import CreatPost from './components/CreatePost';
+import EditPost from './components/EditPost';
+import Posts from './components/Posts';
+import PostDetails from './components/PostDetails';
+import 'react-toastify/dist/ReactToastify.css';
+import Payment from './pages-Kumesh/Payment';
+import CreateUser from './pages_kavindu/CreateUser';
+import UpdateUser from './pages_kavindu/UpdateUser';
+import User from './pages_kavindu/User';
+import AdminDashboard from './pages/adminDashboard';
+import SalaryReport from './components/SalaryReport';
+import './index.css';
+import AddProduct from './pages-Dileesha/AddProduct';
+import UpdateProduct from './pages-Dileesha/UpdateProduct';
+import InventoryList from './pages-Dileesha/InventoryList';
 
 function App() {
   return (
     <>
-      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -40,6 +42,9 @@ function App() {
         <Route path="/emp/update/:id" element={<UpdateUser />} />
         <Route path="/emp" element={<User />} />
         <Route path="/salaryreport" element={<SalaryReport />} />
+        <Route path="/inventory/add" element={<AddProduct />} />
+        <Route path="/inventory/update/:id" element={<UpdateProduct />} />
+        <Route path="/inventory" element={<InventoryList />} />
       </Routes>
     </>
   );
