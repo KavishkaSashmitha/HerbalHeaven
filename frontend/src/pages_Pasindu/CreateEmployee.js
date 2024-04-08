@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import { SidebarWithBurgerMenu } from '../components/navBar';
-import { Link } from 'react-router-dom';
-import { Breadcrumbs, Button } from '@material-tailwind/react';
-import ProfileMenu from '../components/Profile';
-import { Footer } from '../components/Footer';
+import React, { Component } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { SidebarWithBurgerMenu } from "../components/navBar";
+import { Link } from "react-router-dom";
+import { Breadcrumbs, Button } from "@material-tailwind/react";
+import ProfileMenu from "../components/Profile";
+import { Footer } from "../components/Footer";
 
 export default class CreatPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      jobrole: '',
-      gender: '',
-      mobile: '',
-      nic:'',
-      email: '',
-      address: '',
-      isAdmin: '',
-      age: '',
+      name: "",
+      jobrole: "",
+      gender: "",
+      mobile: "",
+      nic: "",
+      email: "",
+      address: "",
+      isAdmin: "",
+      age: "",
       confirmation: false,
       errors: {},
 
@@ -31,78 +31,98 @@ export default class CreatPost extends Component {
   validateName = () => {
     const { name } = this.state;
     if (!name) {
-      return 'Name is required';
+      return "Name is required";
     }
-    return '';
+
+    // Check if the name contains any uppercase letters
+    if (/[A-Z]/.test(name)) {
+      return "Please enter name in lowercase letters";
+    }
+
+    return "";
   };
 
   validateJobrole = () => {
     const { jobrole } = this.state;
     if (!jobrole) {
-      return 'Job role is required';
+      return "Job role is required";
     }
-    return '';
+    return "";
   };
 
   validateGender = () => {
     const { gender } = this.state;
     if (!gender) {
-      return 'Gender is required';
+      return "Gender is required";
     }
-    return '';
+    return "";
   };
 
   validateMobile = () => {
     const { mobile } = this.state;
     if (!mobile) {
-      return 'Mobile number is required';
+      return "Mobile number is required";
     }
     if (mobile.length !== 10) {
-      return 'Mobile number must be 10 digits';
+      return "Mobile number must be 10 digits";
     }
-    return '';
+    return "";
   };
 
   validateNic = () => {
     const { nic } = this.state;
     if (!nic) {
-      return 'National ID is required';
+      return "National ID is required";
     }
     if (nic.length !== 12 && nic.length !== 9) {
-      return 'National ID must be either 12 or 9 digits';
+      return "National ID must be either 12 or 9 digits";
     }
-    return '';
-};
-
+    return "";
+  };
 
   validateEmail = () => {
-    const { email } = this.state;
+    let { email } = this.state;
+    
+    // Convert email to lowercase
+    const originalEmail = email;
+    email = email.toLowerCase();
+    
     if (!email) {
-      return 'Email is required';
+      return "Email is required";
     }
-    if (!email.includes('@')) {
-      return 'Email must include @ symbol';
+    if (originalEmail !== email) {
+      return "Please enter Email in lowercase letters";
     }
-    return '';
+    if (!email.includes("@")) {
+      return "Email must include @ symbol";
+    }
+    return "";
   };
-
+  
   validateAddress = () => {
-    const { address } = this.state;
+    let { address } = this.state;
     if (!address) {
-      return 'Address is required';
+        return "Address is required";
     }
-    return '';
-  };
+    // Convert address to lowercase
+    address = address.toLowerCase();
+    
+    if (this.state.address !== address) {
+        return "Please enter the address in lowercase";
+    }
+
+    return "";
+};
 
   validateAge = () => {
     const { age } = this.state;
     if (!age) {
-      return 'Age is required';
+      return "Age is required";
     }
     if (age < 18 || age > 60) {
-      return 'Age must be between 18 and 60';
+      return "Age must be between 18 and 60";
     }
-    return '';
+    return "";
   };
 
   handInputChange = (e) => {
@@ -112,7 +132,7 @@ export default class CreatPost extends Component {
       [name]: value,
       errors: {
         ...this.state.errors,
-        [name]: '', // Clear previous error when the field is updated
+        [name]: "", // Clear previous error when the field is updated
       },
     });
   };
@@ -138,12 +158,13 @@ export default class CreatPost extends Component {
     };
 
     // Check if any errors exist
-    if (Object.values(errors).some((error) => error !== '')) {
+    if (Object.values(errors).some((error) => error !== "")) {
       this.setState({ errors });
       return;
     }
 
-    const { name, jobrole, gender, mobile,nic, email, address, age } = this.state;
+    const { name, jobrole, gender, mobile, nic, email, address, age } =
+      this.state;
 
     const data = {
       name: name,
@@ -157,29 +178,29 @@ export default class CreatPost extends Component {
     };
 
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'This will add a new Employee.',
-      icon: 'question',
+      title: "Are you sure?",
+      text: "This will add a new Employee.",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonText: 'Yes, add it!',
-      cancelButtonText: 'No, cancel!',
+      confirmButtonText: "Yes, add it!",
+      cancelButtonText: "No, cancel!",
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .post('http://localhost:8070/api/posts/post/save', data)
+          .post("http://localhost:8070/api/posts/post/save", data)
           .then((res) => {
             if (res.data.success) {
               this.setState({
                 confirmation: true,
-                name: '',
-                jobrole: '',
-                gender: '',
-                mobile: '',
-                nic: '',
-                email: '',
-                address: '',
-                age: '',
+                name: "",
+                jobrole: "",
+                gender: "",
+                mobile: "",
+                nic: "",
+                email: "",
+                address: "",
+                age: "",
               });
             }
           });
@@ -233,7 +254,7 @@ export default class CreatPost extends Component {
             </Breadcrumbs>
           </div>
           {this.state.confirmation ? (
-            (window.location.href = '/emp')
+            (window.location.href = "/emp")
           ) : (
             <div class=" w-full max-w-[56rem] mx-auto mt-7 mb-7 ">
               <div class="relative flex flex-col rounded-xl bg-blue-gray-100 shadow-md opacity-90">
@@ -275,7 +296,7 @@ export default class CreatPost extends Component {
                                 placeholder="Enter Employee Name"
                                 onChange={this.handInputChange}
                                 className={`peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 ${
-                                  errors.name ? 'border-red-500' : ''
+                                  errors.name ? "border-red-500" : ""
                                 }`}
                               />
                               {errors.name && (
@@ -300,8 +321,8 @@ export default class CreatPost extends Component {
                                 onChange={this.handInputChange}
                                 class={`${
                                   errors.jobrole
-                                    ? 'border-red-500'
-                                    : 'border-blue-gray-200'
+                                    ? "border-red-500"
+                                    : "border-blue-gray-200"
                                 }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
                               >
                                 <option value="">Select Job Role</option>
@@ -333,8 +354,8 @@ export default class CreatPost extends Component {
                                 onChange={this.handInputChange}
                                 class={`${
                                   errors.gender
-                                    ? 'border-red-500'
-                                    : 'border-blue-gray-200'
+                                    ? "border-red-500"
+                                    : "border-blue-gray-200"
                                 }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
                               >
                                 <option value="">Select Gender</option>
@@ -364,8 +385,8 @@ export default class CreatPost extends Component {
                                 onChange={this.handInputChange}
                                 class={`${
                                   errors.mobile
-                                    ? 'border-red-500'
-                                    : 'border-blue-gray-200'
+                                    ? "border-red-500"
+                                    : "border-blue-gray-200"
                                 }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
                               />
                               {errors.mobile && (
@@ -390,8 +411,8 @@ export default class CreatPost extends Component {
                                 onChange={this.handInputChange}
                                 class={`${
                                   errors.nic
-                                    ? 'border-red-500'
-                                    : 'border-blue-gray-200'
+                                    ? "border-red-500"
+                                    : "border-blue-gray-200"
                                 }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
                               />
                               {errors.nic && (
@@ -423,8 +444,8 @@ export default class CreatPost extends Component {
                                 onChange={this.handInputChange}
                                 class={`${
                                   errors.email
-                                    ? 'border-red-500'
-                                    : 'border-blue-gray-200'
+                                    ? "border-red-500"
+                                    : "border-blue-gray-200"
                                 }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
                               />
                               {errors.email && (
@@ -449,8 +470,8 @@ export default class CreatPost extends Component {
                                 onChange={this.handInputChange}
                                 class={`${
                                   errors.address
-                                    ? 'border-red-500'
-                                    : 'border-blue-gray-200'
+                                    ? "border-red-500"
+                                    : "border-blue-gray-200"
                                 }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
                               />
                               {errors.address && (
@@ -477,8 +498,8 @@ export default class CreatPost extends Component {
                                 onChange={this.handInputChange}
                                 class={`${
                                   errors.age
-                                    ? 'border-red-500'
-                                    : 'border-blue-gray-200'
+                                    ? "border-red-500"
+                                    : "border-blue-gray-200"
                                 }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
                               />
                               {errors.age && (

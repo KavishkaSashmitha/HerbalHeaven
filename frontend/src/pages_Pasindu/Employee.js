@@ -134,7 +134,7 @@ export default function Posts() {
     <>
       <div className="flex h-screen overflow-scroll">
         <div
-          className={`sidebar w-64   text-white ${open ? "block" : "hidden"}`}
+          className={`sidebar w-64 bg-custom-color text-white ${open ? "block" : "hidden"}`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
@@ -340,17 +340,20 @@ export default function Posts() {
                         </td>
 
                         <td className="p-4">
-    <div className="flex items-center gap-3">
-        <div className="flex flex-col">
-            <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                {post && post.nic && typeof post.nic === 'string' ? 
-                    (post.nic.length === 9 ? post.nic.slice(0, 9) + "v" : post.nic) : 
-                    'NIC not available'}
-            </p>
-        </div>
-    </div>
-</td>
-
+                          <div className="flex items-center gap-3">
+                            <div className="flex flex-col">
+                              <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
+                                {post &&
+                                post.nic &&
+                                typeof post.nic === "string"
+                                  ? post.nic.length === 9
+                                    ? post.nic.slice(0, 9) + "v"
+                                    : post.nic
+                                  : "NIC not available"}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
 
                         <td className="p-4   ">
                           <div className="flex items-center gap-3">
