@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 
 function AdminNavbar({ toggleSidebar }) {
   return (
-    <div className="sticky top-0 bg-blue-gray-300 h-16 px-6 sm:px-10 py-4  flex items-center justify-between z-50">
+    <div className="sticky top-0 bg-green-600 h-16 px-6 sm:px-10 py-4  flex items-center justify-between z-50">
       <div className="flex items-center space-x-8 text-sm text-white">
         <i
           className="fas fa-bars text-xl cursor-pointer"

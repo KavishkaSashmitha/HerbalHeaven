@@ -37,15 +37,15 @@ import { CartAdmin, CartDetails } from './pages/Cart-Admin';
 import CartChart from './pages/Cart-Chart';
 import OTPVerification from './interfaces/Otp';
 import { useAuth } from './middleware/authContext';
+import { CustomerLogin } from './pages/Customer-login';
 
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
 
   return (
-
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<CustomerLogin />} />
       <Route path="/signUp" element={<Register />} />
 
       {/* Routes that require authentication */}
@@ -72,8 +72,6 @@ function App() {
         path="/cart-stats"
         element={isLoggedIn ? <CartChart /> : <Navigate to="/login" />}
       />
-
-      {/* OTP Verification */}
       <Route path="/otp" element={<OTPVerification />} />
 
       {/* Pasindu */}
@@ -85,6 +83,10 @@ function App() {
       <Route path="/EmployeeChart" element={<EmployeeChart />} />
       <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
       <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} />
+      <Route
+        path="/Display_Employee_Details/:id"
+        element={<Display_Employee_Details />}
+      />
 
       {/* Malshan */}
       <Route path="/transport" element={<Transport />} />
@@ -104,7 +106,6 @@ function App() {
       <Route path="/sup/update/:id" element={<UpdateUser />} />
       <Route path="/sup" element={<User />} />
     </Routes>
-
   );
 }
 
