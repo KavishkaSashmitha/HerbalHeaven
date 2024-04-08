@@ -144,9 +144,8 @@ export function SidebarWithBurgerMenu({}) {
 
                     Inventory
                   </ListItem>
-                  <Link to="/cart-admin">
-           Customer
-                  </ListItem>
+                  
+                  
                   <Link to="/inventory">
 
                     <ListItem>
@@ -159,9 +158,7 @@ export function SidebarWithBurgerMenu({}) {
                   </Link>
 
 
-                      Inventory
-                    </ListItem>
-                  </Link>
+                      
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
