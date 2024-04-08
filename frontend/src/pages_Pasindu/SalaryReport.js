@@ -21,12 +21,11 @@ function SalaryReport() {
   const [mbonus, setMbonus] = useState("");
   const [nsal, setNsal] = useState("");
   const [emp, setEmp] = useState(null);
-  const [nameError, setNameError] = useState("");
   const [employeeName, setEmployeeName] = useState("");
   const [jobRole, setJobRole] = useState("");
   const [rate, setHourlyRate] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [confirmation, setConfirmation] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -43,6 +42,29 @@ function SalaryReport() {
     };
     fetchPosts();
   }, []);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const validationErrors = {};
+    if (!selectedMonth) {
+      validationErrors.month = "Month is required";
+    }
+    if (!hours) {
+      validationErrors.hours = "Working Hours is required";
+    }
+    // If there are validation errors, update the state and return
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    // Clear errors state if there are no validation errors and a month is selected
+    setErrors({});
+
+    // Perform other actions after validation, if needed
+    Calculation();
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -64,7 +86,7 @@ function SalaryReport() {
   }, []);
 
   function Calculation() {
-    const basicSalary = hours * rate + 25000;
+    const basicSalary = hours * rate;
     const etfValue = (basicSalary * 3) / 100;
     const epfValue = (basicSalary * 8) / 100;
 
@@ -87,12 +109,6 @@ function SalaryReport() {
     const netSalary =
       basicSalary +
       (transportAllowance + monthlyBonus - (taxValue + etfValue + epfValue));
-
-    const validEmployee = emp && emp.find((e) => e.name === employeeName);
-    if (!validEmployee) {
-      setNameError("Invalid employee name");
-      return;
-    }
 
     setJobRole(jobRole);
     setBsal(basicSalary);
@@ -122,12 +138,17 @@ function SalaryReport() {
           })
           .then((res) => {
             if (res.data.success) {
-              Swal.fire(
-                "Updated!",
-                "Employee salary information has been updated.",
-                "success"
-              );
-              setConfirmation(true);
+              Swal.fire({
+                title: "Updated!",
+                text: "Employee salary information has been updated.",
+                icon: "success",
+                confirmButtonText: "Ok",
+                reverseButtons: true,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = "/emp";
+                }
+              });
             }
           })
           .catch((error) => {
@@ -135,10 +156,6 @@ function SalaryReport() {
           });
       }
     });
-
-    if (confirmation) {
-      window.location.href = "/emp";
-    }
 
     const doc = new jsPDF();
     const data1 = [
@@ -188,7 +205,7 @@ function SalaryReport() {
       case "technician":
         setHourlyRate(350);
         break;
-      case "triver":
+      case "driver":
         setHourlyRate(300);
         break;
       case "worker":
@@ -203,6 +220,21 @@ function SalaryReport() {
   const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value);
   };
+
+  function capitalizeSecondPart(name) {
+    if (!name) return "";
+
+    const parts = name.split(" "); // Split the name into parts
+
+    // Iterate over each part and capitalize the first letter
+    for (let i = 0; i < parts.length; i++) {
+      parts[i] =
+        parts[i].charAt(0).toUpperCase() + parts[i].slice(1).toLowerCase();
+    }
+
+    // Join the parts back into a single string
+    return parts.join(" ");
+  }
 
   return (
     <>
@@ -283,15 +315,12 @@ function SalaryReport() {
                           <div class="relative h-10 w-full min-w-[200px] mb-4">
                             <input
                               type="text"
+                              value={capitalizeSecondPart(employeeName)}
                               required
-                              value={employeeName}
                               disabled
                               placeholder="Enter Employee Name"
                               class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                             />
-                            {nameError && (
-                              <p className="text-red-500">{nameError}</p>
-                            )}
 
                             <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                           </div>
@@ -338,7 +367,10 @@ function SalaryReport() {
                               name="month"
                               placeholder="Enter Month"
                               onChange={handleMonthChange}
-                              class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                              class={`${
+                                errors.month && "border-red-500"
+                              }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50
+                            `}
                             >
                               <option value="">Select Month</option>
                               <option value="January">January</option>
@@ -354,6 +386,11 @@ function SalaryReport() {
                               <option value="November">November</option>
                               <option value="December">December</option>
                             </select>
+                            {errors.month && (
+                              <span className="text-red-500 ml-1 text-sm sans">
+                                {errors.month}
+                              </span>
+                            )}
 
                             <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                           </div>
@@ -364,13 +401,22 @@ function SalaryReport() {
                           <div class="relative h-10 w-full min-w-[200px] mb-10">
                             <input
                               type="number"
-                              required
+                              name="Workhours"
+                              value={hours}
                               onChange={(event) => {
                                 setHours(event.target.value);
                               }}
                               placeholder="Working Hours"
-                              class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                              class={`${
+                                errors.hours && "border-red-500"
+                              }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50
+                            `}
                             />
+                            {errors.hours && (
+                              <span className="text-red-500 ml-1 text-sm sans">
+                                {errors.hours}
+                              </span>
+                            )}
 
                             <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                           </div>
@@ -378,7 +424,7 @@ function SalaryReport() {
                           <div>
                             <button
                               type="button"
-                              onClick={Calculation}
+                              onClick={onSubmit}
                               className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
                             >
                               <i className="fas fa-calculator mr-2"></i>

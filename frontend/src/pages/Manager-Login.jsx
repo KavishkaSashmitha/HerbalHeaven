@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
 import { Button, Input } from '@material-tailwind/react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../middleware/authContext';
 
 export default function ManagerLogin() {
   const [email, setEmail] = useState('');
   const [mobile, setMobile] = useState('');
   const navigate = useNavigate();
+  const { staffLogin } = useAuth(); // Access the staffLogin method from the AuthProvider
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      // Make a GET request to your backend endpoint for verification
-      const response = await axios.get(
-        `/api/posts/posts?email=${email}&nic=${mobile}`
-      );
+      // Call the staffLogin method from the AuthProvider
+      const { success, isAdmin } = await staffLogin(email, mobile);
 
-      // Check if the response indicates successful admin login
-      if (response.data.success) {
-        // Navigate to the admin dashboard
+      if (success && isAdmin) {
+        // Navigate to the appropriate dashboard after successful login
         navigate('/admin-dashboard');
-      } else {
+      }  else {
         // Handle unsuccessful login
-        console.log('Login failed:', response.data.error);
-        // Display appropriate message to the user
+        // For example, display error message to the user
+        console.error('Invalid credentials');
       }
     } catch (error) {
       console.error('Error occurred during login:', error);

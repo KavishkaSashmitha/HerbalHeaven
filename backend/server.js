@@ -1,3 +1,4 @@
+
 const express = require('express');
 require('dotenv').config();
 const connectDB = require('./config/dbConfig');
@@ -5,8 +6,10 @@ const colors = require('colors');
 const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
 
+
 connectDB();
 
+const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 8070;
 
@@ -25,7 +28,18 @@ app.use('/sup', require('./routes/supplierRouter'));
 
 app.use('/api/transports', require('./routes/transports'));
 
+app.use(bodyParser.json());
+
+// Use routes
+app.use('/api', require('./routes/otpRoutes'));
+
+
+
+
+
 app.use(errorHandler);
 app.listen(PORT, () => {
-  console.log('Port Connected ' + PORT);
+  console.log("Port Connected " + PORT);
+  console.log("Connect To Mongo db");
+
 });
