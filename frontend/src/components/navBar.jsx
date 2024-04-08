@@ -76,6 +76,7 @@ function NavList() {
           <Link to="/dashboard">
             <Button>Dashboard</Button>
           </Link>
+<<<<<<< Updated upstream
         ) : (
           <Link to="/login">
             <Button color="teal">Login</Button>
@@ -133,5 +134,247 @@ export function NavbarSimple() {
         </Collapse>
       </Navbar>
     </header>
+=======
+
+          <div className="p-1">
+            <Input
+              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+              label="Search"
+            />
+          </div>
+
+          <List className="overflow-y-scroll bg-green-100">
+            <Accordion
+              open={open === 1}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open === 1 ? "rotate-180" : ""
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 1}>
+                <AccordionHeader
+                  onClick={() => handleOpen(1)}
+                  className="border-b-0 p-3"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+
+                  <Typography color="blue-gray" className="mr-auto font-normal">
+                    Dashboard
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Customer
+                    </ListItem>
+                  </Link>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Inventory
+                  </ListItem>
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Cart
+                    </ListItem>
+                  </Link>
+
+                  <Link to="/emp">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Employee
+                    </ListItem>
+                  </Link>
+
+                  <Link to="/sup">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Supplier
+                    </ListItem>
+                  </Link>
+
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Transport
+                    </ListItem>
+                  </Link>
+
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Order
+                    </ListItem>
+                  </Link>
+                  <Link to="/carddetails">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Payment
+                    </ListItem>
+                  </Link>
+                </List>
+              </AccordionBody>
+            </Accordion>
+            <Link to="#">
+              <Accordion open={open === 2}>
+                <ListItem className="p-0" selected={open === 2}>
+                  <AccordionHeader
+                    onClick={() => handleOpen(2)}
+                    className="border-b-0 p-3"
+                  >
+                    <ListItemPrefix>
+                      <ShoppingBagIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal"
+                    >
+                      Orders
+                    </Typography>
+                  </AccordionHeader>
+                </ListItem>
+              </Accordion>
+            </Link>
+            <Link to="/products">
+              <Accordion open={open === 3}>
+                <ListItem className="p-0" selected={open === 3}>
+                  <AccordionHeader
+                    onClick={() => handleOpen(3)}
+                    className="border-b-0 p-3"
+                  >
+                    <ListItemPrefix>
+                      <ShoppingBagIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal"
+                    >
+                      Products
+                    </Typography>
+                  </AccordionHeader>
+                </ListItem>
+              </Accordion>
+            </Link>
+            <Link to="/netincome">
+              <Accordion open={open === 3}>
+                <ListItem className="p-0" selected={open === 3}>
+                  <AccordionHeader
+                    onClick={() => handleOpen(3)}
+                    className="border-b-0 p-3"
+                  >
+                    <ListItemPrefix>
+                      <ShoppingBagIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal"
+                    >
+                      Net Income
+                    </Typography>
+                  </AccordionHeader>
+                </ListItem>
+              </Accordion>
+            </Link>
+            <Link to="/user/cart">
+              <Accordion open={open === 3}>
+                <ListItem className="p-0" selected={open === 3}>
+                  <AccordionHeader
+                    onClick={() => handleOpen(3)}
+                    className="border-b-0 p-3"
+                  >
+                    <ListItemPrefix>
+                      <ShoppingBagIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal"
+                    >
+                      Cart
+                    </Typography>
+                    <ListItemSuffix>
+                      <Chip
+                        value={cartCount}
+                        size="sm"
+                        variant="ghost"
+                        color="blue-gray"
+                        className="rounded-full"
+                      />
+                    </ListItemSuffix>
+                  </AccordionHeader>
+                </ListItem>
+              </Accordion>
+            </Link>
+
+            <hr className="my-2 border-blue-gray-50" />
+
+            {isLoggedIn ? ( // Conditional rendering based on isLoggedIn state
+              <>
+                <Link to="/dashboard">
+                  <ListItem className="p-2 py-2">
+                    <ListItemPrefix>
+                      <UserCircleIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal"
+                    >
+                      Profile
+                    </Typography>
+                  </ListItem>
+                </Link>
+                <ListItem className="p-2 py-1 bg-red-500" onClick={logout}>
+                  <ListItemPrefix>
+                    <PowerIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography
+                    color="blue-gray"
+                    className="mr-auto font-normal logout"
+                  >
+                    Log Out
+                  </Typography>
+                </ListItem>
+              </>
+            ) : (
+              <Link to="/login">
+                <ListItem className="p-2 py-2 bg-light-green-500">
+                  <ListItemPrefix>
+                    <UserCircleIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+                  <Typography color="blue-gray" className="mr-auto font-bold ">
+                    Log In
+                  </Typography>
+                </ListItem>
+              </Link>
+            )}
+          </List>
+        </Card>
+      </Drawer>
+    </>
+>>>>>>> Stashed changes
   );
 }

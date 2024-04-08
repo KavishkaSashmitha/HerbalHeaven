@@ -73,9 +73,51 @@ const deleteCartItems = asyncHandler(async (req, res) => {
   res.status(200).json({ message: `deleted cart item :${req.params.id}` });
 });
 
+<<<<<<< Updated upstream
+=======
+const updateCartQuantity = asyncHandler(async (req, res) => {
+  const { items } = req.body;
+
+  try {
+    // Loop through each item in the request body and update the quantity in the database
+    await Promise.all(
+      items.map(async (item) => {
+        const { id, quantity } = item;
+        await Cart.findByIdAndUpdate(id, { quantity });
+      })
+    );
+
+    res.status(200).json({ message: 'Cart quantities updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+/*Admin Payment Details Part*/
+
+const getAllCartDetails = async (req, res, next) => {
+  let cart;
+  try {
+    cart = await Cart.find();
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+  if (!cart) {
+    return res.status(404).json({ message: "Cart not found" });
+  }
+  return res.status(200).json({ cart });
+};
+
+>>>>>>> Stashed changes
 module.exports = {
   viewCart,
   AddToCart,
   updateCart,
   deleteCartItems,
+<<<<<<< Updated upstream
+=======
+  updateCartQuantity,
+  getAllCartDetails,
+>>>>>>> Stashed changes
 };
