@@ -21,7 +21,6 @@ root.render(
     <ToastContainer />
     <ThemeProvider>
       <AuthProvider>
-        <OTPVerification />
         <CartProvider>
           <Router>
             <App />
