@@ -15,6 +15,7 @@ import SalaryReport from './pages_Pasindu/SalaryReport';
 import EmployeeChart from './pages_Pasindu/EmployeeChart';
 import MonthlySalChart from './pages_Pasindu/EmployeeSalChart';
 import Emp_User_Chart from './pages_Pasindu/Emp_User_Chart';
+import Display_Employee_Details from './pages_Pasindu/Display_Employee_Details';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -41,6 +42,7 @@ function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
 
   return (
+
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
@@ -102,6 +104,7 @@ function App() {
       <Route path="/sup/update/:id" element={<UpdateUser />} />
       <Route path="/sup" element={<User />} />
     </Routes>
+
   );
 }
 
