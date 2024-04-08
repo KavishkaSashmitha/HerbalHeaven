@@ -1,4 +1,0 @@
-<PayPalScriptProvider
-      //   options={{
-      //     "client-id": process.env.CLIENT_ID,
-      //   }}
