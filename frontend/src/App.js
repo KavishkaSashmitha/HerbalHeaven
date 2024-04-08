@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
@@ -17,18 +18,24 @@ import MonthlySalChart from './pages_Pasindu/EmployeeSalChart';
 import Emp_User_Chart from './pages_Pasindu/Emp_User_Chart';
 import Display_Employee_Details from './pages_Pasindu/Display_Employee_Details';
 
-import 'react-toastify/dist/ReactToastify.css';
 
-import Payment from './pages-Kumesh/Payment';
 
-import CreateUser from './pages_kavindu/CreateUser';
-import UpdateUser from './pages_kavindu/UpdateUser';
-import User from './pages_kavindu/User';
 
-import Transport from './pages_Malshan/Transport';
-import Add_Driver from './pages_Malshan/Add_Driver';
-import Edit_Driver from './pages_Malshan/Edit_Driver';
-import Driver_Details from './pages_Malshan/Driver_Details';
+
+import "react-toastify/dist/ReactToastify.css";
+
+import Payment from "./pages-Kumesh/Payment";
+
+import CreateUser from "./pages_kavindu/CreateUser";
+import UpdateUser from "./pages_kavindu/UpdateUser";
+import User from "./pages_kavindu/User";
+import SupplierReport from "./pages_kavindu/SupplierReport";
+
+import Transport from "./pages_Malshan/Transport";
+import Add_Driver from "./pages_Malshan/Add_Driver";
+import Edit_Driver from "./pages_Malshan/Edit_Driver";
+import Driver_Details from "./pages_Malshan/Driver_Details";
+
 
 import AdminDashboard from './pages/adminDashboard';
 import './index.css';
@@ -39,10 +46,12 @@ import OTPVerification from './interfaces/Otp';
 import { useAuth } from './middleware/authContext';
 import { CustomerLogin } from './pages/Customer-login';
 
+
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
 
   return (
+
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<CustomerLogin />} />
@@ -97,15 +106,14 @@ function App() {
       <Route path="/user/payment" element={<Payment />} />
 
       {/* Kavindu */}
-      <Route path="/emp/add" element={<CreateUser />} />
-      <Route path="/emp/update/:id" element={<UpdateUser />} />
-      <Route path="/emp" element={<User />} />
-      <Route path="/salaryreport/:id" element={<SalaryReport />} />
+     
 
       <Route path="/sup/addsup" element={<CreateUser />} />
       <Route path="/sup/update/:id" element={<UpdateUser />} />
       <Route path="/sup" element={<User />} />
+         <Route path="/sup/supreport/:id" element={<SupplierReport />} />
     </Routes>
+
   );
 }
 
