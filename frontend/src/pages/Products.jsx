@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import {
   Card,
   CardHeader,
@@ -6,42 +5,39 @@ import {
   CardFooter,
   Typography,
   Button,
+  Input,
 } from '@material-tailwind/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../middleware/authContext';
 import { SidebarWithBurgerMenu } from '../components/navBar';
+import backgroundImage from '../assets/product-list.jpg';
+import ProfileMenu from '../components/Profile';
 
-const Product = ({ product }) => {
-  const { addToCart } = useAuth();
-
+const Product = ({ product, addToCart }) => {
   return (
-    <>
-    <SidebarWithBurgerMenu />
-    <Card key={product._id} className="w-96 mb-4 mt-2  ml-2 bg-light-green-200">
-      <CardHeader shadow={false} floated={false} className="h-96">
+    <Card key={product._id} className="w-72 mb-4 mt-2 ml-2 bg-light-green-200">
+      <CardHeader shadow={false} floated={false} className="h-48">
         <img
-          src={product.image} // Assuming your product object has an 'image' property
+          src={product.image}
           alt="card-image"
-          className="h-full w-full object-cover"
+          className="h-full  w-full object-cover"
         />
       </CardHeader>
       <CardBody>
         <div className="mb-2 flex items-center justify-between ">
-          <Typography color="blue-gray" className="font-medium">
-            {product.name}
-          </Typography>
-          <Typography color="blue-gray" className="font-medium">
-            ${product.price}
-          </Typography>
+          <div>
+            <Typography color="blue-gray" className="font-bold variant-h3 ">
+              {product.name}
+            </Typography>
+          </div>
+
+          <div>
+            <Typography color="blue-gray" className="font-medium">
+              Rs. {product.price}
+            </Typography>
+          </div>
         </div>
-        <Typography
-          variant="small"
-          color="gray"
-          className="font-normal opacity-75"
-        >
-          {product.description}
-        </Typography>
       </CardBody>
       <CardFooter className="pt-0">
         <Button
@@ -53,13 +49,14 @@ const Product = ({ product }) => {
         </Button>
       </CardFooter>
     </Card>
-    </>
   );
 };
 
 export function EcommerceCard() {
   const url = 'http://localhost:8070/api';
   const [data, setData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const { addToCart } = useAuth();
 
   const fetchInfo = () => {
     return axios.get(`${url}/products`).then((res) => setData(res.data));
@@ -69,11 +66,67 @@ export function EcommerceCard() {
     fetchInfo();
   }, []);
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredData = data.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div>
-      {data.map((product) => (
-        <Product key={product._id} product={product} />
-      ))}
+    <div
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          filter: 'blur(10px)', // Adjust the blur intensity as needed
+          zIndex: -1,
+        }}
+      />
+      <div className="relative flex justify-between">
+        <SidebarWithBurgerMenu />
+        <div className="relative flex w-1/2 gap-2 mt-2 mb-2 md:auto justify-center mx-auto">
+          <Input
+            type="search"
+            color="black"
+            label="Type here..."
+            className="pr-20"
+            containerProps={{
+              className: 'min-w-[288px]',
+            }}
+            onChange={handleSearch}
+          />
+          <Button
+            size="sm"
+            color="white"
+            className="!absolute right-1 top-1 rounded"
+          >
+            Search
+          </Button>
+        </div>
+
+        <ProfileMenu />
+      </div>
+
+      <div></div>
+      <div className="flex flex-wrap justify-center">
+        {filteredData.map((product) => (
+          <Product key={product._id} product={product} addToCart={addToCart} />
+        ))}
+      </div>
     </div>
   );
 }

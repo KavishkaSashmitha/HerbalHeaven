@@ -13,7 +13,12 @@ import {
   Input,
   Drawer,
   Card,
+
+  Badge,
+  Chip,
 } from '@material-tailwind/react';
+
+
 import {
   UserCircleIcon,
   PowerIcon,
@@ -30,10 +35,14 @@ import {
 import { Link } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
 
-export function SidebarWithBurgerMenu() {
+import { useCart } from './cartContext';
+
+
+export function SidebarWithBurgerMenu({}) {
   const [open, setOpen] = React.useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   const { isLoggedIn, logout } = useAuth(); // Destructuring isLoggedIn and logout from useAuth hook
+  const { cartCount } = useCart();
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -44,7 +53,12 @@ export function SidebarWithBurgerMenu() {
 
   return (
     <>
-      <IconButton variant="text" size="lg" onClick={openDrawer}>
+      <IconButton
+        className="ml-2"
+        variant="text"
+        size="lg"
+        onClick={openDrawer}
+      >
         {isDrawerOpen ? (
           <XMarkIcon className="h-8 w-8 stroke-2" />
         ) : (
@@ -65,9 +79,19 @@ export function SidebarWithBurgerMenu() {
           shadow={false}
           className="h-[calc(100vh-2rem)] w-full p-2 bg-green-100"
         >
-          <div className="flex items-center justify-center mt-0 ">
-            <img src="\logo\logo.png" alt="brand" className="h-13 w-13 m-0" />
-          </div>
+          <Link to="/">
+            <div className="flex items-center justify-center mt-0 ">
+              <img
+                src="\logo\logo-2.png"
+                alt="brand"
+                className="h-13 w-12 mb-10 mt-10"
+              />
+              <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-green-600">
+                Herbal Heaven
+              </h5>
+            </div>
+          </Link>
+
           <div className="p-1">
             <Input
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
@@ -103,17 +127,38 @@ export function SidebarWithBurgerMenu() {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="p-0">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Customer
-                  </ListItem>
-                  <Link to="/inventory">
+
+                  <Link to="#">
                     <ListItem>
                       <ListItemPrefix>
                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                       </ListItemPrefix>
+                      Customer
+                    </ListItem>
+                  </Link>
+
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+
+                    Inventory
+                  </ListItem>
+                  <Link to="/cart-admin">
+           Customer
+                  </ListItem>
+                  <Link to="/inventory">
+
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+
+                      Cart
+                    </ListItem>
+                  </Link>
+
+
                       Inventory
                     </ListItem>
                   </Link>
@@ -123,6 +168,7 @@ export function SidebarWithBurgerMenu() {
                     </ListItemPrefix>
                     Cart
                   </ListItem>
+
                   <Link to="/emp">
                     <ListItem>
                       <ListItemPrefix>
@@ -130,35 +176,57 @@ export function SidebarWithBurgerMenu() {
                       </ListItemPrefix>
                       Employee
                     </ListItem>
+
                   </Link>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Supplier
-                  </ListItem>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Transport
-                  </ListItem>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Order
-                  </ListItem>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Payment
-                  </ListItem>
+
+                  <Link to="/sup">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Supplier
+                    </ListItem>
+                  </Link>
+
+                  <Link to="/transport">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Transport
+                    </ListItem>
+                  </Link>
+
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Transport
+                    </ListItem>
+                  </Link>
+
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Order
+                    </ListItem>
+                  </Link>
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Payment
+                    </ListItem>
+
+                  </Link>
                 </List>
               </AccordionBody>
             </Accordion>
-            <Link to="./SalaryReport">
+            <Link to="#">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
                   <AccordionHeader
@@ -214,6 +282,15 @@ export function SidebarWithBurgerMenu() {
                     >
                       Cart
                     </Typography>
+                    <ListItemSuffix>
+                      <Chip
+                        value={cartCount}
+                        size="sm"
+                        variant="ghost"
+                        color="blue-gray"
+                        className="rounded-full"
+                      />
+                    </ListItemSuffix>
                   </AccordionHeader>
                 </ListItem>
               </Accordion>
