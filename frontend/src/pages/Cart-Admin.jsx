@@ -1,8 +1,8 @@
-import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import { PencilIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import {
   ArrowDownTrayIcon,
   MagnifyingGlassIcon,
-} from '@heroicons/react/24/outline';
+} from "@heroicons/react/24/outline";
 
 import {
   Card,
@@ -16,24 +16,25 @@ import {
   IconButton,
   Tooltip,
   Input,
-} from '@material-tailwind/react';
-import { SidebarWithBurgerMenu } from '../components/navBar';
-import ProfileMenu from '../components/Profile';
-import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import AdminNavbar from '../components/AdminNavbar';
-import Sidebar from '../components/AdminSidebar';
+} from "@material-tailwind/react";
+import { SidebarWithBurgerMenu } from "../components/navBar";
+import ProfileMenu from "../components/Profile";
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import AdminNavbar from "../components/AdminNavbar";
+import Sidebar from "../components/AdminSidebar";
+import { DefaultSidebar } from "../components/Manager-Sidebar";
 
 const TABLE_HEAD = [
-  'Product',
-  'Amount',
-  'Date',
-  'Cart User',
-  'Send Notifications',
+  "Product",
+  "Amount",
+  "Date",
+  "Cart User",
+  "Send Notifications",
 ];
 
-export function CartDetails() {
+export function CartAdmin() {
   const [cartItems, setCartItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(4);
@@ -70,11 +71,11 @@ export function CartDetails() {
     const fetchCartItems = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8070/api/user/cart/cart-details'
+          "http://localhost:8070/api/user/cart/cart-details"
         );
         setCartItems(response.data);
       } catch (error) {
-        console.error('Error fetching cart items:', error);
+        console.error("Error fetching cart items:", error);
       }
     };
 
@@ -124,18 +125,16 @@ export function CartDetails() {
   }
   return (
     <>
-      <div className="flex h-screen overflow-scroll ">
+      <div className="flex h-screen overflow-scroll">
         <div
-          className={`sidebar w-64 bg-teal-400 text-white ${
-            open ? 'block' : 'hidden'
-          }`}
+          className={`sidebar w-64   text-white ${open ? "block" : "hidden"}`}
         >
-          <Sidebar open={open} handleOpen={setOpen} />
+          <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="w-full">
+        <div className="w-full h-full">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card className="h-full ">
+          <Card className="h-full">
             <CardHeader floated={false} shadow={false} className="rounded-none">
               <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
                 <div>
@@ -155,7 +154,7 @@ export function CartDetails() {
                   </div>
                   <Link to="/cart-stats">
                     <Button className="flex items-center gap-3" size="sm">
-                      <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{' '}
+                      <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{" "}
                       Stats
                     </Button>
                   </Link>
@@ -291,7 +290,7 @@ export function CartDetails() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {item.user ? item.user.email : 'N/A'}
+                            {item.user ? item.user.email : "N/A"}
                           </Typography>
                         </div>
                       </td>
@@ -300,9 +299,9 @@ export function CartDetails() {
                           <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
                             <Avatar
                               src={
-                                item.account === 'visa'
-                                  ? 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png'
-                                  : 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png'
+                                item.account === "visa"
+                                  ? "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png"
+                                  : "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png"
                               }
                               size="sm"
                               alt=""
@@ -342,7 +341,7 @@ export function CartDetails() {
                 {pageNumbers.map((number) => (
                   <IconButton
                     key={number}
-                    variant={number === currentPage ? 'outlined' : 'text'}
+                    variant={number === currentPage ? "outlined" : "text"}
                     size="sm"
                     onClick={() => paginate(number)}
                   >

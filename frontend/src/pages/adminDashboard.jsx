@@ -27,6 +27,7 @@ import {
 } from '@heroicons/react/24/solid';
 import AdminNavbar from '../components/AdminNavbar';
 import Sidebar from '../components/AdminSidebar';
+import { DefaultSidebar } from '../components/Manager-Sidebar';
 
 function AdminDashboard() {
   const [documents, setDocuments] = useState([]);
@@ -57,12 +58,8 @@ function AdminDashboard() {
 
   return (
     <div className="flex h-screen overflow-scroll">
-      <div
-        className={`sidebar w-64 bg-teal-400 text-white ${
-          open ? 'block' : 'hidden'
-        }`}
-      >
-        <Sidebar open={open} handleOpen={setOpen} />
+      <div className={` ${open ? 'block' : 'hidden'}`}>
+        <DefaultSidebar open={open} handleOpen={setOpen} />
       </div>
       <div className="w-full">
         <AdminNavbar toggleSidebar={toggleSidebar} />
