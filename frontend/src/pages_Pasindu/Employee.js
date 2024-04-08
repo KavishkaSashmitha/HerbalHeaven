@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import "jspdf-autotable";
-import { SidebarWithBurgerMenu } from "../components/navBar";
-import ProfileMenu from "../components/Profile";
-import { Footer } from "../components/Footer";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import 'jspdf-autotable';
+import { SidebarWithBurgerMenu } from '../components/navBar';
+import ProfileMenu from '../components/Profile';
+import { Footer } from '../components/Footer';
 import {
   Button,
   Card,
@@ -13,11 +13,11 @@ import {
   CardFooter,
   IconButton,
   Input,
-} from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import { Breadcrumbs } from "@material-tailwind/react";
-import AdminNavbar from "../components/AdminNavbar";
-import { DefaultSidebar } from "../components/Manager-Sidebar";
+} from '@material-tailwind/react';
+import { Link } from 'react-router-dom';
+import { Breadcrumbs } from '@material-tailwind/react';
+import AdminNavbar from '../components/AdminNavbar';
+import { DefaultSidebar } from '../components/Manager-Sidebar';
 
 export default function Posts() {
   const [post, setPosts] = useState([]);
@@ -52,38 +52,38 @@ export default function Posts() {
   }, []);
 
   if (isScrollDisabled) {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
   } else {
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = 'auto';
   }
 
   function retrievePosts() {
     axios
-      .get("http://localhost:8070/api/posts/posts")
+      .get('http://localhost:8070/api/posts/posts')
       .then((res) => {
         if (res.data.success) {
           setPosts(res.data.existingPosts);
           setCartItems(res.data.existingPosts); // Assuming `existingPosts` holds all the data
         }
       })
-      .catch((error) => console.error("Error fetching posts:", error));
+      .catch((error) => console.error('Error fetching posts:', error));
   }
 
   const onDelete = (id) => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You will not be able to recover this supplier!",
-      icon: "warning",
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this supplier!',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         axios
           .delete(`http://localhost:8070/api/posts/post/delete/${id}`)
           .then((res) => {
-            Swal.fire("Deleted!", "Supplier has been deleted.", "success");
+            Swal.fire('Deleted!', 'Supplier has been deleted.', 'success');
             retrievePosts();
           });
       }
@@ -108,7 +108,7 @@ export default function Posts() {
   const handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
 
-    axios.get("http://localhost:8070/api/posts/posts").then((res) => {
+    axios.get('http://localhost:8070/api/posts/posts').then((res) => {
       if (res.data.success) {
         filterData(res.data.existingPosts, searchKey);
       }
@@ -116,9 +116,9 @@ export default function Posts() {
   };
 
   function capitalizeSecondPart(name) {
-    if (!name) return "";
+    if (!name) return '';
 
-    const parts = name.split(" "); // Split the name into parts
+    const parts = name.split(' '); // Split the name into parts
 
     // Iterate over each part and capitalize the first letter
     for (let i = 0; i < parts.length; i++) {
@@ -127,19 +127,22 @@ export default function Posts() {
     }
 
     // Join the parts back into a single string
-    return parts.join(" ");
+    return parts.join(' ');
   }
 
   return (
     <>
       <div className="flex h-screen overflow-scroll">
         <div
-          className={`sidebar w-64 bg-custom-color text-white ${open ? "block" : "hidden"}`}
+          className={`sidebar w-64 bg-custom-color text-white ${
+            open ? 'block' : 'hidden'
+          }`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="w-full h-full ">
+        <div className="w-full h-full overflow-hidden ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
+
           <Card>
             <CardHeader floated={false} shadow={false} className="rounded-none">
               <div className="mb-12 md:items-center">
@@ -311,7 +314,7 @@ export default function Posts() {
                               <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
                                 <a
                                   href={`/posts/post/${post._id}`}
-                                  style={{ textDecoration: "none" }}
+                                  style={{ textDecoration: 'none' }}
                                 >
                                   {capitalizeSecondPart(post.name)}
                                 </a>
@@ -345,11 +348,11 @@ export default function Posts() {
                               <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
                                 {post &&
                                 post.nic &&
-                                typeof post.nic === "string"
+                                typeof post.nic === 'string'
                                   ? post.nic.length === 9
-                                    ? post.nic.slice(0, 9) + "v"
+                                    ? post.nic.slice(0, 9) + 'v'
                                     : post.nic
-                                  : "NIC not available"}
+                                  : 'NIC not available'}
                               </p>
                             </div>
                           </div>
@@ -374,7 +377,7 @@ export default function Posts() {
                               <Button color="green">
                                 <i
                                   className="fas fa-edit"
-                                  style={{ fontSize: "20px" }}
+                                  style={{ fontSize: '20px' }}
                                 ></i>
                               </Button>
                             </a>
@@ -386,7 +389,7 @@ export default function Posts() {
                               <Button color="red">
                                 <i
                                   className="fas fa-trash-alt"
-                                  style={{ fontSize: "20px" }}
+                                  style={{ fontSize: '20px' }}
                                 ></i>
                               </Button>
                             </a>
@@ -398,7 +401,7 @@ export default function Posts() {
                               <Button color="blue">
                                 <i
                                   className="fas fa-eye"
-                                  style={{ fontSize: "20px" }}
+                                  style={{ fontSize: '20px' }}
                                 ></i>
                               </Button>
                             </a>
@@ -409,7 +412,7 @@ export default function Posts() {
                             <Button color="green" className="btn btn-secondary">
                               <i
                                 className="fas fa-file"
-                                style={{ fontSize: "20px" }}
+                                style={{ fontSize: '20px' }}
                               ></i>
                             </Button>
                           </a>
@@ -419,7 +422,7 @@ export default function Posts() {
                             <Button color="green" className="btn btn-secondary">
                               <i
                                 className="fas fa-chart-simple"
-                                style={{ fontSize: "20px" }}
+                                style={{ fontSize: '20px' }}
                               ></i>
                             </Button>
                           </a>
@@ -445,7 +448,7 @@ export default function Posts() {
                   <IconButton
                     className="bg-blue-500 hover:bg-blue-700 text-cyan-50"
                     key={number}
-                    variant={number === currentPage ? "outlined" : "text"}
+                    variant={number === currentPage ? 'outlined' : 'text'}
                     size="sm"
                     onClick={() => paginate(number)}
                   >

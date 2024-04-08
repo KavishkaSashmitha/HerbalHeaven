@@ -19,7 +19,9 @@ const Product = ({ product, addToCart }) => {
     <Card key={product._id} className="w-72 mb-4 mt-2 ml-2 bg-light-green-200">
       <CardHeader shadow={false} floated={false} className="h-48">
         <img
-          src={product.image}
+          src={product.image.substring(
+            product.image.indexOf('frontend/public') + 'frontend/public'.length
+          )}
           alt="card-image"
           className="h-full  w-full object-cover"
         />
@@ -28,13 +30,13 @@ const Product = ({ product, addToCart }) => {
         <div className="mb-2 flex items-center justify-between ">
           <div>
             <Typography color="blue-gray" className="font-bold variant-h3 ">
-              {product.name}
+              {product.productName}
             </Typography>
           </div>
 
           <div>
             <Typography color="blue-gray" className="font-medium">
-              Rs. {product.price}
+              Rs. {product.cost}
             </Typography>
           </div>
         </div>
@@ -53,13 +55,15 @@ const Product = ({ product, addToCart }) => {
 };
 
 export function EcommerceCard() {
-  const url = 'http://localhost:8070/api';
+  const url = 'http://localhost:8070';
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { addToCart } = useAuth();
 
   const fetchInfo = () => {
-    return axios.get(`${url}/products`).then((res) => setData(res.data));
+    return axios
+      .get(`${url}/inventory/viewInventoryItems`)
+      .then((res) => setData(res.data));
   };
 
   useEffect(() => {
@@ -72,8 +76,8 @@ export function EcommerceCard() {
 
   const filteredData = data.filter(
     (product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      product.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.shortDescription.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
