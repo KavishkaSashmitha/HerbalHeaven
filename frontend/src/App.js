@@ -132,10 +132,7 @@ function App() {
         element={isAdminLog ? <AdminDashboard /> : <Home />}
       />
 
-      <Route
-        path="/cart-Admin"
-        element={isLoggedIn ? <CartAdmin /> : <Navigate to="/login" />}
-      />
+      <Route path="/cart-Admin" element={<CartAdmin />} />
       <Route
         path="/cart-stats"
         element={isLoggedIn ? <CartChart /> : <Navigate to="/login" />}
