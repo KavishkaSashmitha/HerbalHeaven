@@ -1,4 +1,3 @@
-
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
@@ -16,13 +15,6 @@ import EditPost from './pages_Pasindu/EditEmployee';
 import Posts from './pages_Pasindu/Employee';
 import PostDetails from './pages_Pasindu/EmployeeDetails';
 import 'react-toastify/dist/ReactToastify.css';
-
-import CreatPost from './components/CreatePost';
-import EditPost from './components/EditPost';
-import Posts from './components/Posts';
-import PostDetails from './components/PostDetails';
-import 'react-toastify/dist/ReactToastify.css';
-import Payment from './pages-Kumesh/Payment';
 
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
@@ -67,18 +59,15 @@ import OTPVerification from './interfaces/Otp';
 import { useAuth } from './middleware/authContext';
 import { CustomerLogin } from './pages/Customer-login';
 
-import SalaryReport from './components/SalaryReport';
 import './index.css';
 import AddProduct from './pages-Dileesha/AddProduct';
 import UpdateProduct from './pages-Dileesha/UpdateProduct';
 import InventoryList from './pages-Dileesha/InventoryList';
 
-
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
 
   return (
-
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
@@ -181,13 +170,12 @@ function App() {
       <Route path="/sup/update/:id" element={<UpdateUser />} />
       <Route path="/sup" element={<User />} />
       <Route path="/sup/supreport/:id" element={<SupplierReport />} />
-    
 
-        <Route path="/salaryreport" element={<SalaryReport />} />
-        <Route path="/inventory/add" element={<AddProduct />} />
-        <Route path="/inventory/update/:id" element={<UpdateProduct />} />
-        <Route path="/inventory" element={<InventoryList />} />
-</Routes>
+      <Route path="/salaryreport" element={<SalaryReport />} />
+      <Route path="/inventory/add" element={<AddProduct />} />
+      <Route path="/inventory/update/:id" element={<UpdateProduct />} />
+      <Route path="/inventory" element={<InventoryList />} />
+    </Routes>
   );
 }
 
