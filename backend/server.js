@@ -17,6 +17,7 @@ const { errorHandler } = require("./middleware/errorMiddleware");
 
 connectDB();
 
+const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 8070;
 
@@ -29,6 +30,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/user/cart', require('./routes/cartRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
+
+app.use('/api/posts', require('./routes/posts'));
+
+app.use('/sup', require('./routes/supplierRouter'));
+
+app.use('/api/transports', require('./routes/transports'));
+
+app.use(bodyParser.json());
+
+// Use routes
+app.use('/api', require('./routes/otpRoutes'));
+
 app.use(errorHandler);
 app.listen(PORT, () => {
   console.log('Port Connected ' + PORT);

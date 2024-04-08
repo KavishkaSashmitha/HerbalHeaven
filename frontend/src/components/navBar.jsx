@@ -1,140 +1,92 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-  Navbar,
-  Collapse,
-  Typography,
   IconButton,
-  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
+  Alert,
+  Input,
+  Drawer,
+  Card,
+  Badge,
+  Chip,
 } from '@material-tailwind/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+
+import {
+  UserCircleIcon,
+  PowerIcon,
+  ShoppingBagIcon,
+  ChevronRightIcon,
+  ChevronDownIcon,
+  PresentationChartBarIcon,
+} from '@heroicons/react/24/solid';
+import {
+  MagnifyingGlassIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../middleware/authContext';
+import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
+import { useCart } from './cartContext';
 
-function NavList() {
-  const { isLoggedIn } = useAuth();
+export function SidebarWithBurgerMenu({}) {
+  const [open, setOpen] = React.useState(0);
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const { isLoggedIn, logout } = useAuth(); // Destructuring isLoggedIn and logout from useAuth hook
+  const { cartCount } = useCart();
+
+  const handleOpen = (value) => {
+    setOpen(open === value ? 0 : value);
+  };
+
+  const openDrawer = () => setIsDrawerOpen(true);
+  const closeDrawer = () => setIsDrawerOpen(false);
+
   return (
-    <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
+    <>
+      <IconButton
+        className="ml-2"
+        variant="text"
+        size="lg"
+        onClick={openDrawer}
       >
-        <Link
-          to="/products"
-          className="flex items-center hover:text-blue-500 transition-colors"
-        >
-          Products
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <Link
-          to="user/cart"
-          className="flex items-center hover:text-blue-500 transition-colors"
-        >
-          Cart
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <Link
-          to="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
-        >
-          Blocks
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        <Link
-          to="#"
-          className="flex items-center hover:text-blue-500 transition-colors"
-        >
-          Docs
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-medium"
-      >
-        {isLoggedIn ? (
-          <Link to="/dashboard">
-            <Button>Dashboard</Button>
-          </Link>
-<<<<<<< Updated upstream
+        {isDrawerOpen ? (
+          <XMarkIcon className="h-8 w-8 stroke-2" />
         ) : (
-          <Link to="/login">
-            <Button color="teal">Login</Button>
-          </Link>
+          <Bars3Icon
+            className="h-8 w-8 stroke-2 "
+            style={{ color: '#c8e6c9' }}
+          />
         )}
-      </Typography>
-    </ul>
-  );
-}
+      </IconButton>
 
-export function NavbarSimple() {
-  const [openNav, setOpenNav] = React.useState(false);
-
-  const handleWindowResize = () =>
-    window.innerWidth >= 960 && setOpenNav(false);
-
-  React.useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
-
-  return (
-    <header>
-      <Navbar className="mx-auto max-w-screen-3xl px-6 py-3  " color="amber">
-        <div className="flex items-center justify-between text-blue-gray-900">
-          <Typography
-            as="a"
-            href="#"
-            variant="h6"
-            className="mr-4 cursor-pointer py-1.5"
-          >
-            <Link to="/">Herbal Heaven</Link>
-          </Typography>
-          <div className="hidden lg:block">
-            <NavList />
-          </div>
-          <IconButton
-            variant="text"
-            className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-            ripple={false}
-            onClick={() => setOpenNav(!openNav)}
-          >
-            {openNav ? (
-              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-            ) : (
-              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-            )}
-          </IconButton>
-        </div>
-        <Collapse open={openNav}>
-          <NavList />
-        </Collapse>
-      </Navbar>
-    </header>
-=======
+      <Drawer
+        className="bg-green-100"
+        open={isDrawerOpen}
+        onClose={closeDrawer}
+      >
+        <Card
+          color="transparent"
+          shadow={false}
+          className="h-[calc(100vh-2rem)] w-full p-2 bg-green-100"
+        >
+          <Link to="/">
+            <div className="flex items-center justify-center mt-0 ">
+              <img
+                src="\logo\logo-2.png"
+                alt="brand"
+                className="h-13 w-12 mb-10 mt-10"
+              />
+              <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-green-600">
+                Herbal Heaven
+              </h5>
+            </div>
+          </Link>
 
           <div className="p-1">
             <Input
@@ -150,7 +102,7 @@ export function NavbarSimple() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? "rotate-180" : ""
+                    open === 1 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -185,7 +137,7 @@ export function NavbarSimple() {
                     </ListItemPrefix>
                     Inventory
                   </ListItem>
-                  <Link to="#">
+                  <Link to="/cart-admin">
                     <ListItem>
                       <ListItemPrefix>
                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -212,6 +164,15 @@ export function NavbarSimple() {
                     </ListItem>
                   </Link>
 
+                  <Link to="/transport">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Transport
+                    </ListItem>
+                  </Link>
+
                   <Link to="#">
                     <ListItem>
                       <ListItemPrefix>
@@ -229,7 +190,7 @@ export function NavbarSimple() {
                       Order
                     </ListItem>
                   </Link>
-                  <Link to="/carddetails">
+                  <Link to="#">
                     <ListItem>
                       <ListItemPrefix>
                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -275,26 +236,6 @@ export function NavbarSimple() {
                       className="mr-auto font-normal"
                     >
                       Products
-                    </Typography>
-                  </AccordionHeader>
-                </ListItem>
-              </Accordion>
-            </Link>
-            <Link to="/netincome">
-              <Accordion open={open === 3}>
-                <ListItem className="p-0" selected={open === 3}>
-                  <AccordionHeader
-                    onClick={() => handleOpen(3)}
-                    className="border-b-0 p-3"
-                  >
-                    <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    <Typography
-                      color="blue-gray"
-                      className="mr-auto font-normal"
-                    >
-                      Net Income
                     </Typography>
                   </AccordionHeader>
                 </ListItem>
@@ -375,6 +316,5 @@ export function NavbarSimple() {
         </Card>
       </Drawer>
     </>
->>>>>>> Stashed changes
   );
 }

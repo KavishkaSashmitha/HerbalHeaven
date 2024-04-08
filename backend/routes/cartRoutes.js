@@ -4,6 +4,8 @@ const {
   viewCart,
   updateCart,
   deleteCartItems,
+  updateCartQuantity,
+  CartDetails,
 } = require('../controllers/cartController');
 const { protect } = require('../middleware/authMiddleware');
 const CartController = require("../controllers/cartController");
@@ -13,6 +15,7 @@ const route = express.Router();
 //@private
 //Get Function
 route.get('/', protect, viewCart);
+route.get('/cart-details', CartDetails);
 
 route.post('/', protect, AddToCart);
 
@@ -20,13 +23,15 @@ route.put('/:id', protect, updateCart);
 
 route.delete('/:id', protect, deleteCartItems);
 
-<<<<<<< Updated upstream
-=======
-route.put('/update-quantity', updateCartQuantity);
+
+
 
 //admin routes
 route.get("/admin/cart", CartController.getAllCartDetails);
 
 
->>>>>>> Stashed changes
+
+route.put('/update-quantity', updateCartQuantity);
+
+
 module.exports = route;

@@ -1,8 +1,13 @@
 const asyncHandler = require('express-async-handler');
 const Cart = require('../model/cartModel');
+const User = require('../model/userModel');
 
 const viewCart = asyncHandler(async (req, res) => {
   const cart = await Cart.find({ user: req.user.id });
+  res.status(200).json(cart);
+});
+const CartDetails = asyncHandler(async (req, res) => {
+  const cart = await Cart.find().populate('user', 'name email');
   res.status(200).json(cart);
 });
 
@@ -19,6 +24,7 @@ const AddToCart = asyncHandler(async (req, res) => {
     quantity: req.body.quantity,
     price: req.body.price,
     image: req.body.image,
+    stock: req.body.stock,
     description: req.body.description,
   });
 
@@ -27,7 +33,7 @@ const AddToCart = asyncHandler(async (req, res) => {
 
 const updateCart = asyncHandler(async (req, res) => {
   const updateCart = await Cart.findById(req.params.id);
-  if (!req.body.name) {
+  if (!req.body.quantity) {
     //error handling case
     res.status(400); //.json({ message: 'Please Add Item' });
     //express use
@@ -40,7 +46,7 @@ const updateCart = asyncHandler(async (req, res) => {
   }
 
   //Make sure the logged if  in thuser match the cart user
-  if (Cart.user.toString() !== user.id) {
+  if (updateCart.user.toString() !== user.id) {
     res.status(401);
     throw new Error('User not Authorized');
   }
@@ -50,6 +56,7 @@ const updateCart = asyncHandler(async (req, res) => {
   });
   res.status(200).json(updatedCart);
 });
+
 const deleteCartItems = asyncHandler(async (req, res) => {
   const deleteCart = await Cart.findById(req.params.id);
   if (!deleteCart) {
@@ -65,7 +72,7 @@ const deleteCartItems = asyncHandler(async (req, res) => {
   }
 
   //Make sure the logged if  in thuser match the cart user
-  if (Cart.user.toString() !== user.id) {
+  if (deleteCart.user.toString() !== user.id) {
     res.status(401);
     throw new Error('User not Authorized');
   }
@@ -73,8 +80,7 @@ const deleteCartItems = asyncHandler(async (req, res) => {
   res.status(200).json({ message: `deleted cart item :${req.params.id}` });
 });
 
-<<<<<<< Updated upstream
-=======
+
 const updateCartQuantity = asyncHandler(async (req, res) => {
   const { items } = req.body;
 
@@ -93,6 +99,7 @@ const updateCartQuantity = asyncHandler(async (req, res) => {
   }
 });
 
+
 /*Admin Payment Details Part*/
 
 const getAllCartDetails = async (req, res, next) => {
@@ -109,15 +116,18 @@ const getAllCartDetails = async (req, res, next) => {
   return res.status(200).json({ cart });
 };
 
->>>>>>> Stashed changes
+
 module.exports = {
   viewCart,
   AddToCart,
   updateCart,
   deleteCartItems,
-<<<<<<< Updated upstream
-=======
+
+
   updateCartQuantity,
   getAllCartDetails,
->>>>>>> Stashed changes
+
+  updateCartQuantity,
+  CartDetails,
+
 };
