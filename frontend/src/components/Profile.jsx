@@ -18,8 +18,10 @@ import {
 } from '@material-tailwind/react';
 import { BellIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../middleware/authContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './cartContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const ProfileMenu = () => {
   const { isLoggedIn, login, logout } = useAuth();
@@ -28,18 +30,38 @@ const ProfileMenu = () => {
   const handleOpen = () => setOpen((cur) => !cur);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (email, password) => {
     try {
-      // Call the login function with email and password
-      await login(email, password);
-      // Close the dialog after successful login
+      if (!email || !password) {
+        toast.error('Empty Fields');
+        return;
+      }
+
+      const response = await axios.post('http://localhost:8070/api/user', {
+        email,
+        password,
+      });
+
+      const token = response.data.token;
+
+      // Save the token to local storage or a state management solution
+      localStorage.setItem('token', token);
+
+      // Update the global authentication state
+      login(token);
+
+      navigate('/dashboard');
       setOpen(false);
     } catch (error) {
-      // Handle login errors
-      console.error('Login failed:', error.message);
+      console.error('Login failed:', error.response.data);
+      toast.error('Login Failed');
+      setEmail('');
+      setPassword('');
     }
   };
+
   return (
     <>
       <div className="flex items-center justify-end mr-5 mt-2 mb-2">
