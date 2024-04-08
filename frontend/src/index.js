@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './input.css';
 import './output.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@material-tailwind/react';
 import { AuthProvider } from './middleware/authContext';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { NavbarSimple } from './components/navBar';
+import { CartProvider } from './components/cartContext';
+import OTPVerification from './interfaces/Otp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
+    <ToastContainer />
     <ThemeProvider>
       <AuthProvider>
-        <ToastContainer />
-        <Router>
-          <App />
-        </Router>
+        <CartProvider>
+          <Router>
+            <App />
+          </Router>
+        </CartProvider>
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
