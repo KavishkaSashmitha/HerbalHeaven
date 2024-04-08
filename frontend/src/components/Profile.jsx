@@ -20,13 +20,15 @@ const ProfileMenu = () => {
   const { cartCount } = useCart();
   return (
     <>
-      <div className="flex items-center justify-end mr-5 mt-1">
-        <Badge content={cartCount} overlap="circular" placement="top-end">
-          <IconButton variant="text" color="black" className=" mb-2 mr-0">
-            <ShoppingCartIcon className="h-8 w-6" />
-          </IconButton>
-        </Badge>
-        <IconButton variant="text" color="black" className="mb-2 ml-4">
+      <div className="flex items-center justify-end mr-5 mt-2 mb-2">
+        <Link to="/user/cart">
+          <Badge content={cartCount} overlap="circular" placement="top-end">
+            <IconButton variant="text" color="black" className=" mb-2 mr-0">
+              <ShoppingCartIcon className="h-8 w-6" />
+            </IconButton>
+          </Badge>
+        </Link>
+        <IconButton variant="text" color="black" className="mb-2 ml-4 mr-2">
           <BellIcon className="h-6 w-6" />
         </IconButton>
 

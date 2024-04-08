@@ -19,6 +19,7 @@ import backgroundImage from '../assets/cart-back.jpg';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import ProfileMenu from '../components/Profile';
 import Swal from 'sweetalert2';
+import { Footer } from '../components/Footer';
 
 const Cart = () => {
   const location = useLocation();
@@ -268,6 +269,7 @@ const Cart = () => {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };
