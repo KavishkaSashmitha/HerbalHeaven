@@ -1,3 +1,4 @@
+<
 import React, { useState } from "react";
 import axios from "axios";
 import { Select } from "@material-tailwind/react";
@@ -23,6 +24,7 @@ function CreateUser() {
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
 
   const validateForm = () => {
@@ -84,6 +86,7 @@ function CreateUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (validateForm()) {
       const confirmed = window.confirm(
         "Are you sure you want to add a new supplier?"
@@ -231,6 +234,7 @@ function CreateUser() {
       </div>
       <Footer />
     </>
+
   );
 }
 
