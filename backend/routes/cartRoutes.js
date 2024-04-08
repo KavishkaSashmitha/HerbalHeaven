@@ -8,7 +8,7 @@ const {
   CartDetails,
 } = require('../controllers/cartController');
 const { protect } = require('../middleware/authMiddleware');
-
+const CartController = require("../controllers/cartController");
 const route = express.Router();
 
 //routes express
@@ -23,6 +23,15 @@ route.put('/:id', protect, updateCart);
 
 route.delete('/:id', protect, deleteCartItems);
 
+
+
+
+//admin routes
+route.get("/admin/cart", CartController.getAllCartDetails);
+
+
+
 route.put('/update-quantity', updateCartQuantity);
+
 
 module.exports = route;
