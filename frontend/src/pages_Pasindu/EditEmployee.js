@@ -14,6 +14,7 @@ export default function EditPost() {
     jobrole: "",
     gender: "",
     mobile: "",
+    nic: "",
     email: "",
     address: "",
     age: "",
@@ -60,7 +61,10 @@ export default function EditPost() {
     const validationErrors = {};
     if (!formData.name) {
       validationErrors.name = "Name is required";
+    } else if (formData.name !== formData.name.toLowerCase()) {
+      validationErrors.name = "Please enter the name in lowercase letters";
     }
+    
     if (!formData.jobrole) {
       validationErrors.jobrole = "Jobrole is required";
     }
@@ -75,15 +79,30 @@ export default function EditPost() {
       validationErrors.mobile = "Mobile must contain exactly 10 digits";
     }
 
+    if (!formData.nic) {
+      validationErrors.nic = "NIC is required";
+    } else {
+      const nicDigits = formData.nic.replace(/\D/g, ""); // Remove non-digit characters
+      if (nicDigits.length !== 9 && nicDigits.length !== 12) {
+        validationErrors.nic = "NIC must contain exactly 9 or 12 digits";
+      }
+    }
+
     if (!formData.email) {
       validationErrors.email = "Email is required";
     } else if (!formData.email.includes("@")) {
       validationErrors.email = "Email must contain @ symbol";
+    } else if (formData.email.toLowerCase() !== formData.email) {
+      validationErrors.email = "Please enter the email in lowercase letters";
     }
+    
 
     if (!formData.address) {
       validationErrors.address = "Address is required";
+    }else if (formData.address.toLowerCase() !== formData.address) {
+      validationErrors.address = "Please enter the address in lowercase letters";
     }
+
     if (!formData.age) {
       validationErrors.age = "Age is required";
     } else {
@@ -99,13 +118,15 @@ export default function EditPost() {
       return;
     }
 
-    const { name, jobrole, gender, mobile, email, address, age } = formData;
+    const { name, jobrole, gender, mobile, nic, email, address, age } =
+      formData;
 
     const data = {
       name: name,
       jobrole: jobrole,
       gender: gender,
       mobile: mobile,
+      nic: nic,
       email: email,
       address: address,
       age: age,
@@ -130,6 +151,7 @@ export default function EditPost() {
                 jobrole: "",
                 gender: "",
                 mobile: "",
+                nic: "",
                 email: "",
                 address: "",
                 age: "",
@@ -411,6 +433,30 @@ export default function EditPost() {
                           </div>
                         </div>
                         {errors.age && <div class=""></div>}
+                        <div>
+                          <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                            <label>National ID</label>
+                          </p>
+                          <div class="relative h-10 w-full min-w-[200px]">
+                            <input
+                              value={formData.nic}
+                              type="text"
+                              name="nic"
+                              placeholder="Enter NIC"
+                              onChange={handleInputChange}
+                              className={`${
+                                errors.nic && "border-red-500"
+                              }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            `}
+                            />
+                            {errors.nic && (
+                              <span className="text-red-500 ml-1 text-sm sans">
+                                {errors.nic}
+                              </span>
+                            )}
+                            <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                          </div>
+                        </div>
                       </form>
                     </div>
                   </div>

@@ -94,6 +94,21 @@ const supController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+
+  //update payment
+
+  updatePayment: async (req, res) => {
+    try {
+      const { payment } = req.body;
+      await Emp.findByIdAndUpdate(req.params.id, {
+        payment,
+      });
+
+      return res.status(200).json({ msg: "Record succesfully update." });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
 };
 
 module.exports = supController;

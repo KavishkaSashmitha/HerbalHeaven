@@ -24,6 +24,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AdminNavbar from '../components/AdminNavbar';
 import Sidebar from '../components/AdminSidebar';
+import { DefaultSidebar } from '../components/Manager-Sidebar';
 
 const TABLE_HEAD = [
   'Product',
@@ -33,18 +34,34 @@ const TABLE_HEAD = [
   'Send Notifications',
 ];
 
-export function CartDetails() {
+export function CartAdmin() {
   const [cartItems, setCartItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(4);
+  const [searchInput, setSearchInput] = useState('');
+  const [filteredCartItems, setFilteredCartItems] = useState([]);
 
+  // Function to handle search input change
+  const handleSearchInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  useEffect(() => {
+    const filteredItems = cartItems.filter((item) =>
+      item.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    setFilteredCartItems(filteredItems);
+  }, [searchInput, cartItems]);
   const getUniqueUsers = () => {
     const uniqueUsers = {};
     cartItems.forEach((item) => {
-      if (!uniqueUsers[item.user.email]) {
-        uniqueUsers[item.user.email] = { email: item.user.email, count: 1 };
-      } else {
-        uniqueUsers[item.user.email].count += 1;
+      if (item.user && item.user.email) {
+        // Add null check
+        if (!uniqueUsers[item.user.email]) {
+          uniqueUsers[item.user.email] = { email: item.user.email, count: 1 };
+        } else {
+          uniqueUsers[item.user.email].count += 1;
+        }
       }
     });
     return Object.values(uniqueUsers);
@@ -53,7 +70,10 @@ export function CartDetails() {
   // Get current items
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = cartItems.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredCartItems.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -122,22 +142,35 @@ export function CartDetails() {
       mostRepeatedProduct = productInfo[productName];
     }
   }
+  //Most Added User
+  let mostRepeatedUser = null;
+  let maxUserCount = 0;
+  const uniqueUsers = getUniqueUsers(); // Assuming you have implemented the getUniqueUsers function
+
+  uniqueUsers.forEach((user) => {
+    if (user.count > maxUserCount) {
+      maxUserCount = user.count;
+      mostRepeatedUser = user;
+    }
+  });
   return (
     <>
-      <div className="flex h-screen overflow-scroll ">
+      <div className="flex h-screen overflow-scroll">
         <div
-          className={`sidebar w-64 bg-teal-400 text-white ${
-            open ? 'block' : 'hidden'
-          }`}
+          className={`sidebar w-64   text-white ${open ? 'block' : 'hidden'}`}
         >
-          <Sidebar open={open} handleOpen={setOpen} />
+          <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="w-full">
+        <div className="w-full h-full">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card className="h-full ">
-            <CardHeader floated={false} shadow={false} className="rounded-none">
-              <div className="mb-4 flex flex-col justify-between gap-8 md:flex-row md:items-center">
+          <Card className="h-full">
+            <CardHeader
+              floated={false}
+              shadow={false}
+              className="rounded-none mb-4"
+            >
+              <div className="mb-4 mt-5 flex flex-col justify-between gap-8 md:flex-row md:items-center">
                 <div>
                   <Typography variant="h5" color="blue-gray">
                     Recent Carted Items
@@ -146,86 +179,88 @@ export function CartDetails() {
                     These are details about the last Carting
                   </Typography>
                 </div>
-                <div className="flex w-full shrink-0 gap-2 md:w-max">
-                  <div className="w-full md:w-72">
-                    <Input
-                      label="Search"
-                      icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-                    />
+              </div>
+            </CardHeader>
+            <div className="flex w-full shrink-0 gap-2 md:w-max">
+              <div className="w-full md:w-72 mb-4">
+                <Input
+                  label="Search"
+                  icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                  value={searchInput}
+                  onChange={handleSearchInputChange}
+                  className="w-full"
+                />
+              </div>
+
+              <Link to="/cart-stats">
+                <Button className="flex items-center gap-3" size="sm">
+                  <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{' '}
+                  Stats
+                </Button>
+              </Link>
+            </div>
+            <div className="container  mx-auto grid justify-center">
+              <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                <div className="card w-full">
+                  <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                    <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                      <UserCircleIcon className="h-10 w-10" />
+                    </div>
+                    <div>
+                      <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Users
+                      </p>
+                      <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                        {uniqueEmailCount} Users
+                      </p>
+                    </div>
                   </div>
-                  <Link to="/cart-stats">
-                    <Button className="flex items-center gap-3" size="sm">
-                      <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{' '}
-                      Stats
-                    </Button>
-                  </Link>
                 </div>
-                <div className="container  mx-auto grid justify-center">
-                  <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                    <div className="card w-full">
-                      <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                        <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                          <UserCircleIcon className="h-10 w-10" />
-                        </div>
-                        <div>
-                          <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                            Users
-                          </p>
-                          <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                            {uniqueEmailCount} Users
-                          </p>
-                        </div>
+
+                <div className="card w-full">
+                  {mostRepeatedProduct && (
+                    <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                      <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                        <img
+                          src={mostRepeatedProduct.image}
+                          alt={mostRepeatedProduct.name}
+                          className="w-12 h-132rounded-full "
+                        />
+                      </div>
+                      <div>
+                        <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                          Most Added Product
+                        </p>
+
+                        <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                          {mostRepeatedProduct.name}
+                        </p>
                       </div>
                     </div>
+                  )}
+                </div>
 
-                    <div className="card w-full">
-                      {mostRepeatedProduct && (
-                        <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                          <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                            <img
-                              src={mostRepeatedProduct.image}
-                              alt={mostRepeatedProduct.name}
-                              className="w-10 h-10 rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                              Most Added Product
-                            </p>
-
-                            <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                              {mostRepeatedProduct.name}
-                            </p>
-                          </div>
-                        </div>
-                      )}
+                <div className="card w-full">
+                  <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                    <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                      <svg
+                        class="w-10 h-10"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+                      </svg>
                     </div>
-
-                    <div className="card w-full">
-                      <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                        <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                          <svg
-                            class="w-10 h-10"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-                          </svg>
-                        </div>
-                        <div>
-                          <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                            Suppliers
-                          </p>
-                          <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                            20
-                          </p>
-                        </div>
-                      </div>
+                    <div>
+                      <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Most Added User
+                      </p>
+                      <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
                     </div>
                   </div>
                 </div>
               </div>
-            </CardHeader>
+            </div>
             <CardBody className="overflow-scroll px-0">
               <table className="w-full min-w-max table-auto text-left">
                 <thead>

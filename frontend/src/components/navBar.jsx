@@ -32,6 +32,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
+
 import { useCart } from './cartContext';
 
 export function SidebarWithBurgerMenu({}) {
@@ -131,13 +132,23 @@ export function SidebarWithBurgerMenu({}) {
                       Customer
                     </ListItem>
                   </Link>
+
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
                     Inventory
                   </ListItem>
-                  <Link to="/cart-details">
+
+                  <Link to="/inventory">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Inventory
+                    </ListItem>
+                  </Link>
+                  <Link to="/cart-admin">
                     <ListItem>
                       <ListItemPrefix>
                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
