@@ -7,6 +7,7 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 
 function LineChart() {
   const { id } = useParams();
@@ -75,13 +76,15 @@ function LineChart() {
         if (post && post.salary && typeof post.salary.november == "number") {
           setNovemberSalary(post.salary.november);
         }
-        // if (post && post.salary && typeof post.salary.december == "number") {
-        //   setDecemberSalary(post.salary.december);
-        // }
+        if (post && post.salary && typeof post.salary.december == "number") {
+          setDecemberSalary(post.salary.december);
+        }
       } catch (error) {
         setError(error.message);
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 800);
       }
     };
 
@@ -143,7 +146,11 @@ function LineChart() {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="bg-gray-700 h-screen flex justify-center items-center">
+        <Button className="h-10 w-40" loading={true} style={{ backgroundColor: 'red' }}>Loading</Button>
+</div>
+    );
   }
 
   if (error) {

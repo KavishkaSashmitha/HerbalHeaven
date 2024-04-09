@@ -1,25 +1,60 @@
 // Navbar.js
-import { Avatar } from '@material-tailwind/react';
+import {
+  Avatar,
+  Button,
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MenuList,
+  Typography,
+} from '@material-tailwind/react';
 import React from 'react';
 import ProfileMenu from './Profile';
+import { Link } from 'react-router-dom';
 
 function AdminNavbar({ toggleSidebar }) {
   return (
-    <div className="sticky top-0 bg-blue-gray-300 h-14 px-10 py-4 border-b-4 border-purple-900 flex items-center justify-between">
-      <div className="flex items-center space-x-12 text-sm text-white">
+    <div
+      className="sticky top-0  h-16 px-6 sm:px-10 py-4   flex items-center justify-between z-50"
+      style={{ backgroundColor: '#02353c' }}
+    >
+      <div className="flex items-center space-x-8 text-sm text-white">
         <i
           className="fas fa-bars text-xl cursor-pointer"
           onClick={toggleSidebar}
         ></i>
-        <a href="#" className="font-thin">
-          Dashboard
-        </a>
-        <a href="#" className="font-thin">
-          User
-        </a>
-        <a href="#" className="font-thin">
-          Settings
-        </a>
+        <Link to="/admin-dashboard">
+          <Typography
+            as="li"
+            variant="small"
+            color="white"
+            className="p-1 font-normal  hover:text-amber-400"
+          >
+            Dashboard
+          </Typography>
+        </Link>
+        <Menu>
+          <MenuHandler>
+            <Typography
+              as="li"
+              variant="small"
+              color="white"
+              className="p-1 font-normal hover:text-amber-400"
+            >
+              Managing Areas
+            </Typography>
+          </MenuHandler>
+          <MenuList>
+            <Link to="/cart-Admin">
+              <MenuItem>Cart</MenuItem>
+            </Link>
+            <Link to="/Employee_Dashboard">
+              <MenuItem>Employee</MenuItem>
+            </Link>
+            <MenuItem>Menu Item 2</MenuItem>
+            <MenuItem>Menu Item 3</MenuItem>
+          </MenuList>
+        </Menu>
       </div>
       <ProfileMenu />
     </div>

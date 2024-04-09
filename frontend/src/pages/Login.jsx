@@ -141,7 +141,7 @@ export default function Login() {
               </Typography>
               <Typography color="gray" className="mt-4 text-center font-normal">
                 Manager?{' '}
-                <Link to="/manager-login" className="font-medium text-gray-900">
+                <Link to="/otp" className="font-medium text-gray-900">
                   Sign In
                 </Link>
               </Typography>

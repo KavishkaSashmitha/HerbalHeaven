@@ -24,6 +24,8 @@ import {
   ChevronRightIcon,
   ChevronDownIcon,
   PresentationChartBarIcon,
+  TruckIcon,
+  CubeIcon,
 } from '@heroicons/react/24/solid';
 import {
   MagnifyingGlassIcon,
@@ -32,6 +34,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
+
 import { useCart } from './cartContext';
 
 export function SidebarWithBurgerMenu({}) {
@@ -78,7 +81,7 @@ export function SidebarWithBurgerMenu({}) {
           <Link to="/">
             <div className="flex items-center justify-center mt-0 ">
               <img
-                src="\logo\logo-2.png"
+                src="\logo\logo-1.png"
                 alt="brand"
                 className="h-13 w-12 mb-10 mt-10"
               />
@@ -95,112 +98,7 @@ export function SidebarWithBurgerMenu({}) {
             />
           </div>
 
-          <List className="overflow-y-scroll bg-green-100">
-            <Accordion
-              open={open === 1}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? 'rotate-180' : ''
-                  }`}
-                />
-              }
-            >
-              <ListItem className="p-0" selected={open === 1}>
-                <AccordionHeader
-                  onClick={() => handleOpen(1)}
-                  className="border-b-0 p-3"
-                >
-                  <ListItemPrefix>
-                    <PresentationChartBarIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-
-                  <Typography color="blue-gray" className="mr-auto font-normal">
-                    Dashboard
-                  </Typography>
-                </AccordionHeader>
-              </ListItem>
-              <AccordionBody className="py-1">
-                <List className="p-0">
-                  <Link to="#">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Customer
-                    </ListItem>
-                  </Link>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Inventory
-                  </ListItem>
-                  <Link to="/cart-details">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Cart
-                    </ListItem>
-                  </Link>
-
-                  <Link to="/emp">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Employee
-                    </ListItem>
-                  </Link>
-
-                  <Link to="/sup">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Supplier
-                    </ListItem>
-                  </Link>
-
-                  <Link to="/transport">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Transport
-                    </ListItem>
-                  </Link>
-
-                  <Link to="#">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Transport
-                    </ListItem>
-                  </Link>
-
-                  <Link to="#">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Order
-                    </ListItem>
-                  </Link>
-                  <Link to="#">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Payment
-                    </ListItem>
-                  </Link>
-                </List>
-              </AccordionBody>
-            </Accordion>
+          <List className=" bg-green-100">
             <Link to="#">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
@@ -209,7 +107,7 @@ export function SidebarWithBurgerMenu({}) {
                     className="border-b-0 p-3"
                   >
                     <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5" />
+                      <TruckIcon className="h-5 w-5" />
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"
@@ -229,7 +127,7 @@ export function SidebarWithBurgerMenu({}) {
                     className="border-b-0 p-3"
                   >
                     <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5" />
+                      <CubeIcon className="h-5 w-5" />
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"
@@ -259,7 +157,7 @@ export function SidebarWithBurgerMenu({}) {
                     </Typography>
                     <ListItemSuffix>
                       <Chip
-                        value={cartCount}
+                        value={isLoggedIn ? cartCount : '0'}
                         size="sm"
                         variant="ghost"
                         color="blue-gray"

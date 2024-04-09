@@ -53,13 +53,13 @@ const Product = ({ product, addToCart }) => {
 };
 
 export function EcommerceCard() {
-  const url = 'http://localhost:8070/api';
+  const url = 'http://localhost:8070';
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { addToCart } = useAuth();
 
   const fetchInfo = () => {
-    return axios.get(`${url}/products`).then((res) => setData(res.data));
+    return axios.get(`${url}/api/products`).then((res) => setData(res.data));
   };
 
   useEffect(() => {
@@ -121,23 +121,6 @@ export function EcommerceCard() {
         <ProfileMenu />
       </div>
 
-      <div className="relative flex  w-3/4 gap-2 md:auto search">
-        <Input
-          type="search"
-          placeholder="Search"
-          containerProps={{
-            className: 'min-w-[288px]',
-          }}
-          className="!border-t-green-300 pl-9 placeholder:text-green-300 focus:!border-green-300"
-          labelProps={{
-            className: 'before:content-none after:content-none',
-          }}
-          style={{ backgroundColor: '#f0f4f8', color: '#1b5e20' }}
-        />
-        <Button size="md" className="rounded-lg ">
-          Search
-        </Button>
-      </div>
       <div></div>
       <div className="flex flex-wrap justify-center">
         {filteredData.map((product) => (

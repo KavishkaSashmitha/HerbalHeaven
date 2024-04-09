@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
   name: {
@@ -17,6 +17,10 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  nic: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -28,6 +32,11 @@ const postSchema = new mongoose.Schema({
   age: {
     type: String,
     required: true,
+  },
+  image: {
+    type: String,
+    required: false,
+    default: null,
   },
   isAdmin: {
     type: Boolean,
@@ -42,4 +51,4 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Employee', postSchema);
+module.exports = mongoose.model("Employee", postSchema);

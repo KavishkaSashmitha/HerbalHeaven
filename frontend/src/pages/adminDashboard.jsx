@@ -27,6 +27,7 @@ import {
 } from '@heroicons/react/24/solid';
 import AdminNavbar from '../components/AdminNavbar';
 import Sidebar from '../components/AdminSidebar';
+import { DefaultSidebar } from '../components/Manager-Sidebar';
 
 function AdminDashboard() {
   const [documents, setDocuments] = useState([]);
@@ -56,16 +57,17 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="flex h-screen overflow-scroll">
-      <div
-        className={`sidebar w-64 bg-teal-400 text-white ${
-          open ? 'block' : 'hidden'
-        }`}
-      >
-        <Sidebar open={open} handleOpen={setOpen} />
-      </div>
-      <div className="w-full">
-        <AdminNavbar toggleSidebar={toggleSidebar} />
+    <>
+      <div className="flex h-screen overflow-scroll">
+        <div
+          className={`sidebar w-64 bg-custom-color text-white ${
+            open ? "block" : "hidden"
+          }`}
+        >
+          <DefaultSidebar open={open} handleOpen={setOpen} />
+        </div>
+        <div className="w-full h-full ">
+          <AdminNavbar toggleSidebar={toggleSidebar} />
 
         <div className="p-5 bg-gray-200">
           <div className="grid grid-cols-1 gap-8 mb-3">
@@ -243,7 +245,9 @@ function AdminDashboard() {
                                 clip-rule="evenodd"
                               ></path>
                             </svg>
-                          </div>
+                            </div>
+                            
+
                           <div>
                             <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                               Suppliers
@@ -285,6 +289,7 @@ function AdminDashboard() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

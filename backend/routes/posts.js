@@ -134,4 +134,38 @@ router.put("/post/salary/:id", (req, res) => {
     });
 });
 
+//check user exist
+router.post("/check-user", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Check if user exists
+    const user = await Posts.findOne({ email });
+
+    if (!user) {
+      return res.json({
+        exists: false,
+        isAdmin: false, // Since the user doesn't exist, isAdmin is false
+      });
+      toast.fail("Your not a Manager");
+    }
+
+    // If user exists, check if the user is an admin
+    if (user.isAdmin) {
+      return res.json({
+        exists: true,
+        isAdmin: true,
+      });
+    } else {
+      return res.json({
+        exists: true,
+        isAdmin: false,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;
