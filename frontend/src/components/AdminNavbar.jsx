@@ -28,7 +28,7 @@ function AdminNavbar({ toggleSidebar }) {
             as="li"
             variant="small"
             color="white"
-            className="p-1 font-normal "
+            className="p-1 font-normal  hover:text-amber-400"
           >
             Dashboard
           </Typography>
@@ -39,7 +39,7 @@ function AdminNavbar({ toggleSidebar }) {
               as="li"
               variant="small"
               color="white"
-              className="p-1 font-normal"
+              className="p-1 font-normal hover:text-amber-400"
             >
               Managing Areas
             </Typography>

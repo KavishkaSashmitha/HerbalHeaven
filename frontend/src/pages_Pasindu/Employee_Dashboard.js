@@ -75,7 +75,7 @@ function AdminDashboard() {
         
           <div className="w-full h-full ">
             <AdminNavbar toggleSidebar={toggleSidebar} />
-            <div className="grid grid-cols-1 gap-8 mb-3 bg-blue-gray-100">
+            <Card className="grid grid-cols-1 gap-8 mb-3 bg-blue-gray-100">
               <div className="p-4">
                 <div className="py-5">
                   <main className="h-full overflow-y-auto">
@@ -175,7 +175,7 @@ function AdminDashboard() {
                   </main>
                 </div>
               </div>
-            </div>
+            </Card>
           </div>
       </div>
     </>
