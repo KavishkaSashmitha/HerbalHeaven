@@ -140,7 +140,7 @@ export function CartAdmin() {
     <>
       <div className="flex h-screen overflow-scroll">
         <div
-          className={`sidebar w-64   text-white ${open ? 'block' : 'hidden'}`}
+          className={`sidebar w-64  bg-custom-color text-white ${open ? 'block' : 'hidden'}`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
