@@ -9,12 +9,13 @@ const UpdateProduct = () => {
   const [productNo, setProductNo] = useState('');
   const [productName, setProductName] = useState('');
   const [shortDescription, setShortDescription] = useState('');
+  const [category, setCategory] = useState('');
   const [cost, setCost] = useState('');
   const [quantity, setQuantity] = useState('');
   const [reorderLevel, setReorderLevel] = useState('');
-  const [manufactureDate, setManufactureDate] = useState('');
-  const [expiaryDate, setExpiaryDate] = useState('');
   const [image, setImage] = useState(null);
+  const [errors, setErrors] = useState([]);
+
   const navigate = useNavigate();
 
   // Validation function for checking if a field is empty
@@ -33,12 +34,6 @@ const UpdateProduct = () => {
     return { isValid, message };
   };
 
-  const validateDate = (date) => {
-    const isValid = !isNaN(new Date(date).getTime());
-    const message = isValid ? '' : 'Invalid date';
-    return { isValid, message };
-  };
-
   useEffect(() => {
     axios
       .get(`http://localhost:8070/inventory/getInventoryItem/${id}`)
@@ -47,94 +42,65 @@ const UpdateProduct = () => {
         setProductNo(itemData.productNo);
         setProductName(itemData.productName);
         setShortDescription(itemData.shortDescription);
+        setCategory(itemData.category);
         setCost(itemData.cost);
         setQuantity(itemData.quantity);
         setReorderLevel(itemData.reorderLevel);
-        const formattedManufactureDate = new Date(itemData.manufactureDate)
-          .toISOString()
-          .split('T')[0];
-        const formattedExpiaryDate = new Date(itemData.expiaryDate)
-          .toISOString()
-          .split('T')[0];
-
-        setManufactureDate(formattedManufactureDate);
-        setExpiaryDate(formattedExpiaryDate);
         setImage(itemData.image);
       })
       .catch((err) => console.log(err));
   }, [id]);
 
-  const Update = (e) => {
+  const Update = async (e) => {
     e.preventDefault();
-
-    console.log({
-      productNo,
-      productName,
-      shortDescription,
-      cost,
-      quantity,
-      reorderLevel,
-      manufactureDate,
-      expiaryDate,
-      image,
-    });
 
     const productNoValidation = validateNumberField(productNo);
     const productNameValidation = validateField(productName);
     const shortDescriptionValidation = validateField(shortDescription);
+    const categoryValidation = validateField(category);
     const costValidation = validateNumberField(cost);
     const quantityValidation = validateNumberField(quantity);
     const reorderLevelValidation = validateNumberField(reorderLevel);
-    const manufactureDateValidation = validateDate(manufactureDate);
-    const expiaryDateValidation = validateDate(expiaryDate);
 
-    if (
-      productNoValidation.isValid &&
-      productNameValidation.isValid &&
-      shortDescriptionValidation.isValid &&
-      costValidation.isValid &&
-      quantityValidation.isValid &&
-      reorderLevelValidation.isValid &&
-      manufactureDateValidation.isValid &&
-      expiaryDateValidation.isValid
-    ) {
-      axios
-        .put(`http://localhost:8070/inventory/updateInventoryItem/${id}`, {
-          productNo,
-          productName,
-          shortDescription,
-          cost,
-          quantity,
-          reorderLevel,
-          manufactureDate,
-          expiaryDate,
-          image,
-        })
-        .then((result) => {
-          console.log(result);
-          navigate('/inventory');
-        })
-        .catch((err) => console.log(err));
-    } else {
-      // Combine all error messages into one array
-      const errorMessages = [
-        productNoValidation.message,
-        productNameValidation.message,
-        shortDescriptionValidation.message,
-        costValidation.message,
-        quantityValidation.message,
-        reorderLevelValidation.message,
-        manufactureDateValidation.message,
-        expiaryDateValidation.message,
-      ];
+    const validations = [
+      productNoValidation,
+      productNameValidation,
+      shortDescriptionValidation,
+      categoryValidation,
+      costValidation,
+      quantityValidation,
+      reorderLevelValidation,
+    ];
 
-      // Filter out empty error messages
-      const filteredErrorMessages = errorMessages.filter(
-        (message) => message !== ''
+    const isValid = validations.every((validation) => validation.isValid);
+
+    if (!isValid) {
+      const errorMessages = validations
+        .filter((validation) => !validation.isValid)
+        .map((validation) => validation.message);
+      setErrors(errorMessages);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('productNo', productNo);
+    formData.append('productName', productName);
+    formData.append('shortDescription', shortDescription);
+    formData.append('category', category);
+    formData.append('cost', cost);
+    formData.append('quantity', quantity);
+    formData.append('reorderLevel', reorderLevel);
+    formData.append('image', image);
+
+    try {
+      const result = await axios.put(
+        `http://localhost:8070/inventory/updateInventoryItem/${id}`,
+        formData
       );
-
-      // Display error messages
-      alert(filteredErrorMessages.join('\n'));
+      console.log(result);
+      navigate('/inventory');
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -145,7 +111,7 @@ const UpdateProduct = () => {
 
   return (
     <div
-      className="flex justify-center items-center h-100 pt-2 pb-5"
+      className="flex justify-center items-center h-100% pt-11 pb-11"
       style={{
         backgroundImage:
           'url("https://media.istockphoto.com/id/1192284372/photo/composition-of-natural-alternative-medicine-with-capsules-essence-and-plants.jpg?b=1&s=612x612&w=0&k=20&c=1ocZIu_aNqFvD-VZlJPTAlPNeZGK7afMYahtNKd9YdM=")',
@@ -157,7 +123,7 @@ const UpdateProduct = () => {
         shadow={false}
         pt="5"
         pb="1"
-        className="p-3"
+        className="p-5 mt-12 mb-12 content-center"
         style={{ backgroundColor: '#D4EFDF', width: '40%' }}
       >
         <Typography variant="h4" color="blue-gray" className="text-center">
@@ -190,104 +156,142 @@ const UpdateProduct = () => {
                 placeholder="Enter Product Name"
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
+                readOnly
                 className="bg-white"
               />
             </div>
-
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray">
                 Description
               </Typography>
               <Input
                 size="lg"
-                placeholder="Enter Discription"
+                placeholder="Enter description"
                 value={shortDescription}
-                onChange={(e) => setShortDescription(e.target.value.toString)}
+                onChange={(e) => setShortDescription(e.target.value)}
                 className="bg-white"
               />
             </div>
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray">
-                Cost (Rs)
+                Category
               </Typography>
-              <Input
-                size="lg"
-                placeholder="Enter Cost"
-                value={cost}
-                onChange={(e) => setCost(e.target.value)}
-                className="bg-white"
-              />
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Beauty Product"
+                    checked={category === 'Beauty Product'}
+                    onChange={() => setCategory('Beauty Product')}
+                  />
+                  Beauty Product
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Immunity Product"
+                    checked={category === 'Immunity Product'}
+                    onChange={() => setCategory('Immunity Product')}
+                  />
+                  Immunity Product
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Oils"
+                    checked={category === 'Oils'}
+                    onChange={() => setCategory('Oils')}
+                  />
+                  Oils
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Balms"
+                    checked={category === 'Balms'}
+                    onChange={() => setCategory('Balms')}
+                  />
+                  Balms
+                </label>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <Typography variant="h6" color="blue-gray">
-                Quantity
-              </Typography>
-              <Input
-                size="lg"
-                type="tel"
-                placeholder="Enter Quantity"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-                className="bg-white"
+          </div>
+          <div className="flex flex-col">
+            <Typography variant="h6" color="blue-gray">
+              Cost (Rs)
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Enter Cost"
+              value={cost}
+              onChange={(e) => setCost(e.target.value)}
+              className="bg-white"
+            />
+          </div>
+          <div className="flex flex-col">
+            <Typography variant="h6" color="blue-gray">
+              Cost (Rs)
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Enter Cost"
+              value={cost}
+              onChange={(e) => setCost(e.target.value)}
+              className="bg-white"
+            />
+          </div>
+          <div className="flex flex-col">
+            <Typography variant="h6" color="blue-gray">
+              Quantity
+            </Typography>
+            <Input
+              size="lg"
+              type="tel"
+              placeholder="Enter Quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+              className="bg-white"
+            />
+          </div>
+          <div className="flex flex-col">
+            <Typography variant="h6" color="blue-gray">
+              Reorder Level
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="Enter Reorder Level"
+              value={reorderLevel}
+              onChange={(e) => setReorderLevel(e.target.value)}
+              className="bg-white"
+            />
+          </div>
+          <div className="flex flex-col">
+            <Typography variant="h6" color="blue-gray">
+              Image
+            </Typography>
+            {image && (
+              <img
+                src={`data:image/jpeg;base64,${image}`}
+                style={{ maxWidth: '200px', marginBottom: '10px' }}
+                alt=""
               />
-            </div>
-            <div className="flex flex-col">
-              <Typography variant="h6" color="blue-gray">
-                Reorder Level
-              </Typography>
-              <Input
-                size="lg"
-                placeholder="Enter Reorder Level"
-                value={reorderLevel}
-                onChange={(e) => setReorderLevel(e.target.value)}
-                className="bg-white"
-              />
-            </div>
-            <div className="flex flex-col">
-              <Typography variant="h6" color="blue-gray">
-                Manufacture Date
-              </Typography>
-              <Input
-                size="lg"
-                type="date"
-                placeholder="Enter Manufacture Date "
-                value={manufactureDate}
-                onChange={(e) => setManufactureDate(e.target.value)}
-                className="bg-white"
-              />
-            </div>
-            <div className="flex flex-col">
-              <Typography variant="h6" color="blue-gray">
-                Expiary Date
-              </Typography>
-              <Input
-                size="lg"
-                type="date"
-                placeholder="Enter Expiary Date"
-                value={expiaryDate}
-                onChange={(e) => setExpiaryDate(e.target.value)}
-                className="bg-white"
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <Typography variant="h6" color="blue-gray">
-                Image
-              </Typography>
-              {image && (
-                <img
-                  src={`data:image/jpeg;base64,${image}`}
-                  style={{ maxWidth: '200px', marginBottom: '10px' }}
-                  alt=""
-                />
-              )}
-              <Input
-                size="lg"
-                type="file"
-                onChange={(e) => setImage(e.target.files[0])}
-                className="bg-white"
-              />
-            </div>
+            )}
+            <Input
+              size="lg"
+              type="file"
+              onChange={(e) => setImage(e.target.files[0])}
+              className="bg-white"
+            />
           </div>
 
           <Button

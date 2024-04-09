@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Card, Input, Button, Typography } from '@material-tailwind/react';
+import {
+  Card,
+  Input,
+  Button,
+  Typography,
+  Select,
+  MenuItem,
+} from '@material-tailwind/react';
 import { useForm } from './form-hook';
 
 const AddProduct = () => {
@@ -19,6 +26,10 @@ const AddProduct = () => {
         isValid: false,
       },
       shortDescription: {
+        value: '',
+        isValid: false,
+      },
+      category: {
         value: '',
         isValid: false,
       },
@@ -53,6 +64,78 @@ const AddProduct = () => {
 
   const Submit = async (event) => {
     event.preventDefault();
+
+    const validateManufactureExpiryDates = (manufactureDate, expiryDate) => {
+      const manufactureTimestamp = new Date(manufactureDate).getTime();
+      const expiryTimestamp = new Date(expiryDate).getTime();
+
+      if (manufactureTimestamp >= expiryTimestamp) {
+        alert('Manufacture date must be before expiry date.');
+        return false;
+      }
+
+      return true;
+    };
+
+    const validateField = (field, fieldName) => {
+      if (field.trim() === '') {
+        alert(`Please enter a valid ${fieldName}.`);
+        return false;
+      }
+      return true;
+    };
+
+    const validateNumberField = (field, fieldName) => {
+      if (isNaN(field)) {
+        alert(`Please enter a valid ${fieldName}.`);
+        return false;
+      }
+      return true;
+    };
+
+    const validateDate = (date, fieldName) => {
+      if (isNaN(new Date(date).getTime())) {
+        alert(`Please enter a valid ${fieldName}.`);
+        return false;
+      }
+      return true;
+    };
+
+    const {
+      productNo,
+      productName,
+      shortDescription,
+      category,
+      cost,
+      quantity,
+      reorderLevel,
+      manufactureDate,
+      expiaryDate,
+    } = formState.inputs;
+
+    if (!validateNumberField(productNo.value, 'product number')) return;
+    if (!validateField(productName.value, 'product name')) return;
+    if (!validateField(shortDescription.value, 'short description')) return;
+    if (!validateField(category.value, 'category')) return;
+    if (!validateNumberField(cost.value, 'cost')) return;
+    if (!validateNumberField(quantity.value, 'quantity')) return;
+    if (!validateNumberField(reorderLevel.value, 'reorder level')) return;
+    if (!validateDate(manufactureDate.value, 'manufacture date')) return;
+    if (!validateDate(expiaryDate.value, 'expiry date')) return;
+    if (
+      !validateManufactureExpiryDates(manufactureDate.value, expiaryDate.value)
+    )
+      return;
+
+    if (parseInt(quantity.value) <= 0) {
+      alert('Please enter a valid quantity greater than zero.');
+      return;
+    }
+    if (parseInt(reorderLevel.value) > parseInt(quantity.value)) {
+      alert('Reorder level cannot be lower than quantity.');
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('productNo', formState.inputs.productNo.value); // Corrected
@@ -61,6 +144,7 @@ const AddProduct = () => {
         'shortDescription',
         formState.inputs.shortDescription.value
       ); // Corrected
+      formData.append('category', formState.inputs.category.value);
       formData.append('cost', formState.inputs.cost.value); // Corrected
       formData.append('quantity', formState.inputs.quantity.value); // Corrected
       formData.append('reorderLevel', formState.inputs.reorderLevel.value); // Corrected
@@ -103,88 +187,6 @@ const AddProduct = () => {
     }
   }, [formState.inputs.image.value]);
 
-  /*
-    // Define error messages for each validation
-    const errorMessages = {
-      productNo: 'Please enter a product number.',
-      productName: 'Please enter a product name.',
-      shortDescription: 'Please enter a short description.',
-      cost: 'Please enter a valid cost.',
-      quantity: 'Please enter a valid quantity greater than zero.',
-      reorderLevel: 'Reorder level cannot be lower than quantity.',
-      manufactureDate: 'Please enter a valid manufacture date.',
-      expiaryDate: 'Please enter a valid expiry date.',
-      image: 'Please upload an image.',
-    };
-
-    // Validation function for checking if a field is empty
-    const validateField = (field, fieldName) => {
-      if (field.trim() === '') {
-        alert(errorMessages[fieldName]);
-        return false;
-      }
-      return true;
-    };
-
-    // Validation function for checking if a number field is numeric
-    const validateNumberField = (field, fieldName) => {
-      if (isNaN(field)) {
-        alert(errorMessages[fieldName]);
-        return false;
-      }
-      return true;
-    };
-
-    // Validation function for checking if a date field is a valid date
-    const validateDate = (date, fieldName) => {
-      if (isNaN(new Date(date).getTime())) {
-        alert(errorMessages[fieldName]);
-        return false;
-      }
-      return true;
-    };
-
-    // Validate form fields
-    if (
-      validateField(productNo) &&
-      validateField(productName) &&
-      validateField(shortDescription) &&
-      validateField(cost) &&
-      validateNumberField(quantity) &&
-      validateNumberField(reorderLevel) &&
-      validateDate(manufactureDate) &&
-      validateDate(expiaryDate) &&
-      image !== ''
-    ) {
-      if (parseInt(quantity) <= 0) {
-        alert('Please enter a valid quantity greater than zero.');
-        return;
-      }
-      if (parseInt(reorderLevel) > parseInt(quantity)) {
-        alert('Reorder level cannot be lower than quantity.');
-        return;
-      }
-
-      axios
-        .post('http://localhost:8070/inventory/addInventoryItem', {
-          productNo,
-          productName,
-          shortDescription,
-          cost,
-          quantity,
-          reorderLevel,
-          manufactureDate,
-          expiaryDate,
-          image,
-        })
-        .then((result) => {
-          console.log(result);
-          navigate('/inventory');
-        })
-        .catch((err) => console.log(err));
-    }
-  };
-*/
   return (
     <div
       className="flex justify-center items-center h-100 pt-2 pb-2"
@@ -199,7 +201,7 @@ const AddProduct = () => {
         shadow={false}
         pt="5"
         className="p-4"
-        style={{ backgroundColor: '#D4EFDF', width: '40%' }}
+        style={{ backgroundColor: '#D4EFDF', width: '50%' }}
       >
         <Typography variant="h4" color="blue-gray" className="text-center">
           Add New Product
@@ -209,8 +211,8 @@ const AddProduct = () => {
           className="mt-8 mb-2 ml-4 w-80 max-w-70-lg sm:w-96"
           onSubmit={Submit}
         >
-          <div className="grid grid-cols-2 gap-5 gap-x-20">
-            <div className="flex flex-col w-full">
+          <div className="grid grid-cols-2 gap-3 gap-x-20 ml-2">
+            <div className="flex flex-col w-full ">
               <Typography variant="h6" color="blue-gray" className="-mb-1">
                 Product No
               </Typography>
@@ -286,6 +288,71 @@ const AddProduct = () => {
                   className: 'before:content-none after:content-none',
                 }}
               />
+            </div>
+            <div className="flex flex-col">
+              <Typography variant="h6" color="blue-gray" className="-mb-1">
+                Category
+              </Typography>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Beauty Product"
+                    checked={
+                      formState.inputs.category.value === 'Beauty Product'
+                    }
+                    onChange={(event) =>
+                      inputHandler('category', event.target.value, true)
+                    }
+                  />
+                  Beauty Product
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Immunity Product"
+                    checked={
+                      formState.inputs.category.value === 'Immunity Product'
+                    }
+                    onChange={(event) =>
+                      inputHandler('category', event.target.value, true)
+                    }
+                  />
+                  Immunity Product
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Oils"
+                    checked={formState.inputs.category.value === 'Oils'}
+                    onChange={(event) =>
+                      inputHandler('category', event.target.value, true)
+                    }
+                  />
+                  Oils
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Balms"
+                    checked={formState.inputs.category.value === 'Balms'}
+                    onChange={(event) =>
+                      inputHandler('category', event.target.value, true)
+                    }
+                  />
+                  Balms
+                </label>
+              </div>
             </div>
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray" className="-mb-1">
@@ -369,35 +436,41 @@ const AddProduct = () => {
               <Typography variant="h6" color="blue-gray" className="-mb-1">
                 Image
               </Typography>
-              <Input
-                id="image"
-                type="file"
-                accept=".jpg,.png,.jpeg"
-                placeholder="Add image"
-                onInput={(event) =>
-                  inputHandler('image', event.target.files[0], true)
-                }
-                required
-                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 bg-white "
-                labelProps={{
-                  className: 'before:content-none after:content-none',
-                }}
-              />
+              <div className="flex items-center mt-0">
+                <Input
+                  id="image"
+                  type="file"
+                  accept=".jpg,.png,.jpeg"
+                  placeholder="Add image"
+                  onInput={(event) =>
+                    inputHandler('image', event.target.files[0], true)
+                  }
+                  required
+                  className="!border-t-blue-gray-200 focus:!border-t-gray-900 bg-white "
+                  labelProps={{
+                    className: 'before:content-none after:content-none',
+                  }}
+                />
+                {previewUrl && (
+                  <img
+                    src={previewUrl}
+                    alt="Product Preview"
+                    style={{
+                      marginLeft: '1rem',
+                      width: '100px',
+                      height: 'auto',
+                    }}
+                  />
+                )}
+              </div>
               {fileError && (
                 <Typography className="text-danger">{fileError}</Typography>
               )}
             </div>
-            {previewUrl && (
-              <img
-                src={previewUrl}
-                alt="Product"
-                style={{ marginTop: '3%', width: '70%', height: '70%' }}
-              />
-            )}
           </div>
           <Button
             type="submit"
-            className="mt-6 ml-5"
+            className="mt-1 ml-5"
             fullWidth
             disabled={!formState.isValid}
           >

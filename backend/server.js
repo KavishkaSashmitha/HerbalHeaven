@@ -29,12 +29,14 @@ app.use(
   '/img/inventory',
   express.static(path.join(__dirname, 'inventory', 'img'))
 );
-*/
+
 app.use(
   '/img/inventory',
   express.static(path.join(__dirname, 'img', 'inventory'))
 );
+*/
 
+app.use('/backend/img/inventory', express.static('backend/img/inventory'));
 // Error handler middleware
 app.use(errorHandler);
 

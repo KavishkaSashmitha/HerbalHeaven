@@ -34,7 +34,8 @@ const InventoryList = () => {
   const filteredItems = items.filter((item) => {
     return (
       item.productName.toLowerCase().includes(searchItem.toLowerCase()) ||
-      item.shortDescription.toLowerCase().includes(searchItem.toLowerCase())
+      item.shortDescription.toLowerCase().includes(searchItem.toLowerCase()) ||
+      item.category.toLowerCase().includes(searchItem.toLowerCase())
     );
   });
 
@@ -68,6 +69,7 @@ const InventoryList = () => {
                 'Product No',
                 'Product Name',
                 'Short Description',
+                'category',
                 'Cost',
                 'Quantity',
                 'Reorder Level',
@@ -121,6 +123,15 @@ const InventoryList = () => {
                     {item.shortDescription}
                   </Typography>
                 </td>
+                <td className="p-4">
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    {item.category}
+                  </Typography>
+                </td>
                 <td className="p-5">
                   <Typography
                     variant="small"
@@ -130,7 +141,7 @@ const InventoryList = () => {
                     Rs {item.cost}/=
                   </Typography>
                 </td>
-                <td className="p-9">
+                <td className="p-8">
                   <Typography
                     variant="small"
                     color="blue-gray"
@@ -139,7 +150,7 @@ const InventoryList = () => {
                     {item.quantity}
                   </Typography>
                 </td>
-                <td className="p-10">
+                <td className="p-8">
                   <Typography
                     variant="small"
                     color="blue-gray"
@@ -185,19 +196,28 @@ const InventoryList = () => {
                     className="font-normal"
                   >
                     <img
-                      src={`http://localhost:8070/${item.image}`}
-                      alt="img"
+                      //src={`http://localhost:8070/img/inventory/b1407f55-06c0-41c7-94e8-924384acfc5a.jpeg`}
+                      src={`http://localhost:8070/${item.image.replace(
+                        /\\/g,
+                        '/'
+                      )}`}
+                      alt="Product"
+                      style={{ width: '100px', height: 'auto' }}
                     />
                   </Typography>
                 </td>
-                <td className="p-2">
+                <td className="p-1">
                   <Link
                     to={`/inventory/update/${item._id}`}
                     className="btn btn-warning"
                   >
                     <Button color="green">Update</Button>
                   </Link>
-                  <Button color="red" onClick={() => handleDelete(item._id)}>
+                  <Button
+                    color="red"
+                    className="mr-1"
+                    onClick={() => handleDelete(item._id)}
+                  >
                     Delete
                   </Button>
                 </td>
