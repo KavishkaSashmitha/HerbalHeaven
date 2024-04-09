@@ -13,11 +13,9 @@ import {
   Input,
   Drawer,
   Card,
-
   Badge,
   Chip,
 } from '@material-tailwind/react';
-
 
 import {
   UserCircleIcon,
@@ -36,7 +34,6 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
 
 import { useCart } from './cartContext';
-
 
 export function SidebarWithBurgerMenu({}) {
   const [open, setOpen] = React.useState(0);
@@ -127,7 +124,6 @@ export function SidebarWithBurgerMenu({}) {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="p-0">
-
                   <Link to="#">
                     <ListItem>
                       <ListItemPrefix>
@@ -141,30 +137,25 @@ export function SidebarWithBurgerMenu({}) {
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                     </ListItemPrefix>
-
                     Inventory
                   </ListItem>
-                  
-                  
-                  <Link to="/inventory">
 
+                  <Link to="/inventory">
                     <ListItem>
                       <ListItemPrefix>
                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                       </ListItemPrefix>
-
+                      Inventory
+                    </ListItem>
+                  </Link>
+                  <Link to="/cart-admin">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
                       Cart
                     </ListItem>
                   </Link>
-
-
-                      
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Cart
-                  </ListItem>
 
                   <Link to="/emp">
                     <ListItem>
@@ -173,7 +164,6 @@ export function SidebarWithBurgerMenu({}) {
                       </ListItemPrefix>
                       Employee
                     </ListItem>
-
                   </Link>
 
                   <Link to="/sup">
@@ -218,7 +208,6 @@ export function SidebarWithBurgerMenu({}) {
                       </ListItemPrefix>
                       Payment
                     </ListItem>
-
                   </Link>
                 </List>
               </AccordionBody>
