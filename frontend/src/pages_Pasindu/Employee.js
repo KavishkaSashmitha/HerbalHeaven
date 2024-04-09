@@ -319,6 +319,7 @@ export default function Posts() {
                             <div className="flex flex-col">
                               <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
                                 <Avatar
+                                  src={post.image}
                                   size="md"
                                   className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
                                 />
