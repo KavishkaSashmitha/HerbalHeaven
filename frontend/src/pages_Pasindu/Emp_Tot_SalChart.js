@@ -105,7 +105,7 @@ const MonthlySalChart = ({}) => {
 
   const chartConfig = {
     type: "line",
-    width:1050,
+    width:1090,
     height: 300,
     series: [
       {
@@ -210,7 +210,7 @@ const MonthlySalChart = ({}) => {
   };
 
   return (
-    <Card className="p-5 overflow-visible bg-white items-start">
+    <Card className=" overflow-visible bg-white items-start">
       <CardHeader
         floated={false}
         shadow={false}

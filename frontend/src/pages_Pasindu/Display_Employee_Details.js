@@ -5,8 +5,9 @@ import { SidebarWithBurgerMenu } from "../components/navBar";
 import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
 import { Breadcrumbs } from "@material-tailwind/react";
+import { Avatar } from "@material-tailwind/react";
 
-export default function EditPost() {
+export default function ViewPost() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     name: "",
@@ -54,19 +55,18 @@ export default function EditPost() {
     return address.replace(/(?:^|\,\s)\w|(\b\w)/g, function (match) {
       return match.toUpperCase();
     });
-}
+  }
 
-function capitalizeFirstLetterGender(str) {
+  function capitalizeFirstLetterGender(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
-}
+  }
 
-function addVIfNineDigits(value) {
+  function addVIfNineDigits(value) {
     if (value && value.length === 9) {
-        return value + 'v';
+      return value + "v";
     }
     return value;
-}
-
+  }
 
   return (
     <>
@@ -111,7 +111,7 @@ function addVIfNineDigits(value) {
           </Breadcrumbs>
         </div>
 
-        <div class="flex items-center justify-center h-screen mt-7 mb-7">
+        <div class="flex items-center justify-center h-screen mt-10 mb-10">
           <div class="relative flex  w-full max-w-[56rem] mx-auto flex-col rounded-xl opacity-90 bg-blue-gray-100  bg-clip-border text-gray-700 shadow-md">
             <div class="relative grid px-10 py-1 m-1 overflow-hidden  border-blue-gray-100 bg-blue-gray-50/50text-center text-white bg-gray-700 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
               <div class="h-1 p-8 mb-4 text-white ">
@@ -129,12 +129,20 @@ function addVIfNineDigits(value) {
                 Update Employee Details
               </h5>
             </div>
+            <div className="flex items-center justify-center pt-5">
+              <Avatar
+                src={formData.image}
+                size="custom"
+                style={{ width: "120px", height: "120px" }} // Adjust the width and height as desired
+                className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+              />
+            </div>
             <div class="grid grid-cols-2 gap-6">
-              <div class="p-6">
+              <div class="px-6">
                 <div class="block overflow-visible">
                   <div class="relative block w-full overflow-hidden !overflow-x-visible !overflow-y-visible bg-transparent">
                     <div>
-                      <form class="flex flex-col gap-4 mt-12">
+                      <form class="flex flex-col gap-4 mt-5">
                         <div>
                           <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
                             <label>Employee Name</label>
@@ -173,7 +181,9 @@ function addVIfNineDigits(value) {
                           </p>
                           <div class="relative h-10 w-full min-w-[200px]">
                             <input
-                              value={capitalizeFirstLetterGender(formData.gender)}
+                              value={capitalizeFirstLetterGender(
+                                formData.gender
+                              )}
                               type="text"
                               name="gender"
                               disabled
@@ -204,11 +214,11 @@ function addVIfNineDigits(value) {
                   </div>
                 </div>
               </div>
-              <div class="p-6">
+              <div class="px-6">
                 <div class="block overflow-visible">
                   <div class="relative block w-full overflow-hidden !overflow-x-visible !overflow-y-visible bg-transparent">
                     <div>
-                      <form class="flex flex-col gap-4 mt-12">
+                      <form class="flex flex-col gap-4 mt-5">
                         <div>
                           <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
                             <label for="email">Email</label>
@@ -275,7 +285,6 @@ function addVIfNineDigits(value) {
                             <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                           </div>
                         </div>
-
                       </form>
                     </div>
                   </div>

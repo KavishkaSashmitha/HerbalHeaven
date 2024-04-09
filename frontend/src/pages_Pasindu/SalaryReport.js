@@ -174,8 +174,16 @@ function SalaryReport() {
       ["Net Salary", `Rs.${nsal} /=`],
     ];
 
+    // Add company name
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    // Print "Herbal Heaven" text
+    doc.text("Herbal Heaven", 60, 50);
+
+    // Set font size and style for "Salary Details"
     doc.setFont("times", "bold");
     doc.setFontSize(25);
+    // Print "Salary Details" text
     doc.text("Salary Details", 10, 10);
 
     // Generate the table
