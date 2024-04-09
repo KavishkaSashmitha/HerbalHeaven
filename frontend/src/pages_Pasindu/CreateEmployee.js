@@ -253,7 +253,6 @@ export default class CreatPost extends Component {
   };
 
   
-
   render() {
     const { errors } = this.state;
     return (

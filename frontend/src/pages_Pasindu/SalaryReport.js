@@ -9,6 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardBody,
+  Button,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -16,6 +17,8 @@ import Swal from "sweetalert2";
 import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
+import createLoadingScreen from './LoadingScreen';
+
 
 function SalaryReport() {
   const { id } = useParams();
@@ -34,6 +37,7 @@ function SalaryReport() {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({ image: "" });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -89,10 +93,14 @@ function SalaryReport() {
         setFormData({ ...formData, image: json?.post?.image });
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 800);
       }
     };
     fetchPosts();
-  }, []);
+  }, [id]);
 
   function Calculation() {
     const basicSalary = hours * rate;
@@ -258,6 +266,14 @@ function SalaryReport() {
   const toggleSidebar = () => {
     setOpen(!open);
   };
+
+  if (loading) {
+    return (
+      <div>
+      {createLoadingScreen(loading)}
+    </div>
+    );
+  }
 
   return (
     <>

@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@material-tailwind/react";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
+import createLoadingScreen from './LoadingScreen';
 
 export default function Posts() {
   const [post, setPosts] = useState([]);
@@ -27,6 +28,7 @@ export default function Posts() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [open, setOpen] = React.useState(0);
+  const [loading, setLoading] = useState(true);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -65,10 +67,16 @@ export default function Posts() {
         if (res.data.success) {
           setPosts(res.data.existingPosts);
           setCartItems(res.data.existingPosts); // Assuming `existingPosts` holds all the data
+  
+          // Add setTimeout to setLoading after data retrieval
+          setTimeout(() => {
+            setLoading(false);
+          }, 800);
         }
       })
       .catch((error) => console.error("Error fetching posts:", error));
   }
+  
 
   const onDelete = (id) => {
     Swal.fire({
@@ -129,6 +137,14 @@ export default function Posts() {
 
     // Join the parts back into a single string
     return parts.join(" ");
+  }
+
+  if (loading) {
+    return (
+      <div>
+      {createLoadingScreen(loading)}
+    </div>
+    );
   }
 
   return (

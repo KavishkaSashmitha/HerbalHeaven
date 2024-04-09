@@ -20,7 +20,6 @@ import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
 import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
 import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
-//import Photo from './pages_Pasindu/Photo';
 
 import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
@@ -154,7 +153,6 @@ function App() {
         element={<Display_Employee_Details />}
       />
       <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
-      {/*<Route path="/photo" element={<photo />} />*/}
 
       {/* Malshan */}
       <Route path="/transport" element={<Transport />} />
