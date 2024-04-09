@@ -6,6 +6,9 @@ import { SidebarWithBurgerMenu } from "../components/navBar";
 import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
 import { Breadcrumbs } from "@material-tailwind/react";
+import { Avatar } from "@material-tailwind/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function EditPost() {
   const { id } = useParams();
@@ -18,6 +21,7 @@ export default function EditPost() {
     email: "",
     address: "",
     age: "",
+    image: "",
   });
 
   // State variables for validation errors
@@ -64,7 +68,7 @@ export default function EditPost() {
     } else if (formData.name !== formData.name.toLowerCase()) {
       validationErrors.name = "Please enter the name in lowercase letters";
     }
-    
+
     if (!formData.jobrole) {
       validationErrors.jobrole = "Jobrole is required";
     }
@@ -95,12 +99,12 @@ export default function EditPost() {
     } else if (formData.email.toLowerCase() !== formData.email) {
       validationErrors.email = "Please enter the email in lowercase letters";
     }
-    
 
     if (!formData.address) {
       validationErrors.address = "Address is required";
-    }else if (formData.address.toLowerCase() !== formData.address) {
-      validationErrors.address = "Please enter the address in lowercase letters";
+    } else if (formData.address.toLowerCase() !== formData.address) {
+      validationErrors.address =
+        "Please enter the address in lowercase letters";
     }
 
     if (!formData.age) {
@@ -118,7 +122,7 @@ export default function EditPost() {
       return;
     }
 
-    const { name, jobrole, gender, mobile, nic, email, address, age } =
+    const { name, jobrole, gender, mobile, nic, email, address, age, image } =
       formData;
 
     const data = {
@@ -130,6 +134,7 @@ export default function EditPost() {
       email: email,
       address: address,
       age: age,
+      image: image,
     };
 
     Swal.fire({
@@ -155,9 +160,12 @@ export default function EditPost() {
                 email: "",
                 address: "",
                 age: "",
+                image: "",
               });
 
               setConfirmation(true);
+              // Redirect after confirmation is set
+              window.location.replace("/emp");
             }
           })
           .catch((error) => {
@@ -167,9 +175,21 @@ export default function EditPost() {
     });
   };
 
-  if (confirmation) {
-    window.location.href = "/emp";
-  }
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFormData({
+        ...formData,
+        image: reader.result, // Base64 string of the image
+      });
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <>
@@ -214,7 +234,7 @@ export default function EditPost() {
           </Breadcrumbs>
         </div>
 
-        <div class="flex items-center justify-center h-screen mt-7 mb-7">
+        <div class="flex items-center justify-center h-screen mt-10 mb-10">
           <div class="relative flex  w-full max-w-[56rem] mx-auto flex-col rounded-xl opacity-90 bg-blue-gray-100  bg-clip-border text-gray-700 shadow-md">
             <div class="relative grid px-10 py-1 m-1 overflow-hidden  border-blue-gray-100 bg-blue-gray-50/50text-center text-white bg-gray-700 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
               <div class="h-1 p-8 mb-4 text-white ">
@@ -232,8 +252,36 @@ export default function EditPost() {
                 Update Employee Details
               </h5>
             </div>
+            <div className="flex items-center justify-center pt-5">
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <Avatar
+                  src={formData.image}
+                  size="custom"
+                  style={{ width: "120px", height: "120px" }} // Adjust the width and height as desired
+                  className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
+                />
+                {/* Edit icon */}
+                <FontAwesomeIcon
+                  icon={faPencilAlt}
+                  className="h-6 w-6 text-gray-500 absolute bottom-0 right-0 transform translate-x-2/3 translate-y-2/3 cursor-pointer"
+                  onClick={() => {
+                    setTimeout(() => {
+                      document.getElementById("fileInput").click();
+                    }, 0);
+                  }}
+                />
+                {/* Hidden file input */}
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleImageChange}
+                />
+              </div>
+            </div>
             <div class="grid grid-cols-2 gap-6">
-              <div class="p-6">
+              <div class="px-6">
                 <div class="block overflow-visible">
                   <div class="relative block w-full overflow-hidden !overflow-x-visible !overflow-y-visible bg-transparent">
                     <div>
@@ -353,7 +401,7 @@ export default function EditPost() {
                   </div>
                 </div>
               </div>
-              <div class="p-6">
+              <div class="px-6">
                 <div class="block overflow-visible">
                   <div class="relative block w-full overflow-hidden !overflow-x-visible !overflow-y-visible bg-transparent">
                     <div>
