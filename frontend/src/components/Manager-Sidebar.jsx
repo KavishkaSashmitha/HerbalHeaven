@@ -32,11 +32,11 @@ import { useAuth } from '../middleware/authContext'; // Importing the useAuth ho
 import { useCart } from './cartContext';
 
 export function DefaultSidebar() {
-  const [open, setOpen] = React.useState(0);
+  const [open, setOpen] = React.useState(1);
   const { isLoggedIn, logout } = useAuth(); // Destructuring isLoggedIn and logout from useAuth hook
 
   const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
+    setOpen(open === value ? value : 0);
   };
 
   return (
