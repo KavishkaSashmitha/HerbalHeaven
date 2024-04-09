@@ -44,7 +44,8 @@ export function DefaultSidebar() {
       <Card
         color="transparent"
         shadow={false}
-        className="h-full w-full pr-1 bg-custom-color overflow-hidden"
+        className="h-full  w-72 bg-custom-color overflow-y-scroll"
+        style={{ borderRadius: '0' }}
       >
         <div className="mb-2 p-4">
           <Link to="/">
