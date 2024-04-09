@@ -11,12 +11,13 @@ export default class Order extends Component {
     };    
 
   }
+  
 
   componentDidMount(){
     this.retriveOrder()
-}
+  }
 
-retriveOrder(){
+  retriveOrder(){
     axios.get("http://localhost:8070/api/orders/orders").then((res) =>{
         if(res.data.success){
             this.setState({
@@ -27,7 +28,6 @@ retriveOrder(){
         }
       });
     }
-
 
     onDelete= (id) => {
       axios.delete(`/order/delete/${id}`).then((res) =>{
@@ -57,7 +57,7 @@ retriveOrder(){
     handleSearchArea = (e) => {
       const searchKey = e.currentTarget.value;
 
-      axios.get("/orders").then((res) =>{
+      axios.get("http://localhost:8070/api/orders/orders").then((res) =>{
         if(res.data.success){
 
           this.filterData(res.data.existingOrders,searchKey)
@@ -68,23 +68,24 @@ retriveOrder(){
 
   render() {
     return (
+      <>
 
       <div className = "container">
-      <div classname="row">
-        <div classname = "col-lg-9 mt-2 mb-2">
-          <h4>All Orders List</h4>
-          </div>
-          <div className="col-lg-3 mt-2 mb-2" style={{marginLeft:'960px'}}>
-            <input
-            className="form-control"
-            type="search"
-            placeholder="Search"
-            name="searchQuery"
-            onChange={this.handleSearchArea}>
+        <div className="row">
+          <div className = "col-lg-9 mt-2 mb-2">
+            <h4>All Orders List</h4>
+            </div>
+            <div className="col-lg-3 mt-2 mb-2" style={{marginLeft:'960px'}}>
+              <input
+              className="form-control"
+              type="search"
+              placeholder="Search"
+              name="searchQuery"
+              onChange={this.handleSearchArea}>
 
-            </input>
-          </div>
-      </div>
+              </input>
+            </div>
+        </div>
 
 
        <table className = "table table-hover" style={{marginTop:'40px'}}>
@@ -137,6 +138,7 @@ retriveOrder(){
        <button className = "btn btn-success"><a href = "/add" style ={{textDecoration:'none', color:'white'}}>Add New Order</a></button>
 
       </div>
+      </>
     )
   }
 }

@@ -59,7 +59,7 @@ export default class CreateOrder extends Component {
 
     console.log(data);
 
-    axios.post("http://localhost:8000/order/save", data).then((res) => {
+    axios.post("http://localhost:8070/api/orders/order/save", data).then((res) => {
       if (res.data.success) {
         this.setState({
           Ord_name: "",
@@ -71,8 +71,7 @@ export default class CreateOrder extends Component {
           isMobileValid: true, // Reset validation status after successful submission
           isEmailValid: true, // Reset validation status after successful submission
         });
-        this.props.history.push("/"); // Navigate to home page after successful submission
-        window.location.reload(); // Reload the page
+        window.location.href = "/order" // Navigate to home page after successful submission
       }
     });
   }
