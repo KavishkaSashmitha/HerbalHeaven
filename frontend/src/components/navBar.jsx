@@ -24,6 +24,8 @@ import {
   ChevronRightIcon,
   ChevronDownIcon,
   PresentationChartBarIcon,
+  TruckIcon,
+  CubeIcon,
 } from '@heroicons/react/24/solid';
 import {
   MagnifyingGlassIcon,
@@ -97,7 +99,6 @@ export function SidebarWithBurgerMenu({}) {
           </div>
 
           <List className=" bg-green-100">
-            
             <Link to="#">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
@@ -106,7 +107,7 @@ export function SidebarWithBurgerMenu({}) {
                     className="border-b-0 p-3"
                   >
                     <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5" />
+                      <TruckIcon className="h-5 w-5" />
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"
@@ -126,7 +127,7 @@ export function SidebarWithBurgerMenu({}) {
                     className="border-b-0 p-3"
                   >
                     <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5" />
+                      <CubeIcon className="h-5 w-5" />
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"

@@ -261,18 +261,20 @@ export function CartAdmin() {
 
   return (
     <>
-      <div className="flex h-screen overflow-scroll">
+      <div
+        className="flex h-screen overflow-scroll"
+        style={{ backgroundColor: '#02353c' }}
+      >
         <div
-
-
-          className={`sidebar w-64  bg-custom-color text-white ${open ? 'block' : 'hidden'}`}
-
+          className={`sidebar w-68  bg-custom-color text-white ${
+            open ? 'block' : 'hidden'
+          }`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
         <div className="w-full h-full">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="h-full">
+          <Card className="h-full ml-2" style={{ borderRadius: '0' }}>
             <CardHeader
               floated={false}
               shadow={false}
@@ -347,7 +349,7 @@ export function CartAdmin() {
                   )}
                 </div>
 
-                <div className="card w-full">
+                <div className="card w-max">
                   <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                     <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                       <svg
@@ -362,7 +364,9 @@ export function CartAdmin() {
                       <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                         Most Added User
                       </p>
-                      <p class="text-lg font-semibold text-gray-700 dark:text-gray-200"></p>
+                      <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                        {mostRepeatedUser ? mostRepeatedUser.email : 'N/A'}
+                      </p>
                     </div>
                   </div>
                 </div>
