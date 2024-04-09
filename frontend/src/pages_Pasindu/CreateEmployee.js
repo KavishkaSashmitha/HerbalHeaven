@@ -22,7 +22,7 @@ export default class CreatPost extends Component {
       address: "",
       isAdmin: "",
       age: "",
-      // image: "",
+      image: "",
       confirmation: false,
       errors: {},
 
