@@ -76,9 +76,9 @@ function LineChart() {
         if (post && post.salary && typeof post.salary.november == "number") {
           setNovemberSalary(post.salary.november);
         }
-        // if (post && post.salary && typeof post.salary.december == "number") {
-        //   setDecemberSalary(post.salary.december);
-        // }
+        if (post && post.salary && typeof post.salary.december == "number") {
+          setDecemberSalary(post.salary.december);
+        }
       } catch (error) {
         setError(error.message);
       } finally {
