@@ -72,8 +72,7 @@ export default function Transports() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`http://localhost:8070/api/transports/transport/delete/${id}`)
+        axios.delete(`http://localhost:8070/api/transports/transport/delete/${id}`)
           .then((res) => {
             Swal.fire("Deleted!", "Driver has been deleted.", "success");
             retrieveTransport();
