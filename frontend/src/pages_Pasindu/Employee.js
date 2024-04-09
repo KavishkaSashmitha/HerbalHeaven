@@ -133,7 +133,10 @@ export default function Posts() {
 
   return (
     <>
-      <div className="flex h-screen overflow-scroll">
+      <div
+        className="flex h-screen overflow-scroll"
+        style={{ backgroundColor: "#02353c" }}
+      >
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? "block" : "hidden"
@@ -158,7 +161,7 @@ export default function Posts() {
                       <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                     </svg>
                   </Link>
-                  <Link to="#">
+                  <Link to="/Employee_Dashboard">
                     <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
                       <span>Dashboard</span>
 
@@ -377,7 +380,7 @@ export default function Posts() {
 
                         <td className="p-4   ">
                           <div>
-                          <a
+                            <a
                               className="btn btn-primary mr-2"
                               href={`/Display_Employee_Details/${post._id}`}
                             >
@@ -387,7 +390,7 @@ export default function Posts() {
                                   style={{ fontSize: "20px" }}
                                 ></i>
                               </Button>
-                            </a> 
+                            </a>
 
                             <a
                               className="btn btn-primary mr-2"
@@ -401,10 +404,7 @@ export default function Posts() {
                               </Button>
                             </a>
 
-                            <a
-                              className=""
-                              onClick={() => onDelete(post._id)}
-                            >
+                            <a className="" onClick={() => onDelete(post._id)}>
                               <Button color="red">
                                 <i
                                   className="fas fa-trash-alt"
@@ -412,8 +412,6 @@ export default function Posts() {
                                 ></i>
                               </Button>
                             </a>
-
-                            
                           </div>
                         </td>
                         <td className="p-4  ">

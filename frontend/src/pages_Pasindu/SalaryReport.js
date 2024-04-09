@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { Breadcrumbs } from "@material-tailwind/react";
+import { Breadcrumbs,Avatar } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { SidebarWithBurgerMenu } from "../components/navBar";
 import axios from "axios";
@@ -26,6 +26,7 @@ function SalaryReport() {
   const [rate, setHourlyRate] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({ image: "" });
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -78,6 +79,7 @@ function SalaryReport() {
         const json = await response.json();
         setEmployeeName(json?.post?.name);
         setJobRole(json?.post?.jobrole);
+        setFormData({ ...formData, image: json?.post?.image });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -244,6 +246,8 @@ function SalaryReport() {
     return parts.join(" ");
   }
 
+
+
   return (
     <>
       <div className="salaryreport-bg">
@@ -288,7 +292,7 @@ function SalaryReport() {
               </Link>
             </Breadcrumbs>
           </div>
-          <div class=" w-auto max-w-[56rem] mx-auto mt-7 mb-7">
+          <div class="w-auto max-w-[56rem] mx-auto mt-10 mb-10">
             <div class="relative flex flex-col rounded-xl border-blue-gray-100 bg-blue-gray-100/50 text-gray-700 shadow-md">
               <div className="bg-blue-gray-50/50  rounded-xl">
                 <div class="relative grid px-1 py-1 m-1 overflow-center text-center text-white bg-gray-800 place-items-center rounded-xl bg-clip-border shadow-gray-900/20">
@@ -312,8 +316,16 @@ function SalaryReport() {
                     Salary Calculator
                   </h5>
                 </div>
+                <div className="flex items-center justify-center pt-5">
+                  <Avatar
+                    src={formData.image}
+                    size="custom"
+                    style={{ width: "120px", height: "120px" }} // Adjust the width and height as desired
+                    className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
+                  />
+                </div>
                 <div class="grid grid-cols-2 gap-6 ">
-                  <div class="p-6">
+                  <div class="px-6">
                     <div class="block overflow-visible">
                       <div class="relative block w-full overflow-hidden !overflow-x-hidden !overflow-y-visible bg-transparent">
                         <form class="flex flex-col gap-2 mt-12">
@@ -443,7 +455,7 @@ function SalaryReport() {
                       </div>
                     </div>
                   </div>
-                  <div class="p-6">
+                  <div class="px-6 mb-5">
                     <div class="block overflow-visible">
                       <div class="relative block w-full overflow-hidden !overflow-x-hidden !overflow-y-visible bg-transparent">
                         <form class="flex flex-col gap-2 mt-12">
