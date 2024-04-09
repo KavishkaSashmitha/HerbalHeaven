@@ -66,7 +66,7 @@ function Emp_Gender_Chart() {
   };
 
   return (
-    <Card className="overflow-visible bg-white items-start">
+    <Card className="overflow-visible mb-10 h-full pb-10 bg-white items-start">
       <CardHeader
         floated={false}
         shadow={false}
@@ -79,7 +79,7 @@ function Emp_Gender_Chart() {
           </Typography>
         </div>
       </CardHeader>
-      <CardBody className="mt-4 grid place-items-center px-2">
+      <CardBody className="ml-10 mt-10 grid place-items-center px-2">
         <Chart {...pieChartConfig} key={refreshKey} />
       </CardBody>
     </Card>

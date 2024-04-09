@@ -63,7 +63,7 @@ function AdminDashboard() {
     <>
       <div className="flex h-screen overflow-scroll bg-blue-gray-100">
         <div
-          className={`sidebar w-64 bg-custom-color text-white ${
+          className={`sidebar w-68 bg-custom-color text-white ${
             open ? "block" : "hidden"
           }`}
         >
@@ -80,10 +80,10 @@ function AdminDashboard() {
                       Overview
                     </h1>
                     <div className="flex flex-row">
-                      <div className="grid gap-6 mb-8 md:grid-cols-2 ">
+                      <div className="grid gap-2 w-full mb-8 md:grid-cols-2 ">
                         <div className="">
-                          <div className="flex flex-row">
-                            <div className="card w-max ">
+                          <div className="grid gap-4 w-full mb-2 md:grid-cols-3 ">
+                          <div className="card w-auto">
                               <div className="flex items-center p-4  rounded-lg shadow-xl dark:bg-gray-800">
                                 <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                                   <svg
@@ -96,7 +96,7 @@ function AdminDashboard() {
                                 </div>
                                 <div>
                                   <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                                    Employees
+                                    Total Employee
                                   </p>
                                   <p class="text-3xl font-semibold text-gray-700 dark:text-gray-200">
                                     <ul>{documents.length ?? 0}</ul>
@@ -140,7 +140,7 @@ function AdminDashboard() {
                                 </div>
                                 <div>
                                   <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                                    Employees
+                                    Total Salary
                                   </p>
                                   <p class="text-3xl font-semibold text-gray-700 dark:text-gray-200">
                                     <ul>{documents.length ?? 0}</ul>
@@ -149,25 +149,24 @@ function AdminDashboard() {
                               </div>
                             </div>
                           </div>
-                          <div className="pt-5">
+                          <div className="pt-5 pr-5">
                             <div>
                               <Emp_Jobrole_Chart />
                             </div>
                           </div>
                         </div>
-                        <div className="">
-                          <div>
+                        <div>
+                          <div className="h-full">
                             <Emp_Gender_Chart />
                           </div>
                         </div>
                       </div>
-                      
                     </div>
                     <div className="">
-                          <div>
-                            <MonthlySalChart />
-                          </div>
-                        </div>
+                      <div>
+                        <MonthlySalChart />
+                      </div>
+                    </div>
                   </div>
                 </main>
               </div>

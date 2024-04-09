@@ -58,7 +58,7 @@ function Emp_Jobrole_Chart() {
     height: 355,
     series: [
       {
-        name: "Sales",
+        name: "Job Role",
         data: [
           managerCount,
           supervisorCount,
@@ -80,7 +80,7 @@ function Emp_Jobrole_Chart() {
       dataLabels: {
         enabled: true,
       },
-      colors: ["#020617"],
+      colors: ["#FF5733", "#33FF57", "#5733FF", "#FF33E6", "#33C5FF"], // Specify your colors here
       plotOptions: {
         bar: {
           columnWidth: "40%",
@@ -104,7 +104,6 @@ function Emp_Jobrole_Chart() {
         },
         categories: ["Manager", "Supervisor", "Technician", "Driver", "Worker"],
       },
-
       yaxis: {
         labels: {
           style: {
@@ -113,8 +112,8 @@ function Emp_Jobrole_Chart() {
             fontFamily: "inherit",
             fontWeight: 400,
           },
-        }, // Set the maximum value for the y-axis here
-      },
+        },
+      }, // Set the maximum value for the y-axis here
       grid: {
         show: true,
         borderColor: "#dddddd",
@@ -126,7 +125,7 @@ function Emp_Jobrole_Chart() {
         },
         padding: {
           top: 5,
-          right: 50,
+          right: 70,
         },
       },
       fill: {
@@ -137,6 +136,7 @@ function Emp_Jobrole_Chart() {
       },
     },
   };
+  
 
   return (
     <Card className="overflow-visible bg-white items-start">
