@@ -66,6 +66,7 @@ function Emp_Jobrole_Chart() {
           driverCount,
           workerCount,
         ],
+        colors: ["#FFD1E3", "#5BBCFF", "#FFD1E3", "#FFFAB7", "#5BBCFF"],
       },
     ],
     options: {
@@ -79,8 +80,7 @@ function Emp_Jobrole_Chart() {
       },
       dataLabels: {
         enabled: true,
-      },
-      colors: ["#FF5733", "#33FF57", "#5733FF", "#FF33E6", "#33C5FF"], // Specify your colors here
+      }, // Specify your colors here
       plotOptions: {
         bar: {
           columnWidth: "40%",
@@ -136,7 +136,6 @@ function Emp_Jobrole_Chart() {
       },
     },
   };
-  
 
   return (
     <Card className="overflow-visible bg-white items-start">
