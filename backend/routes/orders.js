@@ -23,6 +23,21 @@ router.post("/order/save", protect, async (req, res) => {
   }
 });
 
+//get user orders
+router.get("/my-orders", protect, async (req, res) => {
+  try {
+    const orders = await Orders.find({ user: req.user.name }).exec();
+    return res.status(200).json({
+      success: true,
+      existingOrders: orders,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: err.message,
+    });
+  }
+});
+
 //get posts
 
 router.get("/orders", async (req, res) => {
@@ -61,22 +76,22 @@ router.get("/order/:id", async (req, res) => {
 
 //update posts
 
-router.put("/order/update/:id", (req, res) => {
-  Orders.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: req.body,
-    },
-    (err, order) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
+router.put("/order/update/:id", async (req, res) => {
+  try {
+    const order = await Orders.findByIdAndUpdate(req.params.id, {
+      ...req.body,
+    });
 
-      return res.status(200).json({
-        success: "Updated Succesfully",
-      });
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
     }
-  );
+
+    return res.status(200).json({
+      success: "Updated Successfully",
+    });
+  } catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
 });
 
 //delete post

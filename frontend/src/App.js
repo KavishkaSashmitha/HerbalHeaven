@@ -67,6 +67,7 @@ import { CustomerLogin } from "./pages/Customer-login";
 import AddProduct from "./pages-Dileesha/AddProduct";
 import UpdateProduct from "./pages-Dileesha/UpdateProduct";
 import InventoryList from "./pages-Dileesha/InventoryList";
+import MyOrders from "./pages_Ridmi/myOrders";
 
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
@@ -118,6 +119,7 @@ function App() {
 
       {/*Ridmi*/}
       <Route path="/orders" element={<Order />} />
+      <Route path="/my-orders" element={<MyOrders />} />
       <Route path="/add" element={<CreateOrder />} />
       <Route path="/edit/:id" element={<EditOrder />} />
       <Route path="/test/order/:id" element={<OrderDetails />} />

@@ -1,40 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { useAuth } from "../middleware/authContext";
+import { getStatusColor } from "./Order";
 
-export function getStatusColor(status) {
-  switch (status) {
-    case "Payment Accepted":
-      return "text-green-900 bg-green-500/20";
-    case "Canceled":
-      return "text-red-900 bg-red-500/20";
-    default:
-      return "";
-  }
-}
-
-export default function Order() {
+export default function MyOrders() {
   const [orders, setOrders] = useState([]);
+  const { token } = useAuth();
 
-  function retriveOrder() {
-    axios.get("http://localhost:8070/api/orders/orders").then((res) => {
-      if (res.data.success) {
-        setOrders(res.data.existingOrders);
-      }
-    });
-  }
-
-  const onDelete = (id) => {
+  const retriveOrder = useCallback(() => {
+    if (!token) return;
     axios
-      .delete(`http://localhost:8070/api/orders/order/delete/${id}`)
-      .then((_res) => {
-        alert("Deleted successfully");
-        retriveOrder();
+      .get("http://localhost:8070/api/orders/my-orders", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setOrders(res.data.existingOrders);
+        }
       });
-  };
+    console.log("token", token);
+  }, [token]);
 
   useEffect(() => {
     retriveOrder();
-  }, []);
+  }, [retriveOrder]);
 
   function filterData(orders, searchKey) {
     const result = orders.filter(
@@ -48,30 +39,11 @@ export default function Order() {
     setOrders(result);
   }
 
-  const handleSearchArea = (e) => {
-    const searchKey = e.currentTarget.value;
-
-    axios.get("http://localhost:8070/api/orders/orders").then((res) => {
-      if (res.data.success) {
-        filterData(res.data.existingOrders, searchKey);
-      }
-    });
-  };
-
   return (
     <div className="container">
       <div className="row">
         <div className="col-lg-9 mt-2 mb-2">
-          <h4>All Orders List</h4>
-        </div>
-        <div className="col-lg-3 mt-2 mb-2" style={{ marginLeft: "960px" }}>
-          <input
-            className="form-control"
-            type="search"
-            placeholder="Search"
-            name="searchQuery"
-            onChange={handleSearchArea}
-          ></input>
+          <h4>Orders List</h4>
         </div>
       </div>
 
@@ -106,11 +78,6 @@ export default function Order() {
             <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
               <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                 Total
-              </p>
-            </th>
-            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
-              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Actions
               </p>
             </th>
           </tr>
@@ -165,19 +132,6 @@ export default function Order() {
                     Rs.{order.total}
                   </p>
                 </div>
-              </td>
-              <td class="p-4 border-b border-blue-gray-50">
-                <a className="btn btn-warning" href={`/edit/${order._id}`}>
-                  <i className="fas fa-edit"></i>&nbsp;EDIT
-                </a>
-                &nbsp;
-                <a
-                  className="btn btn-danger"
-                  href="#"
-                  onClick={() => onDelete(order._id)}
-                >
-                  <i className="fas fa-trash-alt"></i>&nbsp;DELETE
-                </a>
               </td>
             </tr>
           ))}
