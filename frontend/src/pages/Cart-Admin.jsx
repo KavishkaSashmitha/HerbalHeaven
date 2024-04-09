@@ -25,6 +25,9 @@ import { Link } from 'react-router-dom';
 import AdminNavbar from '../components/AdminNavbar';
 import Sidebar from '../components/AdminSidebar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { Chart } from 'chart.js';
 
 const TABLE_HEAD = [
   'Product',
@@ -153,52 +156,153 @@ export function CartAdmin() {
       mostRepeatedUser = user;
     }
   });
+  const generateReport = async () => {
+    const input = document.getElementById('report-content');
+
+    // Render the HTML content to canvas
+    const canvas = await html2canvas(input);
+
+    // Create a new PDF document
+    const pdf = new jsPDF();
+    const imgWidth = 50;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    // Add current time
+    const now = new Date();
+    const currentTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+    pdf.setFontSize(10);
+    pdf.text(`Report generated on: ${currentTime}`, 10, 20);
+
+    // Add company logo
+    const logoImg = new Image();
+    logoImg.src = 'logo/logo.png'; // Assuming 'logo.png' is the path to your logo
+    pdf.addImage(logoImg, 'PNG', 10, 30, 40, 40); // Adjust position and size accordingly
+
+    // Add company name
+    pdf.setFontSize(14);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Herbal Heaven', 60, 50); // Adjust position accordingly
+
+    // Add company address, email, and phone number
+    pdf.setFontSize(8); // Adjust font size as needed
+    pdf.text('Company Address:', 140, 40);
+    pdf.text('123 Main St, City, Country', 140, 45);
+    pdf.text('Email: info@herbalheaven.com', 140, 50);
+    pdf.text('Phone: +1234567890', 140, 55);
+
+    // Add page number
+    const totalPages = pdf.internal.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      pdf.setPage(i);
+      pdf.text(
+        `Page ${i} of ${totalPages}`,
+        pdf.internal.pageSize.width - 50,
+        pdf.internal.pageSize.height - 10
+      );
+    }
+
+    // Add page border
+    for (let i = 1; i <= totalPages; i++) {
+      pdf.setPage(i);
+      pdf.rect(
+        5,
+        5,
+        pdf.internal.pageSize.width - 10,
+        pdf.internal.pageSize.height - 10,
+        'S'
+      );
+    }
+
+    // Add statistics to the PDF using a table
+    const statisticsData = [
+      ['Number of Unique Users:', uniqueEmailCount],
+      [
+        'Most Added Product:',
+        mostRepeatedProduct ? mostRepeatedProduct.name : 'N/A',
+      ],
+      ['Most Added User:', mostRepeatedUser ? mostRepeatedUser.email : 'N/A'],
+    ];
+
+    pdf.autoTable({
+      startY: imgHeight + 60,
+      head: [['Statistics', 'Value']],
+      body: statisticsData,
+    });
+
+    // Add table data to the PDF
+    pdf.autoTable({
+      startY: imgHeight + 110,
+      head: [TABLE_HEAD],
+      body: cartItems.map((item) => [
+        item.name,
+        `Rs.${item.price}`,
+        item.date,
+        item.user ? item.user.email : 'N/A',
+        '',
+      ]),
+    });
+
+    // Signature area
+    pdf.setFontSize(10);
+    pdf.text('__________________', 150, pdf.internal.pageSize.height - 30);
+    pdf.text('Signature', 160, pdf.internal.pageSize.height - 20);
+
+    // Add description
+    pdf.setFontSize(12);
+    pdf.text(
+      'This report contains data analysis and statistics for Herbal Heaven.',
+      10,
+      pdf.internal.pageSize.height - 60
+    );
+
+    // Save the PDF
+    pdf.save('report.pdf');
+  };
+
   return (
     <>
       <div className="flex h-screen overflow-scroll">
         <div
-          className={`sidebar w-64   text-white ${open ? 'block' : 'hidden'}`}
+          className={`sidebar w-62  text-white ${open ? 'block' : 'hidden'}`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
         <div className="w-full h-full">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-
           <Card className="h-full">
             <CardHeader
               floated={false}
               shadow={false}
               className="rounded-none mb-4"
             >
-              <div className="mb-4 mt-5 flex flex-col justify-between gap-8 md:flex-row md:items-center">
-                <div>
-                  <Typography variant="h5" color="blue-gray">
-                    Recent Carted Items
-                  </Typography>
-                  <Typography color="gray" className="mt-1 font-normal">
-                    These are details about the last Carting
-                  </Typography>
+              <div>
+                <Typography variant="h5" color="blue-gray">
+                  Recent Carted Items
+                </Typography>
+                <Typography color="gray" className="mt-1 font-normal">
+                  These are details about the last Carting
+                </Typography>
+                <div className="flex justify-center gap-2 md:w-max">
+                  <div className="w-full md:w-72 mb-4">
+                    <Input
+                      label="Search"
+                      icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                      value={searchInput}
+                      onChange={handleSearchInputChange}
+                    />
+                  </div>
+
+                  <Link to="/cart-stats">
+                    <Button className="flex items-center gap-3" size="sm">
+                      <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{' '}
+                      Stats
+                    </Button>
+                  </Link>
+                  <Button onClick={generateReport}>Generate Report</Button>
                 </div>
               </div>
             </CardHeader>
-            <div className="flex w-full shrink-0 gap-2 md:w-max">
-              <div className="w-full md:w-72 mb-4">
-                <Input
-                  label="Search"
-                  icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-                  value={searchInput}
-                  onChange={handleSearchInputChange}
-                  className="w-full"
-                />
-              </div>
 
-              <Link to="/cart-stats">
-                <Button className="flex items-center gap-3" size="sm">
-                  <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{' '}
-                  Stats
-                </Button>
-              </Link>
-            </div>
             <div className="container  mx-auto grid justify-center">
               <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
                 <div className="card w-full">
@@ -262,107 +366,109 @@ export function CartAdmin() {
               </div>
             </div>
             <CardBody className="overflow-scroll px-0">
-              <table className="w-full min-w-max table-auto text-left">
-                <thead>
-                  <tr>
-                    {TABLE_HEAD.map((head) => (
-                      <th
-                        key={head}
-                        className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                      >
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal leading-none opacity-70"
+              <div id="report-content">
+                <table className="w-full min-w-max table-auto text-left">
+                  <thead>
+                    <tr>
+                      {TABLE_HEAD.map((head) => (
+                        <th
+                          key={head}
+                          className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                         >
-                          {head}
-                        </Typography>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentItems.map((item, index) => (
-                    <tr key={index}>
-                      <td className="p-4">
-                        <div className="flex items-center gap-3">
-                          <Avatar
-                            src={item.image}
-                            alt={item.name}
-                            size="md"
-                            className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
-                          />
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-bold"
+                            className="font-normal leading-none opacity-70"
                           >
-                            {item.name}
+                            {head}
                           </Typography>
-                        </div>
-                      </td>
-                      <td className="p-4">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          Rs.{item.price}
-                        </Typography>
-                      </td>
-                      <td className="p-4">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {item.date}
-                        </Typography>
-                      </td>
-                      <td className="p-4">
-                        <div className="w-max">
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentItems.map((item, index) => (
+                      <tr key={index}>
+                        <td className="p-4">
+                          <div className="flex items-center gap-3">
+                            <Avatar
+                              src={item.image}
+                              alt={item.name}
+                              size="md"
+                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                            />
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-bold"
+                            >
+                              {item.name}
+                            </Typography>
+                          </div>
+                        </td>
+                        <td className="p-4">
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {item.user ? item.user.email : 'N/A'}
+                            Rs.{item.price}
                           </Typography>
-                        </div>
-                      </td>
-                      <td className="p-4">
-                        <div className="flex items-center gap-3">
-                          <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
-                            <Avatar
-                              src={
-                                item.account === 'visa'
-                                  ? 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png'
-                                  : 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png'
-                              }
-                              size="sm"
-                              alt=""
-                              variant="square"
-                              className="h-full w-full object-contain p-1"
-                            />
-                          </div>
-                          <div className="flex flex-col">
+                        </td>
+                        <td className="p-4">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {item.date}
+                          </Typography>
+                        </td>
+                        <td className="p-4">
+                          <div className="w-max">
                             <Typography
                               variant="small"
                               color="blue-gray"
-                              className="font-normal capitalize"
-                            ></Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70"
-                            ></Typography>
+                              className="font-normal"
+                            >
+                              {item.user ? item.user.email : 'N/A'}
+                            </Typography>
                           </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        </td>
+                        <td className="p-4">
+                          <div className="flex items-center gap-3">
+                            <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
+                              <Avatar
+                                src={
+                                  item.account === 'visa'
+                                    ? 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png'
+                                    : 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png'
+                                }
+                                size="sm"
+                                alt=""
+                                variant="square"
+                                className="h-full w-full object-contain p-1"
+                              />
+                            </div>
+                            <div className="flex flex-col">
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal capitalize"
+                              ></Typography>
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-normal opacity-70"
+                              ></Typography>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
               <Button
