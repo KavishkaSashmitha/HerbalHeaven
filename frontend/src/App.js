@@ -1,3 +1,4 @@
+
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
@@ -64,10 +65,12 @@ import AddProduct from './pages-Dileesha/AddProduct';
 import UpdateProduct from './pages-Dileesha/UpdateProduct';
 import InventoryList from './pages-Dileesha/InventoryList';
 
+
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
 
   return (
+
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
@@ -173,6 +176,7 @@ function App() {
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
     </Routes>
+
   );
 }
 
