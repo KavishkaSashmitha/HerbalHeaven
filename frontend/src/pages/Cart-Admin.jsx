@@ -259,6 +259,16 @@ export function CartAdmin() {
     // Save the PDF
     pdf.save('report.pdf');
   };
+  //date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    // Example format: "Apr 9, 2024"
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
 
   return (
     <>
@@ -341,7 +351,7 @@ export function CartAdmin() {
               </div>
             </CardHeader>
 
-            <div className="container  mx-auto grid justify-center">
+            <div className="container  mx-auto grid justify-center ml-3">
               <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
                 <div className="card w-full">
                   <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
@@ -359,7 +369,7 @@ export function CartAdmin() {
                   </div>
                 </div>
 
-                <div className="card w-full">
+                <div className="card w-full ">
                   {mostRepeatedProduct && (
                     <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                       <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
@@ -461,7 +471,7 @@ export function CartAdmin() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {item.date}
+                            {formatDate(item.createdAt)}
                           </Typography>
                         </td>
                         <td className="p-4">

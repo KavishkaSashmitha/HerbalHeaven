@@ -51,9 +51,9 @@ export function DefaultSidebar() {
           <Link to="/">
             <div className="flex items-center justify-center mt-0 ">
               <img
-                src="\logo\logo-2.png"
+                src="\logo\logo-1.png"
                 alt="brand"
-                className="h-13 w-12 mb-10 mt-10"
+                className="h-12 w-12 mb-10 mt-10"
               />
               <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-teal-300">
                 Herbal Heaven
