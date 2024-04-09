@@ -81,7 +81,7 @@ export function SidebarWithBurgerMenu({}) {
           <Link to="/">
             <div className="flex items-center justify-center mt-0 ">
               <img
-                src="\logo\logo-2.png"
+                src="\logo\logo-1.png"
                 alt="brand"
                 className="h-13 w-12 mb-10 mt-10"
               />
@@ -157,7 +157,7 @@ export function SidebarWithBurgerMenu({}) {
                     </Typography>
                     <ListItemSuffix>
                       <Chip
-                        value={cartCount}
+                        value={isLoggedIn ? cartCount : '0'}
                         size="sm"
                         variant="ghost"
                         color="blue-gray"

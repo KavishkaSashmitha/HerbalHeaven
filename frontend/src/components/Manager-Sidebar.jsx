@@ -51,9 +51,9 @@ export function DefaultSidebar() {
           <Link to="/">
             <div className="flex items-center justify-center mt-0 ">
               <img
-                src="\logo\logo-2.png"
+                src="\logo\logo-1.png"
                 alt="brand"
-                className="h-13 w-12 mb-10 mt-10"
+                className="h-12 w-12 mb-10 mt-10"
               />
               <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-teal-300">
                 Herbal Heaven
@@ -94,7 +94,7 @@ export function DefaultSidebar() {
                     color="blue-gray"
                     className="mr-auto font-normal text-teal-200 "
                   >
-                    Dashboard
+                    Managers
                   </Typography>
                 </AccordionHeader>
               </ListItem>
@@ -193,83 +193,6 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-            <Link to="#">
-              <Accordion open={open === 2}>
-                <ListItem
-                  className="p-0 hover:bg-teal-800"
-                  selected={open === 2}
-                >
-                  <AccordionHeader
-                    onClick={() => handleOpen(2)}
-                    className="border-b-0 p-3 "
-                  >
-                    <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5 text-teal-200 " />
-                    </ListItemPrefix>
-                    <Typography
-                      color="blue-gray"
-                      className="mr-auto font-normal text-teal-200 "
-                    >
-                      Orders
-                    </Typography>
-                  </AccordionHeader>
-                </ListItem>
-              </Accordion>
-            </Link>
-            <Link to="/products">
-              <Accordion open={open === 3}>
-                <ListItem
-                  className="p-0 hover:bg-teal-800"
-                  selected={open === 3}
-                >
-                  <AccordionHeader
-                    onClick={() => handleOpen(3)}
-                    className="border-b-0 p-3 "
-                  >
-                    <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5 text-teal-200 " />
-                    </ListItemPrefix>
-                    <Typography
-                      color="blue-gray"
-                      className="mr-auto font-normal text-teal-200 "
-                    >
-                      Products
-                    </Typography>
-                  </AccordionHeader>
-                </ListItem>
-              </Accordion>
-            </Link>
-            <Link to="/user/cart">
-              <Accordion open={open === 3}>
-                <ListItem
-                  className="p-0 hover:bg-teal-800"
-                  selected={open === 3}
-                >
-                  <AccordionHeader
-                    onClick={() => handleOpen(3)}
-                    className="border-b-0 p-3 "
-                  >
-                    <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5 text-teal-200 " />
-                    </ListItemPrefix>
-                    <Typography
-                      color="blue-gray"
-                      className="mr-auto font-normal text-teal-200 "
-                    >
-                      Cart
-                    </Typography>
-                    <ListItemSuffix>
-                      <Chip
-                        size="sm"
-                        variant="ghost"
-                        color="blue-gray"
-                        className="rounded-full"
-                      />
-                    </ListItemSuffix>
-                  </AccordionHeader>
-                </ListItem>
-              </Accordion>
-            </Link>
 
             <hr className="my-2 border-white" />
             {isLoggedIn ? ( // Conditional rendering based on isLoggedIn state

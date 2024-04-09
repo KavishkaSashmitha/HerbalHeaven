@@ -1,4 +1,8 @@
-import { PencilIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import {
+  DocumentArrowDownIcon,
+  PencilIcon,
+  UserCircleIcon,
+} from '@heroicons/react/24/solid';
 import {
   ArrowDownTrayIcon,
   MagnifyingGlassIcon,
@@ -259,11 +263,21 @@ export function CartAdmin() {
     // Save the PDF
     pdf.save('report.pdf');
   };
+  //date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    // Example format: "Apr 9, 2024"
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
 
   return (
     <>
       <div
-        className="flex h-screen overflow-scroll"
+        className="flex h-screen overflow-scroll overflow-x-hidden"
         style={{ backgroundColor: '#02353c' }}
       >
         <div
@@ -290,122 +304,101 @@ export function CartAdmin() {
               <Link to="/dashboard">
                 <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
                   <span>Dashboard</span>
-
-                  <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                 </li>
               </Link>
               <Link to="/cart-admin">
                 <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
                   <span>Cart-Manager</span>
-
-                  <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                 </li>
               </Link>
             </Breadcrumbs>
-            <CardHeader
-              floated={false}
-              shadow={false}
-              className="rounded-none mb-4"
-            >
-              <div>
-                <Typography variant="h5" color="blue-gray">
-                  Recent Carted Items
-                </Typography>
-                <Typography color="gray" className="mt-1 font-normal">
-                  These are details about the last Carting
-                </Typography>
-                <div className="flex justify-center gap-2 md:w-max">
-                  <div className="w-full md:w-72 mb-4">
-                    <Input
-                      label="Search"
-                      icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-                      value={searchInput}
-                      onChange={handleSearchInputChange}
-                    />
-                  </div>
 
-                  <Link to="/cart-stats">
-                    <Button className="flex gap-3" size="m">
-                      Stats
-                    </Button>
-                  </Link>
-                  <Button
-                    onClick={generateReport}
-                    className="flex items-center gap-3"
-                    size="m"
-                  >
-                    <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{' '}
-                    Generate Report
-                  </Button>
-                </div>
-              </div>
-            </CardHeader>
-
-            <div className="container  mx-auto grid justify-center">
-              <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                <div className="card w-full">
-                  <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                    <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                      <UserCircleIcon className="h-10 w-10" />
-                    </div>
-                    <div>
-                      <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                        Users
-                      </p>
-                      <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        {uniqueEmailCount} Users
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="card w-full">
-                  {mostRepeatedProduct && (
+            <CardBody className=" px-0">
+              <div className=" grid justify-center  ml-4">
+                <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                  <div className="card w-full">
                     <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                      <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                        <img
-                          src={mostRepeatedProduct.image}
-                          alt={mostRepeatedProduct.name}
-                          className="w-12 h-132rounded-full "
-                        />
+                      <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                        <UserCircleIcon className="h-10 w-10" />
+                      </div>
+                      <div>
+                        <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                          Users
+                        </p>
+                        <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                          {uniqueEmailCount} Users
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="card w-full ">
+                    {mostRepeatedProduct && (
+                      <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                        <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                          <img
+                            src={mostRepeatedProduct.image}
+                            alt={mostRepeatedProduct.name}
+                            className="w-12 h-132rounded-full "
+                          />
+                        </div>
+                        <div>
+                          <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                            Most Added Product
+                          </p>
+
+                          <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                            {mostRepeatedProduct.name}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="card w-max">
+                    <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                      <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                        <svg
+                          class="w-10 h-10"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+                        </svg>
                       </div>
                       <div>
                         <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                          Most Added Product
+                          Most Added User
                         </p>
-
-                        <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                          {mostRepeatedProduct.name}
+                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                          {mostRepeatedUser ? mostRepeatedUser.email : 'N/A'}
                         </p>
                       </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="card w-max">
-                  <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                    <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                      <svg
-                        class="w-10 h-10"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-                      </svg>
-                    </div>
-                    <div>
-                      <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                        Most Added User
-                      </p>
-                      <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        {mostRepeatedUser ? mostRepeatedUser.email : 'N/A'}
-                      </p>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <CardBody className="overflow-scroll px-0">
+              <div className="flex items-center ml-2 mb-4">
+                <Input
+                  type="text"
+                  placeholder="Search by product name"
+                  value={searchInput}
+                  onChange={handleSearchInputChange}
+                  className="mr-2"
+                  label="search"
+                />
+                {/* Button to generate report */}
+              </div>
+              <div>
+                <Button
+                  className="m mt-2 mb-2 ml-2 w-max"
+                  onClick={generateReport}
+                >
+                  Generate Report{' '}
+                  <DocumentArrowDownIcon className="inline-block h-5 w-5 ml-1" />
+                </Button>
+              </div>
+
               <div id="report-content">
                 <table className="w-full min-w-max table-auto text-left">
                   <thead>
@@ -461,7 +454,7 @@ export function CartAdmin() {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {item.date}
+                            {formatDate(item.createdAt)}
                           </Typography>
                         </td>
                         <td className="p-4">
