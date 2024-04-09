@@ -1,144 +1,173 @@
-import React, { Component } from 'react'
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
+export default function Order() {
+  const [orders, setOrders] = useState([]);
 
-export default class Order extends Component {
-  constructor(props){
-    super(props);
-
-    this.state={
-      orders:[]
-    };    
-
-  }
-  
-
-  componentDidMount(){
-    this.retriveOrder()
+  function retriveOrder() {
+    axios.get("http://localhost:8070/api/orders/orders").then((res) => {
+      if (res.data.success) {
+        setOrders(res.data.existingOrders);
+      }
+    });
   }
 
-  retriveOrder(){
-    axios.get("http://localhost:8070/api/orders/orders").then((res) =>{
-        if(res.data.success){
-            this.setState({
-                orders:res.data.existingOrders
-            })
-
-            console.log(this.state.orders)
-        }
-      });
-    }
-
-    onDelete= (id) => {
-      axios.delete(`/order/delete/${id}`).then((res) =>{
+  const onDelete = (id) => {
+    axios
+      .delete(`http://localhost:8070/api/orders/order/delete/${id}`)
+      .then((_res) => {
         alert("Deleted successfully");
-        this.retriveOrder();
-      })
-    }
-
-    filterData(orders,searchKey){
-
-      const result = orders.filter((order) =>
-      order.Ord_name.toLowerCase().includes(searchKey)||
-      order.c_name.toLowerCase().includes(searchKey)||
-      order.c_mobile.toLowerCase().includes(searchKey)||
-      order.c_mail.toLowerCase().includes(searchKey)||
-      order.Ord_Quantity.toLowerCase().includes(searchKey)||
-      order.Shipping_Address.toLowerCase().includes(searchKey)
- 
-      )
-      
-      this.setState({orders:result})
-
-    }
-
-
-
-    handleSearchArea = (e) => {
-      const searchKey = e.currentTarget.value;
-
-      axios.get("http://localhost:8070/api/orders/orders").then((res) =>{
-        if(res.data.success){
-
-          this.filterData(res.data.existingOrders,searchKey)
-        }
+        retriveOrder();
       });
-    }
+  };
 
+  useEffect(() => {
+    retriveOrder();
+  }, []);
 
-  render() {
-    return (
-      <>
+  function filterData(orders, searchKey) {
+    const result = orders.filter(
+      (order) =>
+        order._id.toLowerCase().includes(searchKey) ||
+        order.user.toLowerCase().includes(searchKey) ||
+        order.shippingAddress.toLowerCase().includes(searchKey) ||
+        order.total.toLowerCase().includes(searchKey)
+    );
 
-      <div className = "container">
-        <div className="row">
-          <div className = "col-lg-9 mt-2 mb-2">
-            <h4>All Orders List</h4>
-            </div>
-            <div className="col-lg-3 mt-2 mb-2" style={{marginLeft:'960px'}}>
-              <input
-              className="form-control"
-              type="search"
-              placeholder="Search"
-              name="searchQuery"
-              onChange={this.handleSearchArea}>
+    setOrders(result);
+  }
 
-              </input>
-            </div>
+  const handleSearchArea = (e) => {
+    const searchKey = e.currentTarget.value;
+
+    axios.get("http://localhost:8070/api/orders/orders").then((res) => {
+      if (res.data.success) {
+        filterData(res.data.existingOrders, searchKey);
+      }
+    });
+  };
+
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-9 mt-2 mb-2">
+          <h4>All Orders List</h4>
         </div>
+        <div className="col-lg-3 mt-2 mb-2" style={{ marginLeft: "960px" }}>
+          <input
+            className="form-control"
+            type="search"
+            placeholder="Search"
+            name="searchQuery"
+            onChange={handleSearchArea}
+          ></input>
+        </div>
+      </div>
 
-
-       <table className = "table table-hover" style={{marginTop:'40px'}}>
+      <table class="w-full text-left table-auto min-w-max">
         <thead>
           <tr>
-            <th scope = "col">ID</th>
-            <th scope = "col">Item Name</th>
-            <th scope = "col">Customer Name</th>
-            <th scope = "col">Mobile number</th>
-            <th scope = "col">E mail Address</th>
-            <th scope = "col">Quantity</th>
-            <th scope = "col">Shipping Address</th>
-            <th scope = "col">Action</th>
+            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Order ID
+              </p>
+            </th>
+            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Customer Name
+              </p>
+            </th>
+            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Shipping Address
+              </p>
+            </th>
+            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Status
+              </p>
+            </th>
+            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Items
+              </p>
+            </th>
+            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Total
+              </p>
+            </th>
+            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Actions
+              </p>
+            </th>
           </tr>
         </thead>
         <tbody>
-          {this.state.orders.map((orders,index) =>(
-            <tr key = {index}>
-              <th scope="row">{index+1}</th>
-              <td>
-                <a href = {`/order/${orders._id}`} style={{textDecoration:'none'}}>
-                {orders.Ord_name}
-              </a>
+          {orders.map((order, index) => (
+            <tr key={index}>
+              <td class="p-4 border-b border-blue-gray-50">
+                <div class="flex items-center gap-3">
+                  <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                    {order._id}
+                  </p>
+                </div>
               </td>
-              <td>{orders.c_name}</td> 
-              <td>{orders.c_mobile}</td>
-              <td>{orders.c_mail}</td>
-              <td>{orders.Ord_Quantity}</td>
-              <td>{orders.Shipping_Address}</td>
-              
-              <td>
-                <a className ="btn btn-warning" href={`/edit/${orders._id}`}>
-                  <i className ="fas fa-edit"></i>&nbsp;EDIT
+              <td class="p-4 border-b border-blue-gray-50">
+                <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                  {order.user}
+                </p>
+              </td>
+              <td class="p-4 border-b border-blue-gray-50">
+                <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                  {order.shippingAddress}
+                </p>
+              </td>
+              <td class="p-4 border-b border-blue-gray-50">
+                <div class="w-max">
+                  <div class="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
+                    <span class="">Payment Accepted</span>
+                  </div>
+                </div>
+              </td>
+              <td class="p-4 border-b border-blue-gray-50">
+                <div class="flex items-center gap-3">
+                  <div class="flex flex-col">
+                    <ul>
+                      {order.items.map((m) => (
+                        <li className="block font-sans text-sm antialiased font-normal leading-normal capitalize text-blue-gray-900">
+                          {m.name}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </td>
+              <td class="p-4 border-b border-blue-gray-50">
+                <div class="flex items-center gap-3">
+                  <p class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
+                    Rs.{order.total}
+                  </p>
+                </div>
+              </td>
+              <td class="p-4 border-b border-blue-gray-50">
+                <a className="btn btn-warning" href={`/edit/${order._id}`}>
+                  <i className="fas fa-edit"></i>&nbsp;EDIT
                 </a>
-
-                &nbsp;   
-
-                <a className ="btn btn-danger" href="#" onClick={() => this.onDelete(orders._id)}>
-                  <i className ="fas fa-trash-alt"></i>&nbsp;DELETE
+                &nbsp;
+                <a
+                  className="btn btn-danger"
+                  href="#"
+                  onClick={() => onDelete(order._id)}
+                >
+                  <i className="fas fa-trash-alt"></i>&nbsp;DELETE
                 </a>
-
               </td>
             </tr>
           ))}
         </tbody>
-
-
-       </table>
-
-       <button className = "btn btn-success"><a href = "/add" style ={{textDecoration:'none', color:'white'}}>Add New Order</a></button>
-
-      </div>
-      </>
-    )
-  }
+      </table>
+    </div>
+  );
 }

@@ -1,13 +1,17 @@
 const express = require("express");
 const Orders = require("../model/orders");
+const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
 //save posts
 
-router.post("/order/save", async (req, res) => {
+router.post("/order/save", protect, async (req, res) => {
   try {
-    let newOrder = new Orders(req.body);
+    let newOrder = new Orders({
+      user: req.user.name,
+      ...req.body,
+    });
     await newOrder.save();
     return res.status(200).json({
       success: "Order saved successfully",
@@ -77,19 +81,24 @@ router.put("/order/update/:id", (req, res) => {
 
 //delete post
 
-router.delete("/order/delete/:id", (req, res) => {
-  Orders.findByIdAndRemove(req.params.id).exec((err, deletedOrder) => {
-    if (err)
-      return res.status(400).json({
-        message: "Delete unsuccesfull",
-        err,
+router.delete("/order/delete/:id", async (req, res) => {
+  try {
+    const deletedOrder = await Orders.findByIdAndDelete(req.params.id);
+    if (!deletedOrder) {
+      return res.status(404).json({
+        message: "Order not found",
       });
-
+    }
     return res.json({
-      message: "Delete succesfull",
+      message: "Delete successful",
       deletedOrder,
     });
-  });
+  } catch (err) {
+    return res.status(400).json({
+      message: "Delete unsuccessful",
+      error: err.message,
+    });
+  }
 });
 
 module.exports = router;

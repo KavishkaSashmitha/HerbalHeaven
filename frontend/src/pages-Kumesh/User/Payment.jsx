@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Stepper, Step, Button } from "@material-tailwind/react";
 import {
@@ -6,7 +6,7 @@ import {
   CurrencyDollarIcon,
   ArchiveBoxIcon,
 } from "@heroicons/react/24/outline";
-import { useAuth } from '../../middleware/authContext';
+import { useAuth } from "../../middleware/authContext";
 import { SidebarWithBurgerMenu } from "../../components/navBar";
 import { Link, useLocation } from "react-router-dom";
 import "./Payment.css";
@@ -20,13 +20,13 @@ function Payment() {
   const location = useLocation();
   const [cart, setCart] = useState([]);
   const { isLoggedIn, token } = useAuth();
-  
+
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         if (isLoggedIn) {
           const response = await axios.get(
-            'http://localhost:8070/api/user/cart',
+            "http://localhost:8070/api/user/cart",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ function Payment() {
           setCart(response.data);
         }
       } catch (error) {
-        console.error('Error fetching cart items:', error);
+        console.error("Error fetching cart items:", error);
       }
     };
 
@@ -90,6 +90,7 @@ function Payment() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
+    placeOrder();
     sendRequest()
       .then(() => {
         alert("Card details Validated successfully!");
@@ -98,6 +99,28 @@ function Payment() {
       .catch((error) => {
         console.error("Error adding card details:", error);
       });
+  };
+
+  const placeOrder = async () => {
+    await axios.post(
+      "http://localhost:8070/api/orders/order/save",
+      {
+        total: calculateTotalBill(),
+        shippingAddress: inputs.address,
+        items: cart.map(({ name, price, quantity, image }) => ({
+          name,
+          price,
+          quantity,
+          image,
+        })),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
   };
 
   const sendRequest = async () => {
