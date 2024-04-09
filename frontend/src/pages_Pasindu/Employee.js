@@ -73,7 +73,7 @@ export default function Posts() {
   const onDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You will not be able to recover this supplier!",
+      text: "You will not be able to recover this Employee!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, delete it!",
@@ -84,7 +84,7 @@ export default function Posts() {
         axios
           .delete(`http://localhost:8070/api/posts/post/delete/${id}`)
           .then((res) => {
-            Swal.fire("Deleted!", "Supplier has been deleted.", "success");
+            Swal.fire("Deleted!", "Employee has been deleted.", "success");
             retrievePosts();
           });
       }
