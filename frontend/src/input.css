@@ -121,3 +121,52 @@ Navbar {
 .container {
   max-width: 100%;
 }
+.total-bill {
+  text-align: center;
+  margin: auto;
+  margin-top: 40px;
+}
+.search {
+  margin: auto;
+  margin-bottom: 40px;
+}
+.cart {
+  margin: auto;
+  text-align: center;
+  margin-bottom: 50px;
+}
+/* Styles for card slider */
+.card-slider {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px 0;
+  background-color: #f0f0f0;
+}
+
+/* Styles for individual cards */
+.card {
+  flex: 0 0 auto;
+  width: 180px; /* Adjust as needed */
+  margin-right: 20px; /* Adjust spacing between cards */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+/* Additional styling for card content */
+.card-content {
+  padding: 20px;
+}
+
+.card-image {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+}
+
+.button-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+}

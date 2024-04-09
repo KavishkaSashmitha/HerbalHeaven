@@ -1,147 +1,238 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Select } from '@material-tailwind/react';
+import { Footer } from '../components/Footer';
+import { SidebarWithBurgerMenu } from '../components/navBar';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
   Input,
   Button,
-  Typography,
-  Checkbox,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 
 function CreateUser() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
-  const [jobRole, setJobRole] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [address, setAddress] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState('');
+  const [rawMaterial, setRawMaterial] = useState('');
+  const [country, setCountry] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [address, setAddress] = useState('');
+  const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
 
-  const Submit = (e) => {
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+
+    if (!name) {
+      errors.name = 'Name is required';
+      isValid = false;
+    }
+
+    if (!email) {
+      errors.email = 'Email is required';
+      isValid = false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = 'Email is invalid';
+      isValid = false;
+    }
+
+    if (!age) {
+      errors.age = 'Age is required';
+      isValid = false;
+    } else if (!/^\d+$/.test(age) || age < 18 || age > 60) {
+      errors.age = 'Age must be a positive number less than 100';
+      isValid = false;
+    }
+
+    if (!rawMaterial) {
+      errors.rawMaterial = 'Raw Material is required';
+      isValid = false;
+    }
+
+    if (!country) {
+      errors.country = 'Country is required';
+      isValid = false;
+    }
+
+    if (!mobile) {
+      errors.mobile = 'Mobile is required';
+      isValid = false;
+    } else if (!/^\d{10}$/.test(mobile)) {
+      errors.mobile = 'Mobile must be 10 digits';
+      isValid = false;
+    }
+
+    if (!/^\d+$/.test(mobile)) {
+      errors.mobile = 'Mobile must contain only numbers';
+      isValid = false;
+    }
+
+    if (!address) {
+      errors.address = 'Address is required';
+      isValid = false;
+    }
+
+    setErrors(errors);
+    return isValid;
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8070/emp/add", {
-        name,
-        email,
-        age,
-        jobRole,
-        mobile,
-        address,
-      })
-      .then((result) => {
-        console.log(result);
-        navigate("/emp");
-      })
-      .catch((err) => console.log(err));
+
+    if (validateForm()) {
+      const confirmed = window.confirm(
+        'Are you sure you want to add a new supplier?'
+      );
+      if (confirmed) {
+        axios
+          .post('http://localhost:8070/sup/addsup', {
+            name,
+            email,
+            age,
+            rawMaterial,
+            country,
+            mobile,
+            address,
+          })
+          .then((result) => {
+            console.log(result);
+            navigate('/sup');
+          })
+          .catch((err) => console.log(err));
+      }
+    }
   };
 
   return (
-    <div
-      className="bg-gray-100"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "130vh",
-      }}
-    >
-      <Card color="transparent" shadow={false}>
-        <Typography variant="h4" color="blue-gray">
-          Add New Suppliers
-        </Typography>
-        <form
-          className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-          onSubmit={Submit}
+    <>
+      <div className="bg-image01">
+        <SidebarWithBurgerMenu />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '',
+          }}
         >
-          <div className="mb-1 flex flex-col gap-6">
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Name
-            </Typography>
-            <Input
-              size="lg"
-              placeholder="Enter Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Email
-            </Typography>
-            <Input
-              size="lg"
-              type="email"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Age
-            </Typography>
-            <Input
-              size="lg"
-              type="text"
-              placeholder="Enter Age"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Category
-            </Typography>
-            <Input
-              size="lg"
-              placeholder="Enter Category"
-              value={jobRole}
-              onChange={(e) => setJobRole(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Mobile
-            </Typography>
-            <Input
-              size="lg"
-              placeholder="Enter Mobile"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Address
-            </Typography>
-            <Input
-              size="lg"
-              placeholder="Enter Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-          </div>
-          <Button type="submit" className="mt-6" fullWidth>
-            Submit
-          </Button>
-        </form>
-      </Card>
-    </div>
+          <Card className="w-96">
+            <CardHeader
+              variant="gradient"
+              color="white"
+              className="mb-4 grid h-28 place-items-center"
+            >
+              <Typography variant="h3" color="black">
+                Add New Suppliers
+              </Typography>
+            </CardHeader>
+            <CardBody className="flex flex-col gap-4">
+              <Input
+                label="Name"
+                size="lg"
+                value={name}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                  setName(value);
+                }}
+                error={errors.name}
+              />
+              <Input
+                label="Email"
+                size="lg"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={errors.email}
+              />
+              <Input
+                label="Age"
+                size="lg"
+                type="number"
+                value={age}
+                onChange={(e) => {
+                  let value = e.target.value.replace(/\D/, ''); // Remove non-numeric characters
+                  value = value === '' ? '' : Math.min(Math.max(value, 1), 60);
+                  setAge(value);
+                }}
+                error={errors.age}
+              />
+              <Select
+                size="lg"
+                value={rawMaterial}
+                onChange={(value) => setRawMaterial(value)}
+                error={errors.rawMaterial ? true : false}
+              >
+                <Select.Option value="">Select Raw Material</Select.Option>
+                <Select.Option value="Sadalwood">Sadalwood</Select.Option>
+                <Select.Option value="ValerianRoot">ValerianRoot</Select.Option>
+                <Select.Option value="Ginkgo Biloba">
+                  Ginkgo Biloba
+                </Select.Option>
+                <Select.Option value="Echinacea">Echinacea</Select.Option>
+                <Select.Option value="Tumeric">Tumeric</Select.Option>
+              </Select>
+              {errors.rawMaterial && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.rawMaterial}
+                </p>
+              )}
+
+              <Select
+                size="lg"
+                value={country}
+                onChange={(value) => setCountry(value)}
+                error={errors.country ? true : false}
+              >
+                <Select.Option value="">Select Country</Select.Option>
+                <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
+                <Select.Option value="India">India</Select.Option>
+                <Select.Option value="Pakisthan">Pakisthan</Select.Option>
+                <Select.Option value="China">China</Select.Option>
+                <Select.Option value="Japan">Japan</Select.Option>
+              </Select>
+              {errors.country && (
+                <p className="text-red-500 text-sm mt-1">{errors.country}</p>
+              )}
+              <Input
+                label="Mobile"
+                size="lg"
+                value={mobile}
+                onChange={(e) => {
+                  if (/^\d{0,10}$/.test(e.target.value)) {
+                    setMobile(e.target.value);
+                  }
+                }}
+                error={errors.mobile}
+              />
+              <Input
+                label="Address"
+                size="lg"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                error={errors.address}
+              />
+            </CardBody>
+            <CardFooter className="pt-0">
+              <button
+                className="m-2 relative select-none rounded-lg bg-orange-500 py-3.5 px-14 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                &nbsp;Add New Supplier
+              </button>
+            </CardFooter>
+          </Card>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 
