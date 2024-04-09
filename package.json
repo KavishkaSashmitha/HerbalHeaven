@@ -22,6 +22,7 @@
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "firebase-admin": "^12.0.0",
     "gwt": "^1.2.0-alpha",
     "html2canvas": "^1.4.1",
     "https-browserify": "^1.0.0",
