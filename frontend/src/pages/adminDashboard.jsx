@@ -57,12 +57,17 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="flex h-screen overflow-scroll">
-      <div className={` ${open ? 'block' : 'hidden'}`}>
-        <DefaultSidebar open={open} handleOpen={setOpen} />
-      </div>
-      <div className="w-full">
-        <AdminNavbar toggleSidebar={toggleSidebar} />
+    <>
+      <div className="flex h-screen overflow-scroll">
+        <div
+          className={`sidebar w-64 bg-custom-color text-white ${
+            open ? "block" : "hidden"
+          }`}
+        >
+          <DefaultSidebar open={open} handleOpen={setOpen} />
+        </div>
+        <div className="w-full h-full ">
+          <AdminNavbar toggleSidebar={toggleSidebar} />
 
         <div className="p-5 bg-gray-200">
           <div className="grid grid-cols-1 gap-8 mb-3">
@@ -282,6 +287,7 @@ function AdminDashboard() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

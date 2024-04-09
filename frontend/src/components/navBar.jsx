@@ -96,122 +96,7 @@ export function SidebarWithBurgerMenu({}) {
             />
           </div>
 
-          <List className="overflow-y-scroll bg-green-100">
-            <Accordion
-              open={open === 1}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? 'rotate-180' : ''
-                  }`}
-                />
-              }
-            >
-              <ListItem className="p-0" selected={open === 1}>
-                <AccordionHeader
-                  onClick={() => handleOpen(1)}
-                  className="border-b-0 p-3"
-                >
-                  <ListItemPrefix>
-                    <PresentationChartBarIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-
-                  <Typography color="blue-gray" className="mr-auto font-normal">
-                    Dashboard
-                  </Typography>
-                </AccordionHeader>
-              </ListItem>
-              <AccordionBody className="py-1">
-                <List className="p-0">
-                  <Link to="#">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Customer
-                    </ListItem>
-                  </Link>
-
-                  <ListItem>
-                    <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Inventory
-                  </ListItem>
-
-                  <Link to="/inventory">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Inventory
-                    </ListItem>
-                  </Link>
-                  <Link to="/cart-admin">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Cart
-                    </ListItem>
-                  </Link>
-
-                  <Link to="/emp">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Employee
-                    </ListItem>
-                  </Link>
-
-                  <Link to="/sup">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Supplier
-                    </ListItem>
-                  </Link>
-
-                  <Link to="/transport">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Transport
-                    </ListItem>
-                  </Link>
-
-                  <Link to="#">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Transport
-                    </ListItem>
-                  </Link>
-
-                  <Link to="#">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Order
-                    </ListItem>
-                  </Link>
-                  <Link to="#">
-                    <ListItem>
-                      <ListItemPrefix>
-                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                      </ListItemPrefix>
-                      Payment
-                    </ListItem>
-                  </Link>
-                </List>
-              </AccordionBody>
-            </Accordion>
+          <List className=" bg-green-100">
             <Link to="#">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
@@ -240,7 +125,20 @@ export function SidebarWithBurgerMenu({}) {
                     className="border-b-0 p-3"
                   >
                     <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"
+                        />
+                      </svg>
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"

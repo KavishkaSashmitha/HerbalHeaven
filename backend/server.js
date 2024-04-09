@@ -8,7 +8,6 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 connectDB();
 
 const path = require('path');
-
 const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 8070;

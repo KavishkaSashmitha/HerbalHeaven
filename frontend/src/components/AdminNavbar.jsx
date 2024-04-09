@@ -45,6 +45,9 @@ function AdminNavbar({ toggleSidebar }) {
             <Link to="/cart-Admin">
               <MenuItem>Cart</MenuItem>
             </Link>
+            <Link to="/Employee_Dashboard">
+              <MenuItem>Employee</MenuItem>
+            </Link>
             <MenuItem>Menu Item 2</MenuItem>
             <MenuItem>Menu Item 3</MenuItem>
           </MenuList>
