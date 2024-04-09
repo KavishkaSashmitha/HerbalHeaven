@@ -154,7 +154,7 @@ export default function Posts() {
                   <Link to="/">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
+                      className="h-4 w-4 hover:text-amber-900"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -162,14 +162,14 @@ export default function Posts() {
                     </svg>
                   </Link>
                   <Link to="/Employee_Dashboard">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-900">
                       <span>Dashboard</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                     </li>
                   </Link>
                   <Link to="/emp">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-900">
                       <span>Employee</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
