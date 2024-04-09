@@ -16,6 +16,7 @@ import {
   IconButton,
   Tooltip,
   Input,
+  Breadcrumbs,
 } from '@material-tailwind/react';
 import { SidebarWithBurgerMenu } from '../components/navBar';
 import ProfileMenu from '../components/Profile';
@@ -274,7 +275,33 @@ export function CartAdmin() {
         </div>
         <div className="w-full h-full">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="h-full ml-2" style={{ borderRadius: '0' }}>
+          <Card className="h-full ml-2">
+            <Breadcrumbs className="ml-2 mt-2">
+              <Link to="/">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                </svg>
+              </Link>
+              <Link to="/dashboard">
+                <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                  <span>Dashboard</span>
+
+                  <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+                </li>
+              </Link>
+              <Link to="/cart-admin">
+                <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                  <span>Cart-Manager</span>
+
+                  <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+                </li>
+              </Link>
+            </Breadcrumbs>
             <CardHeader
               floated={false}
               shadow={false}
@@ -298,12 +325,18 @@ export function CartAdmin() {
                   </div>
 
                   <Link to="/cart-stats">
-                    <Button className="flex items-center gap-3" size="sm">
-                      <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{' '}
+                    <Button className="flex gap-3" size="m">
                       Stats
                     </Button>
                   </Link>
-                  <Button onClick={generateReport}>Generate Report</Button>
+                  <Button
+                    onClick={generateReport}
+                    className="flex items-center gap-3"
+                    size="m"
+                  >
+                    <ArrowDownTrayIcon strokeWidth={2} className="h-4 w-4" />{' '}
+                    Generate Report
+                  </Button>
                 </div>
               </div>
             </CardHeader>

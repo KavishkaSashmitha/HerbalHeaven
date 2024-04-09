@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Badge,
@@ -31,6 +31,19 @@ const ProfileMenu = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      setCurrentTime(`${hours}:${minutes}:${seconds}`);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogin = async (email, password) => {
     try {
@@ -65,14 +78,18 @@ const ProfileMenu = () => {
   return (
     <>
       <div className="flex items-center justify-end mr-5 mt-2 mb-2">
+        <Typography variant="medium" className="text-teal-100 mr-4">
+          {currentTime}
+        </Typography>
         <Link to="/user/cart">
           <Badge content={cartCount} overlap="circular" placement="top-end">
-            <IconButton variant="text" color="black" className=" mb-2 mr-0">
+            <IconButton variant="text" color="white" className=" mb-2 mr-0">
               <ShoppingCartIcon className="h-8 w-6" />
             </IconButton>
           </Badge>
         </Link>
-        <IconButton variant="text" color="black" className="mb-2 ml-4 mr-2">
+
+        <IconButton variant="text" color="white" className="mb-2 ml-4 mr-2">
           <BellIcon className="h-6 w-6" />
         </IconButton>
 
