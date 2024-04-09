@@ -7,6 +7,8 @@ import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
 import { Breadcrumbs } from "@material-tailwind/react";
 import { Avatar } from "@material-tailwind/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function EditPost() {
   const { id } = useParams();
@@ -19,6 +21,7 @@ export default function EditPost() {
     email: "",
     address: "",
     age: "",
+    image: "",
   });
 
   // State variables for validation errors
@@ -119,7 +122,7 @@ export default function EditPost() {
       return;
     }
 
-    const { name, jobrole, gender, mobile, nic, email, address, age } =
+    const { name, jobrole, gender, mobile, nic, email, address, age, image } =
       formData;
 
     const data = {
@@ -131,6 +134,7 @@ export default function EditPost() {
       email: email,
       address: address,
       age: age,
+      image: image,
     };
 
     Swal.fire({
@@ -156,9 +160,12 @@ export default function EditPost() {
                 email: "",
                 address: "",
                 age: "",
+                image: "",
               });
 
               setConfirmation(true);
+              // Redirect after confirmation is set
+              window.location.replace("/emp");
             }
           })
           .catch((error) => {
@@ -168,9 +175,21 @@ export default function EditPost() {
     });
   };
 
-  if (confirmation) {
-    window.location.href = "/emp";
-  }
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFormData({
+        ...formData,
+        image: reader.result, // Base64 string of the image
+      });
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <>
@@ -234,12 +253,32 @@ export default function EditPost() {
               </h5>
             </div>
             <div className="flex items-center justify-center pt-5">
-              <Avatar
-                src={formData.image}
-                size="custom"
-                style={{ width: "120px", height: "120px" }} // Adjust the width and height as desired
-                className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
-              />
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <Avatar
+                  src={formData.image}
+                  size="custom"
+                  style={{ width: "120px", height: "120px" }} // Adjust the width and height as desired
+                  className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                />
+                {/* Edit icon */}
+                <FontAwesomeIcon
+                  icon={faPencilAlt}
+                  className="h-6 w-6 text-gray-500 absolute bottom-0 right-0 transform translate-x-2/3 translate-y-2/3 cursor-pointer"
+                  onClick={() => {
+                    setTimeout(() => {
+                      document.getElementById("fileInput").click();
+                    }, 0);
+                  }}
+                />
+                {/* Hidden file input */}
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleImageChange}
+                />
+              </div>
             </div>
             <div class="grid grid-cols-2 gap-6">
               <div class="px-6">
