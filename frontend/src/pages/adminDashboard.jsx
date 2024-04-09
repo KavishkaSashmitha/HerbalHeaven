@@ -245,7 +245,9 @@ function AdminDashboard() {
                                 clip-rule="evenodd"
                               ></path>
                             </svg>
-                          </div>
+                            </div>
+                            
+
                           <div>
                             <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                               Suppliers
