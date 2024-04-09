@@ -258,7 +258,7 @@ export default function EditPost() {
                   src={formData.image}
                   size="custom"
                   style={{ width: "120px", height: "120px" }} // Adjust the width and height as desired
-                  className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                  className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
                 />
                 {/* Edit icon */}
                 <FontAwesomeIcon

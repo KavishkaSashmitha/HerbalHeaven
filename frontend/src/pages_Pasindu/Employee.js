@@ -250,14 +250,10 @@ export default function Posts() {
                           #
                         </p>
                       </th>
+
                       <th className="p-4   ">
                         <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
-                          Employee Photo
-                        </p>
-                      </th>
-                      <th className="p-4   ">
-                        <p className="block font-sans text-x1 antialiased font-bold leading-none text-blue-gray-900 ">
-                          Employee Name
+                          Employee
                         </p>
                       </th>
                       <th className="p-4   ">
@@ -321,16 +317,8 @@ export default function Posts() {
                                 <Avatar
                                   src={post.image}
                                   size="md"
-                                  className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                                  className="mr-3 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
                                 />
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="p-4   ">
-                          <div className="flex items-center gap-3">
-                            <div className="flex flex-col">
-                              <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
                                 <a
                                   href={`/posts/post/${post._id}`}
                                   style={{ textDecoration: "none" }}
@@ -389,11 +377,23 @@ export default function Posts() {
 
                         <td className="p-4   ">
                           <div>
+                          <a
+                              className="btn btn-primary mr-2"
+                              href={`/Display_Employee_Details/${post._id}`}
+                            >
+                              <Button color="green">
+                                <i
+                                  className="fas fa-eye"
+                                  style={{ fontSize: "20px" }}
+                                ></i>
+                              </Button>
+                            </a> 
+
                             <a
                               className="btn btn-primary mr-2"
                               href={`/emp/edit/${post._id}`}
                             >
-                              <Button color="green">
+                              <Button color="yellow">
                                 <i
                                   className="fas fa-edit"
                                   style={{ fontSize: "20px" }}
@@ -402,7 +402,7 @@ export default function Posts() {
                             </a>
 
                             <a
-                              className="mr-2"
+                              className=""
                               onClick={() => onDelete(post._id)}
                             >
                               <Button color="red">
@@ -413,17 +413,7 @@ export default function Posts() {
                               </Button>
                             </a>
 
-                            <a
-                              className="btn btn-primary"
-                              href={`/Display_Employee_Details/${post._id}`}
-                            >
-                              <Button color="blue">
-                                <i
-                                  className="fas fa-eye"
-                                  style={{ fontSize: "20px" }}
-                                ></i>
-                              </Button>
-                            </a>
+                            
                           </div>
                         </td>
                         <td className="p-4  ">
