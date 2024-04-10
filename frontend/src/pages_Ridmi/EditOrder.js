@@ -49,7 +49,8 @@ export default function EditOrder() {
         </p>
         <p>
           <span className="font-bold">Shipping Address:</span>{" "}
-          {state.shippingAddress}
+          {state.shippingAddress.address}, {state.shippingAddress.city},{" "}
+          {state.shippingAddress.zip}
         </p>
         <p>
           <span className="font-bold">Payment Status:</span>
