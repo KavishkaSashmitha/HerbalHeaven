@@ -107,7 +107,8 @@ function Payment() {
       {
         total: calculateTotalBill(),
         shippingAddress: inputs.address,
-        status: "Payment Accepted",
+        paymentStatus: "Paid",
+        orderStatus: "Preparing",
         items: cart.map(({ name, price, quantity, image }) => ({
           name,
           price,

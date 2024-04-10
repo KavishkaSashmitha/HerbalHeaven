@@ -8,11 +8,14 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  status: {
+  paymentStatus: {
     type: String,
     required: true,
   },
-
+  orderStatus: {
+    type: String,
+    required: true,
+  },
   total: {
     type: Number,
     required: false,

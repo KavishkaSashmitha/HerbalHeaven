@@ -41,9 +41,6 @@ function DashBoard() {
           <h2>Welcome, {user.name}!</h2>
           <p>Email: {user.email}</p>
           {/* Display other user details as needed */}
-          <Link to="/my-orders">
-            <Button>My Orders</Button>
-          </Link>
         </div>
       ) : (
         <>

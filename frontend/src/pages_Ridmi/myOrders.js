@@ -67,7 +67,12 @@ export default function MyOrders() {
             </th>
             <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
               <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                Status
+                Payment Status
+              </p>
+            </th>
+            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Order Status
               </p>
             </th>
             <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
@@ -106,10 +111,21 @@ export default function MyOrders() {
                 <div class="w-max">
                   <div
                     class={`relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap ${getStatusColor(
-                      order.status
+                      order.paymentStatus
                     )}`}
                   >
-                    <span class="">{order.status}</span>
+                    <span class="">{order.paymentStatus}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="p-4 border-b border-blue-gray-50">
+                <div class="w-max">
+                  <div
+                    class={`relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap ${getStatusColor(
+                      order.orderStatus
+                    )}`}
+                  >
+                    <span class="">{order.orderStatus}</span>
                   </div>
                 </div>
               </td>

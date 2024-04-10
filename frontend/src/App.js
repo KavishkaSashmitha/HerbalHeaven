@@ -42,10 +42,8 @@ import PrintPage from "./pages-Kumesh/User/PrintPage";
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 
-import CreateOrder from "./pages_Ridmi/CreateOrder";
 import EditOrder from "./pages_Ridmi/EditOrder";
 import Order from "./pages_Ridmi/Order";
-import OrderDetails from "./pages_Ridmi/OrderDetails";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -118,11 +116,9 @@ function App() {
       <Route path="/netincome" element={<NetIncome />} />
 
       {/*Ridmi*/}
-      <Route path="/orders" element={<Order />} />
       <Route path="/my-orders" element={<MyOrders />} />
-      <Route path="/add" element={<CreateOrder />} />
+      <Route path="/admin-orders" element={<Order />} />
       <Route path="/edit/:id" element={<EditOrder />} />
-      <Route path="/test/order/:id" element={<OrderDetails />} />
 
       <Route path="/user/payment" element={<Payment />} />
       <Route path="/" element={<Home />} />

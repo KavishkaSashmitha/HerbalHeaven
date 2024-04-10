@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Button } from "@material-tailwind/react";
 
 export default function EditOrder() {
   const { id } = useParams();
@@ -26,14 +27,13 @@ export default function EditOrder() {
   const submit = useCallback(
     async (e) => {
       await axios.put(`http://localhost:8070/api/orders/order/update/${id}`, {
-        status: e.target.value,
+        ...state,
       });
       fetchData();
     },
-    [fetchData, id]
+    [fetchData, id, state]
   );
 
-  console.log("state", state);
   if (!state) {
     return <div className="container mx-auto mt-10">Loading...</div>;
   }
@@ -52,12 +52,30 @@ export default function EditOrder() {
           {state.shippingAddress}
         </p>
         <p>
-          <span className="font-bold">Status:</span>
+          <span className="font-bold">Payment Status:</span>
 
-          <select value={state.status} onChange={submit}>
-            <option value="Payment Accepted">Payment Accepted</option>
-            <option value="Canceled">Preparing</option>
-            <option value="Canceled">Delivering</option>
+          <select
+            value={state.paymentStatus}
+            onChange={(e) =>
+              setState((cs) => ({ ...cs, paymentStatus: e.target.value }))
+            }
+          >
+            <option value="Paid">Paid</option>
+            <option value="Unpaid">Unpaid</option>
+            <option value="COD">COD</option>
+          </select>
+        </p>
+        <p>
+          <span className="font-bold">Order Status:</span>
+
+          <select
+            value={state.orderStatus}
+            onChange={(e) =>
+              setState((cs) => ({ ...cs, orderStatus: e.target.value }))
+            }
+          >
+            <option value="Preparing">Preparing</option>
+            <option value="Delivering">Delivering</option>
             <option value="Canceled">Canceled</option>
           </select>
         </p>
@@ -73,6 +91,7 @@ export default function EditOrder() {
           ))}
         </ul>
       </div>
+      <Button onClick={submit}>Update Status</Button>
     </div>
   );
 }
