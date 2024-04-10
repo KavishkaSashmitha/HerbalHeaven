@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import {
   IconButton,
   Typography,
@@ -15,7 +15,7 @@ import {
   Card,
   Badge,
   Chip,
-} from '@material-tailwind/react';
+} from "@material-tailwind/react";
 
 import {
   UserCircleIcon,
@@ -26,16 +26,16 @@ import {
   PresentationChartBarIcon,
   TruckIcon,
   CubeIcon,
-} from '@heroicons/react/24/solid';
+} from "@heroicons/react/24/solid";
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
   XMarkIcon,
-} from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
+} from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
+import { useAuth } from "../middleware/authContext"; // Importing the useAuth hook from AuthContext
 
-import { useCart } from './cartContext';
+import { useCart } from "./cartContext";
 
 export function SidebarWithBurgerMenu({}) {
   const [open, setOpen] = React.useState(0);
@@ -63,7 +63,7 @@ export function SidebarWithBurgerMenu({}) {
         ) : (
           <Bars3Icon
             className="h-8 w-8 stroke-2 "
-            style={{ color: '#c8e6c9' }}
+            style={{ color: "#c8e6c9" }}
           />
         )}
       </IconButton>
@@ -99,7 +99,7 @@ export function SidebarWithBurgerMenu({}) {
           </div>
 
           <List className=" bg-green-100">
-            <Link to="#">
+            <Link to="/my-orders">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
                   <AccordionHeader
@@ -157,7 +157,7 @@ export function SidebarWithBurgerMenu({}) {
                     </Typography>
                     <ListItemSuffix>
                       <Chip
-                        value={isLoggedIn ? cartCount : '0'}
+                        value={isLoggedIn ? cartCount : "0"}
                         size="sm"
                         variant="ghost"
                         color="blue-gray"

@@ -33,6 +33,7 @@ import { DefaultSidebar } from '../components/Manager-Sidebar';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Chart } from 'chart.js';
+import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 
 const TABLE_HEAD = [
   'Product',
@@ -48,6 +49,8 @@ export function CartAdmin() {
   const [itemsPerPage] = useState(3);
   const [searchInput, setSearchInput] = useState('');
   const [filteredCartItems, setFilteredCartItems] = useState([]);
+  const [loading, setLoading] = useState([true]);
+  const [open, setOpen] = React.useState(0);
 
   // Function to handle search input change
   const handleSearchInputChange = (event) => {
@@ -103,12 +106,16 @@ export function CartAdmin() {
         setCartItems(response.data);
       } catch (error) {
         console.error('Error fetching cart items:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchCartItems();
   }, []);
-  const [open, setOpen] = React.useState(0);
+  if (loading) {
+    return <div>{CreateLoadingScreen(loading)}</div>;
+  }
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -280,7 +287,6 @@ export function CartAdmin() {
         className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
         style={{ backgroundColor: '#02353c' }}
       >
-        <AdminNavbar toggleSidebar={toggleSidebar} />
         <div className="flex flex-1 overflow-hidden">
           <div
             className={`sidebar w-68 bg-custom-color text-white ${
@@ -290,6 +296,7 @@ export function CartAdmin() {
             <DefaultSidebar open={open} handleOpen={setOpen} />
           </div>
           <div className="flex flex-col flex-1 overflow-hidden">
+            <AdminNavbar toggleSidebar={toggleSidebar} />
             <Card className="flex flex-col flex-1 ml-2">
               <Breadcrumbs className="ml-2 mt-2">
                 <Link to="/">

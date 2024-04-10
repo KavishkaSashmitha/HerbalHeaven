@@ -11,6 +11,7 @@ import {
 import React from 'react';
 import ProfileMenu from './Profile';
 import { Link } from 'react-router-dom';
+import AdminProfileMenu from './AdminProfile';
 
 function AdminNavbar({ toggleSidebar }) {
   return (
@@ -56,7 +57,7 @@ function AdminNavbar({ toggleSidebar }) {
           </MenuList>
         </Menu>
       </div>
-      <ProfileMenu />
+      <AdminProfileMenu />
     </div>
   );
 }
