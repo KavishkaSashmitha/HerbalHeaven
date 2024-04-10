@@ -144,10 +144,10 @@ export default function ViewPost() {
                               <Typography
                                 as="a"
                                 href="#"
-                                className="opacity-80 transition-opacity hover:opacity-100"
+                                className="opacity-80 transition-opacity hover:text-teal-600"
                               >
                                 <svg
-                                  className="h-5 w-5"
+                                  className="h-6 w-6"
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
                                   aria-hidden="true"
@@ -162,10 +162,10 @@ export default function ViewPost() {
                               <Typography
                                 as="a"
                                 href="#"
-                                className="opacity-80 transition-opacity hover:opacity-100"
+                                className="opacity-80 transition-opacity hover:text-teal-600"
                               >
                                 <svg
-                                  className="h-5 w-5"
+                                  className="h-6 w-6"
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
                                   aria-hidden="true"
@@ -180,10 +180,10 @@ export default function ViewPost() {
                               <Typography
                                 as="a"
                                 href="#"
-                                className="opacity-80 transition-opacity hover:opacity-100"
+                                className="opacity-80 transition-opacity hover:text-teal-600"
                               >
                                 <svg
-                                  className="h-5 w-5"
+                                  className="h-6 w-6"
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
                                   aria-hidden="true"
@@ -194,10 +194,10 @@ export default function ViewPost() {
                               <Typography
                                 as="a"
                                 href="#"
-                                className="opacity-80 transition-opacity hover:opacity-100"
+                                className="opacity-80 transition-opacity hover:text-teal-600"
                               >
                                 <svg
-                                  className="h-5 w-5"
+                                  className="h-6 w-6"
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
                                   aria-hidden="true"
@@ -212,10 +212,10 @@ export default function ViewPost() {
                               <Typography
                                 as="a"
                                 href="#"
-                                className="opacity-80 transition-opacity hover:opacity-100"
+                                className="opacity-80 transition-opacity hover:text-teal-600"
                               >
                                 <svg
-                                  className="h-5 w-5"
+                                  className="h-6 w-6"
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
                                   aria-hidden="true"
@@ -230,7 +230,7 @@ export default function ViewPost() {
                             </div>
                           </CardBody>
                         </Card>
-                        <Card className="">
+                        <Card className="pr-8">
                           <CardHeader></CardHeader>
                           <CardBody>
                             <div class="flex items-center justify-center pb-2 pt-8">

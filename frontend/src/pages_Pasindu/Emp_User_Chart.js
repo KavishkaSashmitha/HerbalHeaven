@@ -120,7 +120,7 @@ function LineChart() {
       dataLabels: {
         enabled: false,
       },
-      colors: ["#FF5733"],
+      colors: ["#00FF00"],
       stroke: {
         lineCap: "round",
         curve: "smooth",
