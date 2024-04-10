@@ -50,6 +50,7 @@ function AdminDashboard() {
     };
 
     fetchDocuments();
+    setloading(false);
   }, []);
   const [open, setOpen] = React.useState(0);
 
