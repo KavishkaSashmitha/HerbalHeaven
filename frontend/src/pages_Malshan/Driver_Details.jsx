@@ -22,7 +22,7 @@ export default class Driver_Details extends Component {
   }
 
   render() {
-    const { d_name, d_mobile, dob, gender,nic, vehicle_type, vehicle_No } = this.state.transport;
+    const { d_name, d_mobile, dob, category,nic, vehicle_type, vehicle_No } = this.state.transport;
 
     return (
 
@@ -36,7 +36,7 @@ export default class Driver_Details extends Component {
 
         <dl className="grid grid-cols-1 sm:grid-cols-2 gap-y-4">
           <div className="py-2">
-            <dt className="font-semibold">DName</dt>
+            <dt className="font-semibold">Owner Name</dt>
             <dd>{d_name}</dd>
           </div>
 
@@ -52,7 +52,7 @@ export default class Driver_Details extends Component {
 
           <div className="py-2">
             <dt className="font-semibold">Gender</dt>
-            <dd>{gender}</dd>
+            <dd>{category}</dd>
           </div>
 
           <div className="py-2">
