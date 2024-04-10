@@ -84,15 +84,24 @@ export default function Edit_Driver() {
     if (!formData.nic) {
       validationErrors.nic = "NIC is required";
     } else {
-      const nicDigits = formData.nic.replace(/\D/g, ""); // Remove non-digit characters
-      if (nicDigits.length !== 9 && nicDigits.length !== 12) {
-        validationErrors.nic = "NIC must contain exactly 9 or 12 digits";
+      const nicFormat = /^[0-9]{9}(v|V)?$|^[0-9]{12}$/; // Regular expression for NIC format
+      if (!nicFormat.test(formData.nic)) {
+        validationErrors.nic = "NIC must contain either 9 digits followed by an optional 'v' or 'V', or exactly 12 digits";
       }
     }
+    
+    
+    
 
     if (!formData.vehicle_No) {
       validationErrors.vehicle_No = "Vehicle NO. is required";
+    } else {
+      const regex = /^[A-Z]{2,3}\d{4}$/;
+      if (!regex.test(formData.vehicle_No)) {
+        validationErrors.vehicle_No = "Please enter a valid Sri Lankan vehicle number (e.g., XX1234 or XXX1234)";
+      }
     }
+  
 
     if (!formData.vehicle_type) {
       validationErrors.vehicle_type = "vehicle type is required";
@@ -366,7 +375,7 @@ export default function Edit_Driver() {
                           </div>
                       </div>
 
-                      <div>
+                       <div>
                           <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
                             <label>Vehicle Type</label>
                           </p>
