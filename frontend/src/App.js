@@ -28,10 +28,6 @@ import User from "./pages_kavindu/User";
 import AdminDashboard from "./pages/adminDashboard";
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
-
-//Kumesh-----------------------
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-//Kumesh-user
 import Payment from "./pages-Kumesh/User/Payment";
 import CardDetails from "./pages-Kumesh/User/Cards";
 import AddCard from "./pages-Kumesh/User/AddCard";
