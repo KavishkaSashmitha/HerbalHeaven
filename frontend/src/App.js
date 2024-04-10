@@ -28,7 +28,7 @@ import User from "./pages_kavindu/User";
 import AdminDashboard from "./pages/adminDashboard";
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
-
+import DirectCartTable from "./pages/DirectOrder";
 //Kumesh-----------------------
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 //Kumesh-user
