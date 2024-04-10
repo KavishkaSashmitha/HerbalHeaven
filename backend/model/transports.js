@@ -21,6 +21,11 @@ const TransportSchema = new mongoose.Schema({
         required:true
     },
 
+    nic:{
+        type:String,
+        required:true
+    },
+
     vehicle_type:{
         type:String,
         required:true
