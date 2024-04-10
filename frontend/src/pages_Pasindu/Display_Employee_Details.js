@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { SidebarWithBurgerMenu } from "../components/navBar";
 import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
+import { Breadcrumbs } from "@material-tailwind/react";
 import { Typography } from "@material-tailwind/react";
 import LineChart from "./Emp_User_Chart";
 import {
@@ -111,6 +112,36 @@ export default function ViewPost() {
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
           <Card className="grid bg-blue-gray-100">
+            <CardHeader floated={false} shadow={false} className="rounded-none bg-blue-gray-100">
+              <div className="ml-4 md:items-center ">
+                <Breadcrumbs>
+                  <Link to="/">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 hover:text-amber-900"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                    </svg>
+                  </Link>
+                  <Link to="/Employee_Dashboard">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-900">
+                      <span>Dashboard</span>
+
+                      <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+                    </li>
+                  </Link>
+                  <Link to="/emp">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-900">
+                      <span>Employee</span>
+
+                      <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
+                    </li>
+                  </Link>
+                </Breadcrumbs>
+              </div>
+            </CardHeader>
             <div className="p-4">
               <div className="py-5">
                 <main className="h-full overflow-y-auto">
