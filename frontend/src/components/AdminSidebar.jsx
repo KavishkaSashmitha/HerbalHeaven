@@ -27,7 +27,7 @@ import { Link } from 'react-router-dom';
 function Sidebar({ open, handleOpen }) {
   return (
     <div
-      className={`sidebar w-64 w-full  text-white ${open ? 'block' : 'hidden'}`}
+      className={`sidebar w-64  text-white ${open ? 'block' : 'hidden'}`}
     >
       <Card className="h-[calc(100vh-2rem)] w-full h-100vh max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
         <div className="mb-2 p-4">

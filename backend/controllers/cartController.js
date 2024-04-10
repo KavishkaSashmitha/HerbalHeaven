@@ -80,6 +80,7 @@ const deleteCartItems = asyncHandler(async (req, res) => {
   res.status(200).json({ message: `deleted cart item :${req.params.id}` });
 });
 
+
 const updateCartQuantity = asyncHandler(async (req, res) => {
   const { items } = req.body;
 
@@ -98,11 +99,35 @@ const updateCartQuantity = asyncHandler(async (req, res) => {
   }
 });
 
+
+/*Admin Payment Details Part*/
+
+const getAllCartDetails = async (req, res, next) => {
+  let cart;
+  try {
+    cart = await Cart.find();
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+  if (!cart) {
+    return res.status(404).json({ message: "Cart not found" });
+  }
+  return res.status(200).json({ cart });
+};
+
+
 module.exports = {
   viewCart,
   AddToCart,
   updateCart,
   deleteCartItems,
+
+
+  updateCartQuantity,
+  getAllCartDetails,
+
   updateCartQuantity,
   CartDetails,
+
 };

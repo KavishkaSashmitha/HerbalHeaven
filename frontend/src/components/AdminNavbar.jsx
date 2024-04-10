@@ -14,7 +14,10 @@ import { Link } from 'react-router-dom';
 
 function AdminNavbar({ toggleSidebar }) {
   return (
-    <div className="sticky top-0 bg-green-600 h-16 px-6 sm:px-10 py-4  flex items-center justify-between z-50">
+    <div
+      className="sticky top-0  h-16 px-6 sm:px-10 py-4   flex items-center justify-between z-50"
+      style={{ backgroundColor: '#02353c' }}
+    >
       <div className="flex items-center space-x-8 text-sm text-white">
         <i
           className="fas fa-bars text-xl cursor-pointer"
@@ -24,8 +27,8 @@ function AdminNavbar({ toggleSidebar }) {
           <Typography
             as="li"
             variant="small"
-            color="blue-gray"
-            className="p-1 font-normal"
+            color="white"
+            className="p-1 font-normal  hover:text-amber-400"
           >
             Dashboard
           </Typography>
@@ -35,8 +38,8 @@ function AdminNavbar({ toggleSidebar }) {
             <Typography
               as="li"
               variant="small"
-              color="blue-gray"
-              className="p-1 font-normal"
+              color="white"
+              className="p-1 font-normal hover:text-amber-400"
             >
               Managing Areas
             </Typography>
@@ -44,6 +47,9 @@ function AdminNavbar({ toggleSidebar }) {
           <MenuList>
             <Link to="/cart-Admin">
               <MenuItem>Cart</MenuItem>
+            </Link>
+            <Link to="/Employee_Dashboard">
+              <MenuItem>Employee</MenuItem>
             </Link>
             <MenuItem>Menu Item 2</MenuItem>
             <MenuItem>Menu Item 3</MenuItem>

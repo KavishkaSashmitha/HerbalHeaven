@@ -53,13 +53,13 @@ const Product = ({ product, addToCart }) => {
 };
 
 export function EcommerceCard() {
-  const url = 'http://localhost:8070/api';
+  const url = 'http://localhost:8070';
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { addToCart } = useAuth();
 
   const fetchInfo = () => {
-    return axios.get(`${url}/products`).then((res) => setData(res.data));
+    return axios.get(`${url}/api/products`).then((res) => setData(res.data));
   };
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Badge,
@@ -18,8 +18,10 @@ import {
 } from '@material-tailwind/react';
 import { BellIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../middleware/authContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './cartContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const ProfileMenu = () => {
   const { isLoggedIn, login, logout } = useAuth();
@@ -28,29 +30,66 @@ const ProfileMenu = () => {
   const handleOpen = () => setOpen((cur) => !cur);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      setCurrentTime(`${hours}:${minutes}:${seconds}`);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogin = async (email, password) => {
     try {
-      // Call the login function with email and password
-      await login(email, password);
-      // Close the dialog after successful login
+      if (!email || !password) {
+        toast.error('Empty Fields');
+        return;
+      }
+
+      const response = await axios.post('http://localhost:8070/api/user', {
+        email,
+        password,
+      });
+
+      const token = response.data.token;
+
+      // Save the token to local storage or a state management solution
+      localStorage.setItem('token', token);
+
+      // Update the global authentication state
+      login(token);
+
+      navigate('/dashboard');
       setOpen(false);
     } catch (error) {
-      // Handle login errors
-      console.error('Login failed:', error.message);
+      console.error('Login failed:', error.response.data);
+      toast.error('Login Failed');
+      setEmail('');
+      setPassword('');
     }
   };
+
   return (
     <>
       <div className="flex items-center justify-end mr-5 mt-2 mb-2">
+        <Typography variant="medium" className="text-teal-100 mr-4">
+          {currentTime}
+        </Typography>
         <Link to="/user/cart">
           <Badge content={cartCount} overlap="circular" placement="top-end">
-            <IconButton variant="text" color="black" className=" mb-2 mr-0">
+            <IconButton variant="text" color="white" className=" mb-2 mr-0 hover:text-amber-400">
               <ShoppingCartIcon className="h-8 w-6" />
             </IconButton>
           </Badge>
         </Link>
-        <IconButton variant="text" color="black" className="mb-2 ml-4 mr-2">
+
+        <IconButton variant="text" color="white" className="mb-2 ml-4 mr-2 hover:text-amber-400">
           <BellIcon className="h-6 w-6" />
         </IconButton>
 

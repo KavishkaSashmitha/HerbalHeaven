@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Select } from "@material-tailwind/react";
-import { Footer } from "../components/Footer";
-import { SidebarWithBurgerMenu } from "../components/navBar";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Select } from '@material-tailwind/react';
+import { Footer } from '../components/Footer';
+import { SidebarWithBurgerMenu } from '../components/navBar';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardHeader,
@@ -12,17 +12,18 @@ import {
   Typography,
   Input,
   Button,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 
 function CreateUser() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
-  const [rawMaterial, setRawMaterial] = useState("");
-  const [country, setCountry] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [address, setAddress] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState('');
+  const [rawMaterial, setRawMaterial] = useState('');
+  const [country, setCountry] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [address, setAddress] = useState('');
   const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
 
   const validateForm = () => {
@@ -30,51 +31,51 @@ function CreateUser() {
     let isValid = true;
 
     if (!name) {
-      errors.name = "Name is required";
+      errors.name = 'Name is required';
       isValid = false;
     }
 
     if (!email) {
-      errors.email = "Email is required";
+      errors.email = 'Email is required';
       isValid = false;
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      errors.email = "Email is invalid";
+      errors.email = 'Email is invalid';
       isValid = false;
     }
 
     if (!age) {
-      errors.age = "Age is required";
+      errors.age = 'Age is required';
       isValid = false;
     } else if (!/^\d+$/.test(age) || age < 18 || age > 60) {
-      errors.age = "Age must be a positive number less than 100";
+      errors.age = 'Age must be a positive number less than 100';
       isValid = false;
     }
 
     if (!rawMaterial) {
-      errors.rawMaterial = "Raw Material is required";
+      errors.rawMaterial = 'Raw Material is required';
       isValid = false;
     }
 
     if (!country) {
-      errors.country = "Country is required";
+      errors.country = 'Country is required';
       isValid = false;
     }
 
     if (!mobile) {
-      errors.mobile = "Mobile is required";
+      errors.mobile = 'Mobile is required';
       isValid = false;
     } else if (!/^\d{10}$/.test(mobile)) {
-      errors.mobile = "Mobile must be 10 digits";
+      errors.mobile = 'Mobile must be 10 digits';
       isValid = false;
     }
 
     if (!/^\d+$/.test(mobile)) {
-      errors.mobile = "Mobile must contain only numbers";
+      errors.mobile = 'Mobile must contain only numbers';
       isValid = false;
     }
 
     if (!address) {
-      errors.address = "Address is required";
+      errors.address = 'Address is required';
       isValid = false;
     }
 
@@ -84,13 +85,14 @@ function CreateUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (validateForm()) {
       const confirmed = window.confirm(
-        "Are you sure you want to add a new supplier?"
+        'Are you sure you want to add a new supplier?'
       );
       if (confirmed) {
         axios
-          .post("http://localhost:8070/sup/addsup", {
+          .post('http://localhost:8070/sup/addsup', {
             name,
             email,
             age,
@@ -101,7 +103,7 @@ function CreateUser() {
           })
           .then((result) => {
             console.log(result);
-            navigate("/sup");
+            navigate('/sup');
           })
           .catch((err) => console.log(err));
       }
@@ -114,10 +116,10 @@ function CreateUser() {
         <SidebarWithBurgerMenu />
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '',
           }}
         >
           <Card className="w-96">
@@ -136,7 +138,7 @@ function CreateUser() {
                 size="lg"
                 value={name}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+                  const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
                   setName(value);
                 }}
                 error={errors.name}
@@ -155,8 +157,8 @@ function CreateUser() {
                 type="number"
                 value={age}
                 onChange={(e) => {
-                  let value = e.target.value.replace(/\D/, ""); // Remove non-numeric characters
-                  value = value === "" ? "" : Math.min(Math.max(value, 1), 60);
+                  let value = e.target.value.replace(/\D/, ''); // Remove non-numeric characters
+                  value = value === '' ? '' : Math.min(Math.max(value, 1), 60);
                   setAge(value);
                 }}
                 error={errors.age}
