@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@material-tailwind/react";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
+import createLoadingScreen from './LoadingScreen';
 
 export default function Posts() {
   const [post, setPosts] = useState([]);
@@ -27,6 +28,7 @@ export default function Posts() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [open, setOpen] = React.useState(0);
+  const [loading, setLoading] = useState(true);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -65,10 +67,16 @@ export default function Posts() {
         if (res.data.success) {
           setPosts(res.data.existingPosts);
           setCartItems(res.data.existingPosts); // Assuming `existingPosts` holds all the data
+  
+          // Add setTimeout to setLoading after data retrieval
+          setTimeout(() => {
+            setLoading(false);
+          }, 800);
         }
       })
       .catch((error) => console.error("Error fetching posts:", error));
   }
+  
 
   const onDelete = (id) => {
     Swal.fire({
@@ -131,9 +139,20 @@ export default function Posts() {
     return parts.join(" ");
   }
 
+  if (loading) {
+    return (
+      <div>
+      {createLoadingScreen(loading)}
+    </div>
+    );
+  }
+
   return (
     <>
-      <div className="flex h-screen overflow-scroll">
+      <div
+        className="flex h-screen overflow-scroll"
+        style={{ backgroundColor: "#02353c" }}
+      >
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? "block" : "hidden"
@@ -151,22 +170,22 @@ export default function Posts() {
                   <Link to="/">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
+                      className="h-4 w-4 hover:text-amber-900"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
                       <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                     </svg>
                   </Link>
-                  <Link to="#">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                  <Link to="/Employee_Dashboard">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-900">
                       <span>Dashboard</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                     </li>
                   </Link>
                   <Link to="/emp">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-900">
                       <span>Employee</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
@@ -377,7 +396,7 @@ export default function Posts() {
 
                         <td className="p-4   ">
                           <div>
-                          <a
+                            <a
                               className="btn btn-primary mr-2"
                               href={`/Display_Employee_Details/${post._id}`}
                             >
@@ -387,7 +406,7 @@ export default function Posts() {
                                   style={{ fontSize: "20px" }}
                                 ></i>
                               </Button>
-                            </a> 
+                            </a>
 
                             <a
                               className="btn btn-primary mr-2"
@@ -401,10 +420,7 @@ export default function Posts() {
                               </Button>
                             </a>
 
-                            <a
-                              className=""
-                              onClick={() => onDelete(post._id)}
-                            >
+                            <a className="" onClick={() => onDelete(post._id)}>
                               <Button color="red">
                                 <i
                                   className="fas fa-trash-alt"
@@ -412,8 +428,6 @@ export default function Posts() {
                                 ></i>
                               </Button>
                             </a>
-
-                            
                           </div>
                         </td>
                         <td className="p-4  ">
