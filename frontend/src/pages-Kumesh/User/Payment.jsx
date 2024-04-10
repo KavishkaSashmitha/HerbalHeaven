@@ -21,33 +21,38 @@ function Payment() {
   const [cart, setCart] = useState([]);
   const { isLoggedIn, token } = useAuth();
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        if (isLoggedIn) {
-          const response = await axios.get(
-            "http://localhost:8070/api/user/cart",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          // Remove duplicate items from the cart
-          const uniqueCartItems = Array.from(
-            new Set(response.data.map((item) => item.name))
-          ).map((name) => {
-            return response.data.find((item) => item.name === name);
-          });
-          setCart(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCartItems = async () => {
+  //     try {
+  //       if (isLoggedIn) {
+  //         const response = await axios.get(
+  //           "http://localhost:8070/api/user/cart",
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         // Remove duplicate items from the cart
+  //         const uniqueCartItems = Array.from(
+  //           new Set(response.data.map((item) => item.name))
+  //         ).map((name) => {
+  //           return response.data.find((item) => item.name === name);
+  //         });
+  //         setCart(response.data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching cart items:", error);
+  //     }
+  //   };
 
-    fetchCartItems();
-  }, [isLoggedIn, token]);
+  //   fetchCartItems();
+  // }, [isLoggedIn, token]);
+
+  console.log("cart", cart);
+  useEffect(() => {
+    setCart(location.state.selectedCartItems);
+  }, [location.state.selectedCartItems]);
 
   // Define the steps with their corresponding route paths
   const steps = [
