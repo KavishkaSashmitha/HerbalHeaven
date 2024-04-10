@@ -1,58 +1,56 @@
- const AsyncHandler = require('express-async-handler');
+const AsyncHandler = require('express-async-handler');
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../model/userModel');
 
-// @desc Register new User
-// @route POST/api/users/signup
-// @access public
+///@desc Register new User
+//@route POST/api/users
+//@access public
 const signup = AsyncHandler(async (req, res) => {
-  const { name, email, password, mobileNumber, address } = req.body;
+  const { name, email, password } = req.body;
 
-  if (!name || !email || !password || !mobileNumber || !address) {
+  if (!name || !email || !password) {
     res.status(400);
-    throw new Error('Please add all required fields');
+    throw new Error('Please Add all Fields');
   }
 
-  // Check if user exists
+  //check if user exist
   const userExists = await User.findOne({ email });
 
   if (userExists) {
     res.status(400);
-    throw new Error('User already exists');
+    throw new Error('User Exist');
   }
 
-  // Hash password
+  //Hash password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  // Create user
+  //Create user
   const user = await User.create({
     name,
     email,
     password: hashedPassword,
-    mobileNumber,
-    address,
   });
 
   if (user) {
     res.status(201).json({
       _id: user.id,
       name: user.name,
-      email: user.email,
-      mobileNumber: user.mobileNumber,
-      address: user.address,
+      password: user.password,
+      isAdmin: false,
       token: generateToken(user._id),
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error('Invalid user Data');
   }
 });
 
-// @desc Login User
-// @route POST/api/users/login
-// @access public
+///@desc Register new User
+//@route POST/api/users
+//@access public
 const loginUser = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -63,90 +61,30 @@ const loginUser = AsyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
-      mobileNumber: user.mobileNumber,
-      address: user.address,
+      isAdmin:user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
     res.status(400);
-    throw new Error('Invalid credentials');
+    throw new Error('Invalid Credentials');
   }
 });
 
-// @desc Get user profile
-// @route GET/api/users/dashboard
-// @access Private
+///@desc Register new User
+//@route POST/api/users
+//@access Private
 const dashboard = AsyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id);
+  const { _id, name, email } = await User.findById(req.user.id);
 
-  if (user) {
-    res.status(200).json({
-      _id: user.id,
-      name: user.name,
-      email: user.email,
-      mobileNumber: user.mobileNumber,
-      address: user.address,
-    });
-  } else {
-    res.status(404);
-    throw new Error('User not found');
-  }
+  res.status(200).json({
+    id: _id,
+    name,
+    email,
+  });
 });
 
-// @desc Update user profile including password
-// @route PUT/api/users/profile
-// @access Private
-const updateProfile = AsyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id);
+//Generate Token
 
-  if (user) {
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
-    user.mobileNumber = req.body.mobileNumber || user.mobileNumber;
-    user.address = req.body.address || user.address;
-
-    // Check if a new password is provided
-    if (req.body.newPassword) {
-      const isPasswordValid = await bcrypt.compare(req.body.currentPassword, user.password);
-      if (!isPasswordValid) {
-        res.status(401);
-        throw new Error('Incorrect current password');
-      }
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(req.body.newPassword, salt);
-    }
-
-    const updatedUser = await user.save();
-
-    res.json({
-      _id: updatedUser.id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      mobileNumber: updatedUser.mobileNumber,
-      address: updatedUser.address,
-      token: generateToken(updatedUser._id),
-    });
-  } else {
-    res.status(404);
-    throw new Error('User not found');
-  }
-});
-// @desc Delete user profile
-// @route DELETE/api/users/profile
-// @access Private
-const deleteProfile = AsyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id);
-
-  if (user) {
-    await user.remove();
-    res.json({ message: 'User profile deleted successfully' });
-  } else {
-    res.status(404);
-    throw new Error('User not found');
-  }
-});
-
-// Generate Token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '30d',
@@ -157,8 +95,4 @@ module.exports = {
   signup,
   loginUser,
   dashboard,
-  updateProfile,
-  deleteProfile,
 };
-
-

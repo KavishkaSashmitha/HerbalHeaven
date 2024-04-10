@@ -21,7 +21,7 @@ export default function Login() {
         return;
       }
 
-      const response = await axios.post('http://localhost:8070/api/customer', {
+      const response = await axios.post('http://localhost:8070/api/user', {
         email,
         password,
       });

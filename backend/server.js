@@ -20,10 +20,7 @@ app.use(cors());
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: false }));
 
-
-app.use('/api/customer', require('./routes/customerRoutes'));
-
-
+// Routes
 app.use('/api/user/cart', require('./routes/cartRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
@@ -32,11 +29,11 @@ app.use('/api/posts', require('./routes/posts'));
 app.use('/api/directcart', require('./routes/directCart'));
 
 app.use('/sup', require('./routes/supplierRouter'));
+app.use('/', require('./routes/PaymnetRoutes'));
 
 app.use('/api/transports', require('./routes/transports'));
 
 app.use(bodyParser.json());
-
 
 // Use routes
 
@@ -56,17 +53,14 @@ app.use(
 );
 
 // Error handler middleware
-
 app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
   console.log('Port Connected ' + PORT);
-
   console.log('Connect To Mongo db');
 
   console.log(`Server is running on port ${PORT}`.yellow.bold);
-
 });
 
 //
