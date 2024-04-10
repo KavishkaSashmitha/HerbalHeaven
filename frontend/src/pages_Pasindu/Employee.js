@@ -473,16 +473,6 @@ export default function Posts() {
                 Next
               </Button>
             </CardFooter>
-
-            <div>
-              <a href="./EmployeeChart">
-                <Button>chart</Button>
-              </a>
-              <a href="./Emp_User_Chart">
-                <Button>user</Button>
-              </a>
-            </div>
-
             <Footer />
           </Card>
         </div>
