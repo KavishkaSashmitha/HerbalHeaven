@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const {
   signup,
@@ -7,7 +5,7 @@ const {
   loginUser,
   updateProfile,
   deleteProfile
-} = require('../controllers/userController');
+} = require('../controllers/customerController');
 const { protect } = require('../middleware/authMiddleware');
 const route = express.Router();
 
@@ -15,11 +13,13 @@ const route = express.Router();
 //@private
 //Get Function
 
+
 route.post('/', loginUser);
-route.post('/create', signup);
+route.post('/register', signup);
 route.get('/profile', protect, dashboard);
 route.put('/profile', protect, updateProfile);
-route.delete('/', protect,   deleteProfile
-); 
-module.exports = route;
+//route.delete('/', protect,   deleteProfile); 
 
+route.delete('/delete', protect, deleteProfile); 
+
+module.exports = route;

@@ -42,5 +42,20 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+// DELETE endpoint to remove an item from the cart
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
 
+    // Check if the item exists in the cart
+    const existingCartItem = await DirectCartItem.findByIdAndDelete(id);
+
+    res
+      .status(200)
+      .json({ message: 'Item removed from the cart successfully' });
+  } catch (error) {
+    console.error('Error removing cart item:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 module.exports = router;

@@ -22,6 +22,7 @@ function Payment() {
 
   const { token } = useAuth();
 
+
   // useEffect(() => {
   //   const fetchCartItems = async () => {
   //     try {
@@ -51,6 +52,7 @@ function Payment() {
   // }, [isLoggedIn, token]);
 
   console.log('cart', cart);
+
 
   useEffect(() => {
     setCart(location.state.selectedCartItems);
@@ -113,9 +115,15 @@ function Payment() {
       'http://localhost:8070/api/orders/order/save',
       {
         total: calculateTotalBill(),
-        shippingAddress: inputs.address,
-        paymentStatus: 'Paid',
-        orderStatus: 'Preparing',
+
+        shippingAddress: {
+          address: inputs.address,
+          city: inputs.city,
+          zip: inputs.zip,
+        },
+        paymentStatus: "Paid",
+        orderStatus: "Preparing",
+
         items: cart.map(({ name, price, quantity, image }) => ({
           name,
           price,

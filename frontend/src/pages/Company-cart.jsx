@@ -50,10 +50,25 @@ const DirectCartTable = () => {
   };
 
   // Remove item from cart
-  const removeFromCart = (index) => {
-    const updatedCart = [...directCartData];
-    updatedCart.splice(index, 1);
-    setDirectCartData(updatedCart);
+  const removeFromCart = async (itemId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8070/api/directcart/${itemId}`,
+        {
+          method: 'DELETE',
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to remove item from the cart');
+      }
+
+      // Filter out the removed item from directCartData
+      const updatedCart = directCartData.filter((item) => item._id !== itemId);
+      setDirectCartData(updatedCart);
+    } catch (error) {
+      console.error('Error removing item from the cart:', error);
+    }
   };
 
   //toddlebar
@@ -120,7 +135,7 @@ const DirectCartTable = () => {
                     </td>
                     <td className="border px-4 py-2">
                       <button
-                        onClick={() => removeFromCart(index)}
+                        onClick={() => removeFromCart(item._id)}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Remove
