@@ -19,7 +19,41 @@ import axios from "axios";
 function Payment() {
   const location = useLocation();
   const [cart, setCart] = useState([]);
+
   const { token } = useAuth();
+
+
+  const { isLoggedIn, token } = useAuth();
+
+  // useEffect(() => {
+  //   const fetchCartItems = async () => {
+  //     try {
+  //       if (isLoggedIn) {
+  //         const response = await axios.get(
+  //           "http://localhost:8070/api/user/cart",
+  //           {
+  //             headers: {
+  //               Authorization: `Bearer ${token}`,
+  //             },
+  //           }
+  //         );
+  //         // Remove duplicate items from the cart
+  //         const uniqueCartItems = Array.from(
+  //           new Set(response.data.map((item) => item.name))
+  //         ).map((name) => {
+  //           return response.data.find((item) => item.name === name);
+  //         });
+  //         setCart(response.data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching cart items:", error);
+  //     }
+  //   };
+
+  //   fetchCartItems();
+  // }, [isLoggedIn, token]);
+
+  console.log("cart", cart);
 
   useEffect(() => {
     setCart(location.state.selectedCartItems);

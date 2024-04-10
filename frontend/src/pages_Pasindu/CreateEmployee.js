@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { Breadcrumbs, Button } from "@material-tailwind/react";
 import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
+import AdminNavbar from "../components/AdminNavbar";
+import { DefaultSidebar } from "../components/Manager-Sidebar";
 
 export default class CreatPost extends Component {
   constructor(props) {
@@ -20,7 +22,7 @@ export default class CreatPost extends Component {
       address: "",
       isAdmin: "",
       age: "",
-      // image: "",
+      image: "",
       confirmation: false,
       errors: {},
 
@@ -250,6 +252,7 @@ export default class CreatPost extends Component {
     });
   };
 
+  
   render() {
     const { errors } = this.state;
     return (

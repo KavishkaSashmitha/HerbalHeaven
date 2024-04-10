@@ -105,7 +105,7 @@ const MonthlySalChart = ({}) => {
 
   const chartConfig = {
     type: "line",
-    width:1090,
+    width: 1090,
     height: 300,
     series: [
       {
@@ -138,7 +138,7 @@ const MonthlySalChart = ({}) => {
       dataLabels: {
         enabled: false,
       },
-      colors: ["#020617"],
+      colors: ["#FF5733"],
       stroke: {
         lineCap: "round",
         curve: "smooth",
