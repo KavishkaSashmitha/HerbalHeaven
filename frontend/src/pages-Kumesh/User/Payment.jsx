@@ -19,6 +19,10 @@ import axios from "axios";
 function Payment() {
   const location = useLocation();
   const [cart, setCart] = useState([]);
+
+  const { token } = useAuth();
+
+
   const { isLoggedIn, token } = useAuth();
 
   // useEffect(() => {
@@ -50,6 +54,7 @@ function Payment() {
   // }, [isLoggedIn, token]);
 
   console.log("cart", cart);
+
   useEffect(() => {
     setCart(location.state.selectedCartItems);
   }, [location.state.selectedCartItems]);

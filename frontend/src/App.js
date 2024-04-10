@@ -42,7 +42,12 @@ import PrintPage from './pages-Kumesh/User/PrintPage';
 //Kumesh-Admin
 import NetIncome from './pages-Kumesh/Admin/Income/Incomes';
 
+
+import EditOrder from "./pages_Ridmi/EditOrder";
+import Order from "./pages_Ridmi/Order";
+
 import './index.css';
+
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -61,11 +66,12 @@ import OTPVerification from './interfaces/Otp';
 import { useAuth } from './middleware/authContext';
 import { CustomerLogin } from './pages/Customer-login';
 
-import './index.css';
-import AddProduct from './pages-Dileesha/AddProduct';
-import UpdateProduct from './pages-Dileesha/UpdateProduct';
-import InventoryList from './pages-Dileesha/InventoryList';
-import ProductList from './pages/Category-product';
+
+import AddProduct from "./pages-Dileesha/AddProduct";
+import UpdateProduct from "./pages-Dileesha/UpdateProduct";
+import InventoryList from "./pages-Dileesha/InventoryList";
+import MyOrders from "./pages_Ridmi/myOrders";
+
 
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
@@ -116,6 +122,12 @@ function App() {
       {/*KUMESHA PAYMENT PART ADMIN */}
       <Route path="/netincome" element={<NetIncome />} />
 
+      {/*Ridmi*/}
+      <Route path="/my-orders" element={<MyOrders />} />
+      <Route path="/admin-orders" element={<Order />} />
+      <Route path="/edit/:id" element={<EditOrder />} />
+
+      <Route path="/user/payment" element={<Payment />} />
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<CustomerLogin />} />
       <Route path="/signUp" element={<Register />} />

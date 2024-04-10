@@ -34,7 +34,10 @@ app.use('/api/transports', require('./routes/transports'));
 app.use(bodyParser.json());
 
 // Use routes
-app.use('/api', require('./routes/otpRoutes'));
+
+app.use("/api", require("./routes/otpRoutes"));
+app.use("/api/orders", require("./routes/orders"));
+
 
 app.use('/inventory', require('./routes/inventoryRoutes'));
 /*
