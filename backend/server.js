@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/user/cart', require('./routes/cartRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
-app.use('/api/products/:id', require('./routes/productRoutes'));
+
 app.use('/api/posts', require('./routes/posts'));
 app.use('/api/directcart', require('./routes/directCart'));
 
@@ -36,9 +36,8 @@ app.use(bodyParser.json());
 
 // Use routes
 
-app.use("/api", require("./routes/otpRoutes"));
-app.use("/api/orders", require("./routes/orders"));
-
+app.use('/api', require('./routes/otpRoutes'));
+app.use('/api/orders', require('./routes/orders'));
 
 app.use('/inventory', require('./routes/inventoryRoutes'));
 /*

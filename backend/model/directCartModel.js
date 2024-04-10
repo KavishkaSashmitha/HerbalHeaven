@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 // Define schema and model for cart items
 const cartItemSchema = new mongoose.Schema({
   productId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId, // Assuming productId is referencing the ObjectId of the Product model
+    ref: 'Product', // Reference to the Product model
     required: true,
   },
   quantity: {
