@@ -134,7 +134,7 @@ export default function ViewPost() {
                 src={formData.image}
                 size="custom"
                 style={{ width: "120px", height: "120px" }} // Adjust the width and height as desired
-                className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
               />
             </div>
             <div class="grid grid-cols-2 gap-6">
