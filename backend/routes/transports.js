@@ -63,22 +63,23 @@ router.put('/transport/update/:id', async (req, res) => {
   }
 });
 
-// delete posts
-router.delete('/transport/delete/:id', async (req, res) => {
-  try {
-    const deletedTransport = await Transport.findByIdAndRemove(
-      req.params.id
-    ).exec();
-    res.json({
-      message: 'Delete Successfully',
-      deletedTransport,
+//delete post
+
+router.delete("/transport/delete/:id", (req, res) => {
+  Transport.findByIdAndDelete(req.params.id)
+    .exec()
+    .then((deletedTransport) => {
+      return res.json({
+        message: "Delete Succesfully",
+        deletedTransport,
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({
+        message: "Delete unsuccesfully",
+        err,
+      });
     });
-  } catch (err) {
-    res.status(400).json({
-      message: 'Delete unsuccessfully',
-      error: err,
-    });
-  }
 });
 
 module.exports = router;
