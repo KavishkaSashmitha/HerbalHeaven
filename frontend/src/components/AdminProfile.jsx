@@ -85,7 +85,7 @@ const AdminProfileMenu = () => {
         <Typography variant="medium" className="text-teal-100 mr-4">
           {currentTime}
         </Typography>
-        <Link to="/user/cart">
+        <Link to="/directCart">
           <Badge overlap="circular" placement="top-end">
             <IconButton
               variant="text"
