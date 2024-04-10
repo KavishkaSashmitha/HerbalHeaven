@@ -194,23 +194,77 @@ function SalaryReport() {
       ["Net Salary", `Rs.${nsal} /=`],
     ];
 
+    // Add page number
+    const totalPages = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.text(
+        `Page ${i} of ${totalPages}`,
+        doc.internal.pageSize.width - 50,
+        doc.internal.pageSize.height - 10
+      );
+    }
+
+    // Add page border
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.rect(
+        5,
+        5,
+        doc.internal.pageSize.width - 10,
+        doc.internal.pageSize.height - 10,
+        "S"
+      );
+    }
+
+     // Add current time
+     const now = new Date();
+     const currentTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+     doc.setFontSize(10);
+     doc.text(`Report generated on: ${currentTime}`, 130, 20);
+ 
+    // Add company logo
+    const logoImg = new Image();
+    logoImg.src = "/logo/logo.png"; // Assuming 'logo.png' is the path to your logo
+    doc.addImage(logoImg, "PNG", 10, 30, 40, 40); // Adjust position and size accordingly
+
     // Add company name
-    doc.setFontSize(14);
+    doc.setFontSize(25);
     doc.setFont("helvetica", "bold");
     // Print "Herbal Heaven" text
-    doc.text("Herbal Heaven", 60, 50);
+    doc.text("Herbal Heaven", 10, 20);
+
+    // Add company address, email, and phone number
+    doc.setFontSize(8); // Adjust font size as needed
+    doc.text("Company Address:", 140, 40);
+    doc.text("123 Main St, City, Country", 140, 45);
+    doc.text("Email: info@herbalheaven.com", 140, 50);
+    doc.text("Phone: +1234567890", 140, 55);
+
+    // Add description
+    doc.setFontSize(12);
+    doc.text(
+      "This report contains data analysis and statistics for Herbal Heaven.",
+      10,
+      doc.internal.pageSize.height - 60
+    );
+
+    // Signature area
+    doc.setFontSize(10);
+    doc.text("__________________", 150, doc.internal.pageSize.height - 30);
+    doc.text("Signature", 160, doc.internal.pageSize.height - 20);
 
     // Set font size and style for "Salary Details"
     doc.setFont("times", "bold");
-    doc.setFontSize(25);
+    doc.setFontSize(15);
     // Print "Salary Details" text
-    doc.text("Salary Details", 10, 10);
+    doc.text("Salary Details", 10, 40);
 
     // Generate the table
     doc.autoTable({
       head: [["Employee Details", " "]],
       body: data1,
-      margin: { top: 25 },
+      margin: { top: 60 },
     });
     doc.autoTable({
       head: [["Description", "Amount"]],
