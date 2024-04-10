@@ -239,7 +239,7 @@ export default function EditPost() {
             <p className="text-amber-800 font-bold text-xl">Uploading... {progress}%</p>
             <div className="bg-blue-500 h-2 rounded-lg overflow-hidden mt-1">
               <div
-                className="h-full bg-amber-800 transition-all duration-900"
+                className="h-full bg-amber-800 transition-all duration-1000"
                 style={{ width: `${progress}%` }}
               />
             </div>
