@@ -26,6 +26,7 @@ app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/products/:id', require('./routes/productRoutes'));
 app.use('/api/posts', require('./routes/posts'));
+app.use('/api/directcart', require('./routes/directCart'));
 
 app.use('/sup', require('./routes/supplierRouter'));
 
