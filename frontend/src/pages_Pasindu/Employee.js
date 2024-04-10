@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@material-tailwind/react";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
-import createLoadingScreen from './LoadingScreen';
+import createLoadingScreen from "./LoadingScreen";
 
 export default function Posts() {
   const [post, setPosts] = useState([]);
@@ -67,7 +67,7 @@ export default function Posts() {
         if (res.data.success) {
           setPosts(res.data.existingPosts);
           setCartItems(res.data.existingPosts); // Assuming `existingPosts` holds all the data
-  
+
           // Add setTimeout to setLoading after data retrieval
           setTimeout(() => {
             setLoading(false);
@@ -76,7 +76,6 @@ export default function Posts() {
       })
       .catch((error) => console.error("Error fetching posts:", error));
   }
-  
 
   const onDelete = (id) => {
     Swal.fire({
@@ -140,11 +139,7 @@ export default function Posts() {
   }
 
   if (loading) {
-    return (
-      <div>
-      {createLoadingScreen(loading)}
-    </div>
-    );
+    return <div>{createLoadingScreen(loading)}</div>;
   }
 
   return (
@@ -309,11 +304,6 @@ export default function Posts() {
                           Report
                         </p>
                       </th>
-                      <th className="p-4   ">
-                        <p className="block font-sans text-x1 antialiased font-bold leading-none text-gray-900">
-                          Sal Chart
-                        </p>
-                      </th>
                     </tr>
                   </thead>
 
@@ -435,16 +425,6 @@ export default function Posts() {
                             <Button color="green" className="btn btn-secondary">
                               <i
                                 className="fas fa-file"
-                                style={{ fontSize: "20px" }}
-                              ></i>
-                            </Button>
-                          </a>
-                        </td>
-                        <td className="p-4">
-                          <a href={`/Emp_User_Chart/${post._id}`}>
-                            <Button color="green" className="btn btn-secondary">
-                              <i
-                                className="fas fa-chart-simple"
                                 style={{ fontSize: "20px" }}
                               ></i>
                             </Button>
