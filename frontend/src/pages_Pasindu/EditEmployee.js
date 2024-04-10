@@ -11,6 +11,7 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
+import { Upload } from "react-feather";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import AdminNavbar from "../components/AdminNavbar";
@@ -34,6 +35,7 @@ export default function EditPost() {
   const [open, setOpen] = React.useState(0);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -168,6 +170,11 @@ export default function EditPost() {
     }).then((result) => {
       if (result.isConfirmed) {
         setUploading(true);
+        const interval = setInterval(() => {
+          setProgress((prevProgress) =>
+            prevProgress >= 100 ? 0 : prevProgress + 25
+          );
+        }, 500);
         axios
           .put(`http://localhost:8070/api/posts/post/update/${id}`, data)
           .then((res) => {
@@ -195,6 +202,7 @@ export default function EditPost() {
           .finally(() => {
             // Set loading to false after asynchronous operations are completed
             setUploading(false);
+            clearInterval(interval);
           });
       }
     });
@@ -222,9 +230,22 @@ export default function EditPost() {
 
   if (uploading) {
     return (
-      <div className="relative w-32 h-32">
-      <div className="w-16 h-16 border-4 border-t-4 border-gray-200 rounded-full animate-spin absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-    </div>
+      <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-custom-color">
+        <div className="w-32 h-32">
+          <div className="w-16 h-16">
+            <Upload className="w-full h-full text-blue-500 animate-spin" />
+          </div>
+          <div className="text-center mt-2">
+            <p className="text-amber-800 font-bold text-xl">Uploading... {progress}%</p>
+            <div className="bg-blue-500 h-2 rounded-lg overflow-hidden mt-1">
+              <div
+                className="h-full bg-amber-800 transition-all duration-900"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 
