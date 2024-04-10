@@ -16,16 +16,20 @@ import {
   MenuList,
   Typography,
 } from '@material-tailwind/react';
-import { BellIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
+import {
+  BellIcon,
+  InboxArrowDownIcon,
+  ShoppingCartIcon,
+} from '@heroicons/react/24/solid';
 import { useAuth } from '../middleware/authContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './cartContext';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const ProfileMenu = () => {
+const AdminProfileMenu = () => {
   const { isLoggedIn, login, logout } = useAuth();
-  const { cartCount } = useCart();
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
   const [email, setEmail] = useState('');
@@ -81,15 +85,23 @@ const ProfileMenu = () => {
         <Typography variant="medium" className="text-teal-100 mr-4">
           {currentTime}
         </Typography>
-        <Link to="/user/cart">
-          <Badge content={cartCount} overlap="circular" placement="top-end">
-            <IconButton variant="text" color="white" className=" mb-2 mr-0 hover:text-amber-400">
-              <ShoppingCartIcon className="h-8 w-6" />
+        <Link to="/directCart">
+          <Badge overlap="circular" placement="top-end">
+            <IconButton
+              variant="text"
+              color="white"
+              className=" mb-2 mr-0 hover:text-amber-400"
+            >
+              <InboxArrowDownIcon className="h-8 w-6" />
             </IconButton>
           </Badge>
         </Link>
 
-        <IconButton variant="text" color="white" className="mb-2 ml-4 mr-2 hover:text-amber-400">
+        <IconButton
+          variant="text"
+          color="white"
+          className="mb-2 ml-4 mr-2 hover:text-amber-400"
+        >
           <BellIcon className="h-6 w-6" />
         </IconButton>
 
@@ -308,4 +320,4 @@ const ProfileMenu = () => {
   );
 };
 
-export default ProfileMenu;
+export default AdminProfileMenu;

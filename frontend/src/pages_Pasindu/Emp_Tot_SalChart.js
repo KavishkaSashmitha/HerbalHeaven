@@ -105,11 +105,11 @@ const MonthlySalChart = ({}) => {
 
   const chartConfig = {
     type: "line",
-    width:1300,
-    height: 400,
+    width: 1090,
+    height: 300,
     series: [
       {
-        name: "Sales",
+        name: "Salary",
         data: [
           januaryCount,
           februaryCount,
@@ -138,7 +138,7 @@ const MonthlySalChart = ({}) => {
       dataLabels: {
         enabled: false,
       },
-      colors: ["#020617"],
+      colors: ["#FF5733"],
       stroke: {
         lineCap: "round",
         curve: "smooth",
@@ -210,7 +210,7 @@ const MonthlySalChart = ({}) => {
   };
 
   return (
-    <Card className="p-10 overflow-visible bg-blue-gray-200 items-start">
+    <Card className=" overflow-visible bg-white items-start">
       <CardHeader
         floated={false}
         shadow={false}
@@ -228,13 +228,9 @@ const MonthlySalChart = ({}) => {
           ></Typography>
         </div>
       </CardHeader>
-      <CardBody className="px-2 pb-0">
+      <CardBody className="">
         <div>
           <Chart {...chartConfig} />
-        </div>
-
-        <div>
-          <ul>{januaryCount}</ul>
         </div>
       </CardBody>
     </Card>

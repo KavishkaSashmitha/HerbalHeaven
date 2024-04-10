@@ -7,11 +7,9 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { Button } from "@material-tailwind/react";
 
 function LineChart() {
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [januarySalary, setJanuarySalary] = useState(0);
@@ -76,15 +74,11 @@ function LineChart() {
         if (post && post.salary && typeof post.salary.november == "number") {
           setNovemberSalary(post.salary.november);
         }
-        // if (post && post.salary && typeof post.salary.december == "number") {
-        //   setDecemberSalary(post.salary.december);
-        // }
+        if (post && post.salary && typeof post.salary.december == "number") {
+          setDecemberSalary(post.salary.december);
+        }
       } catch (error) {
         setError(error.message);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 800);
       }
     };
 
@@ -93,7 +87,7 @@ function LineChart() {
 
   const chartConfig = {
     type: "line",
-    width: 1300,
+    width: 1100,
     height: 400,
     series: [
       {
@@ -117,11 +111,19 @@ function LineChart() {
     options: {
       chart: {
         toolbar: {
-          show: true,
+          show: false,
         },
       },
       title: {
         text: "User Salary",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      colors: ["#00FF00"],
+      stroke: {
+        lineCap: "round",
+        curve: "smooth",
       },
       xaxis: {
         categories: [
@@ -145,25 +147,17 @@ function LineChart() {
     },
   };
 
-  if (loading) {
-    return (
-      <div className="bg-gray-700 h-screen flex justify-center items-center">
-        <Button className="h-10 w-40" loading={true} style={{ backgroundColor: 'red' }}>Loading</Button>
-</div>
-    );
-  }
-
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
-    <Card className="p-10 overflow-visible bg-blue-gray-200 items-start">
+    <Card className="p-0 overflow-visible bg-white items-start">
       <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
-        className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
+        className="flex flex-col rounded-none md:flex-row md:items-center"
       >
         <div>
           <Typography variant="h6" color="blue-gray">
@@ -171,7 +165,7 @@ function LineChart() {
           </Typography>
         </div>
       </CardHeader>
-      <CardBody className="px-2 pb-0">
+      <CardBody className="">
         <div>
           <Chart {...chartConfig} />
         </div>
