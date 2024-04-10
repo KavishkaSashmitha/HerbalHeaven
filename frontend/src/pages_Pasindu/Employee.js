@@ -19,12 +19,11 @@ import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@material-tailwind/react";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
-import createLoadingScreen from './LoadingScreen';
+import createLoadingScreen from "./LoadingScreen";
 
 export default function Posts() {
   const [post, setPosts] = useState([]);
-  const [isScrollDisabled, setIsScrollDisabled] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [open, setOpen] = React.useState(0);
@@ -37,7 +36,9 @@ export default function Posts() {
   // Get current items
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const paginatedPosts = cartItems.slice(indexOfFirstItem, indexOfLastItem);
+  const paginatedPosts = (
+    filteredPosts.length > 0 ? filteredPosts : post
+  ).slice(indexOfFirstItem, indexOfLastItem);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -46,7 +47,14 @@ export default function Posts() {
 
   //generate page numbers
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(cartItems.length / itemsPerPage); i++) {
+  for (
+    let i = 1;
+    i <=
+    Math.ceil(
+      (filteredPosts.length > 0 ? filteredPosts : post).length / itemsPerPage
+    );
+    i++
+  ) {
     pageNumbers.push(i);
   }
 
@@ -54,20 +62,13 @@ export default function Posts() {
     retrievePosts();
   }, []);
 
-  if (isScrollDisabled) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
-
   function retrievePosts() {
     axios
       .get("http://localhost:8070/api/posts/posts")
       .then((res) => {
         if (res.data.success) {
           setPosts(res.data.existingPosts);
-          setCartItems(res.data.existingPosts); // Assuming `existingPosts` holds all the data
-  
+
           // Add setTimeout to setLoading after data retrieval
           setTimeout(() => {
             setLoading(false);
@@ -76,7 +77,6 @@ export default function Posts() {
       })
       .catch((error) => console.error("Error fetching posts:", error));
   }
-  
 
   const onDelete = (id) => {
     Swal.fire({
@@ -99,8 +99,8 @@ export default function Posts() {
     });
   };
 
-  function filterData(posts, searchKey) {
-    const result = posts.filter(
+  function filterData(searchKey) {
+    const result = post.filter(
       (post) =>
         post.name.toLowerCase().includes(searchKey) ||
         post.jobrole.toLowerCase().includes(searchKey) ||
@@ -110,19 +110,25 @@ export default function Posts() {
         post.address.toLowerCase().includes(searchKey) ||
         post.age.toLowerCase().includes(searchKey)
     );
-    setPosts(result);
+    setFilteredPosts(result);
     setCurrentPage(1);
   }
 
   const handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
-
-    axios.get("http://localhost:8070/api/posts/posts").then((res) => {
-      if (res.data.success) {
-        filterData(res.data.existingPosts, searchKey);
-      }
-    });
+    filterData(searchKey);
+    // axios.get("http://localhost:8070/api/posts/posts").then((res) => {
+    //   if (res.data.success) {
+    //     filterData(res.data.existingPosts, searchKey);
+    //   }
+    // });
   };
+
+  useEffect(() => {
+    if (!(filteredPosts.length > 0)) {
+      setFilteredPosts(post);
+    }
+  }, [filteredPosts]);
 
   function capitalizeSecondPart(name) {
     if (!name) return "";
@@ -140,11 +146,7 @@ export default function Posts() {
   }
 
   if (loading) {
-    return (
-      <div>
-      {createLoadingScreen(loading)}
-    </div>
-    );
+    return <div>{createLoadingScreen(loading)}</div>;
   }
 
   return (
@@ -163,8 +165,12 @@ export default function Posts() {
         <div className="w-full h-full ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card>
-            <CardHeader floated={false} shadow={false} className="rounded-none">
+          <Card className="bg-blue-gray-100">
+            <CardHeader
+              floated={false}
+              shadow={false}
+              className="rounded-none bg-blue-gray-100"
+            >
               <div className="mb-12 md:items-center">
                 <Breadcrumbs>
                   <Link to="/">
@@ -237,7 +243,7 @@ export default function Posts() {
                           stroke-width="1.5"
                           stroke="currentColor"
                           aria-hidden="true"
-                          class="w-5 h-5"
+                          class="w-5 h-5 text-black"
                         >
                           <path
                             stroke-linecap="round"
@@ -247,11 +253,11 @@ export default function Posts() {
                         </svg>
                       </div>
                       <input
-                        class="peer h-full w-full rounded-[7px] border border-black border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-100 focus:border-2 focus:border-gray-100 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        class="peer h-full w-full rounded-[7px] border border-black border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-black placeholder-shown:border-t-black focus:border-2 focus:border-black focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-black"
                         placeholder=" "
                         onChange={(e) => handleSearchArea(e)}
                       />
-                      <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-200 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-100 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-100 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-100 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-200 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-200 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-200 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-100">
+                      <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-black transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-black before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-black after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-black peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-black peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-black peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
                         Search
                       </label>
                     </div>
@@ -261,7 +267,7 @@ export default function Posts() {
             </CardHeader>
             <CardBody className="p-4">
               <div className="overflow-x-auto ">
-                <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-blue-gray-100 opacity-95">
+                <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-blue-gray-200 opacity-95">
                   <thead>
                     <tr>
                       <th className="p-4  ">
@@ -307,11 +313,6 @@ export default function Posts() {
                       <th className="p-4   ">
                         <p className="block font-sans text-x1 antialiased font-bold leading-none text-gray-900">
                           Report
-                        </p>
-                      </th>
-                      <th className="p-4   ">
-                        <p className="block font-sans text-x1 antialiased font-bold leading-none text-gray-900">
-                          Sal Chart
                         </p>
                       </th>
                     </tr>
@@ -440,16 +441,6 @@ export default function Posts() {
                             </Button>
                           </a>
                         </td>
-                        <td className="p-4">
-                          <a href={`/Emp_User_Chart/${post._id}`}>
-                            <Button color="green" className="btn btn-secondary">
-                              <i
-                                className="fas fa-chart-simple"
-                                style={{ fontSize: "20px" }}
-                              ></i>
-                            </Button>
-                          </a>
-                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -484,21 +475,14 @@ export default function Posts() {
                 variant="outlined"
                 size="sm"
                 onClick={nextPage}
-                disabled={indexOfLastItem >= cartItems.length}
+                disabled={
+                  indexOfLastItem >=
+                  (filteredPosts.length > 0 ? filteredPosts : post).length
+                }
               >
                 Next
               </Button>
             </CardFooter>
-
-            <div>
-              <a href="./EmployeeChart">
-                <Button>chart</Button>
-              </a>
-              <a href="./Emp_User_Chart">
-                <Button>user</Button>
-              </a>
-            </div>
-
             <Footer />
           </Card>
         </div>

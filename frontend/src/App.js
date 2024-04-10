@@ -1,3 +1,4 @@
+
 import "react-toastify/dist/ReactToastify.css";
 
 import { Route, Routes, Navigate } from "react-router-dom";
@@ -38,6 +39,7 @@ import PayPal from "./pages-Kumesh/User/PayPal";
 import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
 import PrintPage from "./pages-Kumesh/User/PrintPage";
 //Kumesh-Admin
+
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 
 import EditOrder from "./pages_Ridmi/EditOrder";
@@ -47,7 +49,9 @@ import "./index.css";
 
 import "react-toastify/dist/ReactToastify.css";
 
+
 import SupplierReport from "./pages_kavindu/SupplierReport";
+
 
 import Transport from "./pages_Malshan/Transport";
 import Add_Driver from "./pages_Malshan/Add_Driver";
@@ -90,6 +94,7 @@ function App() {
       <Route path="/products" element={<EcommerceCard />} />
       <Route path="/user/cart" element={<Cart />} />
       <Route path="/productCategory" element={<ProductList />} />
+      <Route path="/directcart" element={<DirectCartTable />} />
 
       {/* Pasindu */}
       <Route path="/emp/add" element={<CreatPost />} />
