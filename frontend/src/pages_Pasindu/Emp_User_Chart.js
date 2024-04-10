@@ -118,11 +118,19 @@ function LineChart() {
     options: {
       chart: {
         toolbar: {
-          show: true,
+          show: false,
         },
       },
       title: {
         text: "User Salary",
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      colors: ["#FF5733"],
+      stroke: {
+        lineCap: "round",
+        curve: "smooth",
       },
       xaxis: {
         categories: [
@@ -147,11 +155,7 @@ function LineChart() {
   };
 
   if (loading) {
-    return (
-      <div className="bg-gray-700 h-screen flex justify-center items-center">
-        {createLoadingScreen(loading)}
-      </div>
-    );
+    return <div>{createLoadingScreen(loading)}</div>;
   }
 
   if (error) {
@@ -159,7 +163,7 @@ function LineChart() {
   }
 
   return (
-    <Card className="p-10 overflow-visible bg-blue-gray-200 items-start">
+    <Card className="p-10 overflow-visible bg-blue-gray-100 items-start">
       <CardHeader
         floated={false}
         shadow={false}

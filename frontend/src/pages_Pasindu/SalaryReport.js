@@ -179,9 +179,9 @@ function SalaryReport() {
 
     const doc = new jsPDF();
     const data1 = [
-      ["Employee Name", `${employeeName}`],
-      ["Job Role", `${jobRole}`],
-      ["Month", `${selectedMonth}`],
+      [`Employee Name : ${capitalizeSecondPart(employeeName)}`],
+      [`Job Role : ${jobRole}`],
+      [`Month : ${selectedMonth}`],
     ];
 
     const data2 = [
@@ -198,10 +198,11 @@ function SalaryReport() {
     const totalPages = doc.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i);
+      doc.setFontSize(10);
       doc.text(
         `Page ${i} of ${totalPages}`,
-        doc.internal.pageSize.width - 50,
-        doc.internal.pageSize.height - 10
+        doc.internal.pageSize.width - 28,
+        doc.internal.pageSize.height - 18
       );
     }
 
@@ -217,36 +218,36 @@ function SalaryReport() {
       );
     }
 
-     // Add current time
-     const now = new Date();
-     const currentTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-     doc.setFontSize(10);
-     doc.text(`Report generated on: ${currentTime}`, 130, 20);
- 
+    // Add current time
+    const now = new Date();
+    const currentTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+    doc.setFontSize(7);
+    doc.text(`Report generated on: ${currentTime}`, 152, 10);
+
     // Add company logo
     const logoImg = new Image();
     logoImg.src = "/logo/logo.png"; // Assuming 'logo.png' is the path to your logo
-    doc.addImage(logoImg, "PNG", 10, 30, 40, 40); // Adjust position and size accordingly
+    doc.addImage(logoImg, "PNG", 90, 14, 40, 40); // Adjust position and size accordingly
 
     // Add company name
     doc.setFontSize(25);
     doc.setFont("helvetica", "bold");
     // Print "Herbal Heaven" text
-    doc.text("Herbal Heaven", 10, 20);
+    doc.text("Herbal Heaven", 80, 20);
 
     // Add company address, email, and phone number
     doc.setFontSize(8); // Adjust font size as needed
-    doc.text("Company Address:", 140, 40);
-    doc.text("123 Main St, City, Country", 140, 45);
-    doc.text("Email: info@herbalheaven.com", 140, 50);
-    doc.text("Phone: +1234567890", 140, 55);
+    doc.text("Company Address:", 10, 50);
+    doc.text("123 Main St, City, Country", 10, 55);
+    doc.text("Email: info@herbalheaven.com", 10, 60);
+    doc.text("Phone: +1234567890", 10, 65);
 
     // Add description
     doc.setFontSize(12);
     doc.text(
-      "This report contains data analysis and statistics for Herbal Heaven.",
+      "This report contains employee salary for Herbal Heaven company(PVT)LTD.",
       10,
-      doc.internal.pageSize.height - 60
+      doc.internal.pageSize.height - 50
     );
 
     // Signature area
@@ -258,18 +259,78 @@ function SalaryReport() {
     doc.setFont("times", "bold");
     doc.setFontSize(15);
     // Print "Salary Details" text
-    doc.text("Salary Details", 10, 40);
+    doc.text("Salary Details", 10, 85);
 
     // Generate the table
     doc.autoTable({
-      head: [["Employee Details", " "]],
-      body: data1,
-      margin: { top: 60 },
+      head: [["Employee Details"]],
+      body: data1.map((row) => [row[0]]), // Extracting only the first column from data1
+      margin: { top: 90, right: 10, left: 10 },
+      theme: "striped",
+      headStyles: {
+        fillColor: [41, 128, 185],
+        textColor: 255,
+        fontStyle: "bold",
+        fontSize: 15,
+        halign: "center",
+        valign: "middle",
+        lineWidth: 0.2,
+        lineColor: [255, 255, 255],
+        cellPadding: 3,
+      },
+      bodyStyles: {
+        fontSize: 12,
+        textColor: 50,
+        fontStyle: "bold",
+        fillColor: [238, 238, 238],
+        halign: "center",
+        valign: "middle",
+        lineWidth: 0.2,
+        lineColor: [255, 255, 255],
+        cellPadding: 3,
+      },
+      alternateRowStyles: {
+        fillColor: [255, 255, 255],
+      },
+      styles: {
+        font: "Helvetica",
+      },
     });
+
+    // Table 2: Description and Amount
     doc.autoTable({
       head: [["Description", "Amount"]],
       body: data2,
-      margin: { top: 29 },
+      margin: { top: 29, right: 10, left: 10 },
+      theme: "striped",
+      headStyles: {
+        fillColor: [46, 204, 113],
+        textColor: 255,
+        fontStyle: "bold",
+        fontSize: 14,
+        halign: "center",
+        valign: "middle",
+        lineWidth: 0.2,
+        lineColor: [255, 255, 255],
+        cellPadding: 3,
+      },
+      bodyStyles: {
+        fontSize: 12,
+        textColor: 50,
+        fontStyle: "normal",
+        fillColor: [238, 238, 238],
+        halign: "center",
+        valign: "middle",
+        lineWidth: 0.5,
+        lineColor: [255, 255, 255],
+        cellPadding: 3,
+      },
+      alternateRowStyles: {
+        fillColor: [255, 255, 255],
+      },
+      styles: {
+        font: "Helvetica",
+      },
     });
 
     // Save the document
