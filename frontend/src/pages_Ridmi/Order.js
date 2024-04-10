@@ -45,7 +45,8 @@ export default function Order() {
       (order) =>
         order._id.toLowerCase().includes(searchKey) ||
         order.user.toLowerCase().includes(searchKey) ||
-        order.shippingAddress.toLowerCase().includes(searchKey) ||
+        order.shippingAddress.address.toLowerCase().includes(searchKey) ||
+        order.shippingAddress.city.toLowerCase().includes(searchKey) ||
         order.total.toLowerCase().includes(searchKey)
     );
 

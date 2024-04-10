@@ -7,18 +7,11 @@ export default function OrderReceipt(order) {
   const data = order.data;
   const generateReceipt = useCallback(() => {
     const doc = new jsPDF();
-    const customerData = [
-      [`Order ID: ${data?.orderId}`],
-      [`Customer Name: ${data?.user}`],
-      [`Shipping Address : ${data?.shippingAddress}`],
-      [`Payment Status : ${data?.paymentStatus}`],
-      [`Order Status : ${data?.orderStatus}`],
-    ];
 
     const itemData = data?.items?.map((m) => [
       m.name,
       m.quantity,
-      m.price,
+      m.price.toFixed(2),
       m.image,
     ]);
 
@@ -70,8 +63,37 @@ export default function OrderReceipt(order) {
     doc.text("Email: info@herbalheaven.com", 10, 60);
     doc.text("Phone: +1234567890", 10, 65);
 
+    doc.setFontSize(25);
+    doc.setFont("helvetica", "bold");
+    doc.text("INVOICE", 92, 80);
+
+    doc.setFontSize(15);
+    doc.setFont("helvetica", "bold");
+    doc.text(data?.orderId, 92, 90);
+
+    doc.setFontSize(8);
+    doc.text("Shipping Address:", 10, 95);
+    doc.text(data?.shippingAddress.address, 10, 100);
+    doc.text(data?.shippingAddress.city, 10, 105);
+    doc.text(data?.shippingAddress.zip, 10, 110);
+
     // Sub total and Total
     doc.setFontSize(12);
+    // Line above Total
+    doc.line(
+      doc.internal.pageSize.width - 60,
+      doc.internal.pageSize.height - 35,
+      doc.internal.pageSize.width - 10,
+      doc.internal.pageSize.height - 35
+    );
+
+    // Line below Total
+    doc.line(
+      doc.internal.pageSize.width - 60,
+      doc.internal.pageSize.height - 25,
+      doc.internal.pageSize.width - 10,
+      doc.internal.pageSize.height - 25
+    );
     doc.text(
       `Subtotal: Rs.${data?.total.toFixed(2)}`,
       doc.internal.pageSize.width - 20,
@@ -97,50 +119,14 @@ export default function OrderReceipt(order) {
       "right"
     );
 
-    // Table 1
+    // Item Table
     doc.autoTable({
-      head: [["Order Details"]],
-      body: customerData.map((row) => [row[0]]),
-      margin: { top: 90, right: 50, left: 50 },
-      theme: "striped",
-      headStyles: {
-        fillColor: [41, 128, 185],
-        textColor: 255,
-        fontStyle: "bold",
-        fontSize: 15,
-        halign: "center",
-        valign: "middle",
-        lineWidth: 0.2,
-        lineColor: [255, 255, 255],
-        cellPadding: 2,
-      },
-      bodyStyles: {
-        fontSize: 10,
-        textColor: 50,
-        fontStyle: "bold",
-        fillColor: [238, 238, 238],
-        halign: "center",
-        valign: "middle",
-        lineWidth: 0.2,
-        lineColor: [255, 255, 255],
-        cellPadding: 2,
-      },
-      alternateRowStyles: {
-        fillColor: [255, 255, 255],
-      },
-      styles: {
-        font: "Helvetica",
-      },
-    });
-
-    // Table 2
-    doc.autoTable({
-      head: [["Item", "QTY", "Price"]],
+      head: [["Item", "QTY", "Price (Rs.)"]],
       body: itemData,
-      margin: { top: 29, right: 10, left: 10 },
+      margin: { top: 120, right: 10, left: 10 },
       theme: "striped",
       headStyles: {
-        fillColor: [46, 204, 113],
+        fillColor: [20, 74, 46],
         textColor: 255,
         fontStyle: "bold",
         fontSize: 14,
@@ -148,7 +134,7 @@ export default function OrderReceipt(order) {
         valign: "middle",
         lineWidth: 0.2,
         lineColor: [255, 255, 255],
-        cellPadding: 3,
+        cellPadding: 2,
       },
       bodyStyles: {
         fontSize: 10,
