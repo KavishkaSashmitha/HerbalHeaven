@@ -112,6 +112,7 @@ export default function Posts() {
     setPosts(result);
     setCurrentPage(1);
   }
+  
 
   const handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
