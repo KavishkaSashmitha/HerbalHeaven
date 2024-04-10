@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
-import createLoadingScreen from './LoadingScreen';
+import createLoadingScreen from "./LoadingScreen";
 
 export default function EditPost() {
   const { id } = useParams();
@@ -32,6 +32,8 @@ export default function EditPost() {
   });
 
   const [open, setOpen] = React.useState(0);
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -50,6 +52,10 @@ export default function EditPost() {
         }
       } catch (error) {
         console.error("Error fetching post:", error);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 800);
       }
     };
 
@@ -131,6 +137,8 @@ export default function EditPost() {
     // If there are validation errors, update the state and return
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setLoading(false);
+      setUploading(false);
       return;
     }
 
@@ -159,6 +167,7 @@ export default function EditPost() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
+        setUploading(true);
         axios
           .put(`http://localhost:8070/api/posts/post/update/${id}`, data)
           .then((res) => {
@@ -182,6 +191,10 @@ export default function EditPost() {
           })
           .catch((error) => {
             console.error("Error updating post:", error);
+          })
+          .finally(() => {
+            // Set loading to false after asynchronous operations are completed
+            setUploading(false);
           });
       }
     });
@@ -202,6 +215,18 @@ export default function EditPost() {
       reader.readAsDataURL(file);
     }
   };
+
+  if (loading) {
+    return <div>{createLoadingScreen(loading)}</div>;
+  }
+
+  if (uploading) {
+    return (
+      <div className="relative w-32 h-32">
+      <div className="w-16 h-16 border-4 border-t-4 border-gray-200 rounded-full animate-spin absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+    </div>
+    );
+  }
 
   return (
     <>

@@ -17,8 +17,7 @@ import Swal from "sweetalert2";
 import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
-import createLoadingScreen from './LoadingScreen';
-
+import createLoadingScreen from "./LoadingScreen";
 
 function SalaryReport() {
   const { id } = useParams();
@@ -170,6 +169,10 @@ function SalaryReport() {
           })
           .catch((error) => {
             console.error("Error updating post:", error);
+          })
+          .finally(() => {
+            // Set loading to false after asynchronous operations are completed
+            setLoading(false);
           });
       }
     });
@@ -268,11 +271,7 @@ function SalaryReport() {
   };
 
   if (loading) {
-    return (
-      <div>
-      {createLoadingScreen(loading)}
-    </div>
-    );
+    return <div>{createLoadingScreen(loading)}</div>;
   }
 
   return (

@@ -14,6 +14,7 @@ import {
 } from "@material-tailwind/react";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
+import createLoadingScreen from "./LoadingScreen";
 
 export default function ViewPost() {
   const { id } = useParams();
@@ -26,6 +27,8 @@ export default function ViewPost() {
     address: "",
     age: "",
   });
+
+  const [loading, setLoading] = useState(true);
 
   const [open, setOpen] = React.useState(0);
 
@@ -44,6 +47,10 @@ export default function ViewPost() {
         }
       } catch (error) {
         console.error("Error fetching post:", error);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 800);
       }
     };
 
@@ -80,6 +87,10 @@ export default function ViewPost() {
       return value + "v";
     }
     return value;
+  }
+
+  if (loading) {
+    return <div>{createLoadingScreen(loading)}</div>;
   }
 
   return (
