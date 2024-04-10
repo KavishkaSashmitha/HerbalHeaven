@@ -32,6 +32,7 @@ app.use('/api/posts', require('./routes/posts'));
 app.use('/api/directcart', require('./routes/directCart'));
 
 app.use('/sup', require('./routes/supplierRouter'));
+app.use('/', require('./routes/PaymnetRoutes'));
 
 app.use('/api/transports', require('./routes/transports'));
 

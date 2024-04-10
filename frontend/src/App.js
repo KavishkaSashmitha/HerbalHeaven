@@ -72,6 +72,7 @@ import UpdateProduct from "./pages-Dileesha/UpdateProduct";
 import InventoryList from "./pages-Dileesha/InventoryList";
 import MyOrders from "./pages_Ridmi/myOrders";
 import ProductList from "./pages/Category-product";
+import DirectCartTable from "./pages/Company-cart";
 
 
 function App() {
