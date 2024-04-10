@@ -66,7 +66,6 @@ function Emp_Jobrole_Chart() {
           driverCount,
           workerCount,
         ],
-        colors: ["#FFD1E3", "#5BBCFF", "#FFD1E3", "#FFFAB7", "#5BBCFF"],
       },
     ],
     options: {
@@ -80,7 +79,8 @@ function Emp_Jobrole_Chart() {
       },
       dataLabels: {
         enabled: true,
-      }, // Specify your colors here
+      },
+      olors: ["#FF5733", "#FFD700", "#5BBCFF", "#FF1493", "#00FF00"], // Specify your colors here
       plotOptions: {
         bar: {
           columnWidth: "40%",
@@ -113,7 +113,8 @@ function Emp_Jobrole_Chart() {
             fontWeight: 400,
           },
         },
-      }, // Set the maximum value for the y-axis here
+        // Set the maximum value for the y-axis here
+      },
       grid: {
         show: true,
         borderColor: "#dddddd",

@@ -58,7 +58,7 @@
 
 /* CSS */
 .overflow-y-scroll::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+  width: 10px; /* Width of the scrollbar */
 }
 
 .overflow-y-scroll::-webkit-scrollbar-track {
@@ -67,7 +67,7 @@
 
 .overflow-y-scroll::-webkit-scrollbar-thumb {
   background-color: #e8f260; /* Thumb color */
-  border-radius: 6px; /* Roundness of the thumb */
+  border-radius: 5px; /* Roundness of the thumb */
 }
 
 .overflow-y-scroll::-webkit-scrollbar-thumb:hover {
