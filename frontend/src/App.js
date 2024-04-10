@@ -28,6 +28,7 @@ import User from "./pages_kavindu/User";
 import AdminDashboard from "./pages/adminDashboard";
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
+
 //Kumesh-----------------------
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 //Kumesh-user
@@ -72,10 +73,12 @@ import InventoryList from "./pages-Dileesha/InventoryList";
 import MyOrders from "./pages_Ridmi/myOrders";
 import ProductList from "./pages/Category-product";
 
+
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
 
   return (
+
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
@@ -190,6 +193,7 @@ function App() {
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
     </Routes>
+
   );
 }
 
