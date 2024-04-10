@@ -23,8 +23,7 @@ import createLoadingScreen from "./LoadingScreen";
 
 export default function Posts() {
   const [post, setPosts] = useState([]);
-  const [isScrollDisabled, setIsScrollDisabled] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const [open, setOpen] = React.useState(0);
@@ -37,7 +36,9 @@ export default function Posts() {
   // Get current items
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const paginatedPosts = cartItems.slice(indexOfFirstItem, indexOfLastItem);
+  const paginatedPosts = (
+    filteredPosts.length > 0 ? filteredPosts : post
+  ).slice(indexOfFirstItem, indexOfLastItem);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -46,7 +47,14 @@ export default function Posts() {
 
   //generate page numbers
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(cartItems.length / itemsPerPage); i++) {
+  for (
+    let i = 1;
+    i <=
+    Math.ceil(
+      (filteredPosts.length > 0 ? filteredPosts : post).length / itemsPerPage
+    );
+    i++
+  ) {
     pageNumbers.push(i);
   }
 
@@ -54,19 +62,12 @@ export default function Posts() {
     retrievePosts();
   }, []);
 
-  if (isScrollDisabled) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
-
   function retrievePosts() {
     axios
       .get("http://localhost:8070/api/posts/posts")
       .then((res) => {
         if (res.data.success) {
           setPosts(res.data.existingPosts);
-          setCartItems(res.data.existingPosts); // Assuming `existingPosts` holds all the data
 
           // Add setTimeout to setLoading after data retrieval
           setTimeout(() => {
@@ -98,8 +99,8 @@ export default function Posts() {
     });
   };
 
-  function filterData(posts, searchKey) {
-    const result = posts.filter(
+  function filterData(searchKey) {
+    const result = post.filter(
       (post) =>
         post.name.toLowerCase().includes(searchKey) ||
         post.jobrole.toLowerCase().includes(searchKey) ||
@@ -109,20 +110,25 @@ export default function Posts() {
         post.address.toLowerCase().includes(searchKey) ||
         post.age.toLowerCase().includes(searchKey)
     );
-    setPosts(result);
+    setFilteredPosts(result);
     setCurrentPage(1);
   }
-  
 
   const handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
-
-    axios.get("http://localhost:8070/api/posts/posts").then((res) => {
-      if (res.data.success) {
-        filterData(res.data.existingPosts, searchKey);
-      }
-    });
+    filterData(searchKey);
+    // axios.get("http://localhost:8070/api/posts/posts").then((res) => {
+    //   if (res.data.success) {
+    //     filterData(res.data.existingPosts, searchKey);
+    //   }
+    // });
   };
+
+  useEffect(() => {
+    if (!(filteredPosts.length > 0)) {
+      setFilteredPosts(post);
+    }
+  }, [filteredPosts]);
 
   function capitalizeSecondPart(name) {
     if (!name) return "";
@@ -469,7 +475,10 @@ export default function Posts() {
                 variant="outlined"
                 size="sm"
                 onClick={nextPage}
-                disabled={indexOfLastItem >= cartItems.length}
+                disabled={
+                  indexOfLastItem >=
+                  (filteredPosts.length > 0 ? filteredPosts : post).length
+                }
               >
                 Next
               </Button>

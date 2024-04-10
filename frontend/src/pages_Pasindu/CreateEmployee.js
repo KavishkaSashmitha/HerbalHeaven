@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { SidebarWithBurgerMenu } from "../components/navBar";
@@ -8,6 +8,8 @@ import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
+import createLoadingScreen from "./LoadingScreen";
+import { Upload } from "react-feather";
 
 export default function CreatePost() {
   const [state, setState] = useState({
@@ -24,6 +26,18 @@ export default function CreatePost() {
     confirmation: false,
     errors: {},
   });
+
+  const [loading, setLoading] = useState(true);
+  const [creating, setCreating] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Validation functions
   const validateName = () => {
@@ -196,6 +210,7 @@ export default function CreatePost() {
     // Check if any errors exist
     if (Object.values(errors).some((error) => error !== "")) {
       setState((cs) => ({ ...cs, errors }));
+      setLoading(false);
       return;
     }
 
@@ -224,6 +239,12 @@ export default function CreatePost() {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
+        setCreating(true);
+        const interval = setInterval(() => {
+          setProgress((prevProgress) =>
+            prevProgress >= 100 ? 0 : prevProgress + 25
+          );
+        }, 500);
         axios
           .post("http://localhost:8070/api/posts/post/save", data)
           .then((res) => {
@@ -242,13 +263,49 @@ export default function CreatePost() {
               });
             }
             if (state.confirmation) {
+              setCreating(false);
               window.location.href = "/emp";
             }
+          })
+          .catch((error) => {
+            setCreating(false);
+            // Handle error
+            Swal.fire("Error", "Failed to add employee", "error");
+          })
+          .finally(() => {
+            setCreating(false);
+            clearInterval(interval);
           });
       }
     });
   };
 
+  if (loading) {
+    return <div>{createLoadingScreen(loading)}</div>;
+  }
+
+  if (creating) {
+    return (
+      <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-custom-color">
+        <div className="w-32 h-32">
+          <div className="w-16 h-16">
+            <Upload className="w-full h-full text-blue-500 animate-spin" />
+          </div>
+          <div className="text-center mt-2">
+            <p className="text-amber-800 font-bold text-xl">
+              Creating... {progress}%
+            </p>
+            <div className="bg-blue-500 h-2 rounded-lg overflow-hidden mt-1">
+              <div
+                className="h-full bg-amber-800 transition-all duration-1000"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   const { errors } = state;
   return (
     <>

@@ -112,7 +112,11 @@ export default function ViewPost() {
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
           <Card className="grid bg-blue-gray-100">
-            <CardHeader floated={false} shadow={false} className="rounded-none bg-blue-gray-100">
+            <CardHeader
+              floated={false}
+              shadow={false}
+              className="rounded-none bg-blue-gray-100"
+            >
               <div className="ml-4 md:items-center ">
                 <Breadcrumbs>
                   <Link to="/">
