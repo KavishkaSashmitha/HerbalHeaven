@@ -19,45 +19,35 @@ import axios from "axios";
 function Payment() {
   const location = useLocation();
   const [cart, setCart] = useState([]);
-
-  const { token } = useAuth();
-
-
   const { isLoggedIn, token } = useAuth();
 
-  // useEffect(() => {
-  //   const fetchCartItems = async () => {
-  //     try {
-  //       if (isLoggedIn) {
-  //         const response = await axios.get(
-  //           "http://localhost:8070/api/user/cart",
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${token}`,
-  //             },
-  //           }
-  //         );
-  //         // Remove duplicate items from the cart
-  //         const uniqueCartItems = Array.from(
-  //           new Set(response.data.map((item) => item.name))
-  //         ).map((name) => {
-  //           return response.data.find((item) => item.name === name);
-  //         });
-  //         setCart(response.data);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching cart items:", error);
-  //     }
-  //   };
-
-  //   fetchCartItems();
-  // }, [isLoggedIn, token]);
-
-  console.log("cart", cart);
-
   useEffect(() => {
-    setCart(location.state.selectedCartItems);
-  }, [location.state.selectedCartItems]);
+    const fetchCartItems = async () => {
+      try {
+        if (isLoggedIn) {
+          const response = await axios.get(
+            "http://localhost:8070/api/user/cart",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          // Remove duplicate items from the cart
+          const uniqueCartItems = Array.from(
+            new Set(response.data.map((item) => item.name))
+          ).map((name) => {
+            return response.data.find((item) => item.name === name);
+          });
+          setCart(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
+
+    fetchCartItems();
+  }, [isLoggedIn, token]);
 
   // Define the steps with their corresponding route paths
   const steps = [
@@ -100,7 +90,6 @@ function Payment() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
-    placeOrder();
     sendRequest()
       .then(() => {
         alert("Card details Validated successfully!");
@@ -109,30 +98,6 @@ function Payment() {
       .catch((error) => {
         console.error("Error adding card details:", error);
       });
-  };
-
-  const placeOrder = async () => {
-    await axios.post(
-      "http://localhost:8070/api/orders/order/save",
-      {
-        total: calculateTotalBill(),
-        shippingAddress: inputs.address,
-        paymentStatus: "Paid",
-        orderStatus: "Preparing",
-        items: cart.map(({ name, price, quantity, image }) => ({
-          name,
-          price,
-          quantity,
-          image,
-        })),
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
   };
 
   const sendRequest = async () => {
@@ -194,9 +159,11 @@ function Payment() {
                 />
                 <p className="paymnt-topic">Pay With pay pal</p>
               </div>
-              <div className="method-three method-box">
+              <div className="method-three method-box"  onClick={() => {
+                  window.location.href = "/cashdelivery";
+                }}>
                 <img src={amazon} alt="amazon" className="img-paymt card-amo" />
-                <p className="paymnt-topic">pay with amazon payments</p>
+                <p className="paymnt-topic">pay with cash on delivery</p>
               </div>
             </div>
             <form onSubmit={handleSubmit}>
@@ -308,6 +275,8 @@ function Payment() {
                     type="text"
                     value={inputs.cardnumber}
                     onChange={handleChange}
+                    maxLength={16}
+                    minLength={16}
                     name="cardnumber"
                     placeholder="5645-6456-7665-0456"
                     required

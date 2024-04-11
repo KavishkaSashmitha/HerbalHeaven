@@ -1,6 +1,9 @@
 const express = require('express');
 require('dotenv').config();
 const connectDB = require('./config/dbConfig');
+const Cardrouter = require("./routes/PaymnetRoutes");
+const CashRouter = require("./routes/CashRoutes");
+
 const colors = require('colors');
 const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
@@ -27,19 +30,16 @@ app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/products/:id', require('./routes/productRoutes'));
 app.use('/api/posts', require('./routes/posts'));
 app.use('/api/directcart', require('./routes/directCart'));
-
 app.use('/sup', require('./routes/supplierRouter'));
-
 app.use('/api/transports', require('./routes/transports'));
-
+app.use("/", Cardrouter);
+app.use("/cash", CashRouter);
 app.use(bodyParser.json());
 
 // Use routes
 
 app.use("/api", require("./routes/otpRoutes"));
 app.use("/api/orders", require("./routes/orders"));
-
-
 app.use('/inventory', require('./routes/inventoryRoutes'));
 /*
 app.use(
