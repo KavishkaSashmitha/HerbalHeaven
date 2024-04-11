@@ -313,7 +313,7 @@ function FuelReport() {
   return (
     <>
       <div
-        className="flex h-screen overflow-scroll"
+        className="flex h-screen "
         style={{ backgroundColor: "#02353c" }}
       >
         <div
@@ -323,17 +323,17 @@ function FuelReport() {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="w-full h-full ">
+        <div className="w-full h-screen">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="overflow-scroll edit-post-bg">
+          <Card className="edit-post-bg overflow-auto">
             <div class="">
               <CardHeader
                 floated={false}
                 shadow={false}
                 className="rounded-none"
               >
-                <div className="ml-4 bg-none">
-                  <Breadcrumbs className="">
+                <div className="">
+                  <Breadcrumbs className="bg-white">
                     <Link to="/">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
