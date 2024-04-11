@@ -4,7 +4,7 @@ import MonthlySalChart from "./Emp_Tot_SalChart";
 import Emp_Jobrole_Chart from "./Emp_Jobrole_Chart";
 import Emp_Gender_Chart from "./Emp_Gender_Chart";
 import HighestSalary from "./HiestSalary";
-import LastAddedEmp from "./HiestSalary";
+import LastAddedEmp from "./RecentlyAddedEmployee";
 import { Card, CardHeader, Breadcrumbs } from "@material-tailwind/react";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
@@ -159,7 +159,7 @@ function AdminDashboard() {
                             </div>
 
                             <div className="max-w-sm mx-auto">
-                              <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-xl">
+                              <div className="flex flex-col items-center pl-1 pt-2 pb-2 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-200 dark:bg-gray-800 dark:shadow-lg dark:hover:shadow-2xl">
                                 <div className="p-4 flex items-center">
                                   <div className="p-3 bg-orange-100 rounded-full mr-4">
                                     <svg
@@ -172,10 +172,12 @@ function AdminDashboard() {
                                   </div>
                                   <div>
                                     <p className="text-gray-600 dark:text-gray-400">
-                                      Total Employee
+                                      Last Joined Employee
                                     </p>
-                                    <p className="text-xl font-semibold text-gray-700 dark:text-gray-200">
-                                      {documents.length ?? 0}
+                                    <p className="text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                                    <ul>
+                                        <LastAddedEmp />
+                                      </ul>
                                     </p>
                                   </div>
                                 </div>

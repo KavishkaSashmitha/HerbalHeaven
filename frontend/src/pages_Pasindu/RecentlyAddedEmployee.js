@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function LastAddedEmp() {
+function Documents() {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lastUser, setLastUser] = useState(null);
@@ -9,23 +9,24 @@ function LastAddedEmp() {
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8070/api/posts/posts"
-        );
+        const response = await axios.get("http://localhost:8070/api/posts/posts");
         
-        // Assuming response.data.existingPosts contains a list of posts
+        // Assuming the response contains an array of posts
         const posts = response.data.existingPosts;
-
-        // Set the documents
+        
+        // Set the documents in state
         setDocuments(posts);
         
+        // If there are posts, find the most recent one
         if (posts.length > 0) {
-          // Find the most recently added post
-          // Assuming the posts are already sorted by creation date in ascending order
+          // Assuming the posts are sorted in ascending order of creation time,
+          // otherwise, you might need to sort them
           const lastPost = posts[posts.length - 1];
           
-          // Assuming the user information is stored in lastPost.user
-          setLastUser(lastPost.user);
+          // Set the lastUser with the user from the most recent post
+          if (lastPost && lastPost.name) {
+            setLastUser(lastPost.name);
+          }
         }
       } catch (error) {
         console.error("Error fetching documents:", error);
@@ -45,10 +46,12 @@ function LastAddedEmp() {
         <div>
           <h3>Last Added User</h3>
           {lastUser ? (
-            <p>Name: {lastUser.name}</p>
-            // Display additional user information as needed
+            <div>
+              <p>Name: {lastUser.name}</p>
+              {/* Display more information about the user if available */}
+            </div>
           ) : (
-            <p>No users found.</p>
+            <p>No user information available.</p>
           )}
           
           <h3>Documents</h3>
@@ -63,4 +66,4 @@ function LastAddedEmp() {
   );
 }
 
-export default LastAddedEmp;
+export default Documents;
