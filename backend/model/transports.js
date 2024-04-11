@@ -16,7 +16,7 @@ const TransportSchema = new mongoose.Schema({
         required:true
     },
 
-    gender:{
+    category:{
         type:String,
         required:true
     },
