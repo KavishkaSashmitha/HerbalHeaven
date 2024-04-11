@@ -182,7 +182,7 @@ function FuelReport() {
     // Add description
     doc.setFontSize(12);
     doc.text(
-      "This report contains employee salary for Herbal Heaven company(PVT)LTD.",
+      "This report contains transport cost for Herbal Heaven company(PVT)LTD.",
       10,
       doc.internal.pageSize.height - 50
     );
