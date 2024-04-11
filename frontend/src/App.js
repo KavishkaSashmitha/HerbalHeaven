@@ -56,6 +56,7 @@ import Transport from './pages_Malshan/Transport';
 import Add_Driver from './pages_Malshan/Add_Driver';
 import Edit_Driver from './pages_Malshan/Edit_Driver';
 import Driver_Details from './pages_Malshan/Driver_Details';
+import FuelReport from './pages_Malshan/FuelReport';
 
 import './index.css';
 import ManagerLogin from './pages/Manager-Login';
@@ -174,7 +175,7 @@ function App() {
       <Route path="/transport/add" element={<Add_Driver />} />
       <Route path="/transport/edit/:id" element={<Edit_Driver />} />
       <Route path="/transport/:id" element={<Driver_Details />} />
-
+      <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
       {/* Kavindu */}
