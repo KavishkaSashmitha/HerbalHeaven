@@ -3,7 +3,7 @@ import axios from "axios";
 import MonthlySalChart from "./Emp_Tot_SalChart";
 import Emp_Jobrole_Chart from "./Emp_Jobrole_Chart";
 import Emp_Gender_Chart from "./Emp_Gender_Chart";
-import HighestSalary from "./HiestSalary";
+import HighestSalary from "./HighestSalaryEmp";
 import LastAddedEmp from "./RecentlyAddedEmployee";
 import LastAddedEmpImage from "./RecentEmpPhoto";
 import {

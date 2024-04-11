@@ -15,12 +15,12 @@ import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import "react-toastify/dist/ReactToastify.css";
-import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
-import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
-import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
+// import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
+// import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
+// import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
 import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
-import HiestSalary from "./pages_Pasindu/HiestSalary";
+// import HiestSalary from "./pages_Pasindu/HiestSalary";
 
 import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
@@ -163,15 +163,15 @@ function App() {
       <Route path="/emp/:id" element={<PostDetails />} />
       <Route path="/emp" element={<Posts />} />
       <Route path="/salaryreport" element={<SalaryReport />} />
-      <Route path="/EmployeeChart" element={<EmployeeChart />} />
+      {/* <Route path="/EmployeeChart" element={<EmployeeChart />} />
       <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
-      <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} />
+      <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} /> */}
       <Route
         path="/Display_Employee_Details/:id"
         element={<Display_Employee_Details />}
       />
       <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
-      <Route path="/HiestSalary" element={<HiestSalary />} />
+      {/* <Route path="/HiestSalary" element={<HiestSalary />} /> */}
 
       {/* Malshan */}
       <Route path="/transport" element={<Transport />} />
