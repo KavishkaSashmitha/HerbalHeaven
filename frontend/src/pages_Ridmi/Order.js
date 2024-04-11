@@ -8,9 +8,11 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  IconButton,
   Input,
   Typography,
 } from '@material-tailwind/react';
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 
 export function getStatusColor(status) {
   switch (status) {
@@ -82,19 +84,24 @@ export default function Order() {
 
   const [open, setOpen] = useState(false);
 
-  // Get current orders
-  const indexOfLastOrder = currentPage * ordersPerPage;
-  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
-
+  // Change page
+  const indexOfLastItem = currentPage * ordersPerPage;
+  const indexOfFirstItem = indexOfLastItem - ordersPerPage;
+  const currentItems = originalOrders.slice(indexOfFirstItem, indexOfLastItem);
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(originalOrders.length / ordersPerPage); i++) {
+    pageNumbers.push(i);
+  }
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPage = () => setCurrentPage(currentPage + 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
   return (
     <div
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: '#02353c' }}
     >
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-scroll">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? 'block' : 'hidden'
@@ -220,7 +227,7 @@ export default function Order() {
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map((order, index) => (
+                    {currentItems.map((order, index) => (
                       <tr key={index}>
                         <td className="p-4 border-b border-blue-gray-50">
                           <div className="flex items-center gap-3">
@@ -308,25 +315,42 @@ export default function Order() {
                 </table>
               </div>
             </CardBody>
-            <CardFooter>
-              <nav>
-                <ul className="pagination">
-                  {Array.from(
-                    { length: Math.ceil(orders.length / ordersPerPage) },
-                    (_, i) => (
-                      <li key={i} className="page-item">
-                        <a
-                          onClick={() => paginate(i + 1)}
-                          className="page-link"
-                          href="#"
-                        >
-                          {i + 1}
-                        </a>
-                      </li>
-                    )
-                  )}
-                </ul>
-              </nav>
+            <CardFooter className="flex justify-center items-center mt-8">
+              <Button
+                variant="outlined"
+                size="sm"
+                onClick={prevPage}
+                disabled={currentPage === 1}
+                className="mr-2"
+              >
+                Previous
+              </Button>
+              <div className="flex gap-2">
+                {pageNumbers.map((number) => (
+                  <IconButton
+                    key={number}
+                    variant={number === currentPage ? 'filled' : 'outlined'}
+                    size="sm"
+                    onClick={() => paginate(number)}
+                    className={`${
+                      number === currentPage
+                        ? 'bg-blue-500 text-white'
+                        : 'text-blue-500'
+                    }`}
+                  >
+                    {number}
+                  </IconButton>
+                ))}
+              </div>
+              <Button
+                variant="outlined"
+                size="sm"
+                onClick={nextPage}
+                disabled={indexOfLastItem >= originalOrders.length}
+                className="ml-2"
+              >
+                Next
+              </Button>
             </CardFooter>
           </Card>
         </div>
