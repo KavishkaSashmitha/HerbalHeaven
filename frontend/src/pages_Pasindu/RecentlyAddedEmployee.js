@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function Documents() {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [lastUser, setLastUser] = useState(null);
+  const [lastEmployee, setLastEmployee] = useState(null);
 
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await axios.get("http://localhost:8070/api/posts/posts");
-        
+        const response = await axios.get(
+          "http://localhost:8070/api/posts/posts"
+        );
+
         // Assuming the response contains an array of posts
         const posts = response.data.existingPosts;
-        
+
         // Set the documents in state
         setDocuments(posts);
-        
+
         // If there are posts, find the most recent one
         if (posts.length > 0) {
-          // Assuming the posts are sorted in ascending order of creation time,
-          // otherwise, you might need to sort them
+          // Find the most recent post (assuming posts are sorted)
           const lastPost = posts[posts.length - 1];
-          
-          // Set the lastUser with the user from the most recent post
+
+          // If there is a user in the last post, set it as the last employee
           if (lastPost && lastPost.name) {
-            setLastUser(lastPost.name);
+            setLastEmployee(lastPost);
           }
         }
       } catch (error) {
@@ -44,25 +45,19 @@ function Documents() {
         <p>Loading...</p>
       ) : (
         <div>
-          <h3>Last Added User</h3>
-          {lastUser ? (
+          {lastEmployee ? (
             <div>
-              <p>Name: {lastUser.name}</p>
-              {/* Display more information about the user if available */}
+              <p>Name: {lastEmployee.name}</p>
             </div>
           ) : (
-            <p>No user information available.</p>
+            <p>No employee information available.</p>
           )}
-          
-          <h3>Documents</h3>
-          <ul>
-            {documents.map((document, index) => (
-              <li key={index}>{document.title}</li>
-            ))}
-          </ul>
         </div>
       )}
     </div>
+//     <div>
+//     <div>Name: {userWithHighestSalary}</div>
+//   </div>
   );
 }
 
