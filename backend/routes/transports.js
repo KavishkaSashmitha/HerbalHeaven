@@ -82,4 +82,24 @@ router.delete("/transport/delete/:id", (req, res) => {
     });
 });
 
+//update cost
+
+router.put("/transport/cost/:id", (req, res) => {
+  const { id } = req.params;
+  const { month, amount } = req.body;
+
+  const costUpdate = { [`cost.${month.toLowerCase()}`]: amount };
+  Transports.findByIdAndUpdate(id, {
+    $set: costUpdate,
+  })
+    .then(() => {
+      return res.status(200).json({
+        success: "Updated Syccesfully",
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({ error: err });
+    });
+});
+
 module.exports = router;
