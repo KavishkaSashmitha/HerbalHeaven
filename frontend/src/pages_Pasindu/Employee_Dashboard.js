@@ -5,7 +5,13 @@ import Emp_Jobrole_Chart from "./Emp_Jobrole_Chart";
 import Emp_Gender_Chart from "./Emp_Gender_Chart";
 import HighestSalary from "./HiestSalary";
 import LastAddedEmp from "./RecentlyAddedEmployee";
-import { Card, CardHeader, Breadcrumbs } from "@material-tailwind/react";
+import LastAddedEmpImage from "./RecentEmpPhoto";
+import {
+  Card,
+  CardHeader,
+  Breadcrumbs,
+  Avatar,
+} from "@material-tailwind/react";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
 import createLoadingScreen from "./LoadingScreen";
@@ -159,23 +165,18 @@ function AdminDashboard() {
                             </div>
 
                             <div className="max-w-sm mx-auto">
-                              <div className="flex flex-col items-center pl-1 pt-2 pb-2 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-200 dark:bg-gray-800 dark:shadow-lg dark:hover:shadow-2xl">
-                                <div className="p-4 flex items-center">
-                                  <div className="p-3 bg-orange-100 rounded-full mr-4">
-                                    <svg
-                                      className="w-6 h-6 text-orange-500 dark:text-orange-100"
-                                      fill="currentColor"
-                                      viewBox="0 0 20 20"
-                                    >
-                                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
-                                    </svg>
-                                  </div>
+                              <div className="flex flex-col items-center pl-1 pb-1 pt-2 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-200 dark:bg-gray-800 dark:shadow-lg dark:hover:shadow-2xl">
+                                <div className="p-2 flex items-center">
+                                  <ul className="mr-3">
+                                    <LastAddedEmpImage />
+                                  </ul>
+                                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
                                   <div>
-                                    <p className="text-gray-600 dark:text-gray-400">
-                                      Last Joined Employee
+                                    <p className="text-sm mb-1 font-normal text-gray-600 dark:text-gray-400">
+                                      Newly Joined Employee
                                     </p>
                                     <p className="text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                                    <ul>
+                                      <ul>
                                         <LastAddedEmp />
                                       </ul>
                                     </p>

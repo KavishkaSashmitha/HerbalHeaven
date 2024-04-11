@@ -28,6 +28,7 @@ export default function ViewPost() {
     email: "",
     address: "",
     age: "",
+    image: "",
   });
 
   const [loading, setLoading] = useState(true);

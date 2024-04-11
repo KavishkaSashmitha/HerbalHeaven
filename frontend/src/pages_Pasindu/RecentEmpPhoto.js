@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Avatar } from "@material-tailwind/react";
 
-function LastAddedEmp() {
+function LastAddedEmpImage() {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lastEmployee, setLastEmployee] = useState(null);
+  const [lastUserImage, setLastUserImage] = useState(null);
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   jobrole: "",
+  //   gender: "",
+  //   mobile: "",
+  //   email: "",
+  //   address: "",
+  //   age: "",
+  // });
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -12,6 +23,9 @@ function LastAddedEmp() {
         const response = await axios.get(
           "http://localhost:8070/api/posts/posts"
         );
+        // if (response.data.success) {
+        //   setFormData(response.data.post);
+        // }
 
         // Assuming the response contains an array of posts
         const posts = response.data.existingPosts;
@@ -24,9 +38,8 @@ function LastAddedEmp() {
           // Find the most recent post (assuming posts are sorted)
           const lastPost = posts[posts.length - 1];
 
-          // If there is a user in the last post, set it as the last employee
-          if (lastPost && lastPost.name) {
-            setLastEmployee(lastPost);
+          if (lastPost.image) {
+            setLastUserImage(lastPost.image);
           }
         }
       } catch (error) {
@@ -45,9 +58,13 @@ function LastAddedEmp() {
         <p>Loading...</p>
       ) : (
         <div>
-          {lastEmployee ? (
+          {lastUserImage ? (
             <div>
-              <p>{lastEmployee.name}</p>
+              <Avatar
+                src={lastUserImage}
+                size="lg"
+                className="mr-5 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
+              />
             </div>
           ) : (
             <p>No employee information available.</p>
@@ -58,4 +75,4 @@ function LastAddedEmp() {
   );
 }
 
-export default LastAddedEmp;
+export default LastAddedEmpImage;
