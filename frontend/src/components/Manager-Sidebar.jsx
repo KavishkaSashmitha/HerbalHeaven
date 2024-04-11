@@ -44,16 +44,16 @@ export function DefaultSidebar() {
       <Card
         color="transparent"
         shadow={false}
-        className="h-full  w-72 bg-custom-color overflow-y-scroll"
+        className="h-full overflow-y-scroll w-72 bg-custom-color"
         style={{ borderRadius: '0' }}
       >
-        <div className="mb-2 p-4">
+        <div className="p-4 mb-2">
           <Link to="/">
             <div className="flex items-center justify-center mt-0 ">
               <img
                 src="\logo\logo-1.png"
                 alt="brand"
-                className="h-12 w-12 mb-10 mt-10"
+                className="w-12 h-12 mt-10 mb-10"
               />
               <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-teal-300">
                 Herbal Heaven
@@ -63,12 +63,12 @@ export function DefaultSidebar() {
           <div className="p-1">
             <Input
               className="text-teal-200"
-              icon={<MagnifyingGlassIcon className="h-5 w-5 text-teal-100" />}
+              icon={<MagnifyingGlassIcon className="w-5 h-5 text-teal-100" />}
               label="Search"
             />
           </div>
         </div>
-        <div className="overflow-y-scroll overflow-x-hidden">
+        <div className="overflow-x-hidden overflow-y-scroll">
           <List className="mr-10">
             <Accordion
               open={open === 1}
@@ -84,10 +84,10 @@ export function DefaultSidebar() {
               <ListItem className="p-0 mr-5" selected={open === 1}>
                 <AccordionHeader
                   onClick={() => handleOpen(1)}
-                  className="border-b-0 p-3 hover:bg-teal-800"
+                  className="p-3 border-b-0 hover:bg-teal-800"
                 >
                   <ListItemPrefix>
-                    <PresentationChartBarIcon className="h-5 w-5 text-teal-200 hover:text-teal-700" />
+                    <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
                   </ListItemPrefix>
 
                   <Typography
@@ -105,7 +105,7 @@ export function DefaultSidebar() {
                       <ListItemPrefix>
                         <ChevronRightIcon
                           strokeWidth={3}
-                          className="h-3 w-5 text-yellow-200"
+                          className="w-5 h-3 text-yellow-200"
                         />
                       </ListItemPrefix>
                       Customer
@@ -115,7 +115,7 @@ export function DefaultSidebar() {
                     <ListItemPrefix>
                       <ChevronRightIcon
                         strokeWidth={3}
-                        className="h-3 w-5 text-yellow-200"
+                        className="w-5 h-3 text-yellow-200"
                       />
                     </ListItemPrefix>
                     Inventory
@@ -125,7 +125,7 @@ export function DefaultSidebar() {
                       <ListItemPrefix>
                         <ChevronRightIcon
                           strokeWidth={3}
-                          className="h-3 w-5 text-yellow-200"
+                          className="w-5 h-3 text-yellow-200"
                         />
                       </ListItemPrefix>
                       Cart
@@ -137,7 +137,7 @@ export function DefaultSidebar() {
                       <ListItemPrefix>
                         <ChevronRightIcon
                           strokeWidth={3}
-                          className="h-3 w-5 text-yellow-200"
+                          className="w-5 h-3 text-yellow-200"
                         />
                       </ListItemPrefix>
                       Employee
@@ -149,19 +149,19 @@ export function DefaultSidebar() {
                       <ListItemPrefix>
                         <ChevronRightIcon
                           strokeWidth={3}
-                          className="h-3 w-5 text-yellow-200"
+                          className="w-5 h-3 text-yellow-200"
                         />
                       </ListItemPrefix>
                       Supplier
                     </ListItem>
                   </Link>
 
-                  <Link to="#">
+                  <Link to="/transport">
                     <ListItem className="text-yellow-200">
                       <ListItemPrefix>
                         <ChevronRightIcon
                           strokeWidth={3}
-                          className="h-3 w-5 text-yellow-200"
+                          className="w-5 h-3 text-yellow-200"
                         />
                       </ListItemPrefix>
                       Transport
@@ -173,7 +173,7 @@ export function DefaultSidebar() {
                       <ListItemPrefix>
                         <ChevronRightIcon
                           strokeWidth={3}
-                          className="h-3 w-5 text-yellow-200"
+                          className="w-5 h-3 text-yellow-200"
                         />
                       </ListItemPrefix>
                       Order
@@ -184,7 +184,7 @@ export function DefaultSidebar() {
                       <ListItemPrefix>
                         <ChevronRightIcon
                           strokeWidth={3}
-                          className="h-3 w-5 text-yellow-200"
+                          className="w-5 h-3 text-yellow-200"
                         />
                       </ListItemPrefix>
                       Payment
@@ -200,7 +200,7 @@ export function DefaultSidebar() {
                 <Link to="/dashboard">
                   <ListItem className="p-2 py-2 hover:bg-cyan-500 ">
                     <ListItemPrefix>
-                      <UserCircleIcon className="h-5 w-5 text-yellow-400 " />
+                      <UserCircleIcon className="w-5 h-5 text-yellow-400 " />
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"
@@ -212,7 +212,7 @@ export function DefaultSidebar() {
                 </Link>
                 <ListItem className="p-2 py-1 bg-red-500" onClick={logout}>
                   <ListItemPrefix>
-                    <PowerIcon className="h-5 w-5" />
+                    <PowerIcon className="w-5 h-5" />
                   </ListItemPrefix>
                   <Typography
                     color="blue-gray"
@@ -226,7 +226,7 @@ export function DefaultSidebar() {
               <Link to="/login">
                 <ListItem className="p-2 py-2 bg-light-green-500">
                   <ListItemPrefix>
-                    <UserCircleIcon className="h-5 w-5" />
+                    <UserCircleIcon className="w-5 h-5" />
                   </ListItemPrefix>
                   <Typography color="blue-gray" className="mr-auto font-bold ">
                     Log In
