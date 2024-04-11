@@ -3,6 +3,7 @@ const DirectCartItem = require('../model/directCartModel');
 
 const router = express.Router();
 
+// POST endpoint to add an item to the cart
 router.post('/', async (req, res) => {
   try {
     const { item } = req.body;
@@ -33,6 +34,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// GET endpoint to retrieve all items from the cart
 router.get('/', async (req, res) => {
   try {
     const cartItems = await DirectCartItem.find();
@@ -42,6 +44,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 // DELETE endpoint to remove an item from the cart
 router.delete('/:id', async (req, res) => {
   try {
@@ -58,4 +61,20 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// DELETE endpoint to remove all items from the cart
+router.delete('/', async (req, res) => {
+  try {
+    // Remove all items from the cart
+    await DirectCartItem.deleteMany({});
+
+    res
+      .status(200)
+      .json({ message: 'All items removed from the cart successfully' });
+  } catch (error) {
+    console.error('Error removing all items from the cart:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 module.exports = router;

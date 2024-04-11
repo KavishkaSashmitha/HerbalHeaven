@@ -89,9 +89,9 @@ export default function Transports() {
         transport.d_name.toLowerCase().includes(searchKey) ||
         transport.d_mobile.toLowerCase().includes(searchKey) ||
         transport.dob.toLowerCase().includes(searchKey)||
-        transport.gender.toLowerCase().includes(searchKey) ||
         transport.nic.toLowerCase().includes(searchKey) ||
         transport.vehicle_type.toLowerCase().includes(searchKey) ||
+        transport.category.toLowerCase().includes(searchKey) ||
         transport.vehicle_No.toLowerCase().includes(searchKey)
     );
     setTransports(result);
@@ -237,7 +237,7 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        Driver Name
+                        Owner Name
                       </p>
                     </th>
                     <th className="p-4 ">
@@ -252,17 +252,17 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        Gender
-                      </p>
-                    </th>
-                    <th className="p-4 ">
-                      <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
                         NIC
                       </p>
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
                         Vehicle Type
+                      </p>
+                    </th>
+                    <th className="p-4 ">
+                      <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
+                      Category
                       </p>
                     </th>
                     <th className="p-4 ">
@@ -323,16 +323,7 @@ export default function Transports() {
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 ">
-                        <div className="flex items-center gap-3">
-                          <div className="flex flex-col">
-                            <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {transport.gender?.charAt(0)?.toUpperCase() +
-                                transport.gender?.slice(1)}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
+                      
 
                       <td className="p-4">
                           <div className="flex items-center gap-3">
@@ -364,6 +355,17 @@ export default function Transports() {
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
+                              {transport.category?.charAt(0)?.toUpperCase() +
+                                transport.category?.slice(1)}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td className="p-4 ">
+                        <div className="flex items-center gap-3">
+                          <div className="flex flex-col">
+                            <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
                               {transport.vehicle_No}
                             </p>
                           </div>
@@ -386,6 +388,14 @@ export default function Transports() {
                             <Button color="red">
                               <i className="mr-2 fas fa-trash-alt"></i>
                               Delete
+                            </Button>
+                          </a>
+                          <a
+                            className="mr-2 btn btn-primary"
+                            href={`/FuelReport/${transport._id}`}
+                          >
+                            <Button color="green">
+                              <i className="mr-2 fas fa-edit"></i>report
                             </Button>
                           </a>
                         </div>
@@ -431,14 +441,7 @@ export default function Transports() {
               Next
             </Button>
           </CardFooter>
-          <div>
-            <a href="./EmployeeChart">
-              <Button>chart</Button>
-            </a>
-            <a href="./Emp_User_Chart">
-              <Button>user</Button>
-            </a>
-          </div>
+          
         </div>
 
         <Footer />

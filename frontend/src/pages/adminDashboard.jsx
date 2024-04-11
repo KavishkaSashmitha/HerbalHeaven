@@ -26,7 +26,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/solid';
 import AdminNavbar from '../components/AdminNavbar';
-import Sidebar from '../components/AdminSidebar';
+
 import { DefaultSidebar } from '../components/Manager-Sidebar';
 import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 

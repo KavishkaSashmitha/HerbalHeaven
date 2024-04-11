@@ -1,3 +1,5 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Route, Routes, Navigate } from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -25,6 +27,7 @@ import User from './pages_kavindu/User';
 import AdminDashboard from './pages/adminDashboard';
 
 import SalaryReport from './pages_Pasindu/SalaryReport';
+import DirectCartTable from './pages/DirectOrder';
 //Kumesh-----------------------
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 //Kumesh-user
@@ -35,7 +38,9 @@ import UpdateCard from './pages-Kumesh/User/UpdateCard';
 import PayPal from './pages-Kumesh/User/PayPal';
 import PaypalCheckOut from './pages-Kumesh/User/PaypalCheckOut';
 import PrintPage from './pages-Kumesh/User/PrintPage';
+
 //Kumesh-Admin
+
 import NetIncome from './pages-Kumesh/Admin/Income/Incomes';
 
 import EditOrder from './pages_Ridmi/EditOrder';
@@ -51,7 +56,9 @@ import Transport from './pages_Malshan/Transport';
 import Add_Driver from './pages_Malshan/Add_Driver';
 import Edit_Driver from './pages_Malshan/Edit_Driver';
 import Driver_Details from './pages_Malshan/Driver_Details';
+import FuelReport from './pages_Malshan/FuelReport';
 
+import './index.css';
 import ManagerLogin from './pages/Manager-Login';
 import { CartAdmin, CartDetails } from './pages/Cart-Admin';
 import CartChart from './pages/Cart-Chart';
@@ -64,9 +71,6 @@ import UpdateProduct from './pages-Dileesha/UpdateProduct';
 import InventoryList from './pages-Dileesha/InventoryList';
 import MyOrders from './pages_Ridmi/myOrders';
 import ProductList from './pages/Category-product';
-
-import CompanyCart from './pages/Company-cart';
-import DirectCartTable from './pages/Company-cart';
 
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
@@ -171,7 +175,7 @@ function App() {
       <Route path="/transport/add" element={<Add_Driver />} />
       <Route path="/transport/edit/:id" element={<Edit_Driver />} />
       <Route path="/transport/:id" element={<Driver_Details />} />
-
+      <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
       {/* Kavindu */}

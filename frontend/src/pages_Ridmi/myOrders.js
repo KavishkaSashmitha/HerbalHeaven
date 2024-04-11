@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useAuth } from "../middleware/authContext";
 import { getStatusColor } from "./Order";
+import OrderReceipt from "./OrderReceipt";
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -20,7 +21,6 @@ export default function MyOrders() {
           setOrders(res.data.existingOrders);
         }
       });
-    console.log("token", token);
   }, [token]);
 
   useEffect(() => {
@@ -32,7 +32,8 @@ export default function MyOrders() {
       (order) =>
         order._id.toLowerCase().includes(searchKey) ||
         order.user.toLowerCase().includes(searchKey) ||
-        order.shippingAddress.toLowerCase().includes(searchKey) ||
+        order.shippingAddress.address.toLowerCase().includes(searchKey) ||
+        order.shippingAddress.city.toLowerCase().includes(searchKey) ||
         order.total.toLowerCase().includes(searchKey)
     );
 
@@ -85,6 +86,11 @@ export default function MyOrders() {
                 Total
               </p>
             </th>
+            <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+              <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                Actions
+              </p>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -104,7 +110,8 @@ export default function MyOrders() {
               </td>
               <td class="p-4 border-b border-blue-gray-50">
                 <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                  {order.shippingAddress}
+                  {order.shippingAddress.address}, {order.shippingAddress.city},{" "}
+                  {order.shippingAddress.zip}
                 </p>
               </td>
               <td class="p-4 border-b border-blue-gray-50">
@@ -145,9 +152,12 @@ export default function MyOrders() {
               <td class="p-4 border-b border-blue-gray-50">
                 <div class="flex items-center gap-3">
                   <p class="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                    Rs.{order.total}
+                    Rs.{order.total.toFixed(2)}
                   </p>
                 </div>
+              </td>
+              <td class="p-4 border-b border-blue-gray-50">
+                <OrderReceipt data={order} />
               </td>
             </tr>
           ))}

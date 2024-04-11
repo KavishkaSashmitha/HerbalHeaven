@@ -4,10 +4,15 @@ import { Button } from "@material-tailwind/react";
 function CreateLoadingScreen(loading) {
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-custom-color ">
-        <div className="justify-center md-auto">
-          {/* <h2 className="text-white text-lg">Herbal Heaven</h2> */}
+      <div className="flex items-center justify-center min-h-screen bg-custom-color">
+        <div className="justify-center md-auto animate-bounce">
+          <img
+            src="/logo/loading.png"
+            alt="Description of the image"
+            style={{ width: "100px", height: "100px" }}
+          />
         </div>
+
         <div className="flex flex-col width-auto px-10">
           <div className="flex flex-row">
             <div class="w-10 h-10 pt-2 px-3 text-3xl font-sans font-bold text-amber-800 animate-bounce">
