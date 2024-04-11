@@ -59,31 +59,11 @@ const HighestSalary = () => {
 
   // Render the component with the highest salary, associated username, and the month of the highest salary
   return (
-    <Card className="overflow-visible bg-white items-start">
-      <CardHeader
-        floated={false}
-        shadow={false}
-        color="transparent"
-        className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
-      >
-        <div>
-          <Typography variant="h6" color="blue-gray">
-            Highest Salary
-          </Typography>
-        </div>
-      </CardHeader>
-      <CardBody>
-        <Typography variant="h5" color="blue-gray">
-          Highest Salary: {highestSalary}
-        </Typography>
-        <Typography variant="h6" color="blue-gray">
-          User: {userWithHighestSalary}
-        </Typography>
-        <Typography variant="h6" color="blue-gray">
-          Month: {monthOfHighestSalary}
-        </Typography>
-      </CardBody>
-    </Card>
+    <div>
+      <div>Name: {userWithHighestSalary}</div>
+      <div>Month: {monthOfHighestSalary}</div>
+      <div>Salary: {highestSalary}</div>
+    </div>
   );
 };
 
