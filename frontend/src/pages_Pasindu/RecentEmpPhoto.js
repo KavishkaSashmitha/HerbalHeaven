@@ -63,7 +63,7 @@ function LastAddedEmpImage() {
               <Avatar
                 src={lastUserImage}
                 size="lg"
-                className="mr-5 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
+                className="mr-3 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
               />
             </div>
           ) : (
