@@ -88,7 +88,7 @@ function LineChart() {
   const chartConfig = {
     type: "line",
     width: 1100,
-    height: 400,
+    height: 330,
     series: [
       {
         name: "Salary",
