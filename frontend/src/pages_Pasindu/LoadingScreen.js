@@ -4,8 +4,8 @@ import { Button } from "@material-tailwind/react";
 function CreateLoadingScreen(loading) {
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-custom-color animate-bounce">
-        <div className="justify-center md-auto">
+      <div className="flex items-center justify-center min-h-screen bg-custom-color">
+        <div className="justify-center md-auto animate-bounce">
           <img
             src="/logo/loading.png"
             alt="Description of the image"
