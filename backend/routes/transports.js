@@ -89,7 +89,7 @@ router.put("/transport/cost/:id", (req, res) => {
   const { month, amount } = req.body;
 
   const costUpdate = { [`cost.${month.toLowerCase()}`]: amount };
-  Transports.findByIdAndUpdate(id, {
+  transports.findByIdAndUpdate(id, {
     $set: costUpdate,
   })
     .then(() => {

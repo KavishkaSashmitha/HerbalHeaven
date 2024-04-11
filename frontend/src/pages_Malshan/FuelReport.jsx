@@ -9,7 +9,6 @@ import {
   CardFooter,
   CardHeader,
   CardBody,
-  Button,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -17,7 +16,6 @@ import Swal from "sweetalert2";
 import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
-// import createLoadingScreen from "./LoadingScreen";
 
 function FuelReport() {
   const { id } = useParams();
