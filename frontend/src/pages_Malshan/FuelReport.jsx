@@ -306,9 +306,6 @@ function FuelReport() {
     setOpen(!open);
   };
 
-  // if (loading) {
-  //   return <div>{createLoadingScreen(loading)}</div>;
-  // }
 
   return (
     <>
@@ -333,7 +330,7 @@ function FuelReport() {
                 className="rounded-none"
               >
                 <div className="">
-                  <Breadcrumbs className="bg-white">
+                  <Breadcrumbs className="">
                     <Link to="/">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
