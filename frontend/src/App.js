@@ -52,7 +52,7 @@ import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import SupplierReport from "./pages_kavindu/SupplierReport";
-import material_report from "./pages_kavindu/MaterialCostReport";
+import MaterialReport from "./pages_kavindu/MaterialCostReport";
 
 import Transport from "./pages_Malshan/Transport";
 import Add_Driver from "./pages_Malshan/Add_Driver";
@@ -187,7 +187,7 @@ function App() {
       <Route path="/sup/update/:id" element={<UpdateUser />} />
       <Route path="/sup" element={<User />} />
       <Route path="/sup/supreport/:id" element={<SupplierReport />} />
-      <Route path="/sup/material_report/:id" element={<material_report />} />
+      <Route path="/sup/material_report/:id" element={<MaterialReport />} />
 
       <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/inventory/add" element={<AddProduct />} />

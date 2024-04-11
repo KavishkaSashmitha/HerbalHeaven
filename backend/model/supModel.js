@@ -30,6 +30,13 @@ const empSchema = new Schema({
 
     default: {},
   },
+
+  materialCost: {
+    type: Map,
+    of: Number,
+    required: true,
+    default: {},
+  },
 });
 
 module.exports = mongoose.model("supplier", empSchema);
