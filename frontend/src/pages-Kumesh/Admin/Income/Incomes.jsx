@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import Cartdetails from "./NetIncome";
 import { SidebarWithBurgerMenu } from "../../../components/navBar";
 import { useReactToPrint } from "react-to-print";
-
+import './Income.css'
 const URL = "http://localhost:8070/api/orders/ordersnet";
 
 const fetchOrders = async () => {
@@ -25,7 +24,7 @@ function Incomes() {
     const fetchData = async () => {
       try {
         const data = await fetchOrders();
-        setOrders(data.existingOrders);
+        setOrders(data.existingOrders || []); // Ensure that orders is always an array
         setLoading(false);
       } catch (error) {
         setError(error.message);
@@ -48,7 +47,8 @@ function Incomes() {
   console.log("Loading:", loading);
   console.log("Error:", error);
 
-  if (loading) return <div>Loading...</div>;
+  // Check if orders is undefined or not an array before rendering
+  if (!Array.isArray(orders) || loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -67,13 +67,36 @@ function Incomes() {
                 <th className="table_income_th">user</th>
                 <th className="table_income_th">paymentStatus</th>
                 <th className="table_income_th">orderStatus</th>
-                <th className="table_income_th">shippingAddress</th>
                 <th className="table_income_th">total</th>
+                <th className="table_income_th">shippingAddress</th>
               </tr>
             </thead>
             <tbody>
-              {orders && orders.map((order, index) => (
-                <Cartdetails key={index} order={order} />
+              {orders.map((orders, index) => (
+                <tr key={index}>
+                  <td className="table_income_th">
+                    <p className="sub_par_dis">{orders.orderId || "-"}</p>
+                  </td>
+                  <td className="table_income_th">
+                    <p className="sub_par_dis">{orders.user || "-"}</p>
+                  </td>
+                  <td className="table_income_th">
+                    <p className="sub_par_dis">{orders.paymentStatus || "-"}</p>
+                  </td>
+                  <td className="table_income_th">
+                    <p className="sub_par_dis">{orders.orderStatus || "-"}</p>
+                  </td>
+                  <td className="table_income_th">
+                    <p className="sub_par_dis">
+                      {orders.total ? `$${orders.total.toFixed(2)}` : "-"}
+                    </p>
+                  </td>
+                  <td className="table_income_th">
+                    <p className="sub_par_dis">
+                      {orders.shippingAddress || "-"}
+                    </p>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>
