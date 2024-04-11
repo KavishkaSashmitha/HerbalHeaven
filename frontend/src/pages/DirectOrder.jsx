@@ -72,14 +72,23 @@ const DirectCartTable = () => {
 
   const printBillAndPostData = async () => {
     try {
-      // Perform actions to print bill
       console.log('Printing bill...');
 
-      // Generate PDF
       printBill();
 
-      // Remove all items from the cart
+      // Construct items array with product details
+      const items = directCartData.map((item) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        // Include other necessary product details
+        // Assuming you need name and price
+        name: item.productDetails.name,
+        price: item.productDetails.price,
+      }));
+
       await removeAllFromCart();
+      // Post cart details with items array
+      await postCartDetails(items);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -109,6 +118,26 @@ const DirectCartTable = () => {
   const totalPrice = directCartData.reduce((total, item) => {
     return total + item.productDetails.price * item.quantity;
   }, 0);
+
+  const postCartDetails = async (cartDetails) => {
+    try {
+      const response = await fetch('http://localhost:8070/api/directorders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items: cartDetails }), // Ensure items key is included
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to post cart details');
+      }
+
+      console.log('Cart details posted successfully');
+    } catch (error) {
+      console.error('Error posting cart details:', error);
+    }
+  };
 
   return (
     <div
