@@ -10,6 +10,6 @@ const route = express.Router();
 //@private
 //Get Function
 route.get('/', productList);
-route.get('/', getProductById);
+route.get('/:id', getProductById);
 
 module.exports = route;

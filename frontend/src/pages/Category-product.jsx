@@ -8,6 +8,9 @@ import {
   Typography,
   Breadcrumbs,
   Input,
+  Tabs,
+  TabsHeader,
+  Tab,
 } from '@material-tailwind/react';
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
@@ -16,7 +19,7 @@ import { Link } from 'react-router-dom';
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(6); // Number of products per page
+  const [productsPerPage] = useState(5); // Number of products per page
   const [searchInput, setSearchInput] = useState(''); // State for search input
   const [directCart, setDirectCart] = useState({}); // State to manage cart items and quantities
 
@@ -117,6 +120,15 @@ const ProductList = () => {
             <Breadcrumbs className="ml-2 mb-2 mt-2">
               {/* Breadcrumbs */}
             </Breadcrumbs>
+
+            <div className="flex w-max gap-4 md-auto ml-2 mt-4 mb-4">
+              <Link to="/productCategory">
+                <Button className="flex">Direct Sell</Button>
+              </Link>
+              <Link to="/directcart">
+                <Button className="flex">Direct Cart</Button>
+              </Link>
+            </div>
             <div className="flex items-center ml-2 mb-4">
               <Input
                 type="text"
