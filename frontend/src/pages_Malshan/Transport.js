@@ -100,6 +100,7 @@ export default function Transports() {
 
   const handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
+    console.log("Search key:", searchKey);
 
     axios.get("http://localhost:8070/api/transports/transports").then((res) => {
       if (res.data.success) {
@@ -164,7 +165,7 @@ export default function Transports() {
               <div className="flex flex-row items-start justify-between gap-8 mb-8 sm:flex-row">
                 <div className="">
                   <h5 className="block font-sans antialiased font-bold leading-snug tracking-normal text-gray-100 text-x1">
-                    Driver List
+                    Transport Detail List
                   </h5>
                   <p className="block mt-1 font-sans text-base antialiased font-normal leading-relaxed text-gray-300">
                     See information about Transport
@@ -188,7 +189,7 @@ export default function Transports() {
                       >
                         <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
                       </svg>
-                      Add Driver
+                      Add New
                     </Button>
                   </Link>
                 </div>
@@ -226,8 +227,8 @@ export default function Transports() {
           </div>
 
           <CardBody>
-            <div className="overflow-x-auto ">
-              <table className="w-full mt-4 text-left divide-y divide-gray-200 rounded-lg table-auto dark:divide-gray-700 min-w-max bg-blue-gray-100 opacity-95">
+            <div className="overflow-x-auto " >
+              <table className="w-full mt-4 text-left divide-y divide-gray-200 rounded-lg table-auto dark:divide-gray-700 min-w-max bg-blue-gray-100 opacity-95"  style={{ opacity: 0.95}}>
                 <thead>
                   <tr>
                     <th className="p-4 ">
@@ -272,10 +273,9 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1">
-                        Action
+                        Actions
                       </p>
                     </th>
-                    
                   </tr>
                 </thead>
 
@@ -294,10 +294,10 @@ export default function Transports() {
                       <td className="p-4 ">
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
-                            <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
+                            <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900" style={{textAlign:"center"}}>
                               <a
                                 href={`/transports/transport/${transport._id}`}
-                                style={{ textDecoration: "none" }}
+                                style={{ textDecoration: "none"}}
                               >
                                 {capitalizeSecondPart(transport.d_name)}
                               </a>
@@ -342,7 +342,7 @@ export default function Transports() {
                         </td>
 
                       <td className="p-4 ">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3" >
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
                               {transport.vehicle_type}
@@ -395,8 +395,8 @@ export default function Transports() {
                             className="mr-2 btn btn-primary"
                             href={`/FuelReport/${transport._id}`}
                           >
-                            <Button color="green">
-                              <i className="mr-2 fas fa-edit"></i>report
+                            <Button color="orange">
+                              <i className="mr-2 fas fa-file">  </i>Report
                             </Button>
                           </a>
                         </div>
