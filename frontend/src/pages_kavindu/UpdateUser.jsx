@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Select } from "@material-tailwind/react";
 import { Footer } from "../components/Footer";
-import { SidebarWithBurgerMenu } from "../components/navBar";
+import AdminNavbar from "../components/AdminNavbar";
+
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
@@ -24,6 +25,10 @@ function UpdateUser() {
   const [address, setAddress] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(0);
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     axios
@@ -124,7 +129,7 @@ function UpdateUser() {
   return (
     <>
       <div className="bg-image01 h-screen">
-        <SidebarWithBurgerMenu />
+        <AdminNavbar toggleSidebar={toggleSidebar} />
         <div
           style={{
             display: "flex",
