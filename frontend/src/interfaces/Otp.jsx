@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Button } from '@material-tailwind/react';
-import backgroundImage from '../assets/sign-in.jpg';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { Button } from "@material-tailwind/react";
+import backgroundImage from "../assets/sign-in.jpg";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const OTPVerification = () => {
-  const [email, setEmail] = useState('');
-  const [otp, setOTP] = useState('');
+  const [email, setEmail] = useState("");
+  const [otp, setOTP] = useState("");
   const [isAdminLog, setIsAdminLog] = useState(false);
   const navigate = useNavigate();
 
@@ -15,14 +15,14 @@ const OTPVerification = () => {
     try {
       // Check if user exists and is an admin
       const userCheckResponse = await axios.post(
-        'http://localhost:8070/api/posts/check-user',
+        "http://localhost:8070/api/posts/check-user",
         { email }
       );
 
-      if (userCheckResponse.data.exists && userCheckResponse.data.isAdmin) {
+      if (userCheckResponse.data.exists) {
         // User exists and is an admin, send OTP
         const otpResponse = await axios.post(
-          'http://localhost:8070/api/send-otp',
+          "http://localhost:8070/api/send-otp",
           {
             email,
           }
@@ -30,7 +30,7 @@ const OTPVerification = () => {
         console.log(otpResponse.data);
       } else {
         // User does not exist or is not an admin, show toast
-        toast.error('Not a Manager here');
+        toast.error("Not a Manager here");
       }
     } catch (error) {
       console.error(error);
@@ -40,14 +40,14 @@ const OTPVerification = () => {
   const verifyOTP = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:8070/api/verify-otp',
+        "http://localhost:8070/api/verify-otp",
         { email, otp }
       );
       console.log(response.data);
       if (response.data.success) {
         setIsAdminLog(true);
         console.log(setIsAdminLog);
-        navigate('/admin-dashboard');
+        navigate("/admin-dashboard");
       }
     } catch (error) {
       console.error(error);
