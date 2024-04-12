@@ -81,7 +81,7 @@ export function SidebarWithBurgerMenu({}) {
           <Link to="/">
             <div className="flex items-center justify-center mt-0 ">
               <img
-                src="\logo\logo-1.png"
+                src="/logo/loading.png"
                 alt="brand"
                 className="h-13 w-12 mb-10 mt-10"
               />
@@ -99,7 +99,7 @@ export function SidebarWithBurgerMenu({}) {
           </div>
 
           <List className=" bg-green-100">
-            <Link to="#">
+            <Link to="/my-orders">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
                   <AccordionHeader

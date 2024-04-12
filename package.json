@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-pdf/renderer": "^3.3.8",
     "assert": "^2.1.0",
     "axios": "^1.6.7",
@@ -22,6 +24,7 @@
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "feather-icons-react": "^0.7.0",
     "firebase-admin": "^12.0.0",
     "gwt": "^1.2.0-alpha",
     "html2canvas": "^1.4.1",
@@ -35,15 +38,20 @@
     "nodemon": "^3.0.3",
     "react-apexcharts": "^1.4.1",
     "react-chartjs-2": "^5.2.0",
+    "react-feather": "^2.0.10",
+    "react-icons": "^5.0.1",
     "react-paginate": "^8.2.0",
     "react-router-dom": "^6.22.3",
     "react-slick": "^0.30.2",
+    "react-spinners": "^0.13.8",
     "slick-carousel": "^1.8.1",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "streamifier": "^0.1.1",
     "swiper": "^11.1.0",
+    "tailwindcss": "^3.4.3",
     "url": "^0.11.3",
     "uuid": "^9.0.1"
+
   }
 }

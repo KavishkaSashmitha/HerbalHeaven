@@ -28,11 +28,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AdminNavbar from '../components/AdminNavbar';
-import Sidebar from '../components/AdminSidebar';
+
 import { DefaultSidebar } from '../components/Manager-Sidebar';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Chart } from 'chart.js';
+import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 
 const TABLE_HEAD = [
   'Product',
@@ -45,9 +46,11 @@ const TABLE_HEAD = [
 export function CartAdmin() {
   const [cartItems, setCartItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(4);
+  const [itemsPerPage] = useState(3);
   const [searchInput, setSearchInput] = useState('');
   const [filteredCartItems, setFilteredCartItems] = useState([]);
+  const [loading, setLoading] = useState([true]);
+  const [open, setOpen] = React.useState(0);
 
   // Function to handle search input change
   const handleSearchInputChange = (event) => {
@@ -103,12 +106,16 @@ export function CartAdmin() {
         setCartItems(response.data);
       } catch (error) {
         console.error('Error fetching cart items:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchCartItems();
   }, []);
-  const [open, setOpen] = React.useState(0);
+  if (loading) {
+    return <div>{CreateLoadingScreen(loading)}</div>;
+  }
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -277,263 +284,265 @@ export function CartAdmin() {
   return (
     <>
       <div
-        className="flex h-screen overflow-scroll overflow-x-hidden"
+        className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
         style={{ backgroundColor: '#02353c' }}
       >
-        <div
-          className={`sidebar w-68  bg-custom-color text-white ${
-            open ? 'block' : 'hidden'
-          }`}
-        >
-          <DefaultSidebar open={open} handleOpen={setOpen} />
-        </div>
-        <div className="w-full h-full">
-          <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="h-full ml-2">
-            <Breadcrumbs className="ml-2 mt-2">
-              <Link to="/">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                </svg>
-              </Link>
-              <Link to="/dashboard">
-                <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                  <span>Dashboard</span>
-                </li>
-              </Link>
-              <Link to="/cart-admin">
-                <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                  <span>Cart-Manager</span>
-                </li>
-              </Link>
-            </Breadcrumbs>
+        <div className="flex flex-1 overflow-hidden">
+          <div
+            className={`sidebar w-68 bg-custom-color text-white ${
+              open ? 'block' : 'hidden'
+            }`}
+          >
+            <DefaultSidebar open={open} handleOpen={setOpen} />
+          </div>
+          <div className="flex flex-col flex-1 overflow-hidden">
+            <AdminNavbar toggleSidebar={toggleSidebar} />
+            <Card className="flex flex-col flex-1 ml-2">
+              <Breadcrumbs className="ml-2 mt-2">
+                <Link to="/">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                  </svg>
+                </Link>
+                <Link to="/dashboard">
+                  <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <span>Dashboard</span>
+                  </li>
+                </Link>
+                <Link to="/cart-admin">
+                  <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <span>Cart-Manager</span>
+                  </li>
+                </Link>
+              </Breadcrumbs>
 
-            <CardBody className=" px-0">
-              <div className=" grid justify-center  ml-4">
-                <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                  <div className="card w-full">
-                    <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                      <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                        <UserCircleIcon className="h-10 w-10" />
-                      </div>
-                      <div>
-                        <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                          Users
-                        </p>
-                        <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                          {uniqueEmailCount} Users
-                        </p>
+              <CardBody className="px-0 flex flex-col flex-1">
+                <div className=" grid justify-center  ml-4">
+                  <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                    <div className="card w-full">
+                      <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                        <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                          <UserCircleIcon className="h-10 w-10" />
+                        </div>
+                        <div>
+                          <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                            Users
+                          </p>
+                          <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                            {uniqueEmailCount} Users
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="card w-full ">
-                    {mostRepeatedProduct && (
+                    <div className="card w-full ">
+                      {mostRepeatedProduct && (
+                        <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                          <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                            <img
+                              src={mostRepeatedProduct.image}
+                              alt={mostRepeatedProduct.name}
+                              className="w-12 h-132rounded-full "
+                            />
+                          </div>
+                          <div>
+                            <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                              Most Added Product
+                            </p>
+
+                            <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                              {mostRepeatedProduct.name}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="card w-max">
                       <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                        <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                          <img
-                            src={mostRepeatedProduct.image}
-                            alt={mostRepeatedProduct.name}
-                            className="w-12 h-132rounded-full "
-                          />
+                        <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+                          <svg
+                            class="w-10 h-10"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+                          </svg>
                         </div>
                         <div>
                           <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                            Most Added Product
+                            Most Added User
                           </p>
-
-                          <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                            {mostRepeatedProduct.name}
+                          <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                            {mostRepeatedUser ? mostRepeatedUser.email : 'N/A'}
                           </p>
                         </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="card w-max">
-                    <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                      <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                        <svg
-                          class="w-10 h-10"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
-                        </svg>
-                      </div>
-                      <div>
-                        <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                          Most Added User
-                        </p>
-                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                          {mostRepeatedUser ? mostRepeatedUser.email : 'N/A'}
-                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center ml-2 mb-4">
-                <Input
-                  type="text"
-                  placeholder="Search by product name"
-                  value={searchInput}
-                  onChange={handleSearchInputChange}
-                  className="mr-2"
-                  label="search"
-                />
-                {/* Button to generate report */}
-              </div>
-              <div>
-                <Button
-                  className="m mt-2 mb-2 ml-2 w-max"
-                  onClick={generateReport}
-                >
-                  Generate Report{' '}
-                  <DocumentArrowDownIcon className="inline-block h-5 w-5 ml-1" />
-                </Button>
-              </div>
+                <div className="flex items-center ml-2 mb-4">
+                  <Input
+                    type="text"
+                    placeholder="Search by product name"
+                    value={searchInput}
+                    onChange={handleSearchInputChange}
+                    className="mr-2"
+                    label="search"
+                  />
+                  {/* Button to generate report */}
+                </div>
+                <div>
+                  <Button
+                    className="m mt-2 mb-2 ml-2 w-max"
+                    onClick={generateReport}
+                  >
+                    Generate Report{' '}
+                    <DocumentArrowDownIcon className="inline-block h-5 w-5 ml-1" />
+                  </Button>
+                </div>
 
-              <div id="report-content">
-                <table className="w-full min-w-max table-auto text-left">
-                  <thead>
-                    <tr>
-                      {TABLE_HEAD.map((head) => (
-                        <th
-                          key={head}
-                          className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-                        >
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal leading-none opacity-70"
+                <div id="report-content">
+                  <table className="w-full min-w-max table-auto text-left text-sm">
+                    <thead>
+                      <tr>
+                        {TABLE_HEAD.map((head) => (
+                          <th
+                            key={head}
+                            className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
                           >
-                            {head}
-                          </Typography>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentItems.map((item, index) => (
-                      <tr key={index}>
-                        <td className="p-4">
-                          <div className="flex items-center gap-3">
-                            <Avatar
-                              src={item.image}
-                              alt={item.name}
-                              size="md"
-                              className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
-                            />
                             <Typography
                               variant="small"
                               color="blue-gray"
-                              className="font-bold"
+                              className="font-normal leading-none opacity-70"
                             >
-                              {item.name}
+                              {head}
                             </Typography>
-                          </div>
-                        </td>
-                        <td className="p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            Rs.{item.price}
-                          </Typography>
-                        </td>
-                        <td className="p-4">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {formatDate(item.createdAt)}
-                          </Typography>
-                        </td>
-                        <td className="p-4">
-                          <div className="w-max">
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentItems.map((item, index) => (
+                        <tr key={index}>
+                          <td className="p-4">
+                            <div className="flex items-center gap-3">
+                              <Avatar
+                                src={item.image}
+                                alt={item.name}
+                                size="md"
+                                className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1"
+                              />
+                              <Typography
+                                variant="small"
+                                color="blue-gray"
+                                className="font-bold"
+                              >
+                                {item.name}
+                              </Typography>
+                            </div>
+                          </td>
+                          <td className="p-4">
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal"
                             >
-                              {item.user ? item.user.email : 'N/A'}
+                              Rs.{item.price}
                             </Typography>
-                          </div>
-                        </td>
-                        <td className="p-4">
-                          <div className="flex items-center gap-3">
-                            <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
-                              <Avatar
-                                src={
-                                  item.account === 'visa'
-                                    ? 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png'
-                                    : 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png'
-                                }
-                                size="sm"
-                                alt=""
-                                variant="square"
-                                className="h-full w-full object-contain p-1"
-                              />
-                            </div>
-                            <div className="flex flex-col">
+                          </td>
+                          <td className="p-4">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {formatDate(item.createdAt)}
+                            </Typography>
+                          </td>
+                          <td className="p-4">
+                            <div className="w-max">
                               <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="font-normal capitalize"
-                              ></Typography>
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal opacity-70"
-                              ></Typography>
+                                className="font-normal"
+                              >
+                                {item.user ? item.user.email : 'N/A'}
+                              </Typography>
                             </div>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardBody>
-            <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-              <Button
-                variant="outlined"
-                size="sm"
-                onClick={prevPage}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </Button>
-              <div className="flex items-center gap-2">
-                {pageNumbers.map((number) => (
-                  <IconButton
-                    key={number}
-                    variant={number === currentPage ? 'outlined' : 'text'}
-                    size="sm"
-                    onClick={() => paginate(number)}
-                  >
-                    {number}
-                  </IconButton>
-                ))}
-              </div>
-              <Button
-                variant="outlined"
-                size="sm"
-                onClick={nextPage}
-                disabled={indexOfLastItem >= cartItems.length}
-              >
-                Next
-              </Button>
-            </CardFooter>
-          </Card>
+                          </td>
+                          <td className="p-4">
+                            <div className="flex items-center gap-3">
+                              <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
+                                <Avatar
+                                  src={
+                                    item.account === 'visa'
+                                      ? 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/visa.png'
+                                      : 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/logos/mastercard.png'
+                                  }
+                                  size="sm"
+                                  alt=""
+                                  variant="square"
+                                  className="h-full w-full object-contain p-1"
+                                />
+                              </div>
+                              <div className="flex flex-col">
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal capitalize"
+                                ></Typography>
+                                <Typography
+                                  variant="small"
+                                  color="blue-gray"
+                                  className="font-normal opacity-70"
+                                ></Typography>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </CardBody>
+              <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={prevPage}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </Button>
+                <div className="flex items-center gap-2">
+                  {pageNumbers.map((number) => (
+                    <IconButton
+                      key={number}
+                      variant={number === currentPage ? 'outlined' : 'text'}
+                      size="sm"
+                      onClick={() => paginate(number)}
+                    >
+                      {number}
+                    </IconButton>
+                  ))}
+                </div>
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={nextPage}
+                  disabled={indexOfLastItem >= cartItems.length}
+                >
+                  Next
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
         </div>
       </div>
     </>

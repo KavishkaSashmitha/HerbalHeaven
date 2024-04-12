@@ -51,7 +51,7 @@ export function DefaultSidebar() {
           <Link to="/">
             <div className="flex items-center justify-center mt-0 ">
               <img
-                src="\logo\logo-1.png"
+                src="/logo/loading.png"
                 alt="brand"
                 className="w-12 h-12 mt-10 mb-10"
               />
@@ -167,8 +167,7 @@ export function DefaultSidebar() {
                       Transport
                     </ListItem>
                   </Link>
-
-                  <Link to="#">
+                  <Link to="/admin-orders">
                     <ListItem className="text-yellow-200">
                       <ListItemPrefix>
                         <ChevronRightIcon
@@ -179,7 +178,7 @@ export function DefaultSidebar() {
                       Order
                     </ListItem>
                   </Link>
-                  <Link to="#">
+                  <Link to="/netincome">
                     <ListItem className="text-yellow-200">
                       <ListItemPrefix>
                         <ChevronRightIcon

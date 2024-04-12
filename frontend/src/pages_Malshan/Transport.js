@@ -390,6 +390,14 @@ export default function Transports() {
                               Delete
                             </Button>
                           </a>
+                          <a
+                            className="mr-2 btn btn-primary"
+                            href={`/FuelReport/${transport._id}`}
+                          >
+                            <Button color="green">
+                              <i className="mr-2 fas fa-edit"></i>report
+                            </Button>
+                          </a>
                         </div>
                       </td>
                       
