@@ -46,7 +46,7 @@ const OTPVerification = () => {
       console.log(response.data);
       if (response.data.success) {
         setIsAdminLog(true);
-        console.log(setIsAdminLog);
+        localStorage.setItem("manager", JSON.stringify(response.data.manager));
         navigate("/admin-dashboard");
       }
     } catch (error) {

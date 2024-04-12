@@ -1,6 +1,11 @@
 import "react-toastify/dist/ReactToastify.css";
 
-import { Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 
 import Home from "./pages/Home";
 import { SidebarWithBurgerMenu } from "./components/navBar";
@@ -74,6 +79,8 @@ import InventoryList from "./pages-Dileesha/InventoryList";
 import MyOrders from "./pages_Ridmi/myOrders";
 import ProductList from "./pages/Category-product";
 
+import ProtectedRoute from "./middleware/ProtectedRoute";
+
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
 
@@ -82,9 +89,12 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signUp" element={<Register />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/products" element={<EcommerceCard />} />
-      <Route path="/user/cart" element={<Cart />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/products" element={<EcommerceCard />} />
+        <Route path="/user/cart" element={<Cart />} />
+      </Route>
       {/* <Route path="/register" element={<Register />} /> */}
 
       {/* Kavishka */}
@@ -102,12 +112,14 @@ function App() {
       <Route path="/emp/add" element={<CreatPost />} />
       <Route path="/emp/edit/:id" element={<EditPost />} />
       <Route path="/emp/:id" element={<PostDetails />} />
-      <Route path="/emp" element={<Posts />} />
-      <Route path="/salaryreport" element={<SalaryReport />} />
-      <Route path="/user/payment" element={<Payment />} />
-      <Route path="/emp/add" element={<CreateUser />} />
-      <Route path="/emp/update/:id" element={<UpdateUser />} />
-      <Route path="/emp" element={<User />} />
+      <Route element={<ProtectedRoute manager />}>
+        <Route path="/emp" element={<Posts />} />
+        <Route path="/salaryreport" element={<SalaryReport />} />
+        <Route path="/user/payment" element={<Payment />} />
+        <Route path="/emp/add" element={<CreateUser />} />
+        <Route path="/emp/update/:id" element={<UpdateUser />} />
+      </Route>
+
       <Route path="/salaryreport/:id" element={<SalaryReport />} />
       <Route path="/sup/addsup" element={<CreateUser />} />
       <Route path="/sup/update/:id" element={<UpdateUser />} />
@@ -161,7 +173,7 @@ function App() {
       <Route path="/emp/add" element={<CreatPost />} />
       <Route path="/emp/edit/:id" element={<EditPost />} />
       <Route path="/emp/:id" element={<PostDetails />} />
-      <Route path="/emp" element={<Posts />} />
+
       <Route path="/salaryreport" element={<SalaryReport />} />
       {/* <Route path="/EmployeeChart" element={<EmployeeChart />} />
       <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
