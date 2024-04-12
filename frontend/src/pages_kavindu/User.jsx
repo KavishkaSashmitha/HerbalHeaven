@@ -96,6 +96,35 @@ const User = () => {
                               color="blue-gray"
                               className="font-normal"
                             >
+
+                              <Button color="black">Update</Button>
+                            </Link>
+                            <Button
+                              color="red"
+                              onClick={() => handleDelete(user._id)}
+                            >
+                              Delete
+                            </Button>
+                            <Link
+                              to={`/sup/material_report/${user._id}`}
+                              className="btn btn-warning"
+                            >
+                              <Button color="green">Supplier Report</Button>
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+                <Link to="/sup/addsup">
+                  <Button
+                    color="amber"
+                    className="py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  >
+                    Add New Supplier
+                  </Button>
+                </Link>
+
                               {head}
                             </Typography>
                           </th>
@@ -150,6 +179,7 @@ const User = () => {
                     </tbody>
                   </table>
                 </div>
+
               </Card>
             </div>
           </div>
