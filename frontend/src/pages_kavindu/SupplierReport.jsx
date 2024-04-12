@@ -2,24 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { navigate } from "react-router-dom";
 import { Button, Input } from "@material-tailwind/react";
 import { Footer } from "../components/Footer";
+import { jsPDF } from "jspdf";
 
-const SupplierReport = ({ match }) => {
+const SupplierReport = () => {
   const [quantity, setQuantity] = useState("");
   const [unitPrice, setUnitPrice] = useState("");
   const [name, setName] = useState("");
-  const [payment, setPayment] = useState("");
   const [rawMaterial, setRawMaterial] = useState("");
-  const { id } = useParams();
-
   const [totalPayment, setTotalPayment] = useState(0);
-
-  const calculateTotalPayment = () => {
-    const total = quantity * unitPrice;
-    setTotalPayment(isNaN(total) ? 0 : total.toFixed(2));
-  };
+  const { id } = useParams();
 
   useEffect(() => {
     axios
@@ -27,26 +20,28 @@ const SupplierReport = ({ match }) => {
       .then((result) => {
         const userData = result.data;
         setName(userData.name);
-
         setRawMaterial(userData.rawMaterial);
       })
       .catch((err) => console.log(err));
   }, [id]);
 
-  // const handlePayment = () => {
-  //   const confirmed = window.confirm("Are you sure you want to update?");
-  //   if (confirmed) {
-  //     axios
-  //       .put(`http://localhost:8070/sup/updatePayment/${id}`, {
-  //         payment,
-  //       })
-  //       .then((result) => {
-  //         console.log(result);
-  //         navigate("/sup");
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // };
+  const calculateTotalPayment = () => {
+    const total = quantity * unitPrice;
+    setTotalPayment(isNaN(total) ? 0 : total.toFixed(2));
+
+    // Generate PDF
+    // generatePDF();
+  };
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    doc.text(20, 20, `Name: ${name}`);
+    doc.text(20, 30, `Raw Material: ${rawMaterial}`);
+    doc.text(20, 40, `Quantity: ${quantity}`);
+    doc.text(20, 50, `Unit Price: ${unitPrice}`);
+    doc.text(20, 60, `Total Payment: ${totalPayment}`);
+    doc.save("supplier_report.pdf");
+  };
 
   return (
     <>
@@ -88,7 +83,9 @@ const SupplierReport = ({ match }) => {
         <Button color="blue" onClick={calculateTotalPayment}>
           Calculate Total Payment
         </Button>
-
+        <Button color="blue" onClick={generatePDF}>
+          Generate PDF
+        </Button>
         <Link to="/sup">
           <Button color="blue-gray">Back</Button>
         </Link>
