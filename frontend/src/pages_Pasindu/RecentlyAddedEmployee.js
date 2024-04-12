@@ -42,7 +42,9 @@ function LastAddedEmp() {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="pl-10 py-3">
+          <div className="w-6 h-6 border-4 border-gray-300 rounded-full border-t-blue-500 animate-spin bg-gray-100"></div>
+        </div>
       ) : (
         <div>
           {lastEmployee ? (
@@ -50,7 +52,7 @@ function LastAddedEmp() {
               <p>{lastEmployee.name}</p>
             </div>
           ) : (
-            <p>No employee information available.</p>
+            <p>?</p>
           )}
         </div>
       )}
