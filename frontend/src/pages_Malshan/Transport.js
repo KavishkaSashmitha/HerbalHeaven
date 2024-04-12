@@ -167,7 +167,7 @@ export default function Transports() {
                     Driver List
                   </h5>
                   <p className="block mt-1 font-sans text-base antialiased font-normal leading-relaxed text-gray-300">
-                    See information about all Drivers
+                    See information about Transport
                   </p>
                 </div>
                 <div className="flex flex-row gap-2 shrink-0 sm:flex-row">
