@@ -21,14 +21,14 @@ import createLoadingScreen from "./LoadingScreen";
 export default function EditPost() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
-    name: "",
-    jobrole: "",
-    gender: "",
-    mobile: "",
-    nic: "",
-    email: "",
-    address: "",
-    age: "",
+    // name: "",
+    // jobrole: "",
+    // gender: "",
+    // mobile: "",
+    // nic: "",
+    // email: "",
+    // address: "",
+    // age: "",
     image: "",
   });
 
