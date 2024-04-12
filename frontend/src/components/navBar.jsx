@@ -79,7 +79,7 @@ export function SidebarWithBurgerMenu({}) {
           className="h-[calc(100vh-2rem)] w-full p-2 bg-custom-color"
         >
           <Link to="/">
-            <div className="flex items-center justify-center mt-0 ">
+            <div className="flex items-center justify-center mt-5 mr-5">
               <img
                 src="/logo/loading.png"
                 alt="brand"
@@ -91,14 +91,14 @@ export function SidebarWithBurgerMenu({}) {
             </div>
           </Link>
 
-          <div className="p-1">
+          {/* <div className="p-1">
             <Input
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               label="Search"
             />
-          </div>
+          </div> */}
 
-          <List className=" bg-custom-color">
+          <List className=" bg-custom-color pt-10">
             <Link to="/my-orders">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
@@ -174,7 +174,7 @@ export function SidebarWithBurgerMenu({}) {
             {isLoggedIn ? ( // Conditional rendering based on isLoggedIn state
               <>
                 <Link to="/dashboard">
-                  <ListItem className="p-2 py-2 hover:bg-cyan-500">
+                  <ListItem className="p-2 mt-3 hover:bg-cyan-500">
                     <ListItemPrefix>
                       <UserCircleIcon className="h-5 w-5 text-yellow-400" />
                     </ListItemPrefix>
@@ -186,7 +186,7 @@ export function SidebarWithBurgerMenu({}) {
                     </Typography>
                   </ListItem>
                 </Link>
-                <ListItem className="p-2 py-1 bg-red-500" onClick={logout}>
+                <ListItem className="p-2 mt-3 py-2 bg-red-500" onClick={logout}>
                   <ListItemPrefix>
                     <PowerIcon className="h-5 w-5" />
                   </ListItemPrefix>
