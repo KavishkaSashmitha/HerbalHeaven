@@ -283,7 +283,7 @@ export function DefaultSidebar() {
                     color="blue-gray"
                     className="mr-auto font-normal text-teal-200 "
                   >
-                    Employee-Manager
+                    Emp-Manager
                   </Typography>
                 </AccordionHeader>
               </ListItem>
