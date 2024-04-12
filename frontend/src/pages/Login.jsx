@@ -58,88 +58,97 @@ export default function Login() {
   }, []);
 
   return (
-
-    <div
-      className="Signin flex w-full justify-center items-center h-screen"
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-      }}
-    >
-      <SidebarWithBurgerMenu />
+    <>
       <div
-        className="card-container mx-4 md:mx-0 md:w-96 p-8 rounded-lg"
         style={{
-          backdropFilter: 'blur(5px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
         }}
       >
-        <Typography variant="h4" className="text-green-900">
-          Sign In
-        </Typography>
-        <Typography color="gray" className="mt-1 font-normal">
-          Nice to meet you! Enter your details to Login.
-        </Typography>
-        <form className="w-full">
-          <div className="flex flex-col gap-6">
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Your Email
+        <SidebarWithBurgerMenu />
+        <div className="Signin flex w-full justify-center items-center h-screen">
+          <div
+            className="card-container mx-4 md:mx-0 md:w-96 p-8 rounded-lg"
+            style={{
+              backdropFilter: 'blur(5px)',
+              backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            }}
+          >
+            <Typography variant="h4" className="text-green-900">
+              Sign In
             </Typography>
-            <Input
-              size="lg"
-              placeholder="name@mail.com"
-              value={email}
-              color="green"
-              onChange={(e) => setEmail(e.target.value)}
-              className="border border-gray-400 rounded-lg p-2"
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Password
+
+            <Typography color="gray" className="mt-1 font-normal">
+              Nice to meet you! Enter your details to Login.
             </Typography>
-            <Input
-              type="password"
-              size="lg"
-              placeholder="********"
-              color="green"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="border border-gray-400 rounded-lg p-2"
-            />
-          </div>
-          <Checkbox
-            label={
-              <Typography
-                variant="small"
-                color="gray"
-                className="flex items-center font-normal"
+            <form className="w-full">
+              <div className="flex flex-col gap-6">
+                <Typography variant="h6" color="blue-gray" className="-mb-3">
+                  Your Email
+                </Typography>
+                <Input
+                  size="lg"
+                  placeholder="name@mail.com"
+                  value={email}
+                  color="green"
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="border border-gray-400 rounded-lg p-2"
+                />
+                <Typography variant="h6" color="blue-gray" className="-mb-3">
+                  Password
+                </Typography>
+                <Input
+                  type="password"
+                  size="lg"
+                  placeholder="********"
+                  color="green"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="border border-gray-400 rounded-lg p-2"
+                />
+              </div>
+              <Checkbox
+                label={
+                  <Typography
+                    variant="small"
+                    color="gray"
+                    className="flex items-center font-normal"
+                  >
+                    I agree the
+                    <Link
+                      to="#"
+                      className="font-medium transition-colors hover:text-gray-900"
+                    >
+                      &nbsp;Terms and Conditions
+                    </Link>
+                  </Typography>
+                }
+                containerProps={{ className: '-ml-2.5' }}
+              />
+              <Button
+                className="mt-6"
+                color="green"
+                fullWidth
+                onClick={handleLogin}
               >
-                I agree the
-                <Link
-                  to="#"
-                  className="font-medium transition-colors hover:text-gray-900"
-                >
-                  &nbsp;Terms and Conditions
+                Sign In
+              </Button>
+              <Typography color="gray" className="mt-4 text-center font-normal">
+                Don't have an account?{' '}
+                <Link to="/signUp" className="font-medium text-gray-900">
+                  Sign up
                 </Link>
               </Typography>
-            }
-            containerProps={{ className: '-ml-2.5' }}
-          />
-          <Button
-            className="mt-6"
-            color="green"
-            fullWidth
-            onClick={handleLogin}
-          >
-            Sign In
-          </Button>
-          <Typography color="gray" className="mt-4 text-center font-normal">
-            Don't have an account?{' '}
-            <Link to="/signUp" className="font-medium text-gray-900">
-              Sign up
-            </Link>
-          </Typography>
-        </form>
+              <Typography color="gray" className="mt-4 text-center font-normal">
+                Manager?{' '}
+                <Link to="/otp" className="font-medium text-gray-900">
+                  Sign In
+                </Link>
+              </Typography>
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

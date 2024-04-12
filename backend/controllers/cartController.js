@@ -6,6 +6,10 @@ const viewCart = asyncHandler(async (req, res) => {
   const cart = await Cart.find({ user: req.user.id });
   res.status(200).json(cart);
 });
+const CartDetails = asyncHandler(async (req, res) => {
+  const cart = await Cart.find().populate('user', 'name email');
+  res.status(200).json(cart);
+});
 
 const AddToCart = asyncHandler(async (req, res) => {
   if (!req.body.name) {
@@ -20,6 +24,7 @@ const AddToCart = asyncHandler(async (req, res) => {
     quantity: req.body.quantity,
     price: req.body.price,
     image: req.body.image,
+    stock: req.body.stock,
     description: req.body.description,
   });
 
@@ -75,6 +80,7 @@ const deleteCartItems = asyncHandler(async (req, res) => {
   res.status(200).json({ message: `deleted cart item :${req.params.id}` });
 });
 
+
 const updateCartQuantity = asyncHandler(async (req, res) => {
   const { items } = req.body;
 
@@ -93,10 +99,35 @@ const updateCartQuantity = asyncHandler(async (req, res) => {
   }
 });
 
+
+/*Admin Payment Details Part*/
+
+const getAllCartDetails = async (req, res, next) => {
+  let cart;
+  try {
+    cart = await Cart.find();
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+  if (!cart) {
+    return res.status(404).json({ message: "Cart not found" });
+  }
+  return res.status(200).json({ cart });
+};
+
+
 module.exports = {
   viewCart,
   AddToCart,
   updateCart,
   deleteCartItems,
+
+
   updateCartQuantity,
+  getAllCartDetails,
+
+  updateCartQuantity,
+  CartDetails,
+
 };
