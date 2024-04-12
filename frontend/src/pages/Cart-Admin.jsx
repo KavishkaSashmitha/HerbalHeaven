@@ -322,12 +322,12 @@ export function CartAdmin() {
               </Breadcrumbs>
 
               <CardBody className="px-0 flex flex-col flex-1">
-                <div className=" grid justify-center  ml-4">
+                <div className="grid justify-center ml-4">
                   <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                    <div className="card w-full">
+                    <div className="card w-full hover:shadow-lg transition duration-300 ease-in-out">
                       <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                         <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                          <UserCircleIcon className="h-10 w-10" />
+                          <UserCircleIcon className="w-12 h-12" />
                         </div>
                         <div>
                           <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -340,14 +340,14 @@ export function CartAdmin() {
                       </div>
                     </div>
 
-                    <div className="card w-full ">
+                    <div className="card w-full hover:shadow-lg transition duration-300 ease-in-out">
                       {mostRepeatedProduct && (
                         <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                           <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                             <img
                               src={mostRepeatedProduct.image}
                               alt={mostRepeatedProduct.name}
-                              className="w-12 h-132rounded-full "
+                              className="w-12 h-12 rounded-full "
                             />
                           </div>
                           <div>
@@ -363,11 +363,11 @@ export function CartAdmin() {
                       )}
                     </div>
 
-                    <div className="card w-max">
+                    <div className="card w-max hover:shadow-lg transition duration-300 ease-in-out">
                       <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                         <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                           <svg
-                            class="w-10 h-10"
+                            class="w-12 h-12"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >
@@ -386,6 +386,7 @@ export function CartAdmin() {
                     </div>
                   </div>
                 </div>
+
                 <div className="flex items-center ml-2 mb-4">
                   <Input
                     type="text"
