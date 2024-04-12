@@ -98,8 +98,88 @@ export function SidebarWithBurgerMenu({}) {
             />
           </div>
 
-          <List className=" bg-green-100">
-            <Link to="/my-orders">
+          <List className="overflow-y-scroll bg-green-100">
+            <Accordion
+              open={open === 1}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open === 1 ? "rotate-180" : ""
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 1}>
+                <AccordionHeader
+                  onClick={() => handleOpen(1)}
+                  className="border-b-0 p-3"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+
+                  <Typography color="blue-gray" className="mr-auto font-normal">
+                    Dashboard
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Customer
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Inventory
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Cart
+                  </ListItem>
+                  <Link to="/emp">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Employee
+                  </ListItem>
+                  </Link>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Supplier
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Transport
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Order
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Payment
+                  </ListItem>
+                </List>
+              </AccordionBody>
+            </Accordion>
+            <Link to="./SalaryReport">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
                   <AccordionHeader

@@ -170,10 +170,26 @@ const deleteProfile = AsyncHandler(async (req, res) => {
   }
 });
 
+
+const getAllCustomers = AsyncHandler(async (req, res) => {
+  const customers = await Customer.find({}); // Retrieve all customers from the database
+
+  if (customers) {
+    res.status(200).json(customers);
+  } else {
+    res.status(404);
+    throw new Error('No customers found');
+  }
+});
+
+
+
 module.exports = {
   signup,
   loginUser,
   dashboard,
   updateProfile,
   deleteProfile,
+  getAllCustomers
+ 
 };

@@ -23,7 +23,7 @@ function DashBoard() {
 
   const handleDeleteProfile = async () => {
     // Display confirmation dialog
-    const isConfirmed = window.confirm("Are you sure you want to delete this user?");
+    const isConfirmed = window.confirm("Are you sure you want to delete this account?");
   
     if (isConfirmed) {
       try {
