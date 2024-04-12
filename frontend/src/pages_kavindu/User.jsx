@@ -135,7 +135,7 @@ const User = () => {
                                 Delete
                               </Button>
                               <Link
-                                to={`/sup/supreport/${user._id}`}
+                                to={`/sup/material_report/${user._id}`}
                                 className="btn btn-warning"
                               >
                                 <Button color="green">Supplier Report</Button>
