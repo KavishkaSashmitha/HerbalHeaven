@@ -232,8 +232,8 @@ export default function EditPost() {
     return (
       <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-custom-color">
         <div className="w-32 h-32">
-          <div className="w-16 h-16">
-            <Upload className="w-full h-full text-blue-500 animate-spin" />
+          <div className=" pl-3 w-16 h-16">
+            <Upload className=" w-full h-full text-blue-500 animate-spin" />
           </div>
           <div className="text-center mt-2">
             <p className="text-amber-800 font-bold text-xl">
