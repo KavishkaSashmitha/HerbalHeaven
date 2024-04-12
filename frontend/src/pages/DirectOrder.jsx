@@ -1,8 +1,9 @@
-import { Card } from '@material-tailwind/react';
+import { Button, Card, Tab, Tabs, TabsHeader } from '@material-tailwind/react';
 import React, { useState, useEffect, useRef } from 'react';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
 import AdminNavbar from '../components/AdminNavbar';
 import { useReactToPrint } from 'react-to-print'; // Import react-to-pdf library
+import { Link } from 'react-router-dom';
 
 const DirectCartTable = () => {
   const [directCartData, setDirectCartData] = useState([]);
@@ -155,6 +156,14 @@ const DirectCartTable = () => {
         <div className="flex flex-col flex-1 overflow-scroll">
           <AdminNavbar toggleSidebar={toggleSidebar} />
           <Card className="overflow-hidden mr-4 mt-2 ml-4">
+            <div className="flex w-max gap-4 md-auto ml-2 mt-4 mb-4">
+              <Link to="/productCategory">
+                <Button className="flex">Direct Sell</Button>
+              </Link>
+              <Link to="/directcart">
+                <Button className="flex">Direct Cart</Button>
+              </Link>
+            </div>
             <table className="w-full table-auto">
               <thead>
                 <tr className="bg-gray-200">
@@ -226,27 +235,76 @@ const DirectCartTable = () => {
 };
 
 // Component to be printed as PDF
-const PrintComponentToPdf = React.forwardRef(({ data }, ref) => (
-  <div ref={ref}>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item) => (
-          <tr key={item._id}>
-            <td>{item.productDetails.name}</td>
-            <td>{item.quantity}</td>
-            <td>{item.productDetails.price * item.quantity}</td>
+// Component to be printed as PDF
+const PrintComponentToPdf = React.forwardRef(({ data }, ref) => {
+  // Calculate total amount including tax
+  const totalAmount = data.reduce(
+    (total, item) => total + item.productDetails.price * item.quantity,
+    0
+  );
+  const taxAmount = totalAmount * 0.001;
+  const netAmount = totalAmount + taxAmount;
+
+  return (
+    <div ref={ref} className="p-4">
+      <div className="flex justify-center mb-4">
+        <img src="/logo/loading.png" className="h-10 w-10" />
+        <h2 className="ml-2">Herbal Heaven</h2>
+      </div>
+      <div className="mb-4">
+        <p>Address: Your Address</p>
+        <p>Email: herbalheaven@email.com</p>
+      </div>
+      <table className="w-full border-collapse border border-gray-500">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border border-gray-500 px-4 py-2">Name</th>
+            <th className="border border-gray-500 px-4 py-2">Quantity</th>
+            <th className="border border-gray-500 px-4 py-2">Price</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-));
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={item._id} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+              <td className="border border-gray-500 px-4 py-2">
+                {item.productDetails.name}
+              </td>
+              <td className="border border-gray-500 px-4 py-2">
+                {item.quantity}
+              </td>
+              <td className="border border-gray-500 px-4 py-2">
+                {item.productDetails.price * item.quantity}
+              </td>
+            </tr>
+          ))}
+          <tr className="bg-gray-200">
+            <td className="border border-gray-500 px-4 py-2 font-bold">
+              Total
+            </td>
+            <td className="border border-gray-500 px-4 py-2" colSpan="2">
+              Rs. {totalAmount.toFixed(2)}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-500 px-4 py-2 font-bold">
+              Tax (0.1%)
+            </td>
+            <td className="border border-gray-500 px-4 py-2" colSpan="2">
+              Rs. {taxAmount.toFixed(2)}
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-gray-500 px-4 py-2 font-bold">
+              Net Amount
+            </td>
+            <td className="border border-gray-500 px-4 py-2" colSpan="2">
+              Rs. {netAmount.toFixed(2)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+});
 
 export default DirectCartTable;
