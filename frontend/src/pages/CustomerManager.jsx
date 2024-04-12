@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+//manager side
 const CustomerManager = () => {
   const [customers, setCustomers] = useState([]);
   const [error, setError] = useState(null);
