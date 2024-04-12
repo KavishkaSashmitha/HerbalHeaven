@@ -33,7 +33,7 @@ export default function Order() {
   const [orders, setOrders] = useState([]);
   const [originalOrders, setOriginalOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [ordersPerPage] = useState(5); // Number of orders per page
+  const [ordersPerPage] = useState(4); // Number of orders per page
 
   useEffect(() => {
     retrieveOrders();
@@ -101,7 +101,7 @@ export default function Order() {
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: '#02353c' }}
     >
-      <div className="flex flex-1 overflow-scroll">
+      <div className="flex flex-1 overflow-hidden">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? 'block' : 'hidden'
@@ -112,7 +112,7 @@ export default function Order() {
         <div className="flex flex-col flex-1 ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card className="flex flex-col flex-1 ml-2">
+          <Card className="flex flex-col flex-1 ml-2 ">
             <Typography className="h2 text-3xl font-bold mt-4 mb-2 mr-2 ml-2">
               All Orders List
             </Typography>
@@ -315,7 +315,7 @@ export default function Order() {
                 </table>
               </div>
             </CardBody>
-            <CardFooter className="flex justify-center items-center mt-8">
+            <CardFooter className="flex justify-center items-center mb-2">
               <Button
                 variant="outlined"
                 size="sm"
