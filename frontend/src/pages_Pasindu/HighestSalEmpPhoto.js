@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-    Avatar,
+  Avatar,
   Card,
   CardBody,
   CardHeader,
@@ -13,6 +13,7 @@ const HighestSalaryEmpPhoto = () => {
   const [userWithHighestSalary, setUserWithHighestSalary] = useState("");
   const [monthOfHighestSalary, setMonthOfHighestSalary] = useState("");
   const [userImage, setUserImage] = useState(""); // New state for user image URL
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Function to fetch data from the API and calculate the highest salary, associated username, user image, and the month of the highest salary
@@ -55,6 +56,8 @@ const HighestSalaryEmpPhoto = () => {
         setUserImage(maxSalaryUserImage); // Update state with user image URL
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -65,13 +68,23 @@ const HighestSalaryEmpPhoto = () => {
   // Render the component with the highest salary, associated username, user image, and the month of the highest salary
   return (
     <div>
-      {userImage && (
+      {loading ? (
+        <div className="">
+          <div className="w-6 h-6 border-4 border-gray-300 rounded-full border-t-teal-500 animate-spin bg-gray-100"></div>
+        </div>
+      ) : (
         <div>
-          <Avatar
-            src={userImage}
-            size="lg"
-            className="mr-3 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
-          />
+          {userImage ? (
+            <div>
+              <Avatar
+                src={userImage}
+                size="lg"
+                className="mr-3 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
+              />
+            </div>
+          ) : (
+            <p>?</p>
+          )}
         </div>
       )}
     </div>

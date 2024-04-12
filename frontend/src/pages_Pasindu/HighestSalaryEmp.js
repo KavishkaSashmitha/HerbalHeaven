@@ -10,7 +10,7 @@ const HighestSalary = () => {
   // Initialize state variables for tracking the highest salary, the associated username, and the month of the highest salary
   const [highestSalary, setHighestSalary] = useState(0);
   const [userWithHighestSalary, setUserWithHighestSalary] = useState("");
-  const [monthOfHighestSalary, setMonthOfHighestSalary] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Function to fetch data from the API and calculate the highest salary, associated username, and the month of the highest salary
@@ -47,9 +47,10 @@ const HighestSalary = () => {
         // Update the state variables with the highest salary, associated username, and the month of the highest salary
         setHighestSalary(maxSalary);
         setUserWithHighestSalary(maxSalaryUser);
-        setMonthOfHighestSalary(maxSalaryMonth);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -57,12 +58,38 @@ const HighestSalary = () => {
     fetchData();
   }, []);
 
+  function capitalizeSecondPart(name) {
+    if (!name) return "";
+
+    const parts = name.split(" "); // Split the name into parts
+
+    // Iterate over each part and capitalize the first letter
+    for (let i = 0; i < parts.length; i++) {
+      parts[i] =
+        parts[i].charAt(0).toUpperCase() + parts[i].slice(1).toLowerCase();
+    }
+
+    // Join the parts back into a single string
+    return parts.join(" ");
+  }
+
   // Render the component with the highest salary, associated username, and the month of the highest salary
   return (
     <div>
-      <div>Name: {userWithHighestSalary}</div>
-      <div>Month: {monthOfHighestSalary}</div>
-      <div>Salary: {highestSalary}</div>
+      {loading ? (
+        <div className="pl-10 py-1">
+          <div className="w-6 h-6 border-4 border-gray-300 rounded-full border-t-blue-500 animate-spin bg-gray-100"></div>
+        </div>
+      ) : (
+        <div>
+          <div>
+            <div className="font-bold">
+              {capitalizeSecondPart(userWithHighestSalary)}
+            </div>
+            <div>Salary: {highestSalary}</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

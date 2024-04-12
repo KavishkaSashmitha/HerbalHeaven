@@ -140,16 +140,16 @@ function AdminDashboard() {
                             </div>
 
                             <div className="max-w-sm mx-auto">
-                              <div className="flex flex-col items-center pl-1 pt-4 pb-4 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-200 dark:bg-gray-800 dark:shadow-lg dark:hover:shadow-2xl">
+                              <div className="flex flex-col items-center pl-1 py-5 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-200 dark:bg-gray-800 dark:shadow-lg dark:hover:shadow-2xl">
                                 <div className="px-2 mr-2 flex items-center">
                                   <ul>
                                     <HighestSalaryEmpPhoto />
                                   </ul>
                                   <div>
-                                    <p className="text-sm mb-1 font-semibold text-gray-600 dark:text-gray-400">
+                                    <p className="text-sm mb-1 font-medium text-gray-600 dark:text-gray-400">
                                       Best Employee
                                     </p>
-                                    <p className="text-xs font-normal text-gray-700 dark:text-gray-200">
+                                    <p className="text-xs font-normal pb-2 text-gray-700 dark:text-gray-200">
                                       <ul>
                                         <HighestSalary />
                                       </ul>

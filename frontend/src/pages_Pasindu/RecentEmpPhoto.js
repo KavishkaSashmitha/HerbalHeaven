@@ -55,7 +55,9 @@ function LastAddedEmpImage() {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="">
+          <div className="w-6 h-6 border-4 border-gray-300 rounded-full border-t-teal-500 animate-spin bg-gray-100"></div>
+        </div>
       ) : (
         <div>
           {lastUserImage ? (
@@ -67,7 +69,7 @@ function LastAddedEmpImage() {
               />
             </div>
           ) : (
-            <p>No employee information available.</p>
+            <p>?</p>
           )}
         </div>
       )}
