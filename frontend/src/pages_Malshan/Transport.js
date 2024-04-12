@@ -384,12 +384,13 @@ export default function Transports() {
                             </Button>
                           </a>
 
-                          <a className="" onClick={() => onDelete(transport._id)}>
+                          <a className="mr-2 btn btn-primary" onClick={() => onDelete(transport._id)}>
                             <Button color="red">
-                              <i className="mr-2 fas fa-trash-alt"></i>
+                              <i className="mr-2 fas fa-edit"></i>
                               Delete
                             </Button>
                           </a>
+                          
                           <a
                             className="mr-2 btn btn-primary"
                             href={`/FuelReport/${transport._id}`}
