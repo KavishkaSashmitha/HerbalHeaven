@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {
-  Card,
-  Input,
-  Button,
-  Typography,
-  Select,
-  MenuItem,
-} from '@material-tailwind/react';
+import { Card, Input, Button, Typography } from '@material-tailwind/react';
 import { useForm } from './form-hook';
 
 const AddProduct = () => {
@@ -199,19 +192,19 @@ const AddProduct = () => {
     >
       <Card
         shadow={false}
-        pt="5"
-        className="p-4"
-        style={{ backgroundColor: '#D4EFDF', width: '50%' }}
+        pt="3"
+        className="p-3"
+        style={{ backgroundColor: '#D4EFDF', width: '40%' }}
       >
         <Typography variant="h4" color="blue-gray" className="text-center">
           Add New Product
         </Typography>
         <form
           enctype="multipart/form-data"
-          className="mt-8 mb-2 ml-4 w-80 max-w-70-lg sm:w-96"
+          className="mt-8 mb-2 ml-3 w-80 max-w-70-lg sm:w-96"
           onSubmit={Submit}
         >
-          <div className="grid grid-cols-2 gap-3 gap-x-20 ml-2">
+          <div className="grid grid-cols-2 gap-5 gap-x-20 ml-2">
             <div className="flex flex-col w-full ">
               <Typography variant="h6" color="blue-gray" className="-mb-1">
                 Product No
@@ -289,71 +282,7 @@ const AddProduct = () => {
                 }}
               />
             </div>
-            <div className="flex flex-col">
-              <Typography variant="h6" color="blue-gray" className="-mb-1">
-                Category
-              </Typography>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    name="category"
-                    value="Beauty Product"
-                    checked={
-                      formState.inputs.category.value === 'Beauty Product'
-                    }
-                    onChange={(event) =>
-                      inputHandler('category', event.target.value, true)
-                    }
-                  />
-                  Beauty Product
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    name="category"
-                    value="Immunity Product"
-                    checked={
-                      formState.inputs.category.value === 'Immunity Product'
-                    }
-                    onChange={(event) =>
-                      inputHandler('category', event.target.value, true)
-                    }
-                  />
-                  Immunity Product
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    name="category"
-                    value="Oils"
-                    checked={formState.inputs.category.value === 'Oils'}
-                    onChange={(event) =>
-                      inputHandler('category', event.target.value, true)
-                    }
-                  />
-                  Oils
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    name="category"
-                    value="Balms"
-                    checked={formState.inputs.category.value === 'Balms'}
-                    onChange={(event) =>
-                      inputHandler('category', event.target.value, true)
-                    }
-                  />
-                  Balms
-                </label>
-              </div>
-            </div>
+
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray" className="-mb-1">
                 Quantity
@@ -434,39 +363,102 @@ const AddProduct = () => {
             </div>
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray" className="-mb-1">
+                Category
+              </Typography>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Beauty Product"
+                    checked={
+                      formState.inputs.category.value === 'Beauty Product'
+                    }
+                    onChange={(event) =>
+                      inputHandler('category', event.target.value, true)
+                    }
+                  />
+                  Beauty Product
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Immunity Product"
+                    checked={
+                      formState.inputs.category.value === 'Immunity Product'
+                    }
+                    onChange={(event) =>
+                      inputHandler('category', event.target.value, true)
+                    }
+                  />
+                  Immunity Product
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Oils"
+                    checked={formState.inputs.category.value === 'Oils'}
+                    onChange={(event) =>
+                      inputHandler('category', event.target.value, true)
+                    }
+                  />
+                  Oils
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Balms"
+                    checked={formState.inputs.category.value === 'Balms'}
+                    onChange={(event) =>
+                      inputHandler('category', event.target.value, true)
+                    }
+                  />
+                  Balms
+                </label>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <Typography variant="h6" color="blue-gray" className="-mb-1">
                 Image
               </Typography>
-              <div className="flex items-center mt-0">
-                <Input
-                  id="image"
-                  type="file"
-                  accept=".jpg,.png,.jpeg"
-                  placeholder="Add image"
-                  onInput={(event) =>
-                    inputHandler('image', event.target.files[0], true)
-                  }
-                  required
-                  className="!border-t-blue-gray-200 focus:!border-t-gray-900 bg-white "
-                  labelProps={{
-                    className: 'before:content-none after:content-none',
+              <Input
+                id="image"
+                type="file"
+                accept=".jpg,.png,.jpeg"
+                placeholder="Add image"
+                onInput={(event) =>
+                  inputHandler('image', event.target.files[0], true)
+                }
+                required
+                className="!border-t-blue-gray-200 focus:!border-t-gray-900 bg-white "
+                labelProps={{
+                  className: 'before:content-none after:content-none',
+                }}
+              />
+              {previewUrl && (
+                <img
+                  src={previewUrl}
+                  alt="Product Preview"
+                  style={{
+                    marginLeft: '1rem',
+                    width: '100px',
+                    height: 'auto',
                   }}
                 />
-                {previewUrl && (
-                  <img
-                    src={previewUrl}
-                    alt="Product Preview"
-                    style={{
-                      marginLeft: '1rem',
-                      width: '100px',
-                      height: 'auto',
-                    }}
-                  />
-                )}
-              </div>
-              {fileError && (
-                <Typography className="text-danger">{fileError}</Typography>
               )}
             </div>
+            {fileError && (
+              <Typography className="text-danger">{fileError}</Typography>
+            )}
           </div>
           <Button
             type="submit"

@@ -17,42 +17,45 @@ const Product = ({ product }) => {
 
   return (
     <>
-    <SidebarWithBurgerMenu />
-    <Card key={product._id} className="w-96 mb-4 mt-2  ml-2 bg-light-green-200">
-      <CardHeader shadow={false} floated={false} className="h-96">
-        <img
-          src={product.image} // Assuming your product object has an 'image' property
-          alt="card-image"
-          className="h-full w-full object-cover"
-        />
-      </CardHeader>
-      <CardBody>
-        <div className="mb-2 flex items-center justify-between ">
-          <Typography color="blue-gray" className="font-medium">
-            {product.name}
+      <SidebarWithBurgerMenu />
+      <Card
+        key={product._id}
+        className="w-96 mb-4 mt-2  ml-2 bg-light-green-200"
+      >
+        <CardHeader shadow={false} floated={false} className="h-96">
+          <img
+            src={product.image} // Assuming your product object has an 'image' property
+            alt="card-image"
+            className="h-full w-full object-cover"
+          />
+        </CardHeader>
+        <CardBody>
+          <div className="mb-2 flex items-center justify-between ">
+            <Typography color="blue-gray" className="font-medium">
+              {product.name}
+            </Typography>
+            <Typography color="blue-gray" className="font-medium">
+              ${product.price}
+            </Typography>
+          </div>
+          <Typography
+            variant="small"
+            color="gray"
+            className="font-normal opacity-75"
+          >
+            {product.description}
           </Typography>
-          <Typography color="blue-gray" className="font-medium">
-            ${product.price}
-          </Typography>
-        </div>
-        <Typography
-          variant="small"
-          color="gray"
-          className="font-normal opacity-75"
-        >
-          {product.description}
-        </Typography>
-      </CardBody>
-      <CardFooter className="pt-0">
-        <Button
-          onClick={() => addToCart(product)}
-          className="w-full  hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
-          color="green"
-        >
-          Add to Cart
-        </Button>
-      </CardFooter>
-    </Card>
+        </CardBody>
+        <CardFooter className="pt-0">
+          <Button
+            onClick={() => addToCart(product)}
+            className="w-full  hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
+            color="green"
+          >
+            Add to Cart
+          </Button>
+        </CardFooter>
+      </Card>
     </>
   );
 };

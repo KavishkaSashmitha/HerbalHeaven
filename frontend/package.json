@@ -12,22 +12,28 @@
     "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
     "express-async-handler": "^1.2.0",
+    "file-saver": "^2.0.5",
+    "framer-motion": "^7.2.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "multer": "^1.4.4",
+    "nodemailer": "^6.9.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-pdf": "^7.7.1",
     "react-router-dom": "^6.22.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-slick": "^0.30.1",
     "react-toastify": "^10.0.4",
     "slick-carousel": "^1.8.1",
     "streamifier": "^0.1.1",
-    "sweetalert2": "^11.10.5",
+    "sweetalert2": "^11.6.13",
     "toastify": "^2.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -51,6 +57,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "prettier": "^3.2.5",
     "tailwindcss": "^3.4.1"
   }
 }

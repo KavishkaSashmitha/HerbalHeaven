@@ -1,4 +1,3 @@
-import 'tailwindcss/tailwind.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -13,8 +12,9 @@ const UpdateProduct = () => {
   const [cost, setCost] = useState('');
   const [quantity, setQuantity] = useState('');
   const [reorderLevel, setReorderLevel] = useState('');
+  const [manufactureDate, setManufactureDate] = useState('');
+  const [expiaryDate, setExpiaryDate] = useState('');
   const [image, setImage] = useState(null);
-  const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
 
@@ -33,6 +33,11 @@ const UpdateProduct = () => {
     const message = isValid ? '' : 'Field must be a number';
     return { isValid, message };
   };
+  const validateDate = (date) => {
+    const isValid = !isNaN(new Date(date).getTime());
+    const message = isValid ? '' : 'Invalid date';
+    return { isValid, message };
+  };
 
   useEffect(() => {
     axios
@@ -46,13 +51,36 @@ const UpdateProduct = () => {
         setCost(itemData.cost);
         setQuantity(itemData.quantity);
         setReorderLevel(itemData.reorderLevel);
+        const formattedManufactureDate = new Date(itemData.manufactureDate)
+          .toISOString()
+          .split('T')[0];
+        const formattedExpiaryDate = new Date(itemData.expiaryDate)
+          .toISOString()
+          .split('T')[0];
+
+        setManufactureDate(formattedManufactureDate);
+        setExpiaryDate(formattedExpiaryDate);
+
         setImage(itemData.image);
       })
       .catch((err) => console.log(err));
   }, [id]);
 
-  const Update = async (e) => {
+  const Update = (e) => {
     e.preventDefault();
+
+    console.log({
+      productNo,
+      productName,
+      shortDescription,
+      category,
+      cost,
+      quantity,
+      reorderLevel,
+      manufactureDate,
+      expiaryDate,
+      image,
+    });
 
     const productNoValidation = validateNumberField(productNo);
     const productNameValidation = validateField(productName);
@@ -61,46 +89,58 @@ const UpdateProduct = () => {
     const costValidation = validateNumberField(cost);
     const quantityValidation = validateNumberField(quantity);
     const reorderLevelValidation = validateNumberField(reorderLevel);
+    const manufactureDateValidation = validateDate(manufactureDate);
+    const expiaryDateValidation = validateDate(expiaryDate);
+    if (
+      productNoValidation.isValid &&
+      productNameValidation.isValid &&
+      shortDescriptionValidation.isValid &&
+      categoryValidation.isValid &&
+      costValidation.isValid &&
+      quantityValidation.isValid &&
+      reorderLevelValidation.isValid &&
+      manufactureDateValidation.isValid &&
+      expiaryDateValidation.isValid
+    ) {
+      axios
+        .put(`http://localhost:8070/inventory/updateInventoryItem/${id}`, {
+          productNo,
+          productName,
+          shortDescription,
+          category,
+          cost,
+          quantity,
+          reorderLevel,
+          manufactureDate,
+          expiaryDate,
+          image,
+        })
+        .then((result) => {
+          console.log(result);
+          navigate('/inventory');
+        })
+        .catch((err) => console.log(err));
+    } else {
+      // Combine all error messages into one array
+      const errorMessages = [
+        productNoValidation.message,
+        productNameValidation.message,
+        shortDescriptionValidation.message,
+        categoryValidation.message,
+        costValidation.message,
+        quantityValidation.message,
+        reorderLevelValidation.message,
+        manufactureDateValidation.message,
+        expiaryDateValidation.message,
+      ];
 
-    const validations = [
-      productNoValidation,
-      productNameValidation,
-      shortDescriptionValidation,
-      categoryValidation,
-      costValidation,
-      quantityValidation,
-      reorderLevelValidation,
-    ];
-
-    const isValid = validations.every((validation) => validation.isValid);
-
-    if (!isValid) {
-      const errorMessages = validations
-        .filter((validation) => !validation.isValid)
-        .map((validation) => validation.message);
-      setErrors(errorMessages);
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('productNo', productNo);
-    formData.append('productName', productName);
-    formData.append('shortDescription', shortDescription);
-    formData.append('category', category);
-    formData.append('cost', cost);
-    formData.append('quantity', quantity);
-    formData.append('reorderLevel', reorderLevel);
-    formData.append('image', image);
-
-    try {
-      const result = await axios.put(
-        `http://localhost:8070/inventory/updateInventoryItem/${id}`,
-        formData
+      // Filter out empty error messages
+      const filteredErrorMessages = errorMessages.filter(
+        (message) => message !== ''
       );
-      console.log(result);
-      navigate('/inventory');
-    } catch (error) {
-      console.error(error);
+
+      // Display error messages
+      alert(filteredErrorMessages.join('\n'));
     }
   };
 
@@ -111,7 +151,7 @@ const UpdateProduct = () => {
 
   return (
     <div
-      className="flex justify-center items-center h-100% pt-11 pb-11"
+      className="flex justify-center items-center h-100% pt-2 pb-2"
       style={{
         backgroundImage:
           'url("https://media.istockphoto.com/id/1192284372/photo/composition-of-natural-alternative-medicine-with-capsules-essence-and-plants.jpg?b=1&s=612x612&w=0&k=20&c=1ocZIu_aNqFvD-VZlJPTAlPNeZGK7afMYahtNKd9YdM=")',
@@ -121,19 +161,19 @@ const UpdateProduct = () => {
     >
       <Card
         shadow={false}
-        pt="5"
+        pt="1"
         pb="1"
-        className="p-5 mt-12 mb-12 content-center"
+        className="p-2  content-center"
         style={{ backgroundColor: '#D4EFDF', width: '40%' }}
       >
         <Typography variant="h4" color="blue-gray" className="text-center">
           Update Product
         </Typography>
         <form
-          className="mt-8 mb-2 ml-4 w-80 max-w-70-lg sm:w-96"
+          className="mt-1 mb-1 ml-4 w-80 max-w-70-lg sm:w-96"
           onSubmit={Update}
         >
-          <div className="grid grid-cols-2 gap-3 gap-x-20">
+          <div className="grid grid-cols-2 gap-5 gap-x-20">
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray">
                 Product No
@@ -169,6 +209,70 @@ const UpdateProduct = () => {
                 placeholder="Enter description"
                 value={shortDescription}
                 onChange={(e) => setShortDescription(e.target.value)}
+                className="bg-white"
+              />
+            </div>
+            <div className="flex flex-col">
+              <Typography variant="h6" color="blue-gray">
+                Cost (Rs)
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="Enter Cost"
+                value={cost}
+                onChange={(e) => setCost(e.target.value)}
+                className="bg-white"
+              />
+            </div>
+            <div className="flex flex-col">
+              <Typography variant="h6" color="blue-gray">
+                Quantity
+              </Typography>
+              <Input
+                size="lg"
+                type="tel"
+                placeholder="Enter Quantity"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+                className="bg-white"
+              />
+            </div>
+            <div className="flex flex-col">
+              <Typography variant="h6" color="blue-gray">
+                Reorder Level
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="Enter Reorder Level"
+                value={reorderLevel}
+                onChange={(e) => setReorderLevel(e.target.value)}
+                className="bg-white"
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <Typography variant="h6" color="blue-gray">
+                Manufacture Date
+              </Typography>
+              <Input
+                size="lg"
+                type="date"
+                placeholder="Enter Manufacture Date "
+                value={manufactureDate}
+                onChange={(e) => setManufactureDate(e.target.value)}
+                className="bg-white"
+              />
+            </div>
+            <div className="flex flex-col">
+              <Typography variant="h6" color="blue-gray">
+                Expiary Date
+              </Typography>
+              <Input
+                size="lg"
+                type="date"
+                placeholder="Enter Expiary Date"
+                value={expiaryDate}
+                onChange={(e) => setExpiaryDate(e.target.value)}
                 className="bg-white"
               />
             </div>
@@ -225,81 +329,32 @@ const UpdateProduct = () => {
                 </label>
               </div>
             </div>
-          </div>
-          <div className="flex flex-col">
-            <Typography variant="h6" color="blue-gray">
-              Cost (Rs)
-            </Typography>
-            <Input
-              size="lg"
-              placeholder="Enter Cost"
-              value={cost}
-              onChange={(e) => setCost(e.target.value)}
-              className="bg-white"
-            />
-          </div>
-          <div className="flex flex-col">
-            <Typography variant="h6" color="blue-gray">
-              Cost (Rs)
-            </Typography>
-            <Input
-              size="lg"
-              placeholder="Enter Cost"
-              value={cost}
-              onChange={(e) => setCost(e.target.value)}
-              className="bg-white"
-            />
-          </div>
-          <div className="flex flex-col">
-            <Typography variant="h6" color="blue-gray">
-              Quantity
-            </Typography>
-            <Input
-              size="lg"
-              type="tel"
-              placeholder="Enter Quantity"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              className="bg-white"
-            />
-          </div>
-          <div className="flex flex-col">
-            <Typography variant="h6" color="blue-gray">
-              Reorder Level
-            </Typography>
-            <Input
-              size="lg"
-              placeholder="Enter Reorder Level"
-              value={reorderLevel}
-              onChange={(e) => setReorderLevel(e.target.value)}
-              className="bg-white"
-            />
-          </div>
-          <div className="flex flex-col">
-            <Typography variant="h6" color="blue-gray">
-              Image
-            </Typography>
-            {image && (
-              <img
-                src={`data:image/jpeg;base64,${image}`}
-                style={{ maxWidth: '200px', marginBottom: '10px' }}
-                alt=""
+            <div className="flex flex-col">
+              <Typography variant="h6" color="blue-gray">
+                Image
+              </Typography>
+              {image && (
+                <img
+                  src={`http://localhost:8070/${image.replace(/\\/g, '/')}`}
+                  alt="Product"
+                  style={{ width: '100px', height: '80px' }}
+                />
+              )}
+              <Input
+                id="image"
+                type="file"
+                accept=".jpg,.png,.jpeg"
+                onChange={(e) => setImage(e.target.files[0])}
+                className="bg-white"
               />
-            )}
-            <Input
-              size="lg"
-              type="file"
-              onChange={(e) => setImage(e.target.files[0])}
-              className="bg-white"
-            />
+            </div>
           </div>
-
           <Button
             type="submit"
             color="black"
             ripple="light"
             fullWidth
-            className="mt-6 ml-5"
+            className="mt-1 ml-5"
           >
             Update
           </Button>

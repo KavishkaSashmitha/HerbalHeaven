@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import { SidebarWithBurgerMenu } from './components/navBar';
+//import { SidebarWithBurgerMenu } from './components/navBar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
@@ -21,6 +21,7 @@ import './index.css';
 import AddProduct from './pages-Dileesha/AddProduct';
 import UpdateProduct from './pages-Dileesha/UpdateProduct';
 import InventoryList from './pages-Dileesha/InventoryList';
+import InventoryReport from './pages-Dileesha/InventoryReport';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="/inventory/add" element={<AddProduct />} />
         <Route path="/inventory/update/:id" element={<UpdateProduct />} />
         <Route path="/inventory" element={<InventoryList />} />
+        <Route path="/inventory/report" element={<InventoryReport />} />
       </Routes>
     </>
   );

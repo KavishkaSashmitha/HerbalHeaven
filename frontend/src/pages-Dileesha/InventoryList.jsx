@@ -1,4 +1,3 @@
-import 'tailwindcss/tailwind.css';
 import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -50,17 +49,31 @@ const InventoryList = () => {
           Inventory List
         </Typography>
 
-        <Typography variant="h6" color="blue-gray">
-          Search Product
-        </Typography>
-
-        <Input
-          type="text"
-          placeholder="Search..."
-          value={searchItem}
-          onChange={(e) => setSearchItem(e.target.value)}
-          className="mb-6 max-w-30"
-        />
+        <div className="flex justify-between items-center">
+          <div className="flex-grow">
+            <Typography variant="h6" color="blue-gray">
+              Search Product
+            </Typography>
+            <Input
+              type="text"
+              placeholder="Search..."
+              value={searchItem}
+              onChange={(e) => setSearchItem(e.target.value)}
+              className="mb-6 max-w-30"
+            />
+          </div>
+          <div>
+            <Link to="/inventory/report" className="btn btn-primary">
+              <Button
+                class="select-none rounded-lg bg-black-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-black-500/20 transition-all hover:shadow-lg hover:shadow-black-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button"
+                className=" ml-2 mt-5"
+              >
+                Generate Report
+              </Button>
+            </Link>
+          </div>
+        </div>
 
         <table className="w-full  table-auto text-left mx-auto p-10 mt-5">
           <thead>
@@ -195,15 +208,16 @@ const InventoryList = () => {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    <img
-                      //src={`http://localhost:8070/img/inventory/b1407f55-06c0-41c7-94e8-924384acfc5a.jpeg`}
-                      src={`http://localhost:8070/${item.image.replace(
-                        /\\/g,
-                        '/'
-                      )}`}
-                      alt="Product"
-                      style={{ width: '100px', height: 'auto' }}
-                    />
+                    {item.image && (
+                      <img
+                        src={`http://localhost:8070/${item.image.replace(
+                          /\\/g,
+                          '/'
+                        )}`}
+                        alt="Product"
+                        style={{ width: '100px', height: '80px' }}
+                      />
+                    )}
                   </Typography>
                 </td>
                 <td className="p-1">
