@@ -16,7 +16,7 @@ import ProfileMenu from '../components/Profile';
 
 const Product = ({ product, addToCart }) => {
   return (
-    <Card key={product._id} className="w-72 mb-4 mt-2 ml-2 bg-light-green-200">
+    <Card key={product._id} className="w-72 mb-4 mt-2 ml-2 bg-blue-gray-200">
       <CardHeader shadow={false} floated={false} className="h-48">
         <img
           src={product.image}

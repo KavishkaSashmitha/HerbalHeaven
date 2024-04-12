@@ -167,7 +167,7 @@ export function DefaultSidebar() {
                       Transport
                     </ListItem>
                   </Link>
-                  <Link to="#">
+                  <Link to="/admin-orders">
                     <ListItem className="text-yellow-200">
                       <ListItemPrefix>
                         <ChevronRightIcon
@@ -178,7 +178,7 @@ export function DefaultSidebar() {
                       Order
                     </ListItem>
                   </Link>
-                  <Link to="#">
+                  <Link to="/netincome">
                     <ListItem className="text-yellow-200">
                       <ListItemPrefix>
                         <ChevronRightIcon

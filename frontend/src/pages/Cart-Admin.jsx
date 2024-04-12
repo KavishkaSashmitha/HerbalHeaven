@@ -28,7 +28,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import AdminNavbar from '../components/AdminNavbar';
-import Sidebar from '../components/AdminSidebar';
+
 import { DefaultSidebar } from '../components/Manager-Sidebar';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
