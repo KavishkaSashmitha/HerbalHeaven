@@ -111,12 +111,12 @@ function AdminDashboard() {
                       Overview
                     </h1>
                     <div className="flex flex-row">
-                      <div className="grid gap-2 w-full md:grid-cols-2 ">
+                      <div className="grid gap-1 w-full md:grid-cols-2 ">
                         <div className="">
                           <div className="grid gap-1 w-full mb-2 md:grid-cols-3 pr-2">
                             <div className="max-w-sm mx-auto">
-                              <div className="flex flex-col items-center pl-1 pt-2 pb-2 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-200 dark:bg-gray-800 dark:shadow-lg dark:hover:shadow-2xl">
-                                <div className="p-4 flex items-center">
+                              <div className="flex flex-col items-center pl-3 pt-3 pb-3 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-200 dark:bg-gray-800 dark:shadow-lg dark:hover:shadow-2xl">
+                                <div className="px-4 flex items-center">
                                   <div className="p-3 bg-orange-100 rounded-full mr-4">
                                     <svg
                                       className="w-6 h-6 text-orange-500 dark:text-orange-100"
@@ -127,7 +127,7 @@ function AdminDashboard() {
                                     </svg>
                                   </div>
                                   <div>
-                                    <p className="text-gray-600 dark:text-gray-400">
+                                    <p className="font-semibold text-gray-600 dark:text-gray-400">
                                       Total Employee
                                     </p>
                                     <p className="text-2xl font-semibold text-gray-700 dark:text-gray-200">
@@ -140,7 +140,7 @@ function AdminDashboard() {
 
                             <div className="max-w-sm mx-auto">
                               <div className="flex flex-col items-center pl-1 pt-4 pb-4 bg-white rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-200 dark:bg-gray-800 dark:shadow-lg dark:hover:shadow-2xl">
-                                <div className="px-4 flex items-center">
+                                <div className="px-2 mr-2 flex items-center">
                                   <div className="p-3 bg-orange-100 rounded-full mr-4">
                                     <svg
                                       className="w-6 h-6 text-orange-500 dark:text-orange-100"
@@ -198,7 +198,7 @@ function AdminDashboard() {
                         </div>
                       </div>
                     </div>
-                    <div className="pt-4">
+                    <div className="pt-3">
                       <div>
                         <MonthlySalChart />
                       </div>
