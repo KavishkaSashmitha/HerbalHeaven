@@ -166,10 +166,10 @@ function AdminDashboard() {
                                     <LastAddedEmpImage />
                                   </ul>
                                   <div>
-                                    <p className="text-sm mb-1 font-normal text-gray-600 dark:text-gray-400">
+                                    <p className="text-sm mb-2 font-normal text-gray-600 dark:text-gray-400">
                                       Newly Hired Employee
                                     </p>
-                                    <p className="text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                                    <p className="text-sm mb-2 font-semibold text-gray-700 dark:text-gray-200">
                                       <ul>
                                         <LastAddedEmp />
                                       </ul>

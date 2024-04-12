@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
-import {
-  Avatar,
-  Card,
-  CardBody,
-  CardHeader,
-  Typography,
-} from "@material-tailwind/react";
+import { Avatar } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 const HighestSalaryEmpPhoto = () => {
-  // Initialize state variables for tracking the highest salary, the associated username, the user image, and the month of the highest salary
+  // Initialize state variables
   const [highestSalary, setHighestSalary] = useState(0);
   const [userWithHighestSalary, setUserWithHighestSalary] = useState("");
   const [monthOfHighestSalary, setMonthOfHighestSalary] = useState("");
-  const [userImage, setUserImage] = useState(""); // New state for user image URL
+  const [userImage, setUserImage] = useState(""); // State for user image URL
+  const [userId, setUserId] = useState(""); // State for user ID
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Function to fetch data from the API and calculate the highest salary, associated username, user image, and the month of the highest salary
+    // Fetch data and calculate highest salary, associated username, user ID, and user image
     async function fetchData() {
       try {
         // Fetch data from the API
@@ -26,13 +22,14 @@ const HighestSalaryEmpPhoto = () => {
         }
         const responseData = await response.json();
 
-        // Initialize variables to track the maximum salary, the associated user, and the month of the highest salary
+        // Variables to track maximum salary, user, month of highest salary, and user ID
         let maxSalary = 0;
         let maxSalaryUser = "";
         let maxSalaryMonth = "";
-        let maxSalaryUserImage = ""; // New variable for the user image URL
+        let maxSalaryUserImage = ""; // User image URL
+        let maxSalaryUserId = ""; // User ID
 
-        // Iterate through all posts and find the highest salary, associated user, and user image
+        // Iterate through posts to find highest salary, user, month, and ID
         responseData.existingPosts.forEach((post) => {
           if (post.salary) {
             // Check all months' salaries for the highest value
@@ -40,20 +37,24 @@ const HighestSalaryEmpPhoto = () => {
               if (typeof post.salary[month] === "number") {
                 if (post.salary[month] > maxSalary) {
                   maxSalary = post.salary[month];
-                  maxSalaryUser = post.name; // Assuming 'name' is a property in each 'post' object
-                  maxSalaryMonth = month; // Store the month of the highest salary
-                  maxSalaryUserImage = post.image; // Assuming 'image' is the property for user image URL
+                  maxSalaryUser = post.name;
+                  maxSalaryMonth = month;
+                  maxSalaryUserImage = post.image;
+
+                  // Set the user ID to maxSalaryUserId using the '_id' property
+                  maxSalaryUserId = post._id;
                 }
               }
             }
           }
         });
 
-        // Update the state variables with the highest salary, associated username, month of highest salary, and user image
+        // Update state variables
         setHighestSalary(maxSalary);
         setUserWithHighestSalary(maxSalaryUser);
         setMonthOfHighestSalary(maxSalaryMonth);
-        setUserImage(maxSalaryUserImage); // Update state with user image URL
+        setUserImage(maxSalaryUserImage);
+        setUserId(maxSalaryUserId); // Set user ID state
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -61,11 +62,11 @@ const HighestSalaryEmpPhoto = () => {
       }
     }
 
-    // Call the function to fetch data and calculate the highest salary, associated username, and the month of the highest salary
+    // Call fetchData function
     fetchData();
   }, []);
 
-  // Render the component with the highest salary, associated username, user image, and the month of the highest salary
+  // Render the component
   return (
     <div>
       {loading ? (
@@ -75,13 +76,14 @@ const HighestSalaryEmpPhoto = () => {
       ) : (
         <div>
           {userImage ? (
-            <div>
+            // Use Link component for navigation to user profile with ID
+            <Link to={`/Display_Employee_Details/${userId}`}>
               <Avatar
                 src={userImage}
                 size="lg"
                 className="mr-3 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
               />
-            </div>
+            </Link>
           ) : (
             <p>?</p>
           )}

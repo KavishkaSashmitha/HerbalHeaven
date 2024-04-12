@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Avatar } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 function LastAddedEmpImage() {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lastEmployee, setLastEmployee] = useState(null);
   const [lastUserImage, setLastUserImage] = useState(null);
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   jobrole: "",
-  //   gender: "",
-  //   mobile: "",
-  //   email: "",
-  //   address: "",
-  //   age: "",
-  // });
+  const [userId, setLastUserId] = useState(""); // State for user ID
+  
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -40,6 +34,7 @@ function LastAddedEmpImage() {
 
           if (lastPost.image) {
             setLastUserImage(lastPost.image);
+            setLastUserId(lastPost._id);
           }
         }
       } catch (error) {
@@ -61,13 +56,13 @@ function LastAddedEmpImage() {
       ) : (
         <div>
           {lastUserImage ? (
-            <div>
-              <Avatar
-                src={lastUserImage}
-                size="lg"
-                className="mr-3 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
-              />
-            </div>
+            <Link to={`/Display_Employee_Details/${userId}`}>
+            <Avatar
+              src={lastUserImage}
+              size="lg"
+              className="mr-3 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
+            />
+          </Link>
           ) : (
             <p>?</p>
           )}
