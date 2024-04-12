@@ -117,7 +117,7 @@ const ProductList = () => {
         <div className="flex flex-col flex-1 overflow-scroll">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card className="overflow-hidden mr-4 mt-2 ml-4">
+          <Card className="overflow-hidden mr-4  ml-4">
             <Breadcrumbs className="ml-2 mb-2 mt-2">
               {/* Breadcrumbs */}
             </Breadcrumbs>
@@ -155,10 +155,20 @@ const ProductList = () => {
             <CardBody>
               <div>
                 <table className="w-full min-w-max table-auto text-left text-sm">
-                  <thead>{/* Table header */}</thead>
+                  <thead>
+                    <tr className="bg-gray-200">
+                      <th className="px-4 py-2">#</th>
+                      <th className="px-4 py-2">Product Name</th>
+                      <th className="px-4 py-2">Stock</th>
+                      <th className="px-4 py-2">Price</th>
+                      <th className="px-4 py-2">Image</th>
+                      <th className="px-4 py-2">Actions</th>
+                    </tr>
+                  </thead>
                   <tbody>
-                    {filteredProducts.map((product) => (
+                    {filteredProducts.map((product, index) => (
                       <tr key={product._id}>
+                        <td className="p-4">{index + 1}</td>
                         <td className="p-4">{product.name}</td>
                         <td className="p-4">{product.quantity}</td>
                         <td className="p-4">Rs.{product.price}</td>
