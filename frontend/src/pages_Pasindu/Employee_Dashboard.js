@@ -192,9 +192,9 @@ function AdminDashboard() {
                           </div>
                         </div>
                         <div>
-                          <div className="h-full">
+                          {/* <div className="h-full">
                             <Emp_Gender_Chart />
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
