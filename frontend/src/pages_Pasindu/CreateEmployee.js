@@ -209,21 +209,6 @@ export default function CreatePost() {
       return;
     }
 
-    // const { name, jobrole, gender, mobile, nic, email, address, age, image } =
-    //   state;
-
-    // const data = {
-    //   name: name,
-    //   jobrole: jobrole,
-    //   gender: gender,
-    //   mobile: mobile,
-    //   nic: nic,
-    //   email: email,
-    //   address: address,
-    //   age: age,
-    //   image: image,
-    // };
-
     Swal.fire({
       title: "Are you sure?",
       text: "This will add a new Employee.",
@@ -276,7 +261,6 @@ export default function CreatePost() {
                 window.location.href = "/emp";
               }
             }
-            
           })
           .catch((error) => {
             setCreating(false);
@@ -378,7 +362,7 @@ export default function CreatePost() {
             <CardBody className="flex items-center justify-center">
               <div className="flex flex-row">
                 <div className="grid gap-5 w-auto md:grid-cols-2">
-                <Card >
+                  <Card>
                     <CardHeader></CardHeader>
                     <CardBody>
                       <div className="flex justify-center pt-5">
