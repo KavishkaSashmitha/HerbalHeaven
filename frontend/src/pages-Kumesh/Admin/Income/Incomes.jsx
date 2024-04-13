@@ -1,50 +1,60 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import Cartdetails from "./NetIncome";
 import { SidebarWithBurgerMenu } from "../../../components/navBar";
-import { FaAddressCard } from "react-icons/fa6";
-import { RiBankFill } from "react-icons/ri";
 import { useReactToPrint } from "react-to-print";
+import MaterialCost from "../Expens/MaterialCost";
+import './Income.css'
 
-const URL = "http://localhost:8070/api/user/cart/admin/cart";
+const URL = "http://localhost:8070/api/orders/ordersnet";
 
 const fetchHandler = async () => {
   return await axios.get(URL).then((res) => res.data);
 };
+
 function Incomes() {
-  const [cart, setCarts] = useState([]);
+
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetchHandler().then((data) => setCarts(data.cart));
+    fetchHandler().then((data) => setOrders(data.orders));
   }, []);
-  console.log(cart);
+
   const componentRef = useRef();
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "income Details Report",
-    onAfterPrint: () => alert("Successfully Downloaded !"), //alret
+    documentTitle: "Income Details Report",
+    onAfterPrint: () => alert("Successfully Downloaded !"),
   });
+
   return (
-    <div>
+    <div ref={componentRef}>
       <SidebarWithBurgerMenu />
-      <button onClick={handlePrint} className="dwon_repot_income"> Download Report</button>
-      <div ref={componentRef} >
-      <h1 className="income_topic">Income Details</h1>
-      <div className="tbl_continer_incme">
-        <table className="table_income">
-          <thead>
-            <tr className="table_income_tr">
-              <th className="table_income_th">Name</th>
-              <th className="table_income_th">quantity</th>
-              <th className="table_income_th">price</th>
-              <th className="table_income_th">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cart && cart.map((cart, i) => <Cartdetails key={i} cart={cart} />)}
-          </tbody>
-        </table>
-      </div>
+      <button onClick={handlePrint} className="dwon_repot_income">
+        Download Report
+      </button>
+      <div >
+        <h1 className="income_topic">Income Details</h1>
+        <div className="tbl_continer_incme">
+          <table className="table_income">
+            <thead>
+              <tr className="table_income_tr">
+                <th className="table_income_th">total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((orders, index) => (
+                <tr key={index}>
+                  <td className="table_income_th">
+                    <p className="sub_par_dis">
+                      {orders.total ? `$${orders.total.toFixed(2)}` : "-"}
+                    </p>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
