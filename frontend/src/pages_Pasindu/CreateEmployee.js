@@ -251,11 +251,10 @@ export default function CreatePost() {
             return getDownloadURL(storageRef);
           })
           .then((url) => {
-            setState((cs) => ({ ...cs, image: url }));
-            return axios.post(
-              "http://localhost:8070/api/posts/post/save",
-              state
-            );
+            return axios.post("http://localhost:8070/api/posts/post/save", {
+              ...state,
+              image: url,
+            });
           })
           .then((res) => {
             if (res.data.success) {
@@ -377,7 +376,7 @@ export default function CreatePost() {
             <CardBody className="flex items-center justify-center">
               <div className="flex flex-row">
                 <div className="grid gap-5 w-auto md:grid-cols-2">
-                <Card >
+                  <Card>
                     <CardHeader></CardHeader>
                     <CardBody>
                       <div className="flex justify-center pt-5">
