@@ -1,7 +1,7 @@
-import { Spinner } from '@material-tailwind/react';
-import axios from 'axios';
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { Spinner } from "@material-tailwind/react";
+import axios from "axios";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [isAdminLog, setIsAdminLog] = useState(false);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('userToken');
+    const storedToken = localStorage.getItem("userToken");
 
     if (storedToken) {
       setToken(storedToken);
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   const login = (newToken) => {
     setToken(newToken);
     setLoggedIn(true);
-    localStorage.setItem('userToken', newToken);
+    localStorage.setItem("userToken", newToken);
   };
 
   const logout = () => {
@@ -34,42 +34,19 @@ export const AuthProvider = ({ children }) => {
     setLoggedIn(false);
     setIsAdminLog(false);
     setCart([]);
-    localStorage.removeItem('userToken');
+    localStorage.removeItem("userToken");
   };
 
   const isAdmin = () => {
     return isAdminLog;
   };
 
-  // const staffLogin = async (email, password) => {
-  //   setLoadingLogin(true);
-  //   try {
-  //     const response = await axios.post(
-  //       'http://localhost:8070/api/posts/post/save',
-  //       { email, password }
-  //     );
-
-  //     if (response.data.success) {
-  //       login(response.data.token);
-  //       setIsAdminLog(response.data.isAdmin); // Set isAdminLog based on response
-  //       toast.success('Login successful');
-  //     } else {
-  //       toast.error(response.data.error);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error occurred during login:', error);
-  //     toast.error('Error occurred during login');
-  //   } finally {
-  //     setLoadingLogin(false);
-  //   }
-  // };
-
   const addToCart = async (product) => {
     setLoadingCart(true);
     try {
       if (isLoggedIn) {
         const response = await axios.post(
-          'http://localhost:8070/api/user/cart',
+          "http://localhost:8070/api/user/cart",
           {
             name: product.name,
             quantity: 1,
@@ -81,18 +58,18 @@ export const AuthProvider = ({ children }) => {
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
           }
         );
-        toast.success('Item added Succesfully!');
+        toast.success("Item added Succesfully!");
         setCart(response.data.cart);
       } else {
         setCart([...cart, product]);
-        toast.warning('Please Login');
+        toast.warning("Please Login");
       }
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      console.error("Error adding to cart:", error);
     } finally {
       setLoadingCart(false);
     }
@@ -107,7 +84,6 @@ export const AuthProvider = ({ children }) => {
         token,
         addToCart,
         isAdmin,
-
         loading: loadingLogin || loadingLogout || loadingCart,
       }}
     >
