@@ -58,20 +58,18 @@ const HighestSalary = () => {
     fetchData();
   }, []);
 
-  function capitalizeSecondPart(name) {
-    if (!name) return "";
+  function capitalizeFirstPart(name) {
+    if (!name) return ""; // Return an empty string if the input is empty or falsy
 
     const parts = name.split(" "); // Split the name into parts
 
-    // Iterate over each part and capitalize the first letter
-    for (let i = 0; i < parts.length; i++) {
-      parts[i] =
-        parts[i].charAt(0).toUpperCase() + parts[i].slice(1).toLowerCase();
-    }
+    // Capitalize the first letter of the first part (first name) and convert the rest to lowercase
+    const firstPart = parts[0].charAt(0).toUpperCase() + parts[0].slice(1).toLowerCase();
 
-    // Join the parts back into a single string
-    return parts.join(" ");
-  }
+    // Return the capitalized first part of the name
+    return firstPart;
+}
+
 
   // Render the component with the highest salary, associated username, and the month of the highest salary
   return (
@@ -84,7 +82,7 @@ const HighestSalary = () => {
         <div>
           <div>
             <div className="font-bold">
-              {capitalizeSecondPart(userWithHighestSalary)}
+              {capitalizeFirstPart(userWithHighestSalary)}
             </div>
             <div>Salary: {highestSalary}</div>
           </div>

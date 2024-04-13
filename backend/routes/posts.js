@@ -162,21 +162,17 @@ router.post("/check-user", async (req, res) => {
     if (!user) {
       return res.json({
         exists: false,
-        isAdmin: false, // Since the user doesn't exist, isAdmin is false
       });
-      toast.fail("Your not a Manager");
     }
 
     // If user exists, check if the user is an admin
-    if (user.isAdmin) {
+    if (user.jobrole === "Manager") {
       return res.json({
         exists: true,
-        isAdmin: true,
       });
     } else {
       return res.json({
-        exists: true,
-        isAdmin: false,
+        exists: false,
       });
     }
   } catch (error) {

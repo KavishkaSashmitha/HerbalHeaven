@@ -39,6 +39,19 @@ function LastAddedEmp() {
     fetchDocuments();
   }, []);
 
+  function capitalizeFirstPart(name) {
+    if (!name) return ""; // Return an empty string if the input is empty or falsy
+
+    const parts = name.split(" "); // Split the name into parts
+
+    // Capitalize the first letter of the first part (first name) and convert the rest to lowercase
+    const firstPart =
+      parts[0].charAt(0).toUpperCase() + parts[0].slice(1).toLowerCase();
+
+    // Return the capitalized first part of the name
+    return firstPart;
+  }
+
   return (
     <div>
       {loading ? (
@@ -49,7 +62,7 @@ function LastAddedEmp() {
         <div>
           {lastEmployee ? (
             <div>
-              <p>{lastEmployee.name}</p>
+              <p>{capitalizeFirstPart(lastEmployee.name)}</p>
             </div>
           ) : (
             <p>?</p>
