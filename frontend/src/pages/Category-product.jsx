@@ -11,10 +11,11 @@ import {
   Tabs,
   TabsHeader,
   Tab,
+  ButtonGroup,
 } from '@material-tailwind/react';
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -116,19 +117,29 @@ const ProductList = () => {
         <div className="flex flex-col flex-1 overflow-scroll">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card className="flex flex-col flex-1 ml-2">
+          <Card className="overflow-hidden mr-4  ml-4">
             <Breadcrumbs className="ml-2 mb-2 mt-2">
               {/* Breadcrumbs */}
             </Breadcrumbs>
 
-            <div className="flex w-max gap-4 md-auto ml-2 mt-4 mb-4">
-              <Link to="/productCategory">
-                <Button className="flex">Direct Sell</Button>
-              </Link>
-              <Link to="/directcart">
-                <Button className="flex">Direct Cart</Button>
-              </Link>
-            </div>
+            <ButtonGroup className="mt-4 ml-4 mb-2" variant="outlined">
+              <Button>
+                <NavLink to="/productCategory" activeClassName="active-link">
+                  Items
+                </NavLink>
+              </Button>
+
+              <Button className="bg-black">
+                <NavLink
+                  to="/direct-cart"
+                  className="text-white"
+                  activeClassName="active-link"
+                >
+                  Cart
+                </NavLink>
+              </Button>
+            </ButtonGroup>
+
             <div className="flex items-center ml-2 mb-4">
               <Input
                 type="text"
@@ -144,10 +155,20 @@ const ProductList = () => {
             <CardBody>
               <div>
                 <table className="w-full min-w-max table-auto text-left text-sm">
-                  <thead>{/* Table header */}</thead>
+                  <thead>
+                    <tr className="bg-gray-200">
+                      <th className="px-4 py-2">#</th>
+                      <th className="px-4 py-2">Product Name</th>
+                      <th className="px-4 py-2">Stock</th>
+                      <th className="px-4 py-2">Price</th>
+                      <th className="px-4 py-2">Image</th>
+                      <th className="px-4 py-2">Actions</th>
+                    </tr>
+                  </thead>
                   <tbody>
-                    {filteredProducts.map((product) => (
+                    {filteredProducts.map((product, index) => (
                       <tr key={product._id}>
+                        <td className="p-4">{index + 1}</td>
                         <td className="p-4">{product.name}</td>
                         <td className="p-4">{product.quantity}</td>
                         <td className="p-4">Rs.{product.price}</td>

@@ -126,25 +126,6 @@ function Home() {
       <div className="relative">
         <div className="relative flex justify-between">
           <SidebarWithBurgerMenu />
-          <div className="relative flex w-1/2 gap-2 mt-2 mb-2 md:auto justify-center mx-auto">
-            <Input
-              type="search"
-              color="black"
-              label="Type here..."
-              className="pr-20"
-              containerProps={{
-                className: 'min-w-[288px]',
-              }}
-            />
-            <Button
-              size="sm"
-              color="white"
-              className="!absolute right-1 top-1 rounded"
-            >
-              Search
-            </Button>
-          </div>
-
           <ProfileMenu />
         </div>
       </div>
