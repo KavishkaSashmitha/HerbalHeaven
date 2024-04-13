@@ -370,10 +370,10 @@ export default function CreatePost() {
                 </Breadcrumbs>
               </div>
             </CardHeader>
-            <CardBody>
+            <CardBody className="flex items-center justify-center">
               <div className="flex flex-row">
                 <div className="grid gap-5 w-auto md:grid-cols-2">
-                  <Card>
+                <Card >
                     <CardHeader></CardHeader>
                     <CardBody>
                       <div className="flex justify-center pt-5">
