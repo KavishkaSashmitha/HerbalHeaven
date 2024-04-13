@@ -74,6 +74,7 @@ import InventoryList from './pages-Dileesha/InventoryList';
 import MyOrders from './pages_Ridmi/myOrders';
 import ProductList from './pages/Category-product';
 import CartAdminDashboard from './pages/Cart-AdminDashboard';
+import DirectOrdersTable from './pages/DirectOrders';
 
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
@@ -98,6 +99,7 @@ function App() {
       <Route path="/user/cart" element={<Cart />} />
       <Route path="/productCategory" element={<ProductList />} />
       <Route path="/direct-cart" element={<DirectCartTable />} />
+      <Route path="/direct-orders" element={<DirectOrdersTable />} />
       <Route path="/cartAdmin-db" element={<CartAdminDashboard />} />
       <Route
         path="/dashboard"
