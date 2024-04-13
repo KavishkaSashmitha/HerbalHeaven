@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
 import AdminNavbar from '../components/AdminNavbar';
-import { Avatar, Card } from '@material-tailwind/react';
+import { Avatar, Card, Typography } from '@material-tailwind/react';
+import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 
 const DirectOrdersTable = () => {
   const [directOrders, setDirectOrders] = useState([]);
   const [totalAmountSum, setTotalAmountSum] = useState(0); // State to hold the sum of total amounts
   const [open, setOpen] = React.useState(0);
-
+  const [loading, setLoading] = useState([true]);
   useEffect(() => {
     axios
       .get('http://localhost:8070/api/directorders')
@@ -28,22 +29,23 @@ const DirectOrdersTable = () => {
         `http://localhost:8070/api/products/${productId}`
       );
       setProductDetails({ ...productDetails, [productId]: response.data });
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching product details:', error);
     }
   };
 
   useEffect(() => {
-    let sum = 0; // Variable to store the sum of total amounts
+    let sum = 0;
     directOrders.forEach((order) => {
       order.items.forEach((item) => {
-        sum += item.totalAmount; // Accumulate total amounts
+        sum += item.totalAmount;
         if (!productDetails[item.productId]) {
           fetchProductDetails(item.productId);
         }
       });
     });
-    setTotalAmountSum(sum); // Update the state with the sum
+    setTotalAmountSum(sum);
   }, [directOrders, productDetails]);
 
   //sidebar
@@ -61,6 +63,9 @@ const DirectOrdersTable = () => {
     });
     return total;
   };
+  if (loading) {
+    return <div>{CreateLoadingScreen(loading)}</div>;
+  }
 
   return (
     <>
@@ -114,8 +119,8 @@ const DirectOrdersTable = () => {
                             {order.items.map((item) => (
                               <div key={item.productId}>
                                 {productDetails[item.productId] && (
-                                  <img
-                                    className="w-16 h-16 object-cover"
+                                  <Avatar
+                                    className="w-16 h-16 object-cover mt-4"
                                     src={productDetails[item.productId].image}
                                     alt={productDetails[item.productId].name}
                                   />
@@ -127,9 +132,11 @@ const DirectOrdersTable = () => {
                             {order.items.map((item) => (
                               <div key={item.productId}>
                                 <div>
-                                  Quantity: {item.quantity}
-                                  <br />
-                                  Total Amount: Rs.{item.totalAmount}
+                                  <Typography className="font-bold mb-2">
+                                    Quantity: {item.quantity}
+                                    <br />
+                                    Total Amount: Rs.{item.totalAmount}
+                                  </Typography>
                                 </div>
                               </div>
                             ))}
