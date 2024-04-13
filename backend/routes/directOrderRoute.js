@@ -18,4 +18,17 @@ router.post('/', async (req, res) => {
   }
 });
 
+// get aal direct order
+router.get('/', async (req, res) => {
+  let directOrder;
+  try {
+    directOrder = await DirectOrder.find();
+  } catch (err) {
+    console.log(err);
+  }
+  if (!directOrder) {
+    return res.status(404).json({ message: "DirectOrder not found" });
+  }
+  return res.status(200).json({ directOrder });
+});
 module.exports = router;

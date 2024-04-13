@@ -44,13 +44,10 @@ import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
 import PrintPage from "./pages-Kumesh/User/PrintPage";
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
+import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 //Kumesh END-----------------------
-//Kumesh-Admin
-
-import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 import EditOrder from "./pages_Ridmi/EditOrder";
 import Order from "./pages_Ridmi/Order";
-
 import "./index.css";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -76,7 +73,6 @@ import UpdateProduct from "./pages-Dileesha/UpdateProduct";
 import InventoryList from "./pages-Dileesha/InventoryList";
 import MyOrders from "./pages_Ridmi/myOrders";
 
-import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 
 import ProductList from "./pages/Category-product";
 function App() {
