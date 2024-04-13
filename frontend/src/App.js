@@ -53,14 +53,13 @@ import PayPal from "./pages-Kumesh/User/PayPal";
 import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
 import PrintPage from "./pages-Kumesh/User/PrintPage";
 
-import Payment from "./pages-Kumesh/User/Payment";
+
 import CashDelivery from "./pages-Kumesh/User/CashDelivery";
-import CardDetails from "./pages-Kumesh/User/Cards";
-import AddCard from "./pages-Kumesh/User/AddCard";
-import UpdateCard from "./pages-Kumesh/User/UpdateCard";
-import PayPal from "./pages-Kumesh/User/PayPal";
-import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
-import PrintPage from "./pages-Kumesh/User/PrintPage";
+
+
+
+
+
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 import Expens from "./pages-Kumesh/Admin/Expens/Expens";
@@ -70,10 +69,9 @@ import Order from "./pages_Ridmi/Order";
 import "./index.css";
 
 
-import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 
-import EditOrder from "./pages_Ridmi/EditOrder";
-import Order from "./pages_Ridmi/Order";
+
+
 
 import "./index.css";
 
@@ -107,29 +105,21 @@ import CartAdminDashboard from './pages/Cart-AdminDashboard';
 import DirectOrdersTable from './pages/DirectOrders';
 
 
-import SupplierReport from "./pages_kavindu/SupplierReport";
 
-import MaterialReport from "./pages_kavindu/MaterialCostReport";
-import Transport from "./pages_Malshan/Transport";
-import Add_Driver from "./pages_Malshan/Add_Driver";
-import Edit_Driver from "./pages_Malshan/Edit_Driver";
-import Driver_Details from "./pages_Malshan/Driver_Details";
-import FuelReport from "./pages_Malshan/FuelReport";
+
+
+
+
+
+
 import "./index.css";
-import ManagerLogin from "./pages/Manager-Login";
-import { CartAdmin, CartDetails } from "./pages/Cart-Admin";
-import CartChart from "./pages/Cart-Chart";
-import OTPVerification from "./interfaces/Otp";
-import { useAuth } from "./middleware/authContext";
-import { CustomerLogin } from "./pages/Customer-login";
 
-import AddProduct from "./pages-Dileesha/AddProduct";
-import UpdateProduct from "./pages-Dileesha/UpdateProduct";
-import InventoryList from "./pages-Dileesha/InventoryList";
-import MyOrders from "./pages_Ridmi/myOrders";
 
-import ProductList from "./pages/Category-product";
-import CartAdminDashboard from "./pages/Cart-AdminDashboard";
+
+
+
+
+
 
 import ImageUpload from "./imageUpload";
 
@@ -138,7 +128,6 @@ import ProtectedRoute from "./middleware/ProtectedRoute";
 
 
 
-import ProductList from "./pages/Category-product";
 function App() {
   const { isLoggedIn } = useAuth();
 
