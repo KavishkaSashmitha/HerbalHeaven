@@ -82,9 +82,9 @@ const DirectOrdersTable = () => {
             >
               <DefaultSidebar open={open} handleOpen={setOpen} />
             </div>
-            <div className="flex flex-col flex-1 overflow-scroll">
+            <div className="flex flex-col flex-1 overflow-hidden">
               <AdminNavbar toggleSidebar={toggleSidebar} />
-              <Card className="p-4">
+              <Card className="p-4 flex flex-1">
                 <div className="overflow-x-auto">
                   <h2 className="text-lg font-bold mb-4 text-white">
                     Direct Orders
