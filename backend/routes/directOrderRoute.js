@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+
 // Get all direct orders
 router.get('/', async (req, res) => {
   try {
@@ -27,5 +28,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 module.exports = router;

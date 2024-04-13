@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const supControllers = require("../controllers/supControllers");
+const MatControllers = require("../controllers/supControllers");
 const Sup = require("../model/supModel");
+
 
 router.post("/addsup", supControllers.addsup);
 
@@ -14,6 +16,7 @@ router.delete("/deleteSupplier/:id", supControllers.deleteEmployee);
 
 router.delete("/updatePayment/:id", supControllers.updatePayment);
 
+router.get("/materialCost", MatControllers.getAllPyment);
 //cost
 router.put("/materialCost/:id", (req, res) => {
   const { id } = req.params;

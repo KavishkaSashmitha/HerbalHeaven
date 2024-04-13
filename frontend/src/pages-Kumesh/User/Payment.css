@@ -82,6 +82,13 @@
 .card-amo {
   padding: 25px 0 10px 0;
 }
+.card-pay-new {
+  padding: 0px 0 10px 0;
+  
+}
+.card-pay-new_payment{
+  padding: 20px 0 10px 0;
+}
 .card-pay {
   padding: 15px 0 25px 30px;
 }
@@ -96,7 +103,16 @@
   border-radius: 100%;
   width: 35px;
 }
-
+.img-tic-new {
+  position: relative;
+  text-align: end;
+  float: right;
+  left: 30px;
+  top: -25px;
+  background-color: rgb(237, 235, 235);
+  border-radius: 100%;
+  width: 35px;
+}
 .bil-box {
   margin: 20px 0;
 }
