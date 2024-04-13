@@ -106,7 +106,7 @@ const ProductList = () => {
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: '#02353c' }}
     >
-      <div className="flex flex-1 overflow-scroll">
+      <div className="flex flex-1 overflow-hidden">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? 'block' : 'hidden'
@@ -114,10 +114,10 @@ const ProductList = () => {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="flex flex-col flex-1 overflow-scroll">
+        <div className="flex flex-col flex-1 overflow-hidden">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card className="overflow-hidden mr-4  ml-4">
+          <Card className="overflow-hidden mr-4  ml-4 flex flex-1">
             <Breadcrumbs className="ml-2 mb-2 mt-2">
               {/* Breadcrumbs */}
             </Breadcrumbs>

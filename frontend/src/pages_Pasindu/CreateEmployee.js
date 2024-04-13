@@ -236,11 +236,10 @@ export default function CreatePost() {
             return getDownloadURL(storageRef);
           })
           .then((url) => {
-            setState((cs) => ({ ...cs, image: url }));
-            return axios.post(
-              "http://localhost:8070/api/posts/post/save",
-              state
-            );
+            return axios.post("http://localhost:8070/api/posts/post/save", {
+              ...state,
+              image: url,
+            });
           })
           .then((res) => {
             if (res.data.success) {

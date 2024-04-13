@@ -293,7 +293,7 @@ const ProfileMenu = () => {
                     className="mt-4 flex justify-center"
                   >
                     Staff?
-                    <Link to="/signup">
+                    <Link to="/otp">
                       <Typography
                         as="a"
                         href="#signup"

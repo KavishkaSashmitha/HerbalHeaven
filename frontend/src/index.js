@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { NavbarSimple } from './components/navBar';
 import { CartProvider } from './components/cartContext';
-import OTPVerification from './interfaces/Otp';
+import OTPVerification from './pages/Manager-SignIn';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
