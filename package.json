@@ -25,6 +25,7 @@
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
     "feather-icons-react": "^0.7.0",
+    "firebase": "^10.11.0",
     "firebase-admin": "^12.0.0",
     "gwt": "^1.2.0-alpha",
     "html2canvas": "^1.4.1",
