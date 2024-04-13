@@ -82,4 +82,18 @@ router.delete("/transport/delete/:id", (req, res) => {
     });
 });
 
+//kumesha admin part
+router.get("/transget", async (req, res) => {
+  let transport;
+  try {
+    transport = await Transport.find();
+  } catch (err) {
+    console.log(err);
+  }
+  if (!transport) {
+    return res.status(404).json({ message: "transport not found" });
+  }
+  return res.status(200).json({ transport });
+});
+
 module.exports = router;

@@ -179,6 +179,26 @@ export function SidebarWithBurgerMenu({}) {
                 </ListItem>
               </Accordion>
             </Link>
+            <Link to="/expensive">
+              <Accordion open={open === 3}>
+                <ListItem className="p-0" selected={open === 3}>
+                  <AccordionHeader
+                    onClick={() => handleOpen(3)}
+                    className="border-b-0 p-3"
+                  >
+                    <ListItemPrefix>
+                      <ShoppingBagIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal"
+                    >
+                     Expensive
+                    </Typography>
+                  </AccordionHeader>
+                </ListItem>
+              </Accordion>
+            </Link>
             <Link to="/user/cart">
               <Accordion open={open === 3}>
                 <ListItem className="p-0" selected={open === 3}>

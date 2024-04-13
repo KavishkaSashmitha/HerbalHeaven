@@ -69,6 +69,7 @@ import AddProduct from "./pages-Dileesha/AddProduct";
 import UpdateProduct from "./pages-Dileesha/UpdateProduct";
 import InventoryList from "./pages-Dileesha/InventoryList";
 import MyOrders from "./pages_Ridmi/myOrders";
+import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
@@ -118,6 +119,7 @@ function App() {
       <Route path="/printpage" element={<PrintPage />} />
       {/*KUMESHA PAYMENT PART ADMIN */}
       <Route path="/netincome" element={<NetIncome />} />
+      <Route path="/expensive" element={<Expens />} />
       <Route path="/cashdelivery" element={<CashDelivery />} />
       {/*Kumesh End */}
       

@@ -2,37 +2,21 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { SidebarWithBurgerMenu } from "../../../components/navBar";
 import { useReactToPrint } from "react-to-print";
+import MaterialCost from "../Expens/MaterialCost";
 import './Income.css'
+
 const URL = "http://localhost:8070/api/orders/ordersnet";
 
-const fetchOrders = async () => {
-  try {
-    const response = await axios.get(URL);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching orders:", error);
-    return { success: false, existingOrders: [] };
-  }
+const fetchHandler = async () => {
+  return await axios.get(URL).then((res) => res.data);
 };
 
 function Incomes() {
+
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchOrders();
-        setOrders(data.existingOrders || []); // Ensure that orders is always an array
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    fetchHandler().then((data) => setOrders(data.orders));
   }, []);
 
   const componentRef = useRef();
@@ -43,57 +27,27 @@ function Incomes() {
     onAfterPrint: () => alert("Successfully Downloaded !"),
   });
 
-  console.log("Orders:", orders);
-  console.log("Loading:", loading);
-  console.log("Error:", error);
-
-  // Check if orders is undefined or not an array before rendering
-  if (!Array.isArray(orders) || loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
   return (
-    <div>
+    <div ref={componentRef}>
       <SidebarWithBurgerMenu />
       <button onClick={handlePrint} className="dwon_repot_income">
         Download Report
       </button>
-      <div ref={componentRef}>
+      <div >
         <h1 className="income_topic">Income Details</h1>
         <div className="tbl_continer_incme">
           <table className="table_income">
             <thead>
               <tr className="table_income_tr">
-                <th className="table_income_th">orderId</th>
-                <th className="table_income_th">user</th>
-                <th className="table_income_th">paymentStatus</th>
-                <th className="table_income_th">orderStatus</th>
                 <th className="table_income_th">total</th>
-                <th className="table_income_th">shippingAddress</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((orders, index) => (
                 <tr key={index}>
                   <td className="table_income_th">
-                    <p className="sub_par_dis">{orders.orderId || "-"}</p>
-                  </td>
-                  <td className="table_income_th">
-                    <p className="sub_par_dis">{orders.user || "-"}</p>
-                  </td>
-                  <td className="table_income_th">
-                    <p className="sub_par_dis">{orders.paymentStatus || "-"}</p>
-                  </td>
-                  <td className="table_income_th">
-                    <p className="sub_par_dis">{orders.orderStatus || "-"}</p>
-                  </td>
-                  <td className="table_income_th">
                     <p className="sub_par_dis">
                       {orders.total ? `$${orders.total.toFixed(2)}` : "-"}
-                    </p>
-                  </td>
-                  <td className="table_income_th">
-                    <p className="sub_par_dis">
-                      {orders.shippingAddress || "-"}
                     </p>
                   </td>
                 </tr>
