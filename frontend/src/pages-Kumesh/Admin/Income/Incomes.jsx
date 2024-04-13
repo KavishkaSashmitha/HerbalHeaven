@@ -4,6 +4,7 @@ import { SidebarWithBurgerMenu } from "../../../components/navBar";
 import { useReactToPrint } from "react-to-print";
 import MaterialCost from "../Expens/MaterialCost";
 import './Income.css'
+import DeretOrders from "./DeretOrders";
 
 const URL = "http://localhost:8070/api/orders/ordersnet";
 
@@ -12,12 +13,23 @@ const fetchHandler = async () => {
 };
 
 function Incomes() {
-
+  const [totalIncome, setTotalIncome] = useState(0);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetchHandler().then((data) => setOrders(data.orders));
+    fetchHandler().then((data) => {
+      setOrders(data.orders);
+      calculateTotalIncome(data.orders);
+    });
   }, []);
+
+  const calculateTotalIncome = (orders) => {
+    let total = 0;
+    orders.forEach((order) => {
+      total += order.total ? order.total : 0;
+    });
+    setTotalIncome(total);
+  };
 
   const componentRef = useRef();
 
@@ -39,23 +51,25 @@ function Incomes() {
           <table className="table_income">
             <thead>
               <tr className="table_income_tr">
-                <th className="table_income_th">total</th>
+                <th className="table_income_th">Total</th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((orders, index) => (
+              {orders.map((order, index) => (
                 <tr key={index}>
                   <td className="table_income_th">
                     <p className="sub_par_dis">
-                      {orders.total ? `$${orders.total.toFixed(2)}` : "-"}
+                      {order.total ? `$${order.total.toFixed(2)}` : "-"}
                     </p>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <h2  className="tot_amout">Total Income: ${totalIncome.toFixed(2)}</h2>
         </div>
       </div>
+      <DeretOrders/>
     </div>
   );
 }

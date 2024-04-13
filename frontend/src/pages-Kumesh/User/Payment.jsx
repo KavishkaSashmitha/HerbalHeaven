@@ -22,7 +22,7 @@ function Payment() {
   const { isLoggedIn, token } = useAuth();
 
 
-  const { token } = useAuth();
+  // const { token } = useAuth();
 
 
   // useEffect(() => {

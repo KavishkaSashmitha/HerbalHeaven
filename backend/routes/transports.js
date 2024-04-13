@@ -95,7 +95,7 @@ router.get("/transget", async (req, res) => {
     return res.status(404).json({ message: "transport not found" });
   }
   return res.status(200).json({ transport });
-
+})
 //update cost
 
 router.put('/transport/cost/:id', (req, res) => {
