@@ -1,5 +1,6 @@
 const express = require('express');
 const Transport = require('../model/transports');
+const transports = require('../model/transports');
 
 const router = express.Router();
 
@@ -65,18 +66,18 @@ router.put('/transport/update/:id', async (req, res) => {
 
 //delete post
 
-router.delete("/transport/delete/:id", (req, res) => {
+router.delete('/transport/delete/:id', (req, res) => {
   Transport.findByIdAndDelete(req.params.id)
     .exec()
     .then((deletedTransport) => {
       return res.json({
-        message: "Delete Succesfully",
+        message: 'Delete Succesfully',
         deletedTransport,
       });
     })
     .catch((err) => {
       return res.status(400).json({
-        message: "Delete unsuccesfully",
+        message: 'Delete unsuccesfully',
         err,
       });
     });
@@ -94,6 +95,26 @@ router.get("/transget", async (req, res) => {
     return res.status(404).json({ message: "transport not found" });
   }
   return res.status(200).json({ transport });
+
+//update cost
+
+router.put('/transport/cost/:id', (req, res) => {
+  const { id } = req.params;
+  const { month, amount } = req.body;
+
+  const costUpdate = { [`cost.${month.toLowerCase()}`]: amount };
+  transports
+    .findByIdAndUpdate(id, {
+      $set: costUpdate,
+    })
+    .then(() => {
+      return res.status(200).json({
+        success: 'Updated Syccesfully',
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({ error: err });
+    });
 });
 
 module.exports = router;

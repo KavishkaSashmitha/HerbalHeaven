@@ -15,11 +15,12 @@ import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import "react-toastify/dist/ReactToastify.css";
-import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
-import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
-import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
+// import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
+// import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
+// import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
 import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
+// import HiestSalary from "./pages_Pasindu/HiestSalary";
 
 import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
@@ -27,7 +28,9 @@ import User from "./pages_kavindu/User";
 import AdminDashboard from "./pages/adminDashboard";
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
+
 //Kumesh START-----------------------
+import DirectCartTable from "./pages/DirectOrder";
 //Kumesh-----------------------
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 //Kumesh-user
@@ -42,7 +45,9 @@ import PrintPage from "./pages-Kumesh/User/PrintPage";
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 //Kumesh END-----------------------
+//Kumesh-Admin
 
+import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 import EditOrder from "./pages_Ridmi/EditOrder";
 import Order from "./pages_Ridmi/Order";
 
@@ -52,11 +57,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 import SupplierReport from "./pages_kavindu/SupplierReport";
 
+import MaterialReport from "./pages_kavindu/MaterialCostReport";
 import Transport from "./pages_Malshan/Transport";
 import Add_Driver from "./pages_Malshan/Add_Driver";
 import Edit_Driver from "./pages_Malshan/Edit_Driver";
 import Driver_Details from "./pages_Malshan/Driver_Details";
-
+import FuelReport from "./pages_Malshan/FuelReport";
 import "./index.css";
 import ManagerLogin from "./pages/Manager-Login";
 import { CartAdmin, CartDetails } from "./pages/Cart-Admin";
@@ -69,8 +75,10 @@ import AddProduct from "./pages-Dileesha/AddProduct";
 import UpdateProduct from "./pages-Dileesha/UpdateProduct";
 import InventoryList from "./pages-Dileesha/InventoryList";
 import MyOrders from "./pages_Ridmi/myOrders";
+
 import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 
+import ProductList from "./pages/Category-product";
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
 
@@ -92,7 +100,11 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/products" element={<EcommerceCard />} />
       <Route path="/user/cart" element={<Cart />} />
+
       {/*<Route path="/productCategory" element={<ProductList />} />*/}
+
+      <Route path="/productCategory" element={<ProductList />} />
+      <Route path="/directcart" element={<DirectCartTable />} />
 
       {/* Pasindu */}
       <Route path="/emp/add" element={<CreatPost />} />
@@ -162,21 +174,22 @@ function App() {
       <Route path="/emp/:id" element={<PostDetails />} />
       <Route path="/emp" element={<Posts />} />
       <Route path="/salaryreport" element={<SalaryReport />} />
-      <Route path="/EmployeeChart" element={<EmployeeChart />} />
+      {/* <Route path="/EmployeeChart" element={<EmployeeChart />} />
       <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
-      <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} />
+      <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} /> */}
       <Route
         path="/Display_Employee_Details/:id"
         element={<Display_Employee_Details />}
       />
       <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
+      {/* <Route path="/HiestSalary" element={<HiestSalary />} /> */}
 
       {/* Malshan */}
       <Route path="/transport" element={<Transport />} />
       <Route path="/transport/add" element={<Add_Driver />} />
       <Route path="/transport/edit/:id" element={<Edit_Driver />} />
       <Route path="/transport/:id" element={<Driver_Details />} />
-
+      <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
       {/* Kavindu */}
@@ -185,6 +198,7 @@ function App() {
       <Route path="/sup/update/:id" element={<UpdateUser />} />
       <Route path="/sup" element={<User />} />
       <Route path="/sup/supreport/:id" element={<SupplierReport />} />
+      <Route path="/sup/material_report/:id" element={<MaterialReport />} />
 
       <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/inventory/add" element={<AddProduct />} />
