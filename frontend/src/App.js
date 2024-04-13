@@ -1,20 +1,27 @@
-import 'react-toastify/dist/ReactToastify.css';
 
-import { Route, Routes, Navigate } from 'react-router-dom';
+import "react-toastify/dist/ReactToastify.css";
 
-import Home from './pages/Home';
-import { SidebarWithBurgerMenu } from './components/navBar';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/DashBoard';
-import { EcommerceCard } from './pages/Products';
-import Cart from './pages/cart';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 
-import CreatPost from './pages_Pasindu/CreateEmployee';
-import EditPost from './pages_Pasindu/EditEmployee';
-import Posts from './pages_Pasindu/Employee';
-import PostDetails from './pages_Pasindu/EmployeeDetails';
-import 'react-toastify/dist/ReactToastify.css';
+import Home from "./pages/Home";
+import { SidebarWithBurgerMenu } from "./components/navBar";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/DashBoard";
+import { EcommerceCard } from "./pages/Products";
+import Cart from "./pages/cart";
+
+import CreatPost from "./pages_Pasindu/CreateEmployee";
+import EditPost from "./pages_Pasindu/EditEmployee";
+import Posts from "./pages_Pasindu/Employee";
+import PostDetails from "./pages_Pasindu/EmployeeDetails";
+import "react-toastify/dist/ReactToastify.css";
+
 // import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
 // import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
 // import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
@@ -76,6 +83,8 @@ import ProductList from './pages/Category-product';
 import CartAdminDashboard from './pages/Cart-AdminDashboard';
 import DirectOrdersTable from './pages/DirectOrders';
 
+import ProtectedRoute from "./middleware/ProtectedRoute";
+
 function App() {
   const { isLoggedIn, isAdminLog } = useAuth();
 
@@ -84,9 +93,12 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signUp" element={<Register />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/products" element={<EcommerceCard />} />
-      <Route path="/user/cart" element={<Cart />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/products" element={<EcommerceCard />} />
+        <Route path="/user/cart" element={<Cart />} />
+      </Route>
       {/* <Route path="/register" element={<Register />} /> */}
 
       {/* Kavishka */}
@@ -126,12 +138,14 @@ function App() {
       <Route path="/emp/add" element={<CreatPost />} />
       <Route path="/emp/edit/:id" element={<EditPost />} />
       <Route path="/emp/:id" element={<PostDetails />} />
-      <Route path="/emp" element={<Posts />} />
-      <Route path="/salaryreport" element={<SalaryReport />} />
-      <Route path="/user/payment" element={<Payment />} />
-      <Route path="/emp/add" element={<CreateUser />} />
-      <Route path="/emp/update/:id" element={<UpdateUser />} />
-      <Route path="/emp" element={<User />} />
+      <Route element={<ProtectedRoute manager />}>
+        <Route path="/emp" element={<Posts />} />
+        <Route path="/salaryreport" element={<SalaryReport />} />
+        <Route path="/user/payment" element={<Payment />} />
+        <Route path="/emp/add" element={<CreateUser />} />
+        <Route path="/emp/update/:id" element={<UpdateUser />} />
+      </Route>
+
       <Route path="/salaryreport/:id" element={<SalaryReport />} />
       <Route path="/sup/addsup" element={<CreateUser />} />
       <Route path="/sup/update/:id" element={<UpdateUser />} />
@@ -166,7 +180,7 @@ function App() {
       <Route path="/emp/add" element={<CreatPost />} />
       <Route path="/emp/edit/:id" element={<EditPost />} />
       <Route path="/emp/:id" element={<PostDetails />} />
-      <Route path="/emp" element={<Posts />} />
+
       <Route path="/salaryreport" element={<SalaryReport />} />
       {/* <Route path="/EmployeeChart" element={<EmployeeChart />} />
       <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
