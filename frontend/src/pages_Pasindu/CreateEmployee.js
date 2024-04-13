@@ -9,6 +9,7 @@ import {
   CardBody,
   CardHeader,
   CardFooter,
+  Avatar,
 } from "@material-tailwind/react";
 import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
@@ -195,12 +196,12 @@ export default function CreatePost() {
     }));
   };
 
-  const handleIsAdminChange = (e) => {
-    setState((cs) => ({
-      ...cs,
-      isAdmin: e.target.value,
-    }));
-  };
+  // const handleIsAdminChange = (e) => {
+  //   setState((cs) => ({
+  //     ...cs,
+  //     isAdmin: e.target.value,
+  //   }));
+  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -334,7 +335,11 @@ export default function CreatePost() {
         <div className="w-full h-full ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
           <Card className="bg-blue-gray-100">
-            <CardHeader floated={false} shadow={false} className="rounded-none bg-blue-gray-100">
+            <CardHeader
+              floated={false}
+              shadow={false}
+              className="rounded-none bg-blue-gray-100"
+            >
               <div className="m-4">
                 <Breadcrumbs>
                   <Link to="/">
@@ -395,8 +400,19 @@ export default function CreatePost() {
                       Add New Employee
                     </h5>
                   </div>
+                  <div className="flex justify-center pt-5">
+                    <Avatar
+                      src={state.image}
+                      size="custom"
+                      style={{
+                        width: "200px",
+                        height: "200px",
+                      }} // Adjust the width and height as desired
+                      className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
+                    />
+                  </div>
                   <div class="grid grid-cols-2 gap-6">
-                    <div class="p-6">
+                    <div class="px-6">
                       <div class="block overflow-visible">
                         <div class="relative block w-full overflow-visible  !overflow-y-visible bg-transparent">
                           <form class="flex flex-col gap-4 mt-12">
@@ -543,7 +559,7 @@ export default function CreatePost() {
                         </div>
                       </div>
                     </div>
-                    <div class="p-6">
+                    <div class="px-6">
                       <div class="block overflow-visible">
                         <div class="relative block w-full overflow-visible !overflow-x-visible !overflow-y-visible bg-transparent">
                           <form class="flex flex-col gap-4 mt-12">
@@ -651,9 +667,20 @@ export default function CreatePost() {
                                 )}
                                 <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                               </div>
+
+                              {/* Image preview
+                              {state.image && (
+                                <div className="mt-2">
+                                  <img
+                                    src={state.image}
+                                    alt="Preview"
+                                    className="w-full h-auto rounded-[7px]"
+                                  />
+                                </div>
+                              )} */}
                             </div>
 
-                            <div>
+                            {/* <div>
                               <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
                                 <label>Admin Status</label>
                               </p>
@@ -669,7 +696,7 @@ export default function CreatePost() {
                                   <option value="false">False</option>
                                 </select>
                               </div>
-                            </div>
+                            </div> */}
                           </form>
                         </div>
                       </div>
