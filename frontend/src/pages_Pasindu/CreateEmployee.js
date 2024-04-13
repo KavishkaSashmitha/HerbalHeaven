@@ -18,6 +18,8 @@ import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
 import createLoadingScreen from "./LoadingScreen";
 import { Upload } from "react-feather";
+import firebase from "../middleware/firebaseConfig";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function CreatePost() {
   const [state, setState] = useState({
@@ -39,6 +41,7 @@ export default function CreatePost() {
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [uploadImage, setUploadImage] = useState(null);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -163,25 +166,11 @@ export default function CreatePost() {
 
     // Check if file exists
     if (file) {
-      const base64 = await convertToBase64(file);
-      setState((cs) => ({ ...cs, image: base64 }));
+      setUploadImage(file);
     } else {
       // Handle case where no file is selected
-      setState((cs) => ({ ...cs, image: null }));
+      setUploadImage(null);
     }
-  };
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
   };
 
   const handInputChange = (e) => {
@@ -220,20 +209,20 @@ export default function CreatePost() {
       return;
     }
 
-    const { name, jobrole, gender, mobile, nic, email, address, age, image } =
-      state;
+    // const { name, jobrole, gender, mobile, nic, email, address, age, image } =
+    //   state;
 
-    const data = {
-      name: name,
-      jobrole: jobrole,
-      gender: gender,
-      mobile: mobile,
-      nic: nic,
-      email: email,
-      address: address,
-      age: age,
-      image: image,
-    };
+    // const data = {
+    //   name: name,
+    //   jobrole: jobrole,
+    //   gender: gender,
+    //   mobile: mobile,
+    //   nic: nic,
+    //   email: email,
+    //   address: address,
+    //   age: age,
+    //   image: image,
+    // };
 
     Swal.fire({
       title: "Are you sure?",
@@ -251,8 +240,23 @@ export default function CreatePost() {
             prevProgress >= 100 ? 0 : prevProgress + 25
           );
         }, 500);
-        axios
-          .post("http://localhost:8070/api/posts/post/save", data)
+
+        const storage = getStorage(firebase);
+        const storageRef = ref(
+          storage,
+          `employees/${state?.name ?? "profile_picture"}`
+        );
+        uploadBytes(storageRef, uploadImage)
+          .then(() => {
+            return getDownloadURL(storageRef);
+          })
+          .then((url) => {
+            setState((cs) => ({ ...cs, image: url }));
+            return axios.post(
+              "http://localhost:8070/api/posts/post/save",
+              state
+            );
+          })
           .then((res) => {
             if (res.data.success) {
               setState({

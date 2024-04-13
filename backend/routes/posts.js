@@ -134,6 +134,23 @@ router.put("/post/salary/:id", (req, res) => {
     });
 });
 
+
+
+
+router.get("/sallrypost", async (req, res) => { // Mark the function as async
+  try {
+    const salary = await Posts.find(); // Use await to wait for the promise to resolve
+    if (!salary) {
+      return res.status(404).json({ message: "salary not found" });
+    }
+    return res.status(200).json({ salary });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "Internal server error" }); // Handle errors
+  }
+});
+
+
 //check user exist
 router.post("/check-user", async (req, res) => {
   try {
@@ -145,21 +162,17 @@ router.post("/check-user", async (req, res) => {
     if (!user) {
       return res.json({
         exists: false,
-        isAdmin: false, // Since the user doesn't exist, isAdmin is false
       });
-      toast.fail("Your not a Manager");
     }
 
     // If user exists, check if the user is an admin
-    if (user.isAdmin) {
+    if (user.jobrole === "Manager") {
       return res.json({
         exists: true,
-        isAdmin: true,
       });
     } else {
       return res.json({
-        exists: true,
-        isAdmin: false,
+        exists: false,
       });
     }
   } catch (error) {

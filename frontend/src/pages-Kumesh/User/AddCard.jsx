@@ -178,6 +178,8 @@ function AddCard() {
                   <input
                     className="paymnt-inpt"
                     type="text"
+                    maxLength={16}
+                    minLength={16}
                     value={inputs.cardnumber}
                     onChange={handleChange}
                     name="cardnumber"
