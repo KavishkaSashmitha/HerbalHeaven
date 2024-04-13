@@ -53,9 +53,21 @@ router.get("/orders", async (req, res) => {
     });
   }
 });
+//kumesha admin part
+router.get("/ordersnet", async (req, res) => {
+  let orders;
+  try {
+    orders = await Orders.find();
+  } catch (err) {
+    console.log(err);
+  }
+  if (!orders) {
+    return res.status(404).json({ message: "Card not found" });
+  }
+  return res.status(200).json({ orders });
+});
 
 //get a specific post
-
 router.get("/order/:id", async (req, res) => {
   try {
     let orderId = req.params.id;
@@ -117,3 +129,5 @@ router.delete("/order/delete/:id", async (req, res) => {
 });
 
 module.exports = router;
+
+ 

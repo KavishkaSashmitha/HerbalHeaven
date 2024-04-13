@@ -49,6 +49,8 @@ const supController = {
     }
   },
 
+ 
+  
   //view only one suppliers details
 
   getEmployee: async (req, res) => {
@@ -109,6 +111,24 @@ const supController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+
+  getAllPyment :async (req, res, next) => {
+    let employees;
+    try {
+      employees = await Emp.find();
+    } catch (err) {
+      console.log(err);
+    }
+    if (!employees) {
+      return res.status(404).json({ message: "employees not found" });
+    }
+    return res.status(200).json({ employees });
+  },
+
+
 };
 
+
+
 module.exports = supController;
+
