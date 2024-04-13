@@ -271,11 +271,12 @@ export default function CreatePost() {
                 age: "",
                 image: "",
               });
+              if (state.confirmation) {
+                setCreating(false);
+                window.location.href = "/emp";
+              }
             }
-            if (state.confirmation) {
-              setCreating(false);
-              window.location.href = "/emp";
-            }
+            
           })
           .catch((error) => {
             setCreating(false);
