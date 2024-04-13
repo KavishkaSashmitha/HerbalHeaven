@@ -1,10 +1,10 @@
-import { Outlet, Navigate } from "react-router-dom";
-import { useAuth } from "./authContext";
+import { Outlet, Navigate } from 'react-router-dom';
+import { useAuth } from './authContext';
 
 const ProtectedRoute = ({ manager }) => {
   const { isLoggedIn } = useAuth();
-  const localstorage = localStorage.getItem("manager");
-  const isManager = (JSON.parse(localstorage)?.jobrole ?? "") === "Manager";
+  const localstorage = localStorage.getItem('manager');
+  const isManager = (JSON.parse(localstorage)?.jobrole ?? '') === 'Manager';
 
   return manager ? (
     isManager ? (
@@ -15,7 +15,7 @@ const ProtectedRoute = ({ manager }) => {
   ) : isLoggedIn ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" />
+    <Navigate to="/" />
   );
 };
 
