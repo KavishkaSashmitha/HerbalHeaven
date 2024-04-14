@@ -22,15 +22,13 @@ const DirectOrdersTable = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2);
+  const [itemsPerPage] = useState(3);
   const [productDetails, setProductDetails] = useState({});
   const [mostRepeatedItem, setMostRepeatedItem] = useState(null);
   const [mostRepeatedItemCount, setMostRepeatedItemCount] = useState(0);
   const [recentlySoldItem, setRecentlySoldItem] = useState(null);
-  const [currentItems, setCurrentItems] = useState([]);
+
   const [imageLoading, setImageLoading] = useState({});
-  const [indexOfLastItem, setIndexOfLastItem] = useState(0);
-  const [indexOfFirstItem, setIndexOfFirstItem] = useState(0);
 
   useEffect(() => {
     axios
@@ -87,19 +85,6 @@ const DirectOrdersTable = () => {
   };
 
   useEffect(() => {
-    setIndexOfLastItem(currentPage * itemsPerPage);
-    setIndexOfFirstItem(indexOfLastItem - itemsPerPage);
-  }, [currentPage, itemsPerPage, indexOfLastItem]);
-
-  useEffect(() => {
-    const updatedCurrentItems = directOrders.slice(
-      indexOfFirstItem,
-      indexOfLastItem
-    );
-    setCurrentItems(updatedCurrentItems);
-  }, [directOrders, indexOfFirstItem, indexOfLastItem]);
-
-  useEffect(() => {
     if (directOrders.length > 0) {
       const latestOrder = directOrders.reduce((prev, current) =>
         prev.createdAt > current.createdAt ? prev : current
@@ -133,7 +118,7 @@ const DirectOrdersTable = () => {
     return <div>{CreateLoadingScreen(loading)}</div>;
   }
 
-  const filteredCurrentItems = currentItems.filter((order) =>
+  const filteredItems = directOrders.filter((order) =>
     order.items.some((item) =>
       productDetails[item.productId]?.name
         .toLowerCase()
@@ -145,10 +130,19 @@ const DirectOrdersTable = () => {
   const nextPage = () => setCurrentPage(currentPage + 1);
   const prevPage = () => setCurrentPage(currentPage - 1);
 
+  // Calculate the total number of items after filtering
+  const totalFilteredItems = filteredItems.length;
+
+  // Update the map for page numbers
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(directOrders.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalFilteredItems / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
+
+  // Update pagination logic to consider totalFilteredItems
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <>
@@ -187,7 +181,7 @@ const DirectOrdersTable = () => {
                         Direct Net Income
                       </p>
                       <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        Rs.{totalAmountSum}
+                        Rs.{totalAmountSum.toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -253,7 +247,7 @@ const DirectOrdersTable = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredCurrentItems.map((order, index) => (
+                    {currentItems.map((order, index) => (
                       <tr key={order._id} className="hover:bg-gray-100">
                         <td className="px-1 py-1">{index + 1}</td>
                         <td className="px-1 py-1">
@@ -329,7 +323,7 @@ const DirectOrdersTable = () => {
                   variant="outlined"
                   size="sm"
                   onClick={nextPage}
-                  disabled={indexOfLastItem >= directOrders.length}
+                  disabled={indexOfLastItem >= totalFilteredItems}
                 >
                   Next
                 </Button>
