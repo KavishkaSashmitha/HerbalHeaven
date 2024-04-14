@@ -33,9 +33,10 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
+  image: {
+    type: String,
+    required: false,
+    default: null,
   },
 
   salary: {

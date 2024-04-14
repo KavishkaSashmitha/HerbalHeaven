@@ -1,10 +1,10 @@
-const express = require('express');
-const Posts = require('../model/posts');
+const express = require("express");
+const Posts = require("../model/posts");
 
 const router = express.Router();
 
 //save posts
-router.post('/post/save', (req, res) => {
+router.post("/post/save", (req, res) => {
   let newPost = new Posts(req.body);
 
   // newPost.save((err) =>{
@@ -22,7 +22,7 @@ router.post('/post/save', (req, res) => {
     .save()
     .then(() => {
       return res.status(200).json({
-        success: 'Posts saved successfully',
+        success: "Posts saved successfully",
       });
     })
     .catch((err) => {
@@ -34,7 +34,7 @@ router.post('/post/save', (req, res) => {
 
 //get posts
 
-router.get('/posts', (req, res) => {
+router.get("/posts", (req, res) => {
   // Posts.find().exec((err, posts) =>{
   //     if(err){
   //         return res.status(400).json({
@@ -64,7 +64,7 @@ router.get('/posts', (req, res) => {
 
 //get a specific post
 
-router.get('/posts/:id', (req, res) => {
+router.get("/posts/:id", (req, res) => {
   let postId = req.params.id;
 
   Posts.findById(postId)
@@ -81,13 +81,13 @@ router.get('/posts/:id', (req, res) => {
 
 //update posts
 
-router.put('/post/update/:id', (req, res) => {
+router.put("/post/update/:id", (req, res) => {
   Posts.findByIdAndUpdate(req.params.id, {
     $set: req.body,
   })
     .then(() => {
       return res.status(200).json({
-        success: 'Updated Syccesfully',
+        success: "Updated Syccesfully",
       });
     })
     .catch((err) => {
@@ -97,18 +97,18 @@ router.put('/post/update/:id', (req, res) => {
 
 //delete post
 
-router.delete('/post/delete/:id', (req, res) => {
+router.delete("/post/delete/:id", (req, res) => {
   Posts.findByIdAndDelete(req.params.id)
     .exec()
     .then((deletedPost) => {
       return res.json({
-        message: 'Delete Succesfully',
+        message: "Delete Succesfully",
         deletedPost,
       });
     })
     .catch((err) => {
       return res.status(400).json({
-        message: 'Delete unsuccesfully',
+        message: "Delete unsuccesfully",
         err,
       });
     });
@@ -116,7 +116,7 @@ router.delete('/post/delete/:id', (req, res) => {
 
 //update salary
 
-router.put('/post/salary/:id', (req, res) => {
+router.put("/post/salary/:id", (req, res) => {
   const { id } = req.params;
   const { month, amount } = req.body;
 
@@ -126,7 +126,7 @@ router.put('/post/salary/:id', (req, res) => {
   })
     .then(() => {
       return res.status(200).json({
-        success: 'Updated Syccesfully',
+        success: "Updated Syccesfully",
       });
     })
     .catch((err) => {
@@ -134,8 +134,25 @@ router.put('/post/salary/:id', (req, res) => {
     });
 });
 
+
+
+
+router.get("/sallrypost", async (req, res) => { // Mark the function as async
+  try {
+    const salary = await Posts.find(); // Use await to wait for the promise to resolve
+    if (!salary) {
+      return res.status(404).json({ message: "salary not found" });
+    }
+    return res.status(200).json({ salary });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "Internal server error" }); // Handle errors
+  }
+});
+
+
 //check user exist
-router.post('/check-user', async (req, res) => {
+router.post("/check-user", async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -145,26 +162,22 @@ router.post('/check-user', async (req, res) => {
     if (!user) {
       return res.json({
         exists: false,
-        isAdmin: false, // Since the user doesn't exist, isAdmin is false
       });
-      toast.fail('Your not a Manager');
     }
 
     // If user exists, check if the user is an admin
-    if (user.isAdmin) {
+    if (user.jobrole === "Manager") {
       return res.json({
         exists: true,
-        isAdmin: true,
       });
     } else {
       return res.json({
-        exists: true,
-        isAdmin: false,
+        exists: false,
       });
     }
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 

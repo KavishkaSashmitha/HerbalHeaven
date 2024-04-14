@@ -69,49 +69,175 @@ export function SidebarWithBurgerMenu({}) {
       </IconButton>
 
       <Drawer
-        className="bg-green-100"
+        className="bg-custom-color"
         open={isDrawerOpen}
         onClose={closeDrawer}
       >
         <Card
           color="transparent"
           shadow={false}
-          className="h-[calc(100vh-2rem)] w-full p-2 bg-green-100"
+          className="h-[calc(100vh-2rem)] w-full p-2 bg-custom-color"
         >
           <Link to="/">
-            <div className="flex items-center justify-center mt-0 ">
+            <div className="flex items-center justify-center mt-5 mr-5">
               <img
                 src="/logo/loading.png"
                 alt="brand"
                 className="h-13 w-12 mb-10 mt-10"
               />
-              <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-green-600">
+              <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-teal-200">
                 Herbal Heaven
               </h5>
             </div>
           </Link>
 
-          <div className="p-1">
+          {/* <div className="p-1">
             <Input
               icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               label="Search"
             />
-          </div>
+          </div> */}
 
-          <List className=" bg-green-100">
-            <Link to="/my-orders">
+          <List className="overflow-y-scroll bg-green-100">
+            <Accordion
+              open={open === 1}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open === 1 ? 'rotate-180' : ''
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 1}>
+                <AccordionHeader
+                  onClick={() => handleOpen(1)}
+                  className="border-b-0 p-3"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="h-5 w-5" />
+                  </ListItemPrefix>
+
+                  <Typography color="blue-gray" className="mr-auto font-normal">
+                    Dashboard
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Customer
+                    </ListItem>
+                  </Link>
+
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+
+                    Inventory
+                  </ListItem>
+                  <Link to="/cart-admin">
+           Customer
+                  </ListItem>
+                  <Link to="/inventory">
+
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+
+                      Cart
+                    </ListItem>
+                  </Link>
+
+
+                      Inventory
+                    </ListItem>
+                  </Link>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Cart
+                  </ListItem>
+
+                  <Link to="/emp">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Employee
+                    </ListItem>
+
+                  </Link>
+
+                  <Link to="/sup">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Supplier
+                    </ListItem>
+                  </Link>
+
+                  <Link to="/transport">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Transport
+                    </ListItem>
+                  </Link>
+
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Transport
+                    </ListItem>
+                  </Link>
+
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Order
+                    </ListItem>
+                  </Link>
+                  <Link to="#">
+                    <ListItem>
+                      <ListItemPrefix>
+                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      </ListItemPrefix>
+                      Payment
+                    </ListItem>
+
+                  </Link>
+                </List>
+              </AccordionBody>
+            </Accordion>
+            <Link to="#">
               <Accordion open={open === 2}>
                 <ListItem className="p-0" selected={open === 2}>
                   <AccordionHeader
                     onClick={() => handleOpen(2)}
-                    className="border-b-0 p-3"
+                    className="border-b-0 p-3 hover:bg-teal-800"
                   >
                     <ListItemPrefix>
-                      <TruckIcon className="h-5 w-5" />
+                      <ShoppingBagIcon className="h-5 w-5" />
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"
-                      className="mr-auto font-normal"
+                      className="mr-auto font-normal text-teal-200"
                     >
                       Orders
                     </Typography>
@@ -120,6 +246,26 @@ export function SidebarWithBurgerMenu({}) {
               </Accordion>
             </Link>
             <Link to="/products">
+              <Accordion open={open === 3}>
+                <ListItem className="p-0" selected={open === 3}>
+                  <AccordionHeader
+                    onClick={() => handleOpen(3)}
+                    className="border-b-0 p-3 hover:bg-teal-800"
+                  >
+                    <ListItemPrefix>
+                      <CubeIcon className="h-5 w-5 text-teal-200" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal text-teal-200"
+                    >
+                      Products
+                    </Typography>
+                  </AccordionHeader>
+                </ListItem>
+              </Accordion>
+            </Link>
+            <Link to="/carddetails">
               <Accordion open={open === 3}>
                 <ListItem className="p-0" selected={open === 3}>
                   <AccordionHeader
@@ -133,13 +279,33 @@ export function SidebarWithBurgerMenu({}) {
                       color="blue-gray"
                       className="mr-auto font-normal"
                     >
-                      Products
+                      Payment
                     </Typography>
                   </AccordionHeader>
                 </ListItem>
               </Accordion>
             </Link>
-            <Link to="/user/cart">
+            <Link to="/netincome">
+              <Accordion open={open === 3}>
+                <ListItem className="p-0" selected={open === 3}>
+                  <AccordionHeader
+                    onClick={() => handleOpen(3)}
+                    className="border-b-0 p-3"
+                  >
+                    <ListItemPrefix>
+                      <CubeIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal"
+                    >
+                      Net Income
+                    </Typography>
+                  </AccordionHeader>
+                </ListItem>
+              </Accordion>
+            </Link>
+            <Link to="/expensive">
               <Accordion open={open === 3}>
                 <ListItem className="p-0" selected={open === 3}>
                   <AccordionHeader
@@ -153,6 +319,26 @@ export function SidebarWithBurgerMenu({}) {
                       color="blue-gray"
                       className="mr-auto font-normal"
                     >
+                     Expensive
+                    </Typography>
+                  </AccordionHeader>
+                </ListItem>
+              </Accordion>
+            </Link>
+            <Link to="/user/cart">
+              <Accordion open={open === 3}>
+                <ListItem className="p-0" selected={open === 3}>
+                  <AccordionHeader
+                    onClick={() => handleOpen(3)}
+                    className="border-b-0 p-3 hover:bg-teal-800"
+                  >
+                    <ListItemPrefix>
+                      <ShoppingBagIcon className="h-5 w-5 text-teal-200" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal text-teal-200"
+                    >
                       Cart
                     </Typography>
                     <ListItemSuffix>
@@ -161,7 +347,7 @@ export function SidebarWithBurgerMenu({}) {
                         size="sm"
                         variant="ghost"
                         color="blue-gray"
-                        className="rounded-full"
+                        className="rounded-full text-teal-200"
                       />
                     </ListItemSuffix>
                   </AccordionHeader>
@@ -174,19 +360,19 @@ export function SidebarWithBurgerMenu({}) {
             {isLoggedIn ? ( // Conditional rendering based on isLoggedIn state
               <>
                 <Link to="/dashboard">
-                  <ListItem className="p-2 py-2">
+                  <ListItem className="p-2 mt-3 hover:bg-cyan-500">
                     <ListItemPrefix>
-                      <UserCircleIcon className="h-5 w-5" />
+                      <UserCircleIcon className="h-5 w-5 text-yellow-400" />
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"
-                      className="mr-auto font-normal"
+                      className="mr-auto font-normal text-yellow-400"
                     >
                       Profile
                     </Typography>
                   </ListItem>
                 </Link>
-                <ListItem className="p-2 py-1 bg-red-500" onClick={logout}>
+                <ListItem className="p-2 mt-3 py-2 bg-red-500" onClick={logout}>
                   <ListItemPrefix>
                     <PowerIcon className="h-5 w-5" />
                   </ListItemPrefix>

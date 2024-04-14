@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button } from '@material-tailwind/react';
 import backgroundImage from '../assets/sign-in.jpg';
@@ -9,7 +9,20 @@ const OTPVerification = () => {
   const [email, setEmail] = useState('');
   const [otp, setOTP] = useState('');
   const [isAdminLog, setIsAdminLog] = useState(false);
+  const [userImage, setUserImage] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Retrieve user data from localStorage
+    const userData = localStorage.getItem('manager');
+
+    if (userData) {
+      // Parse JSON string to JavaScript object
+      const user = JSON.parse(userData);
+      // Access user image URL and set it to state
+      setUserImage(user.avatar);
+    }
+  }, []);
 
   const sendOTP = async () => {
     try {
@@ -19,7 +32,7 @@ const OTPVerification = () => {
         { email }
       );
 
-      if (userCheckResponse.data.exists && userCheckResponse.data.isAdmin) {
+      if (userCheckResponse.data.exists) {
         // User exists and is an admin, send OTP
         const otpResponse = await axios.post(
           'http://localhost:8070/api/send-otp',
@@ -46,7 +59,7 @@ const OTPVerification = () => {
       console.log(response.data);
       if (response.data.success) {
         setIsAdminLog(true);
-        console.log(setIsAdminLog);
+        localStorage.setItem('manager', JSON.stringify(response.data.manager));
         navigate('/admin-dashboard');
       }
     } catch (error) {
@@ -118,13 +131,14 @@ const OTPVerification = () => {
           </div>
         </div>
         <div className="flex-1 bg-green-100 text-center hidden lg:flex">
-          <div
-            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-            style={{
-              backgroundImage:
-                "url('https://drive.google.com/uc?export=view&id=1KZ_Ub_2lZ0dHbKV0fAIhxVhiQA183RCz')",
-            }}
-          ></div>
+          {userImage && (
+            <div
+              className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url(${userImage})`,
+              }}
+            ></div>
+          )}
         </div>
       </div>
     </div>
