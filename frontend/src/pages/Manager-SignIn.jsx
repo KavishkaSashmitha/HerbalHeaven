@@ -41,6 +41,7 @@ const OTPVerification = () => {
           }
         );
         console.log(otpResponse.data);
+        toast.success('OTP Send To Your Email');
       } else {
         // User does not exist or is not an admin, show toast
         toast.error('Not a Manager here');
