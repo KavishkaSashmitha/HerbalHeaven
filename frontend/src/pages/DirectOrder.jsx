@@ -3,9 +3,6 @@ import {
   Button,
   ButtonGroup,
   Card,
-  Tab,
-  Tabs,
-  TabsHeader,
 } from '@material-tailwind/react';
 import React, { useState, useEffect, useRef } from 'react';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
@@ -193,7 +190,6 @@ const DirectCartTable = () => {
                 </NavLink>
               </Button>
             </ButtonGroup>
-            
 
             <table className="w-full table-auto">
               <thead>
