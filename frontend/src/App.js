@@ -140,9 +140,20 @@ function App() {
         <Route path="/direct-cart" element={<DirectCartTable />} />
         <Route path="/direct-orders" element={<DirectOrdersTable />} />
         <Route path="/cartAdmin-db" element={<CartAdminDashboard />} />
+
+        {/* Pasindu */}
+        <Route path="/emp/add" element={<CreatPost />} />
+        <Route path="/emp/edit/:id" element={<EditPost />} />
+        <Route path="/emp/:id" element={<PostDetails />} />
+        <Route path="/emp" element={<Posts />} />
+        <Route path="/salaryreport" element={<SalaryReport />} />
+
+        <Route path="/transport" element={<Transport />} />
+        <Route path="/transport/add" element={<Add_Driver />} />
+        <Route path="/transport/edit/:id" element={<Edit_Driver />} />
+        <Route path="/transport/:id" element={<Driver_Details />} />
       </Route>
-      <Route path="/emp" element={<Posts />} />
-      <Route path="/salaryreport" element={<SalaryReport />} />
+
       <Route path="/user/payment" element={<Payment />} />
 
       <Route path="/salaryreport/:id" element={<SalaryReport />} />
@@ -178,11 +189,6 @@ function App() {
 
       <Route path="/otp" element={<OTPVerification />} />
 
-      {/* Pasindu */}
-      <Route path="/emp/add" element={<CreatPost />} />
-      <Route path="/emp/edit/:id" element={<EditPost />} />
-      <Route path="/emp/:id" element={<PostDetails />} />
-
       <Route path="/salaryreport" element={<SalaryReport />} />
 
       <Route
@@ -192,10 +198,7 @@ function App() {
       <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
 
       {/* Malshan */}
-      <Route path="/transport" element={<Transport />} />
-      <Route path="/transport/add" element={<Add_Driver />} />
-      <Route path="/transport/edit/:id" element={<Edit_Driver />} />
-      <Route path="/transport/:id" element={<Driver_Details />} />
+
       <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
