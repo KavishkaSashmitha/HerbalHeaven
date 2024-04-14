@@ -29,6 +29,7 @@ export default function EditPost() {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [uploadImage, setUploadImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -208,9 +209,13 @@ export default function EditPost() {
     // Check if file exists
     if (file) {
       setUploadImage(file);
+
+      const imageURL = URL.createObjectURL(file);
+      setImagePreview(imageURL);
     } else {
       // Handle case where no file is selected
       setUploadImage(null);
+      setImagePreview(null);
     }
   };
 
@@ -318,7 +323,7 @@ export default function EditPost() {
                       style={{ position: "relative", display: "inline-block" }}
                     >
                       <Avatar
-                        src={formData.image}
+                        src={imagePreview || formData.image}
                         size="custom"
                         style={{ width: "120px", height: "120px" }} // Adjust the width and height as desired
                         className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
