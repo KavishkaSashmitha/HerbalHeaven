@@ -249,7 +249,7 @@ export default function EditPost() {
   return (
     <>
       <div
-        className="flex h-screen overflow-scroll"
+        className="flex h-screen overflow-scroll "
         style={{ backgroundColor: "#02353c" }}
       >
         <div
@@ -261,8 +261,8 @@ export default function EditPost() {
         </div>
         <div className="w-full h-full ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card>
-            <CardHeader floated={false} shadow={false} className="rounded-none">
+          <Card className="bg-blue-gray-100">
+            <CardHeader floated={false} shadow={false} className="rounded-none bg-blue-gray-100">
               <div className="m-4">
                 <Breadcrumbs>
                   <Link to="/">
@@ -291,7 +291,7 @@ export default function EditPost() {
                   </Link>
                   <Link to="">
                     <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                      <span>Create Employee</span>
+                      <span>Edit Employee</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                     </li>
