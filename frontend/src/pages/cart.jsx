@@ -20,6 +20,7 @@ import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import ProfileMenu from '../components/Profile';
 import Swal from 'sweetalert2';
 import { Footer } from '../components/Footer';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
   const location = useLocation();
@@ -44,6 +45,8 @@ const Cart = () => {
             }
           );
           setCart(response.data);
+        } else {
+          toast.error('SignIn Please');
         }
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -74,6 +77,8 @@ const Cart = () => {
         setCart(updatedCart);
         setSelectedItems(selectedItems.filter((id) => id !== itemId));
         navigate(location.pathname, { replace: true });
+      } else {
+        toast.error('SignIn Please');
       }
     } catch (error) {
       console.error('Error deleting cart item:', error);

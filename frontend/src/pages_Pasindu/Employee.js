@@ -339,12 +339,9 @@ export default function Posts() {
                                   size="md"
                                   className="mr-3 border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
                                 />
-                                <a
-                                  href={`/posts/post/${post._id}`}
-                                  style={{ textDecoration: "none" }}
-                                >
+                                <span style={{ textDecoration: "none" }}>
                                   {capitalizeSecondPart(post.name)}
-                                </a>
+                                </span>
                               </p>
                             </div>
                           </div>

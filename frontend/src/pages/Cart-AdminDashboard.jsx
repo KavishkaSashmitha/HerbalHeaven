@@ -12,6 +12,8 @@ import { DefaultSidebar } from '../components/Manager-Sidebar';
 
 import { Link } from 'react-router-dom';
 import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
+import BarChart from './Product_Details_Chart';
+// import { renderChart } from './Product_Details_Chart';
 
 function CartAdminDashboard() {
   const [documents, setDocuments] = useState([]);
@@ -176,7 +178,9 @@ function CartAdminDashboard() {
                             </div>
                           </div>
                           <div className="pt-3 pr-2">
-                            <div></div>
+                            <div>
+                              <BarChart />
+                            </div>
                           </div>
                         </div>
                         <div>

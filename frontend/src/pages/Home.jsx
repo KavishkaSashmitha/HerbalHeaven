@@ -33,7 +33,7 @@ const Product = ({ product }) => {
   const { addToCart, isLoggedIn } = useAuth(); // Accessing addToCart function from AuthProvider
 
   return (
-    <Card key={product._id} className="w-72 mb-4 bg-light-green-200">
+    <Card key={product._id} className="w-72 mb-4 bg-green-300">
       <CardHeader shadow={false} floated={false} className="h-48">
         <img
           src={product.image}
@@ -123,32 +123,13 @@ function Home() {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative bg-custom-color">
         <div className="relative flex justify-between">
           <SidebarWithBurgerMenu />
-          <div className="relative flex w-1/2 gap-2 mt-2 mb-2 md:auto justify-center mx-auto">
-            <Input
-              type="search"
-              color="black"
-              label="Type here..."
-              className="pr-20"
-              containerProps={{
-                className: 'min-w-[288px]',
-              }}
-            />
-            <Button
-              size="sm"
-              color="white"
-              className="!absolute right-1 top-1 rounded"
-            >
-              Search
-            </Button>
-          </div>
-
           <ProfileMenu />
         </div>
       </div>
-      <div className="sticky top-0 bg-green-800 h-16 px-6 sm:px-10 py-4  flex items-center justify-between z-50">
+      <div className="sticky top-0 bg-amber-800 h-16 px-6 sm:px-10 py-4  flex items-center justify-between z-50">
         <div className="flex items-center space-x-8 text-sm text-white">
           <Link to="/">
             <Button

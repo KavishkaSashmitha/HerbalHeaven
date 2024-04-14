@@ -78,7 +78,7 @@ const ProfileMenu = () => {
   return (
     <>
       <div className="flex items-center justify-end mr-5 mt-2 mb-2">
-        <Typography variant="medium" className="text-teal-100 mr-4">
+        <Typography variant="medium" className=" font-bold text-teal-50 mr-4">
           {currentTime}
         </Typography>
         <Link to="/user/cart">
@@ -86,7 +86,7 @@ const ProfileMenu = () => {
             <IconButton
               variant="text"
               color="black"
-              className=" mb-2 mr-0 hover:text-light-green-400"
+              className=" mb-2 mr-0 hover:text-light-green-400 text-white"
             >
               <ShoppingCartIcon className="h-8 w-6" />
             </IconButton>
@@ -96,7 +96,7 @@ const ProfileMenu = () => {
         <IconButton
           variant="text"
           color="black"
-          className="mb-2 ml-4 mr-2 hover:text-light-green-400"
+          className="mb-2 ml-4 mr-2 hover:text-light-green-400 text-white"
         >
           <BellIcon className="h-6 w-6" />
         </IconButton>
@@ -293,7 +293,7 @@ const ProfileMenu = () => {
                     className="mt-4 flex justify-center"
                   >
                     Staff?
-                    <Link to="/signup">
+                    <Link to="/otp">
                       <Typography
                         as="a"
                         href="#signup"

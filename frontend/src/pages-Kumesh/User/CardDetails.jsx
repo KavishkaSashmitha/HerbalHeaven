@@ -9,13 +9,6 @@ function CardDetails(props) {
   const { _id, address, cardholdername } = props.card;
   const history = useNavigate();
 
-  // const deleteHandeler = async () => {
-  //   await axios
-  //     .delete(`http://localhost:8070/cards/${_id}`)
-  //     .then((res) => res.data)
-  //     .then(() => history("/"))
-  //     .then(() => history("/carddetails"));
-  // };
   const deleteHandeler = async () => {
     const confirmDeletion = window.confirm("Are you sure you want to delete card details?");
     
