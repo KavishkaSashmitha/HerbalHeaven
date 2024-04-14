@@ -89,49 +89,26 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-
-      <Route path="/signUp" element={<Register />} />
-
       <Route element={<ProtectedRoute />}>
+        {/* Kavishka */}
+        <Route path="/" element={<Home />} />
+        <Route path="/signUp" element={<Register />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={<EcommerceCard />} />
         <Route path="/user/cart" element={<Cart />} />
+        <Route path="/productCategory" element={<ProductList />} />
+        <Route path="/login" element={<CustomerLogin />} />
+        <Route path="/signUp" element={<Register />} />
+
+        {/*Kumesh*/}
+        <Route path="/user/payment" element={<Payment />} />
+        <Route path="/carddetails" element={<CardDetails />} />
+        <Route path="/addnewcard" element={<AddCard />} />
+        <Route path="/carddetails/:id" element={<UpdateCard />} />
       </Route>
-      {/* <Route path="/register" element={<Register />} /> */}
-
-      {/* Kavishka */}
-      <Route path="/" element={<Home />} />
-
-      <Route path="/signUp" element={<Register />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/products" element={<EcommerceCard />} />
-      <Route path="/user/cart" element={<Cart />} />
-
-      {/*<Route path="/productCategory" element={<ProductList />} />*/}
-
-      <Route
-        path="/dashboard"
-        element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />}
-      />
-      <Route path="/products" element={<EcommerceCard />} />
-      <Route
-        path="/user/cart"
-        element={isLoggedIn ? <Cart /> : <Navigate to="/" />}
-      />
-
-      <Route
-        path="/cart-stats"
-        element={isLoggedIn ? <CartChart /> : <Navigate to="/" />}
-      />
-
-      {/* Pasindu */}
-      <Route path="/emp/add" element={<CreatPost />} />
-      <Route path="/emp/edit/:id" element={<EditPost />} />
-      <Route path="/emp/:id" element={<PostDetails />} />
 
       {/* //Protected Routes */}
-
       <Route element={<ProtectedRoute manager />}>
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* cart-related */}
@@ -146,74 +123,52 @@ function App() {
         <Route path="/emp/edit/:id" element={<EditPost />} />
         <Route path="/emp/:id" element={<PostDetails />} />
         <Route path="/emp" element={<Posts />} />
-        <Route path="/salaryreport" element={<SalaryReport />} />
+        <Route path="/salaryreport/:id" element={<SalaryReport />} />
+        <Route
+          path="/Display_Employee_Details/:id"
+          element={<Display_Employee_Details />}
+        />
+        <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
 
+        {/* Malshan */}
         <Route path="/transport" element={<Transport />} />
         <Route path="/transport/add" element={<Add_Driver />} />
         <Route path="/transport/edit/:id" element={<Edit_Driver />} />
         <Route path="/transport/:id" element={<Driver_Details />} />
+        <Route path="/FuelReport/:id" element={<FuelReport />} />
+
+        {/* Kavindu */}
+        <Route path="/sup/addsup" element={<CreateUser />} />
+        <Route path="/sup/update/:id" element={<UpdateUser />} />
+        <Route path="/sup" element={<User />} />
+        <Route path="/sup/material_report/:id" element={<MaterialReport />} />
+
+        {/*Ridmi*/}
+        <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/admin-orders" element={<Order />} />
+        <Route path="/edit/:id" element={<EditOrder />} />
+
+        {/*Dileesha*/}
+        <Route path="/inventory/add" element={<AddProduct />} />
+        <Route path="/inventory/update/:id" element={<UpdateProduct />} />
+        <Route path="/inventory" element={<InventoryList />} />
+
+        {/*Kumesh*/}
+        <Route path="/netincome" element={<NetIncome />} />
+        <Route path="/expensive" element={<Expens />} />
+        <Route path="/cashdelivery" element={<CashDelivery />} />
+        <Route path="/printpage" element={<PrintPage />} />
       </Route>
 
-      <Route path="/user/payment" element={<Payment />} />
-
-      <Route path="/salaryreport/:id" element={<SalaryReport />} />
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
       {/*Kumesh Start */}
-      {/*KUMESHA PAYMENT PART */}
-      <Route path="/user/payment" element={<Payment />} />
-      <Route path="/carddetails" element={<CardDetails />} />
-      <Route path="/addnewcard" element={<AddCard />} />
-      <Route path="/carddetails/:id" element={<UpdateCard />} />
       <Route path="/paypal" element={<PayPal />} />
       <Route path="/paypalcheckout" element={<PaypalCheckOut />} />
-      <Route path="/printpage" element={<PrintPage />} />
-      {/*KUMESHA PAYMENT PART ADMIN */}
-      <Route path="/netincome" element={<NetIncome />} />
-      <Route path="/expensive" element={<Expens />} />
-      <Route path="/cashdelivery" element={<CashDelivery />} />
-      {/*Kumesh End */}
-
-      {/*Ridmi*/}
-      <Route path="/my-orders" element={<MyOrders />} />
-      <Route path="/admin-orders" element={<Order />} />
-      <Route path="/edit/:id" element={<EditOrder />} />
-
-      <Route path="/user/payment" element={<Payment />} />
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<CustomerLogin />} />
-      <Route path="/signUp" element={<Register />} />
 
       {/* Routes that require authentication */}
 
       <Route path="/otp" element={<OTPVerification />} />
 
-      <Route path="/salaryreport" element={<SalaryReport />} />
-
-      <Route
-        path="/Display_Employee_Details/:id"
-        element={<Display_Employee_Details />}
-      />
-      <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
-
-      {/* Malshan */}
-
-      <Route path="/FuelReport/:id" element={<FuelReport />} />
-      <Route path="/user/payment" element={<Payment />} />
-
-      {/* Kavindu */}
-
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
-      <Route path="/sup/supreport/:id" element={<SupplierReport />} />
-      <Route path="/sup/material_report/:id" element={<MaterialReport />} />
-
-      <Route path="/salaryreport" element={<SalaryReport />} />
-      <Route path="/inventory/add" element={<AddProduct />} />
-      <Route path="/inventory/update/:id" element={<UpdateProduct />} />
-      <Route path="/inventory" element={<InventoryList />} />
+      {/* <Route path="/sup/supreport/:id" element={<SupplierReport />} /> */}
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>
