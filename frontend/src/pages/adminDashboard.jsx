@@ -1,30 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  ListItem,
-  ListItemPrefix,
-  ListItemSuffix,
-  Chip,
-  AccordionBody,
-  List,
-  AccordionHeader,
-  Accordion,
-} from '@material-tailwind/react';
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon,
-  PresentationChartBarIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/solid';
 import AdminNavbar from '../components/AdminNavbar';
 
 import { DefaultSidebar } from '../components/Manager-Sidebar';
@@ -33,7 +9,6 @@ import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 function AdminDashboard() {
   const [documents, setDocuments] = useState([]);
   const [loading, setloading] = useState([true]);
-  
 
   const toggleSidebar = () => {
     setOpen(!open);
