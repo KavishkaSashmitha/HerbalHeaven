@@ -154,51 +154,83 @@ export default function EditPost() {
           );
         }, 500);
 
-        const storage = getStorage(firebase);
-        const storageRef = ref(
-          storage,
-          `employees/${formData?.name ?? "profile_picture"}`
-        );
-        uploadBytes(storageRef, uploadImage)
-          .then(() => {
-            return getDownloadURL(storageRef);
-          })
-          .then((url) => {
-            return axios.put(
-              `http://localhost:8070/api/posts/post/update/${id}`,
-              {
-                ...formData,
-                image: url,
-              }
-            );
-          })
-          .then((res) => {
-            if (res.data.success) {
-              setFormData({
-                name: "",
-                jobrole: "",
-                gender: "",
-                mobile: "",
-                nic: "",
-                email: "",
-                address: "",
-                age: "",
-                image: "",
-              });
+        if (uploadImage) {
+          const storage = getStorage(firebase);
+          const storageRef = ref(
+            storage,
+            `employees/${formData?.name ?? "profile_picture"}`
+          );
+          uploadBytes(storageRef, uploadImage)
+            .then(() => {
+              return getDownloadURL(storageRef);
+            })
+            .then((url) => {
+              return axios.put(
+                `http://localhost:8070/api/posts/post/update/${id}`,
+                {
+                  ...formData,
+                  image: url,
+                }
+              );
+            })
+            .then((res) => {
+              if (res.data.success) {
+                setFormData({
+                  name: "",
+                  jobrole: "",
+                  gender: "",
+                  mobile: "",
+                  nic: "",
+                  email: "",
+                  address: "",
+                  age: "",
+                  image: "",
+                });
 
-              setConfirmation(true);
-              // Redirect after confirmation is set
-              window.location.replace("/emp");
-            }
-          })
-          .catch((error) => {
-            console.error("Error updating post:", error);
-          })
-          .finally(() => {
-            // Set loading to false after asynchronous operations are completed
-            setUploading(false);
-            clearInterval(interval);
-          });
+                setConfirmation(true);
+                // Redirect after confirmation is set
+                window.location.replace("/emp");
+              }
+            })
+            .catch((error) => {
+              console.error("Error updating post:", error);
+            })
+            .finally(() => {
+              // Set loading to false after asynchronous operations are completed
+              setUploading(false);
+              clearInterval(interval);
+            });
+        } else {
+          axios
+            .put(`http://localhost:8070/api/posts/post/update/${id}`, formData)
+            .then((res) => {
+              if (res.data.success) {
+                setFormData({
+                  name: "",
+                  jobrole: "",
+                  gender: "",
+                  mobile: "",
+                  nic: "",
+                  email: "",
+                  address: "",
+                  age: "",
+                  image: "",
+                });
+
+                setConfirmation(true);
+                // Redirect after confirmation is set
+                window.location.replace("/emp");
+              }
+            })
+            .catch((error) => {
+              console.error("Error updating post:", error);
+            })
+            .finally(() => {
+              // Set loading to false after asynchronous operations are completed
+              setUploading(false);
+              clearInterval(interval);
+            });
+        }
       }
     });
   };
