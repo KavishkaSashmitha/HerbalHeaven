@@ -33,6 +33,8 @@ import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 function AdminDashboard() {
   const [documents, setDocuments] = useState([]);
   const [loading, setloading] = useState([true]);
+  
+
   const toggleSidebar = () => {
     setOpen(!open);
   };

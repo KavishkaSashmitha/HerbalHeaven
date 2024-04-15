@@ -15,6 +15,7 @@ import paypal from './img/paypal.png';
 import amazon from './img/amo.png';
 import tic from './img/tic.png';
 import axios from 'axios';
+import { StepperWithContent } from '../../components/Stepper';
 
 function Payment() {
   const location = useLocation();
@@ -185,17 +186,7 @@ function Payment() {
   return (
     <div className="w-auto px-24 py-4 step">
       <SidebarWithBurgerMenu />
-      <Stepper
-        activeStep={activeStepIndex}
-        isFirstStep={activeStepIndex === 0}
-        isLastStep={activeStepIndex === steps.length - 1}
-      >
-        {steps.map((step, index) => (
-          <Step key={index} isActive={index === activeStepIndex}>
-            <Link to={step.path}>{step.icon}</Link>
-          </Step>
-        ))}
-      </Stepper>
+      <StepperWithContent />
       <div className="Payment-full-box">
         <div className="Payment-full-box-set">
           <div>

@@ -194,7 +194,8 @@ const DirectOrdersTable = () => {
                           productDetails[mostRepeatedItem]?.image ||
                           'Placeholder Image URL'
                         }
-                        className="h-12 w-12"
+                        className="h-10 w-10"
+                        style={{ borderRadius: '50%' }}
                         alt="Most Purchased Item"
                       />
                     </div>
