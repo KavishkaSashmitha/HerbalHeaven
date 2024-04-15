@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Stepper, Step, Button } from '@material-tailwind/react';
+import { Stepper, Step } from '@material-tailwind/react';
 import {
   ShoppingCartIcon,
   CurrencyDollarIcon,
@@ -21,9 +21,7 @@ function Payment() {
   const [cart, setCart] = useState([]);
   const { isLoggedIn, token } = useAuth();
 
-
   // const { token } = useAuth();
-
 
   // useEffect(() => {
   //   const fetchCartItems = async () => {
@@ -60,7 +58,7 @@ function Payment() {
       try {
         if (isLoggedIn) {
           const response = await axios.get(
-            "http://localhost:8070/api/user/cart",
+            'http://localhost:8070/api/user/cart',
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -76,7 +74,7 @@ function Payment() {
           setCart(response.data);
         }
       } catch (error) {
-        console.error("Error fetching cart items:", error);
+        console.error('Error fetching cart items:', error);
       }
     };
 
@@ -144,8 +142,8 @@ function Payment() {
           city: inputs.city,
           zip: inputs.zip,
         },
-        paymentStatus: "Paid",
-        orderStatus: "Preparing",
+        paymentStatus: 'Paid',
+        orderStatus: 'Preparing',
 
         items: cart.map(({ name, price, quantity, image }) => ({
           name,
@@ -222,9 +220,12 @@ function Payment() {
                 />
                 <p className="paymnt-topic">Pay With pay pal</p>
               </div>
-              <div className="method-three method-box"  onClick={() => {
-                  window.location.href = "/cashdelivery";
-                }}>
+              <div
+                className="method-three method-box"
+                onClick={() => {
+                  window.location.href = '/cashdelivery';
+                }}
+              >
                 <img src={amazon} alt="amazon" className="img-paymt card-amo" />
                 <p className="paymnt-topic">pay with cash on delivery</p>
               </div>

@@ -63,7 +63,7 @@ export function SidebarWithBurgerMenu({}) {
         ) : (
           <Bars3Icon
             className="h-8 w-8 stroke-2 "
-            style={{ color: '#c8e6c9' }}
+            style={{ color: '#ff8f00' }}
           />
         )}
       </IconButton>
@@ -193,7 +193,7 @@ export function SidebarWithBurgerMenu({}) {
                       color="blue-gray"
                       className="mr-auto font-normal"
                     >
-                     Expensive
+                      Expensive
                     </Typography>
                   </AccordionHeader>
                 </ListItem>
