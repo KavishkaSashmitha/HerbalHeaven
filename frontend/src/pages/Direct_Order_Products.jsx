@@ -16,6 +16,8 @@ import {
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
 import { Link, NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -23,6 +25,7 @@ const ProductList = () => {
   const [productsPerPage] = useState(5); // Number of products per page
   const [searchInput, setSearchInput] = useState(''); // State for search input
   const [directCart, setDirectCart] = useState({}); // State to manage cart items and quantities
+  const [loading, setLoading] = useState([true]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -33,6 +36,7 @@ const ProductList = () => {
         }
         const data = await response.json();
         setProducts(data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error.message);
       }
@@ -89,6 +93,9 @@ const ProductList = () => {
         },
         body: JSON.stringify({ item: directCartItem }), // Send a single cart item
       });
+      if (response.ok) {
+        toast.success('Added Item To Cart');
+      }
 
       if (!response.ok) {
         throw new Error('Failed to add item to cart');
@@ -101,12 +108,16 @@ const ProductList = () => {
     }
   };
 
+  if (loading) {
+    return <div>{CreateLoadingScreen(loading)}</div>;
+  }
+
   return (
     <div
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: '#02353c' }}
     >
-      <div className="flex flex-1 overflow-scroll">
+      <div className="flex flex-1 overflow-hidden">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? 'block' : 'hidden'
@@ -114,10 +125,10 @@ const ProductList = () => {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="flex flex-col flex-1 overflow-scroll">
+        <div className="flex flex-col flex-1 overflow-hidden">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card className="overflow-hidden mr-4  ml-4">
+          <Card className="overflow-hidden mr-4  ml-4 flex flex-1">
             <Breadcrumbs className="ml-2 mb-2 mt-2">
               {/* Breadcrumbs */}
             </Breadcrumbs>

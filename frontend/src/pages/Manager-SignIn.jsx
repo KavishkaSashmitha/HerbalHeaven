@@ -1,36 +1,50 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Button } from "@material-tailwind/react";
-import backgroundImage from "../assets/sign-in.jpg";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Button } from '@material-tailwind/react';
+import backgroundImage from '../assets/sign-in.jpg';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const OTPVerification = () => {
-  const [email, setEmail] = useState("");
-  const [otp, setOTP] = useState("");
+  const [email, setEmail] = useState('');
+  const [otp, setOTP] = useState('');
   const [isAdminLog, setIsAdminLog] = useState(false);
+  const [userImage, setUserImage] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Retrieve user data from localStorage
+    const userData = localStorage.getItem('manager');
+
+    if (userData) {
+      // Parse JSON string to JavaScript object
+      const user = JSON.parse(userData);
+      // Access user image URL and set it to state
+      setUserImage(user.avatar);
+    }
+  }, []);
 
   const sendOTP = async () => {
     try {
       // Check if user exists and is an admin
       const userCheckResponse = await axios.post(
-        "http://localhost:8070/api/posts/check-user",
+        'http://localhost:8070/api/posts/check-user',
         { email }
       );
 
       if (userCheckResponse.data.exists) {
         // User exists and is an admin, send OTP
         const otpResponse = await axios.post(
-          "http://localhost:8070/api/send-otp",
+          'http://localhost:8070/api/send-otp',
           {
             email,
           }
         );
         console.log(otpResponse.data);
+        toast.success('OTP Send To Your Email');
       } else {
         // User does not exist or is not an admin, show toast
-        toast.error("Not a Manager here");
+        toast.error('Not a Manager here');
       }
     } catch (error) {
       console.error(error);
@@ -40,14 +54,14 @@ const OTPVerification = () => {
   const verifyOTP = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8070/api/verify-otp",
+        'http://localhost:8070/api/verify-otp',
         { email, otp }
       );
       console.log(response.data);
       if (response.data.success) {
         setIsAdminLog(true);
-        localStorage.setItem("manager", JSON.stringify(response.data.manager));
-        navigate("/admin-dashboard");
+        localStorage.setItem('manager', JSON.stringify(response.data.manager));
+        navigate('/admin-dashboard');
       }
     } catch (error) {
       console.error(error);
@@ -118,13 +132,14 @@ const OTPVerification = () => {
           </div>
         </div>
         <div className="flex-1 bg-green-100 text-center hidden lg:flex">
-          <div
-            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-            style={{
-              backgroundImage:
-                "url('https://drive.google.com/uc?export=view&id=1KZ_Ub_2lZ0dHbKV0fAIhxVhiQA183RCz')",
-            }}
-          ></div>
+          {userImage && (
+            <div
+              className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url(${userImage})`,
+              }}
+            ></div>
+          )}
         </div>
       </div>
     </div>

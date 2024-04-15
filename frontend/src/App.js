@@ -1,3 +1,4 @@
+
 import "react-toastify/dist/ReactToastify.css";
 
 import {
@@ -5,7 +6,8 @@ import {
   Route,
   Routes,
   Navigate,
-} from "react-router-dom";
+} from 'react-router-dom';
+
 
 import Home from "./pages/Home";
 import { SidebarWithBurgerMenu } from "./components/navBar";
@@ -15,29 +17,32 @@ import Dashboard from "./pages/DashBoard";
 import { EcommerceCard } from "./pages/Products";
 import Cart from "./pages/cart";
 
-import CreatPost from "./pages_Pasindu/CreateEmployee";
-import EditPost from "./pages_Pasindu/EditEmployee";
-import Posts from "./pages_Pasindu/Employee";
-import PostDetails from "./pages_Pasindu/EmployeeDetails";
-import "react-toastify/dist/ReactToastify.css";
+
+import CreatPost from './pages_Pasindu/CreateEmployee';
+import EditPost from './pages_Pasindu/EditEmployee';
+import Posts from './pages_Pasindu/Employee';
+import PostDetails from './pages_Pasindu/EmployeeDetails';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
 // import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
 // import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
-import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
-import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
+import Display_Employee_Details from './pages_Pasindu/Display_Employee_Details';
+import Employee_Dashboard from './pages_Pasindu/Employee_Dashboard';
 // import HiestSalary from "./pages_Pasindu/HiestSalary";
 
-import CreateUser from "./pages_kavindu/CreateUser";
-import UpdateUser from "./pages_kavindu/UpdateUser";
-import User from "./pages_kavindu/User";
-import AdminDashboard from "./pages/adminDashboard";
 
-import SalaryReport from "./pages_Pasindu/SalaryReport";
-import DirectCartTable from "./pages/DirectOrder";
+import CreateUser from './pages_kavindu/CreateUser';
+import UpdateUser from './pages_kavindu/UpdateUser';
+import User from './pages_kavindu/User';
+import AdminDashboard from './pages/AdminDashboard';
+
+import SalaryReport from './pages_Pasindu/SalaryReport';
+import DirectCartTable from './pages/DirectOrder';
+
 
 //Kumesh-----------------------
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 //Kumesh-user
 
 import Payment from "./pages-Kumesh/User/Payment";
@@ -93,12 +98,12 @@ import ImageUpload from "./imageUpload";
 import ProtectedRoute from "./middleware/ProtectedRoute";
 
 function App() {
-  const { isLoggedIn, isAdminLog } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+
       <Route path="/signUp" element={<Register />} />
 
       <Route element={<ProtectedRoute />}>
@@ -110,8 +115,7 @@ function App() {
 
       {/* Kavishka */}
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
       <Route path="/signUp" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/products" element={<EcommerceCard />} />
@@ -119,42 +123,42 @@ function App() {
 
       {/*<Route path="/productCategory" element={<ProductList />} />*/}
 
-      <Route path="/productCategory" element={<ProductList />} />
-      <Route path="/direct-cart" element={<DirectCartTable />} />
-      <Route path="/direct-orders" element={<DirectOrdersTable />} />
-      <Route path="/cartAdmin-db" element={<CartAdminDashboard />} />
       <Route
         path="/dashboard"
-        element={isLoggedIn ? <Dashboard /> : <Navigate to="/login" />}
+        element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />}
       />
       <Route path="/products" element={<EcommerceCard />} />
       <Route
         path="/user/cart"
-        element={isLoggedIn ? <Cart /> : <Navigate to="/login" />}
-      />
-      <Route path="/manager-login" element={<ManagerLogin />} />
-      <Route
-        path="/admin-dashboard"
-        element={isAdminLog ? <AdminDashboard /> : <Home />}
+        element={isLoggedIn ? <Cart /> : <Navigate to="/" />}
       />
 
-      <Route path="/cart-Admin" element={<CartAdmin />} />
       <Route
         path="/cart-stats"
-        element={isLoggedIn ? <CartChart /> : <Navigate to="/login" />}
+        element={isLoggedIn ? <CartChart /> : <Navigate to="/" />}
       />
 
       {/* Pasindu */}
       <Route path="/emp/add" element={<CreatPost />} />
       <Route path="/emp/edit/:id" element={<EditPost />} />
       <Route path="/emp/:id" element={<PostDetails />} />
-      {/* <Route element={<ProtectedRoute manager />}> */}
+
+
+      {/* //Protected Routes */}
+
+      <Route element={<ProtectedRoute manager />}>
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        {/* cart-related */}
+        <Route path="/cart-Admin" element={<CartAdmin />} />
+        <Route path="/productCategory" element={<ProductList />} />
+        <Route path="/direct-cart" element={<DirectCartTable />} />
+        <Route path="/direct-orders" element={<DirectOrdersTable />} />
+        <Route path="/cartAdmin-db" element={<CartAdminDashboard />} />
+      </Route>
       <Route path="/emp" element={<Posts />} />
       <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/user/payment" element={<Payment />} />
-      <Route path="/emp/add" element={<CreateUser />} />
-      <Route path="/emp/update/:id" element={<UpdateUser />} />
-      {/* </Route> */}
+
 
       <Route path="/salaryreport/:id" element={<SalaryReport />} />
       <Route path="/sup/addsup" element={<CreateUser />} />
