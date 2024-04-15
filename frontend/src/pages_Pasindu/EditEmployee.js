@@ -17,25 +17,18 @@ import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
 import createLoadingScreen from "./LoadingScreen";
+import firebase from "../middleware/firebaseConfig";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function EditPost() {
   const { id } = useParams();
-  const [formData, setFormData] = useState({
-    // name: "",
-    // jobrole: "",
-    // gender: "",
-    // mobile: "",
-    // nic: "",
-    // email: "",
-    // address: "",
-    // age: "",
-    image: "",
-  });
+  const [formData, setFormData] = useState();
 
   const [open, setOpen] = React.useState(0);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [uploadImage, setUploadImage] = useState(null);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -144,21 +137,6 @@ export default function EditPost() {
       return;
     }
 
-    const { name, jobrole, gender, mobile, nic, email, address, age, image } =
-      formData;
-
-    const data = {
-      name: name,
-      jobrole: jobrole,
-      gender: gender,
-      mobile: mobile,
-      nic: nic,
-      email: email,
-      address: address,
-      age: age,
-      image: image,
-    };
-
     Swal.fire({
       title: "Are you sure?",
       text: "This will update the Employee information.",
@@ -175,8 +153,25 @@ export default function EditPost() {
             prevProgress >= 100 ? 0 : prevProgress + 25
           );
         }, 500);
-        axios
-          .put(`http://localhost:8070/api/posts/post/update/${id}`, data)
+
+        const storage = getStorage(firebase);
+        const storageRef = ref(
+          storage,
+          `employees/${formData?.name ?? "profile_picture"}`
+        );
+        uploadBytes(storageRef, uploadImage)
+          .then(() => {
+            return getDownloadURL(storageRef);
+          })
+          .then((url) => {
+            return axios.put(
+              `http://localhost:8070/api/posts/post/update/${id}`,
+              {
+                ...formData,
+                image: url,
+              }
+            );
+          })
           .then((res) => {
             if (res.data.success) {
               setFormData({
@@ -210,17 +205,12 @@ export default function EditPost() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      setFormData({
-        ...formData,
-        image: reader.result, // Base64 string of the image
-      });
-    };
-
+    // Check if file exists
     if (file) {
-      reader.readAsDataURL(file);
+      setUploadImage(file);
+    } else {
+      // Handle case where no file is selected
+      setUploadImage(null);
     }
   };
 
