@@ -87,6 +87,7 @@ import "./index.css";
 import ImageUpload from "./imageUpload";
 
 import ProtectedRoute from "./middleware/ProtectedRoute";
+import AdminDashboard from "./pages/adminDashboard";
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -137,7 +138,7 @@ function App() {
       {/* //Protected Routes */}
 
       <Route element={<ProtectedRoute manager />}>
-        <Route path="/admin-dashboard" element={<adminDashboard />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* cart-related */}
         <Route path="/cart-Admin" element={<CartAdmin />} />
         <Route path="/productCategory" element={<ProductList />} />
