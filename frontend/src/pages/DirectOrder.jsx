@@ -3,15 +3,13 @@ import {
   Button,
   ButtonGroup,
   Card,
-  Tab,
-  Tabs,
-  TabsHeader,
 } from '@material-tailwind/react';
 import React, { useState, useEffect, useRef } from 'react';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
 import AdminNavbar from '../components/AdminNavbar';
 import { useReactToPrint } from 'react-to-print'; // Import react-to-pdf library
 import { Link, NavLink } from 'react-router-dom';
+import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 
 const DirectCartTable = () => {
   const [directCartData, setDirectCartData] = useState([]);
@@ -152,6 +150,9 @@ const DirectCartTable = () => {
       console.error('Error posting cart details:', error);
     }
   };
+  if (loading) {
+    return <div>{CreateLoadingScreen(loading)}</div>;
+  }
 
   return (
     <div
@@ -189,6 +190,7 @@ const DirectCartTable = () => {
                 </NavLink>
               </Button>
             </ButtonGroup>
+
             <table className="w-full table-auto">
               <thead>
                 <tr className="bg-gray-200">

@@ -1,3 +1,4 @@
+
 import "react-toastify/dist/ReactToastify.css";
 
 import {
@@ -7,13 +8,16 @@ import {
   Navigate,
 } from "react-router-dom";
 
+
 import Home from "./pages/Home";
 import { SidebarWithBurgerMenu } from "./components/navBar";
+
 
 import Register from "./pages/Register";
 import Dashboard from "./pages/DashBoard";
 import { EcommerceCard } from "./pages/Products";
 import Cart from "./pages/cart";
+
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
@@ -24,13 +28,16 @@ import "react-toastify/dist/ReactToastify.css";
 import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 
+
 import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
 import User from "./pages_kavindu/User";
 import AdminDashboard from "./pages/adminDashboard";
 
+
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
+
 
 //Kumesh-----------------------
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
@@ -44,8 +51,11 @@ import PayPal from "./pages-Kumesh/User/PayPal";
 import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
 import PrintPage from "./pages-Kumesh/User/PrintPage";
 
+
 import CashDelivery from "./pages-Kumesh/User/CashDelivery";
 
+
+import CashDelivery from "./pages-Kumesh/User/CashDelivery";
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 import Expens from "./pages-Kumesh/Admin/Expens/Expens";
@@ -53,6 +63,7 @@ import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 import EditOrder from "./pages_Ridmi/EditOrder";
 import Order from "./pages_Ridmi/Order";
 import "./index.css";
+
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -67,6 +78,7 @@ import FuelReport from "./pages_Malshan/FuelReport";
 import { CartAdmin, CartDetails } from "./pages/Cart-Admin";
 import CartChart from "./pages/Cart-Chart";
 import OTPVerification from "./pages/Manager-SignIn";
+
 import { useAuth } from "./middleware/authContext";
 import { CustomerLogin } from "./pages/Customer-login";
 
@@ -74,7 +86,9 @@ import AddProduct from "./pages-Dileesha/AddProduct";
 import UpdateProduct from "./pages-Dileesha/UpdateProduct";
 import InventoryList from "./pages-Dileesha/InventoryList";
 import MyOrders from "./pages_Ridmi/myOrders";
+
 import ProductList from "./pages/Direct_Order_Products";
+
 import CartAdminDashboard from "./pages/Cart-AdminDashboard";
 import DirectOrdersTable from "./pages/DirectOrders";
 
@@ -107,6 +121,7 @@ function App() {
         <Route path="/addnewcard" element={<AddCard />} />
         <Route path="/carddetails/:id" element={<UpdateCard />} />
       </Route>
+
 
       {/* //Protected Routes */}
       <Route element={<ProtectedRoute manager />}>
@@ -159,6 +174,16 @@ function App() {
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
       </Route>
+
+      <Route path="/emp" element={<Posts />} />
+      <Route path="/salaryreport" element={<SalaryReport />} />
+      <Route path="/user/payment" element={<Payment />} />
+
+
+      <Route path="/salaryreport/:id" element={<SalaryReport />} />
+      <Route path="/sup/addsup" element={<CreateUser />} />
+      <Route path="/sup/update/:id" element={<UpdateUser />} />
+      <Route path="/sup" element={<User />} />
 
       {/*Kumesh Start */}
       <Route path="/paypal" element={<PayPal />} />
