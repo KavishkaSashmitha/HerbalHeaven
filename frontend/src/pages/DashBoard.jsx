@@ -17,33 +17,28 @@ function DashBoard() {
   };
 
   const handleEditProfile = () => {
-    // Redirect user to edit profile page
     navigate('/edit-profile');
   };
 
   const handleDeleteProfile = async () => {
-    // Display confirmation dialog
     const isConfirmed = window.confirm("Are you sure you want to delete this account?");
   
     if (isConfirmed) {
       try {
-        // Make a request to delete the user account
         await axios.delete('http://localhost:8070/api/customer/delete', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
           data: {
-            customerId: customer._id // Assuming `customer` object contains customer details
+            customerId: customer._id
           }
         });
-        // Logout the user after account deletion
         logout();
         navigate('/login');
-
         alert('User deleted successfully');
       } catch (error) {
         console.error('Error deleting customer account:', error);
-        setError('Error deleting customer account'); // Set error message state
+        setError('Error deleting customer account');
       }
     }
   };
@@ -69,22 +64,37 @@ function DashBoard() {
   return (
     <>
       <SidebarWithBurgerMenu />
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto py-10 ">
         {isLoggedIn && customer ? (
-          <Card>
+          <Card className="bg-teal-100">
             <CardHeader color="blueGray">
               <h2 className="text-xl font-bold">Welcome, {customer.name}!</h2>
             </CardHeader>
             <CardBody>
-              {/* Display user details including mobile number and address */}
-              <p className="text-base">Email: {customer.email}</p>
-              <p className="text-base">Mobile Number: {customer.mobileNumber}</p>
-              <p className="text-base">Address: {customer.address}</p>
-              <p className="text-base">Gender: {customer.gender}</p>
-              <p className="text-base">Age: {customer.age}</p>
+              {/* User Details */}
+              <div className="mb-4 ">
+                <p className="text-lg text-gray-700 font-semibold">Email:</p>
+                <p className="text-base text-gray-600">{customer.email}</p>
+              </div>
+              <div className="mb-4">
+                <p className="text-lg text-gray-700 font-semibold">Mobile Number:</p>
+                <p className="text-base text-gray-600">{customer.mobileNumber}</p>
+              </div>
+              <div className="mb-4">
+                <p className="text-lg text-gray-700 font-semibold">Address:</p>
+                <p className="text-base text-gray-600">{customer.address}</p>
+              </div>
+              <div className="mb-4">
+                <p className="text-lg text-gray-700 font-semibold">Gender:</p>
+                <p className="text-base text-gray-600">{customer.gender}</p>
+              </div>
+              <div className="mb-4">
+                <p className="text-lg text-gray-700 font-semibold">Age:</p>
+                <p className="text-base text-gray-600">{customer.age}</p>
+              </div>
 
-              {/* Add Edit and Delete Buttons */}
-              <div className="flex justify-between mt-4">
+              {/* Buttons */}
+              <div className="flex justify-between mt-6">
                 <Button color="red" onClick={handleLogout}>Logout</Button>
                 <div>
                   <Button color="blue" onClick={handleEditProfile}>Edit Profile</Button>
@@ -94,7 +104,7 @@ function DashBoard() {
             </CardBody>
           </Card>
         ) : (
-          <p className="text-base">Please log in to access the user profile.</p>
+          <p className="text-base text-gray-700">Please log in to access the user profile.</p>
         )}
       </div>
     </>

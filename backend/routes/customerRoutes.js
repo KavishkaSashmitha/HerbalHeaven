@@ -28,6 +28,6 @@ route.get('/all', getAllCustomers);
 
 
 
-route.delete('/delete', protect, deleteProfile); 
-
+//route.delete('/delete', protect, deleteProfile); 
+route.delete('/delete', deleteProfile); 
 module.exports = route;

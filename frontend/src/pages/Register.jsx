@@ -19,35 +19,47 @@ export default function Register() {
   const [error, setError] = useState('');
    
   const handleChange = (e) => {
-  const { name, value } = e.target;
-
-  // Email validation
-  if (name === 'email') {
-    // Regular expression for email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      setError('Please enter a valid email address');
-    } else {
-      setError(''); // Clear the error if email is valid
+    const { name, value } = e.target;
+  
+    // Email validation
+    if (name === 'email') {
+      // Regular expression for email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        setError('Please enter a valid email address');
+      } else {
+        setError(''); // Clear the error if email is valid
+      }
     }
-  }
-
-// Mobile number validation
-if (name === 'mobileNumber') {
-  // Regular expression to allow only digits
-  const regex = /^\d*$/;
-  if (!regex.test(value)) {
-    setError('Mobile number should contain only digits');
-  } else if (value.length > 10) {
-    setError('Mobile number should be exactly 10 digits');
-  } else {
+  
+    // Mobile number validation
+    if (name === 'mobileNumber') {
+      // Regular expression to allow only digits
+      const regex = /^\d*$/;
+      if (!regex.test(value)) {
+        setError('Mobile number should contain only digits');
+      } else if (value.length > 10) {
+        setError('Mobile number should be exactly 10 digits');
+      } else {
+        setError(''); // Clear error if validation passed
+      }
+    }
+  
+    // Name validation
+    if (name === 'name') {
+      // Regular expression to allow only letters
+      const nameRegex = /^[A-Za-z]+$/;
+      if (!nameRegex.test(value)) {
+        setError('Name should contain only letters');
+      } else {
+        setError(''); // Clear error if validation passed
+      }
+    }
+  
+    // Update form data
     setFormData({ ...formData, [name]: value });
-    setError(''); // Clear error if validation passed
-  }
-} else {
-  setFormData({ ...formData, [name]: value });
-}
-};
+  };
+  
 
   const handleCheckboxChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.checked });
@@ -55,21 +67,27 @@ if (name === 'mobileNumber') {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Check if there are any error messages
+    if (error) {
+      window.alert('Please fix the errors before submitting');
+      return;
+    }
+  
     // Validation
     if (!formData.name || !formData.email || !formData.password || !formData.mobileNumber || !formData.address || !formData.gender || !formData.age || !formData.agreeTerms) {
       setError('Please fill in all fields');
       return;
     }
-
-    if (formData.age ==0) {
+  
+    if (formData.age == 0) {
       setError('Give a valid age');
       return;
     }
-
+  
     try {
       const response = await axios.post('http://localhost:8070/api/customer/register', formData);
-
+  
       console.log('Registration successful:', response.data);
       window.alert('Registration success');
       window.alert('Login to access');
@@ -79,12 +97,13 @@ if (name === 'mobileNumber') {
       window.alert('Registration failed');
     }
   };
+  
 
   return (
     <>
       <SidebarWithBurgerMenu />
       <div className="flex justify-center items-center h-screen">
-        <Card color="transparent" shadow={false} className="bg-green-200 w-full max-w-md p-8">
+        <Card color="transparent" shadow={false} className="bg-green-100 w-full max-w-md p-8" >
           <Typography variant="h4" color="blue-gray">
             Sign Up
           </Typography>

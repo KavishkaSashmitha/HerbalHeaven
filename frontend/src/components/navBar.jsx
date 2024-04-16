@@ -126,12 +126,14 @@ export function SidebarWithBurgerMenu({}) {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="p-0">
-                  <ListItem>
+                <Link to="/all">
+                   <ListItem>
                     <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                    </ListItemPrefix>
-                    Customer
-                  </ListItem>
+                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                   </ListItemPrefix>
+                   Customer Manager
+                    </ListItem>
+                 </Link>
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
