@@ -28,6 +28,10 @@ function MaterialReport() {
   const [materialCost, setMaterialCost] = useState("");
   const [unitPrice, setUnitPrice] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [open, setOpen] = React.useState(0);
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
   // const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -269,15 +273,15 @@ function MaterialReport() {
   return (
     <>
       <div className="flex h-screen " style={{ backgroundColor: "#02353c" }}>
-        {/* <div
+        <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? "block" : "hidden"
           }`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
-        </div> */}
+        </div>
         <div className="w-full h-screen">
-          {/* <AdminNavbar toggleSidebar={toggleSidebar} /> */}
+          <AdminNavbar toggleSidebar={toggleSidebar} />
           <Card className="edit-post-bg overflow-auto">
             <div class="">
               <CardHeader
