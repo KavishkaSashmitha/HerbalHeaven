@@ -88,6 +88,7 @@ import ImageUpload from "./imageUpload";
 
 import ProtectedRoute from "./middleware/ProtectedRoute";
 import AdminDashboard from "./pages/adminDashboard";
+import Cart from "./pages/cart";
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -101,7 +102,7 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={<EcommerceCard />} />
-        <Route path="/user/cart" element={<cart />} />
+        <Route path="/user/cart" element={<Cart />} />
       </Route>
       {/* <Route path="/register" element={<Register />} /> */}
 
@@ -111,7 +112,7 @@ function App() {
       <Route path="/signUp" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/products" element={<EcommerceCard />} />
-      <Route path="/user/cart" element={<cart />} />
+      <Route path="/user/cart" element={<Cart />} />
 
       {/*<Route path="/productCategory" element={<ProductList />} />*/}
 

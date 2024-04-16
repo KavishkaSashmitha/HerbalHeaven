@@ -121,156 +121,149 @@ function CreateUser() {
     <>
       <div className="bg-image01">
         <AdminNavbar toggleSidebar={toggleSidebar} />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "",
-          }}
-        >
-          <Breadcrumbs className="">
-            <Link to="/">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+        <div className="flex justify-center">
+          <div className="w-full md:w-3/4 lg:w-1/2 p-4 bg-white rounded-lg shadow-md mt-4 mb-4">
+            <Breadcrumbs className="mb-4">{/* Breadcrumb Links */}</Breadcrumbs>
+            <Card className="">
+              <CardHeader
+                variant="gradient"
+                color="white"
+                className="mb-4 grid place-items-center"
               >
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-              </svg>
-            </Link>
-            <Link to="#">
-              <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                <span>Dashboard</span>
-
-                <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
-              </li>
-            </Link>
-            <Link to="/sup">
-              <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                <span>Supplier</span>
-
-                <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
-              </li>
-            </Link>
-            <Link to="">
-              <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                <span>Expense Report</span>
-
-                <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
-              </li>
-            </Link>
-          </Breadcrumbs>
-          <Card className="w-96">
-            <CardHeader
-              variant="gradient"
-              color="white"
-              className="mb-4 grid h-28 place-items-center"
-            >
-              <Typography variant="h3" color="black">
-                Add New Suppliers
-              </Typography>
-            </CardHeader>
-            <CardBody className="flex flex-col gap-4">
-              <Input
-                label="Name"
-                size="lg"
-                value={name}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
-                  setName(value);
-                }}
-                error={errors.name}
-              />
-              <Input
-                label="Email"
-                size="lg"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                error={errors.email}
-              />
-              <Input
-                label="Age"
-                size="lg"
-                type="number"
-                value={age}
-                onChange={(e) => {
-                  let value = e.target.value.replace(/\D/, ""); // Remove non-numeric characters
-                  value = value === "" ? "" : Math.min(Math.max(value, 1), 60);
-                  setAge(value);
-                }}
-                error={errors.age}
-              />
-              <Select
-                size="lg"
-                value={rawMaterial}
-                onChange={(value) => setRawMaterial(value)}
-                error={errors.rawMaterial ? true : false}
-              >
-                <Select.Option value="">Select Raw Material</Select.Option>
-                <Select.Option value="Sadalwood">Sadalwood</Select.Option>
-                <Select.Option value="ValerianRoot">ValerianRoot</Select.Option>
-                <Select.Option value="Ginkgo Biloba">
-                  Ginkgo Biloba
-                </Select.Option>
-                <Select.Option value="Echinacea">Echinacea</Select.Option>
-                <Select.Option value="Tumeric">Tumeric</Select.Option>
-              </Select>
-              {errors.rawMaterial && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.rawMaterial}
-                </p>
-              )}
-
-              <Select
-                size="lg"
-                value={country}
-                onChange={(value) => setCountry(value)}
-                error={errors.country ? true : false}
-              >
-                <Select.Option value="">Select Country</Select.Option>
-                <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
-                <Select.Option value="India">India</Select.Option>
-                <Select.Option value="Pakisthan">Pakisthan</Select.Option>
-                <Select.Option value="China">China</Select.Option>
-                <Select.Option value="Japan">Japan</Select.Option>
-              </Select>
-              {errors.country && (
-                <p className="text-red-500 text-sm mt-1">{errors.country}</p>
-              )}
-              <Input
-                label="Mobile"
-                size="lg"
-                value={mobile}
-                onChange={(e) => {
-                  if (/^\d{0,10}$/.test(e.target.value)) {
-                    setMobile(e.target.value);
-                  }
-                }}
-                error={errors.mobile}
-              />
-              <Input
-                label="Address"
-                size="lg"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                error={errors.address}
-              />
-            </CardBody>
-            <CardFooter className="pt-0">
-              <button
-                className="m-2 relative select-none rounded-lg bg-orange-500 py-3.5 px-14 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="submit"
-                onClick={handleSubmit}
-              >
-                &nbsp;Add New Supplier
-              </button>
-            </CardFooter>
-          </Card>
+                <Typography variant="h3" color="black">
+                  Add New Supplier
+                </Typography>
+              </CardHeader>
+              <CardBody className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Form Inputs - Left Part */}
+                <div>
+                  <div className="mt-4 mb-4">
+                    <Input
+                      label="Name"
+                      size="lg"
+                      value={name}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(
+                          /[^a-zA-Z\s]/g,
+                          ""
+                        );
+                        setName(value);
+                      }}
+                      error={errors.name}
+                    />
+                  </div>
+                  <div className="mt-4 mb-4">
+                    <Input
+                      label="Email"
+                      size="lg"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      error={errors.email}
+                    />
+                  </div>
+                  <div className="mt-4 mb-4">
+                    <Input
+                      label="Age"
+                      size="lg"
+                      type="number"
+                      value={age}
+                      onChange={(e) => {
+                        let value = e.target.value.replace(/\D/, ""); // Remove non-numeric characters
+                        value =
+                          value === "" ? "" : Math.min(Math.max(value, 1), 60);
+                        setAge(value);
+                      }}
+                      error={errors.age}
+                    />
+                  </div>
+                </div>
+                {/* Form Inputs - Right Part */}
+                <div className="">
+                  <div className="mt-4 mb-4">
+                    <Select
+                      size="lg"
+                      label="Select Raw Material"
+                      value={rawMaterial}
+                      onChange={(value) => setRawMaterial(value)}
+                      error={errors.rawMaterial ? true : false}
+                    >
+                      <Select.Option value="Sadalwood">
+                        Sandalwood
+                      </Select.Option>
+                      <Select.Option value="ValerianRoot">
+                        Valerian Root
+                      </Select.Option>
+                      <Select.Option value="Ginkgo Biloba">
+                        Ginkgo Biloba
+                      </Select.Option>
+                      <Select.Option value="Echinacea">Echinacea</Select.Option>
+                      <Select.Option value="Tumeric">Turmeric</Select.Option>
+                    </Select>
+                  </div>
+                  {errors.rawMaterial && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.rawMaterial}
+                    </p>
+                  )}
+                  <div className="mt-4 mb-4">
+                    <Select
+                      size="lg"
+                      label="Select Country"
+                      value={country}
+                      onChange={(value) => setCountry(value)}
+                      error={errors.country ? true : false}
+                    >
+                      <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
+                      <Select.Option value="India">India</Select.Option>
+                      <Select.Option value="Pakistan">Pakistan</Select.Option>
+                      <Select.Option value="China">China</Select.Option>
+                      <Select.Option value="Japan">Japan</Select.Option>
+                    </Select>
+                    {errors.country && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.country}
+                      </p>
+                    )}
+                  </div>
+                  <div className="mt-4 mb-4">
+                    <Input
+                      label="Mobile"
+                      size="lg"
+                      value={mobile}
+                      onChange={(e) => {
+                        if (/^\d{0,10}$/.test(e.target.value)) {
+                          setMobile(e.target.value);
+                        }
+                      }}
+                      error={errors.mobile}
+                    />
+                  </div>
+                </div>
+                <div className="w-full flex justify-center">
+                  <Input
+                    label="Address"
+                    size="lg"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    error={errors.address}
+                  />
+                </div>
+              </CardBody>
+              <CardFooter className="pt-0">
+                <button
+                  className="w-full py-3.5 px-14 rounded-lg bg-orange-500 text-center font-sans text-sm font-bold uppercase text-white shadow-md hover:shadow-lg focus:opacity-85 active:opacity-85 disabled:opacity-50 disabled:pointer-events-none"
+                  type="submit"
+                  onClick={handleSubmit}
+                >
+                  Add New Supplier
+                </button>
+              </CardFooter>
+            </Card>
+          </div>
         </div>
       </div>
+
       <Footer />
     </>
   );
