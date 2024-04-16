@@ -51,7 +51,7 @@ function PayPal() {
           <h1 className="paypal-topic">Pay With PayPal</h1>
           <div>
             <h1 className="paypal-para">
-              Your Total Ammount :{" "}
+              Your Total Amount: LKR{" "}
               <span className="price-pay">{calculateTotalBill()}</span>
             </h1>
           </div>

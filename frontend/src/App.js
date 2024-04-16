@@ -19,6 +19,7 @@ import Cart from './pages/cart';
 
 import Cart from "./pages/cart";
 
+
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
@@ -115,9 +116,10 @@ import DirectOrdersTable from './pages/DirectOrders';
 
 
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
-import Cart from "./pages/cart";
-import AdminDashboard from "./pages/adminDashboard";
+import ProtectedRoute from './middleware/ProtectedRoute';
+import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
+import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
+import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
 
 
 function App() {
@@ -200,6 +202,9 @@ function App() {
         <Route path="/expensive" element={<Expens />} />
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
+        <Route path="/dir" element={<DeretOrders />} />
+        <Route path="/material" element={<MaterialCost />} />
+        <Route path="/employesalary" element={<EmpSalary />} />
       </Route>
 
       <Route path="/emp" element={<Posts />} />
