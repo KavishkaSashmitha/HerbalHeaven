@@ -87,7 +87,10 @@ export default function Order() {
   // Change page
   const indexOfLastItem = currentPage * ordersPerPage;
   const indexOfFirstItem = indexOfLastItem - ordersPerPage;
-  const currentItems = originalOrders.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = (orders ?? originalOrders).slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(originalOrders.length / ordersPerPage); i++) {
     pageNumbers.push(i);
