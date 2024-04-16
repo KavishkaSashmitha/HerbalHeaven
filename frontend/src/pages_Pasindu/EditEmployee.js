@@ -365,7 +365,7 @@ export default function EditPost() {
                             />
                             <button
                               type="button"
-                              className=" bg-amber-800 hover:bg-amber-900 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-amber-400 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-lg flex items-center space-x-2"
+                              className=" bg-custom-color hover:bg-amber-900 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-amber-400 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-lg flex items-center space-x-2"
                               onClick={() =>
                                 document.getElementById("imageUpload").click()
                               }
