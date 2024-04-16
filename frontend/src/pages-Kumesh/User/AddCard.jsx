@@ -160,7 +160,7 @@ function AddCard() {
                 </div>
                 <div className="bil-box">
                   <h1 className="main-topic-bil">
-                    <span className="number">2</span>Credit Card Info
+                    <span className="number">2</span>Credit Card Information
                   </h1>
                   <label className="paymnt-lable">CARDHOLDER NAME</label>
                   <br></br>

@@ -4,6 +4,9 @@ import { SidebarWithBurgerMenu } from "../../../components/navBar";
 import { useReactToPrint } from "react-to-print";
 import MaterialCost from "./MaterialCost";
 import EmpSalary from "./EmpSalary";
+import { DefaultSidebar } from "../../../components/Manager-Sidebar";
+import AdminNavbar from "../../../components/AdminNavbar";
+import { Card } from "@material-tailwind/react";
 
 const URL = "http://localhost:8070/api/transports/transget";
 
@@ -36,10 +39,29 @@ function Expens() {
     documentTitle: "Income Details Report",
     onAfterPrint: () => alert("Successfully Downloaded!"),
   });
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
+
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
-      <SidebarWithBurgerMenu />
+      <div
+      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+      style={{ backgroundColor: '#02353c' }}
+    >
+      <div className="flex flex-1 overflow-hidden">
+        <div
+          className={`sidebar w-68 bg-custom-color text-white ${
+            open ? 'block' : 'hidden'
+          }`}
+        >
+          <DefaultSidebar open={open} handleOpen={setOpen} />
+        </div>
+        <div className="flex flex-col flex-1 overflow-auto">
+          <AdminNavbar toggleSidebar={toggleSidebar} />
+          <Card>
       <div ref={componentRef}>
         <button onClick={handlePrint} className="dwon_repot_income">
           Download Report
@@ -77,13 +99,16 @@ function Expens() {
                 ))}
               </tbody>
             </table>
-            <h1 className="tot_amout">Total Transport Cost: ${totalTransportCost.toFixed(2)}</h1>
+            <h1 className="tot_amout">Total Transport Cost:Rs.{totalTransportCost.toFixed(2)}</h1>
           </div>
         </div>
         <MaterialCost />
         <EmpSalary />
       </div>
+      </Card>
     </div>
+    </div>
+    </div></div>
   );
 }
 

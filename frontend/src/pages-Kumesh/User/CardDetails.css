@@ -23,11 +23,11 @@
 
 .card-set-pay {
   cursor: pointer;
-  background-color:green;
+  background-color:rgb(156, 179, 142);
   width: 350px;
-  margin: 25px;
+  margin: 10px;
   font-weight: bold;
-  color: white;
+  color: rgb(71, 48, 48);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
   border-radius: 8px;
   padding: 50px 20px 20px 20px;
@@ -47,12 +47,14 @@
 }
 
 .card-table {
-  border: 1px solid #ccc;
+  border: 1px solid #2e2b2b;
   border-collapse: collapse;
   margin: 0;
   padding: 0;
   width: 100%;
   table-layout: fixed;
+  border-radius: 12px;
+  background-color: beige;
 }
 
 .card-table .card-caption {
@@ -83,7 +85,7 @@
 }
 
 .add-pay-btn-tbl {
-  background-color: green;
+  background-color: rgb(148, 219, 89);
   color: white;
   font-size: 45px;
   padding: 0px 10px;
@@ -97,7 +99,7 @@
   margin: 0 25px 0 0;
   cursor: pointer;
   border-radius: 5px;
-  background-color: green;
+  background-color: rgb(207, 210, 32);
 }
 .dlt-card {
   color: white;

@@ -127,7 +127,7 @@ function Payment() {
     sendRequest()
       .then(() => {
         alert('Card details Validated successfully!');
-        history('/address');
+        history('/my-orders');
       })
       .catch((error) => {
         console.error('Error adding card details:', error);
