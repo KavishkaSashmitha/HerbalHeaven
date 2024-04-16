@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function Documents() {
+function LastAddedEmp() {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lastEmployee, setLastEmployee] = useState(null);
@@ -39,26 +39,38 @@ function Documents() {
     fetchDocuments();
   }, []);
 
+  function capitalizeFirstPart(name) {
+    if (!name) return ""; // Return an empty string if the input is empty or falsy
+
+    const parts = name.split(" "); // Split the name into parts
+
+    // Capitalize the first letter of the first part (first name) and convert the rest to lowercase
+    const firstPart =
+      parts[0].charAt(0).toUpperCase() + parts[0].slice(1).toLowerCase();
+
+    // Return the capitalized first part of the name
+    return firstPart;
+  }
+
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <div className="pl-10 py-3">
+          <div className="w-6 h-6 border-4 border-gray-300 rounded-full border-t-blue-500 animate-spin bg-gray-100"></div>
+        </div>
       ) : (
         <div>
           {lastEmployee ? (
             <div>
-              <p>Name: {lastEmployee.name}</p>
+              <p>{capitalizeFirstPart(lastEmployee.name)}</p>
             </div>
           ) : (
-            <p>No employee information available.</p>
+            <p>?</p>
           )}
         </div>
       )}
     </div>
-//     <div>
-//     <div>Name: {userWithHighestSalary}</div>
-//   </div>
   );
 }
 
-export default Documents;
+export default LastAddedEmp;

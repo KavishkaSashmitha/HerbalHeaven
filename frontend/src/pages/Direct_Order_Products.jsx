@@ -11,10 +11,13 @@ import {
   Tabs,
   TabsHeader,
   Tab,
+  ButtonGroup,
 } from '@material-tailwind/react';
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -22,6 +25,7 @@ const ProductList = () => {
   const [productsPerPage] = useState(5); // Number of products per page
   const [searchInput, setSearchInput] = useState(''); // State for search input
   const [directCart, setDirectCart] = useState({}); // State to manage cart items and quantities
+  const [loading, setLoading] = useState([true]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -32,6 +36,7 @@ const ProductList = () => {
         }
         const data = await response.json();
         setProducts(data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error.message);
       }
@@ -88,6 +93,9 @@ const ProductList = () => {
         },
         body: JSON.stringify({ item: directCartItem }), // Send a single cart item
       });
+      if (response.ok) {
+        toast.success('Added Item To Cart');
+      }
 
       if (!response.ok) {
         throw new Error('Failed to add item to cart');
@@ -100,12 +108,16 @@ const ProductList = () => {
     }
   };
 
+  if (loading) {
+    return <div>{CreateLoadingScreen(loading)}</div>;
+  }
+
   return (
     <div
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: '#02353c' }}
     >
-      <div className="flex flex-1 overflow-scroll">
+      <div className="flex flex-1 overflow-hidden">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? 'block' : 'hidden'
@@ -113,22 +125,32 @@ const ProductList = () => {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="flex flex-col flex-1 overflow-scroll">
+        <div className="flex flex-col flex-1 overflow-hidden">
           <AdminNavbar toggleSidebar={toggleSidebar} />
 
-          <Card className="flex flex-col flex-1 ml-2">
+          <Card className="overflow-hidden mr-4  ml-4 flex flex-1">
             <Breadcrumbs className="ml-2 mb-2 mt-2">
               {/* Breadcrumbs */}
             </Breadcrumbs>
 
-            <div className="flex w-max gap-4 md-auto ml-2 mt-4 mb-4">
-              <Link to="/productCategory">
-                <Button className="flex">Direct Sell</Button>
-              </Link>
-              <Link to="/directcart">
-                <Button className="flex">Direct Cart</Button>
-              </Link>
-            </div>
+            <ButtonGroup className="mt-4 ml-4 mb-2" variant="outlined">
+              <Button>
+                <NavLink to="/productCategory" activeClassName="active-link">
+                  Items
+                </NavLink>
+              </Button>
+
+              <Button className="bg-black">
+                <NavLink
+                  to="/direct-cart"
+                  className="text-white"
+                  activeClassName="active-link"
+                >
+                  Cart
+                </NavLink>
+              </Button>
+            </ButtonGroup>
+
             <div className="flex items-center ml-2 mb-4">
               <Input
                 type="text"
@@ -144,10 +166,20 @@ const ProductList = () => {
             <CardBody>
               <div>
                 <table className="w-full min-w-max table-auto text-left text-sm">
-                  <thead>{/* Table header */}</thead>
+                  <thead>
+                    <tr className="bg-gray-200">
+                      <th className="px-4 py-2">#</th>
+                      <th className="px-4 py-2">Product Name</th>
+                      <th className="px-4 py-2">Stock</th>
+                      <th className="px-4 py-2">Price</th>
+                      <th className="px-4 py-2">Image</th>
+                      <th className="px-4 py-2">Actions</th>
+                    </tr>
+                  </thead>
                   <tbody>
-                    {filteredProducts.map((product) => (
+                    {filteredProducts.map((product, index) => (
                       <tr key={product._id}>
+                        <td className="p-4">{index + 1}</td>
                         <td className="p-4">{product.name}</td>
                         <td className="p-4">{product.quantity}</td>
                         <td className="p-4">Rs.{product.price}</td>

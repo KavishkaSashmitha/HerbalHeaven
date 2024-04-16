@@ -18,60 +18,43 @@ import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
 import { TruckIcon } from "@heroicons/react/24/solid";
-// import createLoadingScreen from "./LoadingScreen";
 
-function FuelReport() {
+function MaterialReport() {
   const { id } = useParams();
-  const [ownerName, setOwnerName] = useState("");
-  const [vehicleType, setVehicleType] = useState("");
-  const [vehicleNo, setVehicleNo] = useState(0);
-  const [own, setOwn] = useState("");
-  const [travelCost, setTravelCost] = useState("");
-  const [category, setCategory] = useState("");
-  const [costPerKm, setCostPerKm] = useState(0);
-  const [range, setRange] = useState("");
+  const [supplierName, setSupplierName] = useState("");
+  const [rawMaterial, setRawMaterial] = useState("");
+  const [country, setCountry] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [materialCost, setMaterialCost] = useState("");
+  const [unitPrice, setUnitPrice] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8070/api/transports/transport/`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const json = await response.json();
-        setOwn(json?.existingPosts);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchPosts();
-  }, []);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    CostCalculation();
+  const [open, setOpen] = React.useState(0);
+  const toggleSidebar = () => {
+    setOpen(!open);
   };
+  // const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8070/api/transports/transport/${id}`
+          `http://localhost:8070/sup/getSupplier/${id}`
         );
+
         if (!response.ok) {
+          console.error("Failed to fetch data. Status code:", response.status);
           throw new Error("Failed to fetch data");
         }
+
         const json = await response.json();
-        setOwnerName(json?.transport?.d_name);
-        setVehicleType(json?.transport?.vehicle_type);
-        setVehicleNo(json?.transport?.vehicle_No);
-        setCategory(json?.transport?.category);
-        // setFormData({ ...formData, image: json?.post?.image });
+
+        if (json) {
+          setSupplierName(json.name);
+          setRawMaterial(json.rawMaterial);
+          setCountry(json.country);
+        } else {
+          console.error("Unexpected data structure:", json);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -79,16 +62,22 @@ function FuelReport() {
     fetchPosts();
   }, [id]);
 
-  function CostCalculation() {
-    const travelCost = range * costPerKm;
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-    setTravelCost(travelCost);
+    RawMaterialCalculation();
+  };
+
+  function RawMaterialCalculation() {
+    const materialCost = unitPrice * quantity;
+
+    setMaterialCost(materialCost);
   }
 
   function Generate() {
     Swal.fire({
       title: "Are you sure?",
-      text: "This will update the Travel Expense information.",
+      text: "This will update the Material Expense information.",
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Yes, update it!",
@@ -97,21 +86,21 @@ function FuelReport() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .put(`http://localhost:8070/api/transports/transport/cost/${id}`, {
+          .put(`http://localhost:8070/sup/materialCost/${id}`, {
             month: selectedMonth,
-            amount: travelCost,
+            amount: materialCost,
           })
           .then((res) => {
             if (res.data.success) {
               Swal.fire({
                 title: "Updated!",
-                text: "Transport cost information has been updated.",
+                text: "Material cost information has been updated.",
                 icon: "success",
                 confirmButtonText: "Ok",
                 reverseButtons: true,
               }).then((result) => {
                 if (result.isConfirmed) {
-                  window.location.href = "/transport";
+                  window.location.href = "/sup";
                 }
               });
             }
@@ -124,12 +113,12 @@ function FuelReport() {
 
     const doc = new jsPDF();
     const data = [
-      [`Owner Name : ${capitalizeSecondPart(ownerName)}`],
-      [`Vehicle Type : ${vehicleType}`],
-      [`Vehicle No : ${vehicleNo}`],
-      [`Vehicle Category : ${category}`],
-      [`Month : ${selectedMonth}`],
-      [`Travel Cost :, Rs.${travelCost} /=`],
+      [`Supplier Name : ${capitalizeSecondPart(supplierName)}`],
+      [`Raw Material Type : ${rawMaterial}`],
+      [`Country : ${country}`],
+      [`Unite Price : ${unitPrice}`],
+      [`Quantity : ${quantity}`],
+      [`Material Cost :, Rs.${materialCost} /=`],
     ];
 
     // Add page number
@@ -183,7 +172,7 @@ function FuelReport() {
     // Add description
     doc.setFontSize(12);
     doc.text(
-      "This report contains transport cost for Herbal Heaven company(PVT)LTD.",
+      "This report contains material cost for Herbal Heaven company(PVT)LTD.",
       10,
       doc.internal.pageSize.height - 50
     );
@@ -195,12 +184,12 @@ function FuelReport() {
 
     // Generate the table
     doc.autoTable({
-      head: [["Vehicle Details"]],
+      head: [["Material Details"]],
       body: data.map((row) => [row[0]]), // Extracting only the first column from data
       margin: { top: 90, right: 10, left: 10 },
       theme: "striped",
       headStyles: {
-        fillColor: [41, 128, 185],
+        fillColor: [255, 165, 0],
         textColor: 255,
         fontStyle: "bold",
         fontSize: 15,
@@ -230,65 +219,40 @@ function FuelReport() {
     });
 
     // Save the document
-    doc.save("Vehicle Cost.pdf");
+    doc.save("Material Cost.pdf");
   }
 
   useEffect(() => {
-    if (category === "Own") {
-      // Handle "own" category logic
-      switch (vehicleType.toLowerCase()) {
-        case "car":
-          setCostPerKm(350);
-          break;
-        case "van":
-          setCostPerKm(450);
-          break;
-        case "lorry":
-          setCostPerKm(550);
-          break;
-        case "motorbike":
-          setCostPerKm(200);
-          break;
-        case "t-wheel":
-          setCostPerKm(250);
-          break;
-        default:
-          setCostPerKm(0);
-          break;
-      }
-    } else if (category === "Rent") {
-      // Handle "rent" category logic
-      switch (vehicleType.toLowerCase()) {
-        case "car":
-          setCostPerKm(500);
-          break;
-        case "van":
-          setCostPerKm(600);
-          break;
-        case "lorry":
-          setCostPerKm(750);
-          break;
-        case "motorbike":
-          setCostPerKm(300);
-          break;
-        case "t-wheel":
-          setCostPerKm(375);
-          break;
-        default:
-          setCostPerKm(0);
-          break;
-      }
+    switch (rawMaterial.toLowerCase()) {
+      case "sadalwood":
+        setUnitPrice(450);
+        break;
+      case "valerianroot":
+        setUnitPrice(400);
+        break;
+      case "ginkgo Biloba":
+        setUnitPrice(350);
+        break;
+      case "echinacea":
+        setUnitPrice(300);
+        break;
+      case "tumeric":
+        setUnitPrice(225);
+        break;
+
+      default:
+        setUnitPrice(0);
     }
-  }, [vehicleType, category]);
+  }, [rawMaterial]);
 
   const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value);
   };
 
-  function capitalizeSecondPart(d_name) {
-    if (!d_name) return "";
+  function capitalizeSecondPart(name) {
+    if (!name) return "";
 
-    const parts = d_name.split(" "); // Split the name into parts
+    const parts = name.split(" "); // Split the name into parts
 
     // Iterate over each part and capitalize the first letter
     for (let i = 0; i < parts.length; i++) {
@@ -300,19 +264,15 @@ function FuelReport() {
     return parts.join(" ");
   }
 
-  const [open, setOpen] = React.useState(0);
+  // const [open, setOpen] = React.useState(0);
 
-  const toggleSidebar = () => {
-    setOpen(!open);
-  };
-
+  // const toggleSidebar = () => {
+  //   setOpen(!open);
+  // };
 
   return (
     <>
-      <div
-        className="flex h-screen "
-        style={{ backgroundColor: "#02353c" }}
-      >
+      <div className="flex h-screen " style={{ backgroundColor: "#02353c" }}>
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? "block" : "hidden"
@@ -348,9 +308,9 @@ function FuelReport() {
                         <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                       </li>
                     </Link>
-                    <Link to="/transport">
+                    <Link to="/sup">
                       <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                        <span>Transport</span>
+                        <span>Supplier</span>
 
                         <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                       </li>
@@ -374,29 +334,22 @@ function FuelReport() {
                           <TruckIcon className="h-10 w-10" />
                         </div>
                         <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white">
-                          Travel Expenses Calculator
+                          Supplier Expenses Calculator
                         </h5>
                       </div>
-                      {/* <div className="flex items-center justify-center pt-5">
-                        <Avatar
-                          src={formData.image}
-                          size="custom"
-                          style={{ width: "120px", height: "120px" }} // Adjust the width and height as desired
-                          className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
-                        />
-                      </div> */}
+
                       <div class="grid grid-cols-2 gap-6 ">
                         <div class="px-6">
                           <div class="block overflow-visible">
                             <div class="relative block w-full overflow-hidden !overflow-x-hidden !overflow-y-visible bg-transparent">
                               <form class="flex flex-col gap-2 mt-12">
                                 <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                  <label>Owner Name</label>
+                                  <label>Supplier Name</label>
                                 </p>
                                 <div class="relative h-10 w-full min-w-[200px] mb-4">
                                   <input
                                     type="text"
-                                    value={capitalizeSecondPart(ownerName)}
+                                    value={capitalizeSecondPart(supplierName)}
                                     required
                                     disabled
                                     class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -406,12 +359,12 @@ function FuelReport() {
                                 </div>
 
                                 <p class="block  font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                  <label>Vehical Type:</label>
+                                  <label>Raw Material Type:</label>
                                 </p>
                                 <div class="relative h-10 w-full min-w-[200px] mb-4">
                                   <input
                                     id="vehucletype"
-                                    value={vehicleType}
+                                    value={rawMaterial}
                                     type="text"
                                     disabled
                                     class="peer  bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -420,15 +373,14 @@ function FuelReport() {
                                 </div>
 
                                 <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                  <label>Vehicle No:</label>
+                                  <label>Country :</label>
                                 </p>
                                 <div class="relative h-10 w-full min-w-[200px] mb-4">
                                   <input
-                                    value={vehicleNo}
+                                    value={country}
                                     type="text"
                                     required
                                     disabled
-                                    placeholder="Hourly Rate (Rupees)"
                                     class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                                   />
 
@@ -436,31 +388,14 @@ function FuelReport() {
                                 </div>
 
                                 <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                  <label>Vehicle Category:</label>
+                                  <label>Unit Price :</label>
                                 </p>
                                 <div class="relative h-10 w-full min-w-[200px] mb-4">
                                   <input
-                                    value={category}
-                                    type="text"
+                                    value={unitPrice}
+                                    type="number"
                                     required
                                     disabled
-                                    placeholder="Hourly Rate (Rupees)"
-                                    class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                                  />
-
-                                  <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
-                                </div>
-
-                                <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                  <label>Cost Per Km (Rs.):</label>
-                                </p>
-                                <div class="relative h-10 w-full min-w-[200px] mb-4">
-                                  <input
-                                    value={costPerKm}
-                                    type="text"
-                                    required
-                                    disabled
-                                    placeholder="Hourly Rate (Rupees)"
                                     class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                                   />
 
@@ -474,6 +409,23 @@ function FuelReport() {
                           <div class="block overflow-visible">
                             <div class="relative block w-full overflow-hidden !overflow-x-hidden !overflow-y-visible bg-transparent">
                               <form class="flex flex-col gap-2 mt-12">
+                                <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                                  <label>Item Quantity (Kg):</label>
+                                </p>
+                                <div class="relative h-10 w-full min-w-[200px] mb-3">
+                                  <input
+                                    type="number"
+                                    name="quantity"
+                                    value={quantity}
+                                    onChange={(event) => {
+                                      setQuantity(event.target.value);
+                                    }}
+                                    placeholder="Enter Quantity"
+                                    class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                                  />
+
+                                  <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                                </div>
                                 <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                                   <label>Month :</label>
                                 </p>
@@ -501,29 +453,11 @@ function FuelReport() {
                                     <option value="November">November</option>
                                     <option value="December">December</option>
                                   </select>
-                                  {errors.month && (
+                                  {/* {errors.month && (
                                     <span className="text-red-500 ml-1 text-sm sans">
                                       {errors.month}
                                     </span>
-                                  )}
-
-                                  <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
-                                </div>
-
-                                <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                  <label>Travel Range (Km):</label>
-                                </p>
-                                <div class="relative h-10 w-full min-w-[200px] mb-10">
-                                  <input
-                                    type="number"
-                                    name="Travel Distance"
-                                    value={range}
-                                    onChange={(event) => {
-                                      setRange(event.target.value);
-                                    }}
-                                    placeholder="Working Hours"
-                                    class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                                  />
+                                  )} */}
 
                                   <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                                 </div>
@@ -532,20 +466,20 @@ function FuelReport() {
                                   <button
                                     type="button"
                                     onClick={onSubmit}
-                                    className="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600"
+                                    className="w-full bg-orange-500 text-white p-2 rounded-md hover:bg-orange-700"
                                   >
                                     <i className="fas fa-calculator mr-2"></i>
-                                    Calculate Travel Expense
+                                    Calculate Material Expense
                                   </button>
                                 </div>
                                 <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                                  <label>Total Vehicle Cost :</label>
+                                  <label>Total Material Cost :</label>
                                 </p>
                                 <div class="relative h-10 w-full min-w-[200px] mb-4">
                                   <input
                                     type="text"
                                     required
-                                    value={`Rs.${travelCost}`}
+                                    value={`Rs.${materialCost}`}
                                     disabled
                                     placeholder="Hourly Rate (Rupees)"
                                     class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200  !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 "
@@ -557,10 +491,10 @@ function FuelReport() {
                                   <button
                                     type="button"
                                     onClick={Generate}
-                                    className="w-full bg-gray-900 text-gray-200 p-2 rounded-md hover:bg-gray-700"
+                                    className="w-full bg-red-500 text-gray-200 p-2 rounded-md hover:bg-red-700"
                                   >
                                     <i className="fas fa-file-pdf mr-2"></i>
-                                    Generate Travel Report
+                                    Generate Material Report
                                   </button>
                                 </div>
                               </form>
@@ -583,4 +517,4 @@ function FuelReport() {
   );
 }
 
-export default FuelReport;
+export default MaterialReport;

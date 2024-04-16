@@ -1,9 +1,15 @@
-import { Button, Card, Tab, Tabs, TabsHeader } from '@material-tailwind/react';
+import {
+  Breadcrumbs,
+  Button,
+  ButtonGroup,
+  Card,
+} from '@material-tailwind/react';
 import React, { useState, useEffect, useRef } from 'react';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
 import AdminNavbar from '../components/AdminNavbar';
 import { useReactToPrint } from 'react-to-print'; // Import react-to-pdf library
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 
 const DirectCartTable = () => {
   const [directCartData, setDirectCartData] = useState([]);
@@ -81,15 +87,20 @@ const DirectCartTable = () => {
       const items = directCartData.map((item) => ({
         productId: item.productId,
         quantity: item.quantity,
-        // Include other necessary product details
-        // Assuming you need name and price
         name: item.productDetails.name,
         price: item.productDetails.price,
+        totalAmount: item.quantity * item.productDetails.price, // Calculate totalAmount for each item
       }));
 
+      // Calculate totalAmount for the entire cart
+      const totalAmount = items.reduce(
+        (total, item) => total + item.totalAmount,
+        0
+      );
+
+      // Pass totalPrice to postCartDetails
       await removeAllFromCart();
-      // Post cart details with items array
-      await postCartDetails(items);
+      await postCartDetails(items, totalAmount);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -120,14 +131,14 @@ const DirectCartTable = () => {
     return total + item.productDetails.price * item.quantity;
   }, 0);
 
-  const postCartDetails = async (cartDetails) => {
+  const postCartDetails = async (cartDetails, totalAmount) => {
     try {
       const response = await fetch('http://localhost:8070/api/directorders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ items: cartDetails }), // Ensure items key is included
+        body: JSON.stringify({ items: cartDetails, totalAmount }), // Include totalAmount in the request body
       });
 
       if (!response.ok) {
@@ -139,13 +150,16 @@ const DirectCartTable = () => {
       console.error('Error posting cart details:', error);
     }
   };
+  if (loading) {
+    return <div>{CreateLoadingScreen(loading)}</div>;
+  }
 
   return (
     <div
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: '#02353c' }}
     >
-      <div className="flex flex-1 overflow-scroll">
+      <div className="flex flex-1 overflow-hidden">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? 'block' : 'hidden'
@@ -153,17 +167,30 @@ const DirectCartTable = () => {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="flex flex-col flex-1 overflow-scroll">
+        <div className="flex flex-col flex-1 overflow-hidden">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="overflow-hidden mr-4 mt-2 ml-4">
-            <div className="flex w-max gap-4 md-auto ml-2 mt-4 mb-4">
-              <Link to="/productCategory">
-                <Button className="flex">Direct Sell</Button>
-              </Link>
-              <Link to="/directcart">
-                <Button className="flex">Direct Cart</Button>
-              </Link>
-            </div>
+          <Card className="overflow-hidden flex flex-1 mr-4 mt-2 ml-4">
+            <Breadcrumbs className="ml-2 mb-2 mt-2">
+              {/* Breadcrumbs */}
+            </Breadcrumbs>
+            <ButtonGroup className="mt-4 ml-4 mb-2" variant="outlined">
+              <Button className="bg-black">
+                <NavLink
+                  to="/productCategory"
+                  className="text-white"
+                  activeClassName="active-link"
+                >
+                  Items
+                </NavLink>
+              </Button>
+
+              <Button>
+                <NavLink to="/direct-cart" activeClassName="active-link">
+                  Cart
+                </NavLink>
+              </Button>
+            </ButtonGroup>
+
             <table className="w-full table-auto">
               <thead>
                 <tr className="bg-gray-200">

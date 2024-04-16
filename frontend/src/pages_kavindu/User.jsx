@@ -3,12 +3,16 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Input, Card, Typography, Button } from "@material-tailwind/react";
 import { Footer } from "../components/Footer";
-
-import { SidebarWithBurgerMenu } from "../components/navBar";
+import AdminNavbar from "../components/AdminNavbar";
+import { DefaultSidebar } from "../components/Manager-Sidebar";
 
 const User = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [open, setOpen] = React.useState(0);
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     axios
@@ -34,9 +38,16 @@ const User = () => {
   return (
     <>
       <div className="">
-        <SidebarWithBurgerMenu />
+        <div
+          className={`sidebar w-68 bg-custom-color text-white ${
+            open ? "block" : "hidden"
+          }`}
+        >
+          <DefaultSidebar open={open} handleOpen={setOpen} />
+        </div>
+        <AdminNavbar toggleSidebar={toggleSidebar} />
 
-        <div className="relative mx-4 mt-4 overflow-hidden text-gray-700  ">
+        <div className="relative mx-4 mt-4 overflow-hidden text-gray-700">
           <div className="flex items-center justify-between gap-8 mb-8">
             <div
               style={{
@@ -81,7 +92,7 @@ const User = () => {
                           "Name",
                           "Email",
                           "Age",
-                          "Raw  Material",
+                          "Raw Material",
                           "Country",
                           "Mobile",
                           "Address",
@@ -113,7 +124,7 @@ const User = () => {
                         .map((user) => (
                           <tr
                             key={user._id}
-                            className=" border-blue-gray-100 bg-blue-gray-50/50"
+                            className="border-b border-blue-gray-100 bg-blue-gray-50/50"
                           >
                             <td className="p-4">{user.name}</td>
                             <td className="p-4">{user.email}</td>
@@ -129,18 +140,16 @@ const User = () => {
                               >
                                 <Button color="yellow">Update</Button>
                               </Link>
-                              <Link>
-                                <Button
-                                  className="mr-3"
-                                  color="red"
-                                  onClick={() => handleDelete(user._id)}
-                                >
-                                  Delete
-                                </Button>
-                              </Link>
+                              <Button
+                                color="red"
+                                className=" mr-3"
+                                onClick={() => handleDelete(user._id)}
+                              >
+                                Delete
+                              </Button>
                               <Link
-                                to={`/sup/supreport/${user._id}`}
-                                className="btn btn-warning"
+                                to={`/sup/material_report/${user._id}`}
+                                className="btn btn-warning "
                               >
                                 <Button color="green">Supplier Report</Button>
                               </Link>

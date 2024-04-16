@@ -66,7 +66,7 @@ function Emp_Gender_Chart() {
   };
 
   return (
-    <Card className="overflow-visible mb-10 h-full pb-10 bg-white items-start">
+    <Card className="overflow-visible h-full bg-white items-start">
       <CardHeader
         floated={false}
         shadow={false}
