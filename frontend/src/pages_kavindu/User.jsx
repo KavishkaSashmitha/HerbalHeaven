@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Input, Card, Typography, Button } from "@material-tailwind/react";
+import {
+  Input,
+  Card,
+  Typography,
+  Button,
+  CardBody,
+  CardFooter,
+  IconButton,
+} from "@material-tailwind/react";
 import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
+import { PencilIcon } from "@heroicons/react/24/solid";
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -37,63 +46,56 @@ const User = () => {
 
   return (
     <>
-      <div className="">
-        <div
-          className={`sidebar w-68 bg-custom-color text-white ${
-            open ? "block" : "hidden"
-          }`}
-        >
-          <DefaultSidebar open={open} handleOpen={setOpen} />
-        </div>
-        <AdminNavbar toggleSidebar={toggleSidebar} />
+      <div className="flex flex-col h-screen overflow-hidden overflow-x-hidden">
+        <div className="flex flex-1 overflow-hidden">
+          <div
+            className={`sidebar w-68 bg-custom-color text-white ${
+              open ? "block" : "hidden"
+            }`}
+          >
+            <DefaultSidebar open={open} handleOpen={setOpen} />
+          </div>
+          <div className="flex flex-col flex-1 overflow-auto">
+            <AdminNavbar toggleSidebar={toggleSidebar} />
 
-        <div className="relative mx-4 mt-4 overflow-hidden text-gray-700">
-          <div className="flex items-center justify-between gap-8 mb-8">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "",
-              }}
-            >
-              <Card className="overflow-x-auto">
-                <h1 className="text-3xl">List of Suppliers</h1>
-                <div className="mb-5 items-right flex justify-end">
-                  <td>
-                    <Link to="/sup/addsup">
-                      <Button
-                        color="amber"
-                        className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                      >
-                        Add New Supplier
-                      </Button>
-                    </Link>
+            <Card className="flex flex-col flex-1 ml-2 mr-4">
+              <h1 className="text-3xl">List of Suppliers</h1>
+              <div className="mb-5  flex justify-end">
+                <div>
+                  <Link to="/sup/addsup">
                     <Button
-                      color="red"
-                      className="py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                      color="amber"
+                      className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     >
-                      Generate All Suppliers Report
+                      Add Supplier
                     </Button>
-                  </td>
+                  </Link>
+                  <Button
+                    color="red"
+                    className="py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  >
+                    Generate Report
+                  </Button>
                 </div>
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="mb-4 border-blue-gray-100 bg-blue-gray-50/50"
-                />
-                <div className="overflow-x-auto">
+              </div>
+              <Input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="mb-4 border-blue-gray-100 bg-blue-gray-50/50"
+              />
+              <CardBody className="px-0 flex flex-col flex-1">
+                <div className="overflow-auto">
                   <table className="overflow-scroll mt-5 w-full min-w-max table-auto text-left border-blue-gray-100 bg-blue-gray-50/50">
                     <thead>
                       <tr>
                         {[
                           "Name",
                           "Email",
-                          "Age",
+
                           "Raw Material",
-                          "Country",
+
                           "Mobile",
                           "Address",
                           "Action",
@@ -128,9 +130,9 @@ const User = () => {
                           >
                             <td className="p-4">{user.name}</td>
                             <td className="p-4">{user.email}</td>
-                            <td className="p-4">{user.age}</td>
+
                             <td className="p-4">{user.rawMaterial}</td>
-                            <td className="p-4">{user.country}</td>
+
                             <td className="p-4">{user.mobile}</td>
                             <td className="p-4">{user.address}</td>
                             <td className="p-4">
@@ -138,20 +140,37 @@ const User = () => {
                                 to={`/sup/update/${user._id}`}
                                 className="btn btn-warning mr-3"
                               >
-                                <Button color="yellow">Update</Button>
+                                <Button color="yellow">
+                                  <i
+                                    className="fas fa-edit"
+                                    style={{ fontSize: "20px" }}
+                                  ></i>
+                                </Button>
                               </Link>
+
                               <Button
                                 color="red"
-                                className=" mr-3"
                                 onClick={() => handleDelete(user._id)}
                               >
-                                Delete
+                                <i
+                                  className="fas fa-trash-alt"
+                                  style={{ fontSize: "20px" }}
+                                ></i>
                               </Button>
+
                               <Link
                                 to={`/sup/material_report/${user._id}`}
                                 className="btn btn-warning "
                               >
-                                <Button color="green">Supplier Report</Button>
+                                <Button
+                                  color="green"
+                                  className="btn btn-secondary ml-2"
+                                >
+                                  <i
+                                    className="fas fa-file"
+                                    style={{ fontSize: "20px" }}
+                                  ></i>
+                                </Button>
                               </Link>
                             </td>
                           </tr>
@@ -159,12 +178,14 @@ const User = () => {
                     </tbody>
                   </table>
                 </div>
-              </Card>
-            </div>
+              </CardBody>
+              <CardFooter>
+                <Footer />
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
