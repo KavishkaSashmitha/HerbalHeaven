@@ -101,6 +101,7 @@ import "./index.css";
 import ImageUpload from "./imageUpload";
 
 import ProtectedRoute from "./middleware/ProtectedRoute";
+import AdminDashboard from "./pages/adminDashboard";
 
 
 function App() {

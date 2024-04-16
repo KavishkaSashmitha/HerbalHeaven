@@ -126,6 +126,7 @@ function Payment() {
     sendRequest()
       .then(() => {
         alert('Card details Validated successfully!');
+        placeOrder();
         history('/address');
       })
       .catch((error) => {
