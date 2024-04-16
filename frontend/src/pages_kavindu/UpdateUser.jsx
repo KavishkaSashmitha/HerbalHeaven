@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Select } from "@material-tailwind/react";
+import { Breadcrumbs, Select } from "@material-tailwind/react";
 import { Footer } from "../components/Footer";
-import { SidebarWithBurgerMenu } from "../components/navBar";
+import AdminNavbar from "../components/AdminNavbar";
+
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
@@ -24,6 +25,10 @@ function UpdateUser() {
   const [address, setAddress] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(0);
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     axios
@@ -123,124 +128,151 @@ function UpdateUser() {
 
   return (
     <>
-      <div className="bg-image01 h-screen">
-        <SidebarWithBurgerMenu />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "",
-          }}
-        >
-          <Card className="w-96">
-            <CardHeader
-              variant="gradient"
-              color="white"
-              className="mb-4 grid h-28 place-items-center"
-            >
-              <Typography variant="h3" color="black">
-                Update Supplier
-              </Typography>
-            </CardHeader>
-            <CardBody className="flex flex-col gap-4">
-              <Input
-                label="Name"
-                size="lg"
-                value={name}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
-                  setName(value);
-                }}
-                error={errors.name}
-              />
-              <Input
-                label="Email"
-                size="lg"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                error={errors.email}
-              />
-              <Input
-                label="Age"
-                size="lg"
-                type="number"
-                value={age}
-                onChange={(e) => {
-                  let value = e.target.value.replace(/\D/, "");
-                  value = value === "" ? "" : Math.min(Math.max(value, 1), 100);
-                  setAge(value);
-                }}
-                error={errors.age}
-              />
-              <Select
-                size="lg"
-                value={rawMaterial}
-                onChange={(value) => setRawMaterial(value)}
-                error={errors.rawMaterial ? true : false}
+      <div className="bg-image01">
+        <AdminNavbar toggleSidebar={toggleSidebar} />
+        <div className="flex justify-center">
+          <div className="w-full md:w-3/4 lg:w-1/2 p-4 bg-white rounded-lg shadow-md mt-4 mb-4">
+            <Breadcrumbs className="mb-4">{/* Breadcrumb Links */}</Breadcrumbs>
+            <Card className="">
+              <CardHeader
+                variant="gradient"
+                color="white"
+                className="mb-4 grid place-items-center"
               >
-                <Select.Option value="">Select Raw Material</Select.Option>
-                <Select.Option value="Sadalwood">Sadalwood</Select.Option>
-                <Select.Option value="ValerianRoot">ValerianRoot</Select.Option>
-                <Select.Option value="Ginkgo Biloba">
-                  Ginkgo Biloba
-                </Select.Option>
-                <Select.Option value="Echinacea">Echinacea</Select.Option>
-                <Select.Option value="Tumeric">Tumeric</Select.Option>
-              </Select>
-              {errors.rawMaterial && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.rawMaterial}
-                </p>
-              )}
-              <Select
-                size="lg"
-                value={country}
-                onChange={(value) => setCountry(value)}
-                error={errors.country ? true : false}
-              >
-                <Select.Option value="">Select Country</Select.Option>
-                <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
-                <Select.Option value="India">India</Select.Option>
-                <Select.Option value="Pakisthan">Pakisthan</Select.Option>
-                <Select.Option value="China">China</Select.Option>
-                <Select.Option value="Japan">Japan</Select.Option>
-              </Select>
-              {errors.country && (
-                <p className="text-red-500 text-sm mt-1">{errors.country}</p>
-              )}
-              <Input
-                label="Mobile"
-                size="lg"
-                value={mobile}
-                onChange={(e) => {
-                  if (/^\d{0,10}$/.test(e.target.value)) {
-                    setMobile(e.target.value);
-                  }
-                }}
-                error={errors.mobile}
-              />
-              <Input
-                label="Address"
-                size="lg"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                error={errors.address}
-              />
-            </CardBody>
-            <CardFooter className="pt-0">
-              <button
-                class="m-2 relative select-none rounded-lg bg-orange-500 py-3.5 px-14 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                type="submit"
-                onClick={handleUpdate}
-              >
-                &nbsp;Update Supplier
-              </button>
-            </CardFooter>
-          </Card>
+                <Typography variant="h3" color="black">
+                  Update Supplier
+                </Typography>
+              </CardHeader>
+              <CardBody className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Form Inputs - Left Part */}
+                <div>
+                  <div className="mt-4 mb-4">
+                    <Input
+                      label="Name"
+                      size="lg"
+                      value={name}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(
+                          /[^a-zA-Z\s]/g,
+                          ""
+                        );
+                        setName(value);
+                      }}
+                      error={errors.name}
+                    />
+                  </div>
+                  <div className="mt-4 mb-4">
+                    <Input
+                      label="Email"
+                      size="lg"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      error={errors.email}
+                    />
+                  </div>
+                  <div className="mt-4 mb-4">
+                    <Input
+                      label="Age"
+                      size="lg"
+                      type="number"
+                      value={age}
+                      onChange={(e) => {
+                        let value = e.target.value.replace(/\D/, ""); // Remove non-numeric characters
+                        value =
+                          value === "" ? "" : Math.min(Math.max(value, 1), 60);
+                        setAge(value);
+                      }}
+                      error={errors.age}
+                    />
+                  </div>
+                </div>
+                {/* Form Inputs - Right Part */}
+                <div className="">
+                  <div className="mt-4 mb-4">
+                    <Select
+                      size="lg"
+                      label="Select Raw Material"
+                      value={rawMaterial}
+                      onChange={(value) => setRawMaterial(value)}
+                      error={errors.rawMaterial ? true : false}
+                    >
+                      <Select.Option value="Sadalwood">
+                        Sandalwood
+                      </Select.Option>
+                      <Select.Option value="ValerianRoot">
+                        Valerian Root
+                      </Select.Option>
+                      <Select.Option value="Ginkgo Biloba">
+                        Ginkgo Biloba
+                      </Select.Option>
+                      <Select.Option value="Echinacea">Echinacea</Select.Option>
+                      <Select.Option value="Tumeric">Turmeric</Select.Option>
+                    </Select>
+                  </div>
+                  {errors.rawMaterial && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.rawMaterial}
+                    </p>
+                  )}
+                  <div className="mt-4 mb-4">
+                    <Select
+                      size="lg"
+                      label="Select Country"
+                      value={country}
+                      onChange={(value) => setCountry(value)}
+                      error={errors.country ? true : false}
+                    >
+                      <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
+                      <Select.Option value="India">India</Select.Option>
+                      <Select.Option value="Pakistan">Pakistan</Select.Option>
+                      <Select.Option value="China">China</Select.Option>
+                      <Select.Option value="Japan">Japan</Select.Option>
+                    </Select>
+                    {errors.country && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.country}
+                      </p>
+                    )}
+                  </div>
+                  <div className="mt-4 mb-4">
+                    <Input
+                      label="Mobile"
+                      size="lg"
+                      value={mobile}
+                      onChange={(e) => {
+                        if (/^\d{0,10}$/.test(e.target.value)) {
+                          setMobile(e.target.value);
+                        }
+                      }}
+                      error={errors.mobile}
+                    />
+                  </div>
+                </div>
+                <div className="w-full flex justify-center">
+                  <Input
+                    label="Address"
+                    size="lg"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    error={errors.address}
+                  />
+                </div>
+              </CardBody>
+              <CardFooter className="pt-0">
+                <button
+                  className="w-full py-3.5 px-14 rounded-lg bg-orange-500 text-center font-sans text-sm font-bold uppercase text-white shadow-md hover:shadow-lg focus:opacity-85 active:opacity-85 disabled:opacity-50 disabled:pointer-events-none"
+                  type="submit"
+                  onClick={handleUpdate}
+                >
+                  Update Supplier
+                </button>
+              </CardFooter>
+            </Card>
+          </div>
         </div>
       </div>
+
       <Footer />
     </>
   );

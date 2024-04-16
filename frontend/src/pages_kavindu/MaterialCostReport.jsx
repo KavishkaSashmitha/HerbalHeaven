@@ -330,7 +330,7 @@ function MaterialReport() {
                           <TruckIcon className="h-10 w-10" />
                         </div>
                         <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white">
-                          Travel Expenses Calculator
+                          Supplier Expenses Calculator
                         </h5>
                       </div>
 
