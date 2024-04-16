@@ -168,29 +168,31 @@ function CashDelivery() {
               <form onSubmit={handleSubmit}>
                 <div className="method-set-card">
                   <div className="bil-box">
-                    <h1 className="main-topic-bil">Biling Info</h1>
+                    <h1 className="main-topic-bil">Biling Information</h1>
                     <label className="paymnt-lable">FULL NAME</label>
                     <br></br>
                     <input
-                      className="paymnt-inpt"
-                      type="text"
-                      name="fullname"
-                      placeholder="John Doe"
-                      value={inputs.fullname}
-                      onChange={handleChange}
-                      required
+                     className="paymnt-inpt"
+                     type="text"
+                     name="fullname"
+                     placeholder="Saman Perera"
+                     value={inputs.fullname}
+                     onChange={handleChange}
+                     pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
+                     title="Please enter only letters"
+                     required
                     ></input>
                     <br></br>
                     <label className="paymnt-lable">BILLING ADDRESS</label>
                     <br></br>
                     <input
-                      className="paymnt-inpt"
-                      type="text"
-                      name="address"
-                      value={inputs.address}
-                      onChange={handleChange}
-                      placeholder="abc/25/abc"
-                      required
+                     className="paymnt-inpt"
+                     type="text"
+                     name="address"
+                     value={inputs.address}
+                     onChange={handleChange}
+                     placeholder="11/16, Wilabada Road, Gampaha."
+                     required
                     ></input>
                     <br></br>
                     <div className="method-set-card-form">
@@ -198,13 +200,15 @@ function CashDelivery() {
                         <label className="paymnt-lable">CITY</label>
                         <br></br>
                         <input
-                          className="paymnt-inpt-two"
-                          type="text"
-                          name="city"
-                          value={inputs.city}
-                          onChange={handleChange}
-                          placeholder="John Doe"
-                          required
+                           className="paymnt-inpt-two"
+                           type="text"
+                           name="city"
+                           value={inputs.city}
+                           onChange={handleChange}
+                           placeholder="Gampaha"
+                           pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
+                           title="Please enter only letters"
+                           required
                         ></input>
                         <br></br>
                       </div>
@@ -217,7 +221,11 @@ function CashDelivery() {
                           name="zip"
                           value={inputs.zip}
                           onChange={handleChange}
-                          placeholder="1234"
+                          placeholder="11550"
+                          minLength={5}
+                          maxLength={5}
+                          pattern="[0-9]{5}"  // Use a regular expression to match exactly 5 digits
+                          title="Please enter a valid 5-digit ZIP code"
                           required
                         ></input>
                         <br></br>
@@ -237,21 +245,14 @@ function CashDelivery() {
                       <option value="" required disabled selected>
                         Select Country
                       </option>
-                      <option value="afghanistan">Afghanistan</option>
-                      <option value="albania">Albania</option>
-                      <option value="brazil">Brazil</option>
-                      <option value="canada">Canada</option>
-                      <option value="denmark">Denmark</option>
-                      <option value="egypt">Egypt</option>
-                      <option value="france">France</option>
-                      <option value="germany">Germany</option>
+                     
                       <option value="india">India</option>
                       <option value="sri_lanka">Sri Lanka</option>
                     </select>
                   </div>
                 </div>
                 <h1 className="paypal-para2">
-                  Your Total Ammount :{" "}
+                  Your Total Amount: LKR{" "}
                   <span className="price-pay">{calculateTotalBill()}</span>
                 </h1>
 

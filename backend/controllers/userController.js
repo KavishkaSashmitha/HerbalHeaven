@@ -47,7 +47,6 @@ const signup = AsyncHandler(async (req, res) => {
     throw new Error('Invalid user Data');
   }
 });
-
 ///@desc Register new User
 //@route POST/api/users
 //@access public

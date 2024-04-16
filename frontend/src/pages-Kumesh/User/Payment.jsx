@@ -1,10 +1,13 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Stepper, Step } from '@material-tailwind/react';
+import { Stepper, Step, Button } from '@material-tailwind/react';
+
 import {
   ShoppingCartIcon,
   CurrencyDollarIcon,
   ArchiveBoxIcon,
+
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../../middleware/authContext';
 import { SidebarWithBurgerMenu } from '../../components/navBar';
@@ -15,14 +18,16 @@ import paypal from './img/paypal.png';
 import amazon from './img/amo.png';
 import tic from './img/tic.png';
 import axios from 'axios';
-import { StepperWithContent } from '../../components/Stepper';
+
 
 function Payment() {
   const location = useLocation();
   const [cart, setCart] = useState([]);
   const { isLoggedIn, token } = useAuth();
 
+
   // const { token } = useAuth();
+
 
   // useEffect(() => {
   //   const fetchCartItems = async () => {
@@ -52,14 +57,14 @@ function Payment() {
   //   fetchCartItems();
   // }, [isLoggedIn, token]);
 
-  console.log('cart', cart);
+  console.log("cart", cart);
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         if (isLoggedIn) {
           const response = await axios.get(
-            'http://localhost:8070/api/user/cart',
+            "http://localhost:8070/api/user/cart",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -75,7 +80,7 @@ function Payment() {
           setCart(response.data);
         }
       } catch (error) {
-        console.error('Error fetching cart items:', error);
+        console.error("Error fetching cart items:", error);
       }
     };
 
@@ -86,13 +91,13 @@ function Payment() {
   const steps = [
     {
       icon: <ShoppingCartIcon className="h-5 w-5" color="green" />,
-      path: '/user/cart',
+      path: "/user/cart",
     },
     {
       icon: <CurrencyDollarIcon className="h-5 w-5" color="green" />,
-      path: '/user/payment',
+      path: "/user/payment",
     },
-    { icon: <ArchiveBoxIcon className="h-5 w-5" />, path: '/address' },
+    { icon: <ArchiveBoxIcon className="h-5 w-5" />, path: "/address" },
   ];
 
   // Find the index of the current step based on the route path
@@ -103,16 +108,16 @@ function Payment() {
   //data insert part
   const history = useNavigate();
   const [inputs, setInputs] = useState({
-    fullname: '',
-    address: '',
-    city: '',
-    zip: '',
-    country: '',
-    cardholdername: '',
-    cardnumber: '',
-    expmonth: '',
-    expyear: '',
-    cvv: '',
+    fullname: "",
+    address: "",
+    city: "",
+    zip: "",
+    country: "",
+    cardholdername: "",
+    cardnumber: "",
+    expmonth: "",
+    expyear: "",
+    cvv: "",
   });
   const handleChange = (e) => {
     setInputs((prevState) => ({
@@ -125,16 +130,18 @@ function Payment() {
     console.log(inputs);
     sendRequest()
       .then(() => {
-        alert('Card details Validated successfully!');
-        history('/address');
+
+        alert("Card details Validated successfully!");
+        history("/address");
+
       })
       .catch((error) => {
-        console.error('Error adding card details:', error);
+        console.error("Error adding card details:", error);
       });
   };
   const placeOrder = async () => {
     await axios.post(
-      'http://localhost:8070/api/orders/order/save',
+      "http://localhost:8070/api/orders/order/save",
       {
         total: calculateTotalBill(),
 
@@ -143,8 +150,8 @@ function Payment() {
           city: inputs.city,
           zip: inputs.zip,
         },
-        paymentStatus: 'Paid',
-        orderStatus: 'Preparing',
+        paymentStatus: "Paid",
+        orderStatus: "Preparing",
 
         items: cart.map(({ name, price, quantity, image }) => ({
           name,
@@ -156,15 +163,16 @@ function Payment() {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }
     );
   };
 
   const sendRequest = async () => {
+    placeOrder();
     await axios
-      .post('http://localhost:8070/cards', {
+      .post("http://localhost:8070/cards", {
         fullname: String(inputs.fullname),
         address: String(inputs.address),
         city: String(inputs.city),
@@ -186,22 +194,32 @@ function Payment() {
   return (
     <div className="w-auto px-24 py-4 step">
       <SidebarWithBurgerMenu />
-      <StepperWithContent />
+      <Stepper
+        activeStep={activeStepIndex}
+        isFirstStep={activeStepIndex === 0}
+        isLastStep={activeStepIndex === steps.length - 1}
+      >
+        {steps.map((step, index) => (
+          <Step key={index} isActive={index === activeStepIndex}>
+            <Link to={step.path}>{step.icon}</Link>
+          </Step>
+        ))}
+      </Stepper>
       <div className="Payment-full-box">
         <div className="Payment-full-box-set">
           <div>
             <h1 className="main-tpoic">Payment</h1>
-            <p className="main-para">Choose payment method below</p>
+            <p className="main-para">Choose your preffered payment method below</p>
             <div className="method-set">
               <div className="method-one method-box">
                 <img src={tic} alt="tick" className="img-tic" />
                 <img src={card} alt="card" className="img-paymt card-pay" />
-                <p className="paymnt-topic">Pay With Credit Card</p>
+                <p className="paymnt-topic">Pay With Credit/Debit Card</p>
               </div>
               <div
                 className="method-two method-box"
                 onClick={() => {
-                  window.location.href = '/paypal';
+                  window.location.href = "/paypal";
                 }}
               >
                 <img
@@ -209,14 +227,16 @@ function Payment() {
                   alt="paypal"
                   className="img-paymt card-paypal"
                 />
-                <p className="paymnt-topic">Pay With pay pal</p>
+                <p className="paymnt-topic">Pay With paypal</p>
               </div>
+
               <div
                 className="method-three method-box"
                 onClick={() => {
-                  window.location.href = '/cashdelivery';
+                  window.location.href = "/cashdelivery";
                 }}
               >
+
                 <img src={amazon} alt="amazon" className="img-paymt card-amo" />
                 <p className="paymnt-topic">pay with cash on delivery</p>
               </div>
@@ -225,7 +245,7 @@ function Payment() {
               <div className="method-set-card">
                 <div className="bil-box">
                   <h1 className="main-topic-bil">
-                    <span className="number">1</span>Biling Info
+                    <span className="number">1</span>Biling Information
                   </h1>
                   <label className="paymnt-lable">FULL NAME</label>
                   <br></br>
@@ -233,9 +253,11 @@ function Payment() {
                     className="paymnt-inpt"
                     type="text"
                     name="fullname"
-                    placeholder="John Doe"
+                    placeholder="Saman Perera"
                     value={inputs.fullname}
                     onChange={handleChange}
+                    pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
+                    title="Please enter only letters"
                     required
                   ></input>
                   <br></br>
@@ -247,7 +269,7 @@ function Payment() {
                     name="address"
                     value={inputs.address}
                     onChange={handleChange}
-                    placeholder="abc/25/abc"
+                    placeholder="11/16, Wilabada Road, Gampaha."
                     required
                   ></input>
                   <br></br>
@@ -261,7 +283,9 @@ function Payment() {
                         name="city"
                         value={inputs.city}
                         onChange={handleChange}
-                        placeholder="John Doe"
+                        placeholder="Gampaha"
+                        pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
+                        title="Please enter only letters"
                         required
                       ></input>
                       <br></br>
@@ -275,7 +299,11 @@ function Payment() {
                         name="zip"
                         value={inputs.zip}
                         onChange={handleChange}
-                        placeholder="1234"
+                        placeholder="11550"
+                        minLength={5}
+                        maxLength={5}
+                        pattern="[0-9]{5}"  // Use a regular expression to match exactly 5 digits
+                        title="Please enter a valid 5-digit ZIP code"
                         required
                       ></input>
                       <br></br>
@@ -295,14 +323,7 @@ function Payment() {
                     <option value="" required disabled selected>
                       Select Country
                     </option>
-                    <option value="afghanistan">Afghanistan</option>
-                    <option value="albania">Albania</option>
-                    <option value="brazil">Brazil</option>
-                    <option value="canada">Canada</option>
-                    <option value="denmark">Denmark</option>
-                    <option value="egypt">Egypt</option>
-                    <option value="france">France</option>
-                    <option value="germany">Germany</option>
+                   
                     <option value="india">India</option>
                     <option value="sri_lanka">Sri Lanka</option>
                   </select>
@@ -319,7 +340,9 @@ function Payment() {
                     value={inputs.cardholdername}
                     onChange={handleChange}
                     name="cardholdername"
-                    placeholder="John Doe"
+                    placeholder="Saman Perera"
+                    pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
+                    title="Please enter only letters"
                     required
                   ></input>
                   <br></br>
@@ -330,11 +353,13 @@ function Payment() {
                     type="text"
                     value={inputs.cardnumber}
                     onChange={handleChange}
-                    maxLength={16}
-                    minLength={16}
+                    maxLength={19}
+                    minLength={19}
                     name="cardnumber"
                     placeholder="5645-6456-7665-0456"
-                    required
+                    pattern="\d{4}-\d{4}-\d{4}-\d{4}" // Regular expression for XXXX-XXXX-XXXX-XXXX format
+                    title="Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX"
+                  required
                   ></input>
                   <br></br>
                   <div className="method-set-card-form">
@@ -364,7 +389,7 @@ function Payment() {
                         name="expyear"
                         required
                         placeholder="YYYY"
-                        min="1900"
+                        min="2024"
                         max="2100"
                       ></input>
                       <br></br>
@@ -381,18 +406,21 @@ function Payment() {
                     onChange={handleChange}
                     required
                     placeholder="123"
+                    minLength={3}
                     maxLength={3}
                     pattern="[0-9]*"
                   ></input>
                 </div>
               </div>
               <h1 className="paypal-para2">
-                Your Total Ammount :{' '}
+
+                Your Total Amount :LKR{' '}
+
                 <span className="price-pay">{calculateTotalBill()}</span>
               </h1>
 
               <div className="end-btn">
-                <button className="btn-pro">Add</button>
+                <button className="btn-pro">Proceed</button>
               </div>
             </form>
           </div>

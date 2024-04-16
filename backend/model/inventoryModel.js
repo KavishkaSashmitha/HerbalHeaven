@@ -19,6 +19,11 @@ const inventoryData = mongoose.Schema(
       maxlength: 255,
     },
 
+    category: {
+      type: String,
+      require: true,
+    },
+
     cost: {
       type: Number,
       required: true,
@@ -37,14 +42,8 @@ const inventoryData = mongoose.Schema(
     manufactureDate: {
       type: Date,
       required: true,
-      validate: {
-        validator: function (value) {
-          // Custom validation: Ensure manufactureDate is before expiaryDate
-          return value < this.expiaryDate;
-        },
-        message: 'Manufacture date must be before expiary date',
-      },
     },
+
     expiaryDate: {
       type: Date,
       required: true,
