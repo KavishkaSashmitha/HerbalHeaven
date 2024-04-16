@@ -41,18 +41,18 @@ const Product = ({ product, addToCart }) => {
           >
             {product.description}
           </Typography>
-        </CardBody>
-        <CardFooter className="pt-0">
-          <Button
-            onClick={() => addToCart(product)}
-            className="w-full  hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
-            color="green"
-          >
-            Add to Cart
-          </Button>
-        </CardFooter>
-      </Card>
-    </>
+        </div>
+      </CardBody>
+      <CardFooter className="pt-0">
+        <Button
+          onClick={() => addToCart(product)}
+          className="w-full  hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
+          color="green"
+        >
+          Add to Cart
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 

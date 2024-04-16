@@ -103,6 +103,7 @@ const inventoryController = {
         reorderLevel,
         manufactureDate,
         expiaryDate,
+        category,
         image,
       } = req.body;
 
@@ -115,6 +116,7 @@ const inventoryController = {
         reorderLevel,
         manufactureDate,
         expiaryDate,
+        category,
         image,
       });
 

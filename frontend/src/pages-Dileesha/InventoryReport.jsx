@@ -19,11 +19,66 @@ const InventoryReport = () => {
 
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4'); // Set PDF dimensions to A4
+      const pdf = new jsPDF('p', 'mm', 'a4');
       const imgWidth = 210; // A4 width in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 70, imgWidth, imgHeight); // Add image of table
 
-      pdf.addImage(imgData, 'PNG', 0, 20, imgWidth, imgHeight); // Add image of table
+      // Add page number
+      const totalPages = pdf.internal.getNumberOfPages();
+      for (let i = 1; i <= totalPages; i++) {
+        pdf.setPage(i);
+        pdf.setFontSize(10);
+        pdf.text(
+          `Page ${i} of ${totalPages}`,
+          pdf.internal.pageSize.width - 28,
+          pdf.internal.pageSize.height - 18
+        );
+      }
+
+      // Add page border
+      for (let i = 1; i <= totalPages; i++) {
+        pdf.setPage(i);
+        pdf.rect(
+          5,
+          5,
+          pdf.internal.pageSize.width - 10,
+          pdf.internal.pageSize.height - 10,
+          'S'
+        );
+      }
+
+      // Add current time
+      const now = new Date();
+      const currentTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+      pdf.setFontSize(7);
+      pdf.text(`Report generated on: ${currentTime}`, 152, 10);
+
+      // Add company logo
+      const logoImg = new Image();
+      logoImg.src = '/logo/logo.png'; // Assuming 'logo.png' is the path to your logo
+      pdf.addImage(logoImg, 'PNG', 90, 14, 40, 40);
+
+      // Add company name
+      pdf.setFontSize(25);
+      pdf.setFont('helvetica', 'bold');
+      // Print "Herbal Heaven" text
+      pdf.text('Herbal Heaven', 80, 20);
+
+      // Add company address, email, and phone number
+      pdf.setFontSize(8);
+      pdf.text('Company Address:', 10, 50);
+      pdf.text('123 Main St, City, Country', 10, 55);
+      pdf.text('Email: info@herbalheaven.com', 10, 60);
+      pdf.text('Phone: +1234567890', 10, 65);
+
+      // Add description
+      pdf.setFontSize(12);
+      pdf.text(
+        'This report contains inventory details of Herbal Heaven company(PVT)LTD.',
+        10,
+        pdf.internal.pageSize.height - 50
+      );
       pdf.save('inventory_report.pdf');
     });
   };
@@ -60,7 +115,7 @@ const InventoryReport = () => {
           <Typography variant="h6" className="text-center font-bold text-xl">
             {title}
           </Typography>
-          <table className="w-4/5 mx-auto mt-4 table-auto border border-gray-500">
+          <table className="w-4/5 mx-auto mt-4 mb-4 table-auto border border-gray-500">
             <thead>
               <tr className="bg-blue-300 text-gray-900 uppercase text-sm leading-normal">
                 <th className="py-3 px-3 text-center font-bold border border-gray-500 text-lg">

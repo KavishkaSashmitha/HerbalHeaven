@@ -111,15 +111,17 @@ export function DefaultSidebar() {
                       Customer
                     </ListItem>
                   </Link>
-                  <ListItem className="text-yellow-200">
-                    <ListItemPrefix>
-                      <ChevronRightIcon
-                        strokeWidth={3}
-                        className="w-5 h-3 text-yellow-200"
-                      />
-                    </ListItemPrefix>
-                    Inventory
-                  </ListItem>
+                  <Link to="/inventory">
+                    <ListItem className="text-yellow-200">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Inventory
+                    </ListItem>
+                  </Link>
 
                   <Link to="/emp">
                     <ListItem className="text-yellow-200">

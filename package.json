@@ -44,7 +44,7 @@
     "react-slick": "^0.30.2",
     "react-spinners": "^0.13.8",
     "slick-carousel": "^1.8.1",
-    "swiper": "^11.1.0"
+    "swiper": "^11.1.0",
 
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.3",
