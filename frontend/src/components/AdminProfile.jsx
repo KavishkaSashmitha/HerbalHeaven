@@ -109,7 +109,7 @@ const AdminProfileMenu = () => {
 
   return (
     <>
-      <div className="flex items-center justify-end mr-5 mt-2 mb-2">
+      <div className="flex items-center justify-end mt-2 mb-2">
         <Typography variant="medium" className="text-teal-100 mr-4">
           {currentTime}
         </Typography>
@@ -138,7 +138,7 @@ const AdminProfileMenu = () => {
             <Avatar
               variant="circular"
               alt="profile pic"
-              className="cursor-pointer h-10 w-10"
+              className="cursor-pointer h-10 w-10 ml-3"
               src={userImage} // Use userImage state for dynamic source
             />
           </MenuHandler>
