@@ -32,7 +32,7 @@ import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
 import User from "./pages_kavindu/User";
-import adminDashboard from "./pages/adminDashboard";
+
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
@@ -98,9 +98,10 @@ import AdminDashboard from "./pages/adminDashboard";
 
 
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
-import Cart from "./pages/cart";
-import AdminDashboard from "./pages/adminDashboard";
+
+
+
+
 
 
 function App() {
@@ -108,11 +109,12 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/signUp" element={<Register />} />
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
-        <Route path="/signUp" element={<Register />} />
-        <Route path="/register" element={<Register />} />
+        
+        
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={<EcommerceCard />} />
         <Route path="/user/cart" element={<Cart />} />
@@ -134,7 +136,7 @@ function App() {
 
       {/* //Protected Routes */}
       <Route element={<ProtectedRoute manager />}>
-        <Route path="/admin-dashboard" element={<adminDashboard />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* cart-related */}
         <Route path="/cart-Admin" element={<CartAdmin />} />
         <Route path="/productCategory" element={<ProductList />} />
