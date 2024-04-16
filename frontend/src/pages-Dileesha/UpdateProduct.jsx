@@ -1,4 +1,3 @@
-import 'tailwindcss/tailwind.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,12 +8,14 @@ const UpdateProduct = () => {
   const [productNo, setProductNo] = useState('');
   const [productName, setProductName] = useState('');
   const [shortDescription, setShortDescription] = useState('');
+  const [category, setCategory] = useState('');
   const [cost, setCost] = useState('');
   const [quantity, setQuantity] = useState('');
   const [reorderLevel, setReorderLevel] = useState('');
   const [manufactureDate, setManufactureDate] = useState('');
   const [expiaryDate, setExpiaryDate] = useState('');
   const [image, setImage] = useState(null);
+
   const navigate = useNavigate();
 
   // Validation function for checking if a field is empty
@@ -32,7 +33,6 @@ const UpdateProduct = () => {
     const message = isValid ? '' : 'Field must be a number';
     return { isValid, message };
   };
-
   const validateDate = (date) => {
     const isValid = !isNaN(new Date(date).getTime());
     const message = isValid ? '' : 'Invalid date';
@@ -47,6 +47,7 @@ const UpdateProduct = () => {
         setProductNo(itemData.productNo);
         setProductName(itemData.productName);
         setShortDescription(itemData.shortDescription);
+        setCategory(itemData.category);
         setCost(itemData.cost);
         setQuantity(itemData.quantity);
         setReorderLevel(itemData.reorderLevel);
@@ -59,6 +60,7 @@ const UpdateProduct = () => {
 
         setManufactureDate(formattedManufactureDate);
         setExpiaryDate(formattedExpiaryDate);
+
         setImage(itemData.image);
       })
       .catch((err) => console.log(err));
@@ -71,6 +73,7 @@ const UpdateProduct = () => {
       productNo,
       productName,
       shortDescription,
+      category,
       cost,
       quantity,
       reorderLevel,
@@ -82,16 +85,17 @@ const UpdateProduct = () => {
     const productNoValidation = validateNumberField(productNo);
     const productNameValidation = validateField(productName);
     const shortDescriptionValidation = validateField(shortDescription);
+    const categoryValidation = validateField(category);
     const costValidation = validateNumberField(cost);
     const quantityValidation = validateNumberField(quantity);
     const reorderLevelValidation = validateNumberField(reorderLevel);
     const manufactureDateValidation = validateDate(manufactureDate);
     const expiaryDateValidation = validateDate(expiaryDate);
-
     if (
       productNoValidation.isValid &&
       productNameValidation.isValid &&
       shortDescriptionValidation.isValid &&
+      categoryValidation.isValid &&
       costValidation.isValid &&
       quantityValidation.isValid &&
       reorderLevelValidation.isValid &&
@@ -103,6 +107,7 @@ const UpdateProduct = () => {
           productNo,
           productName,
           shortDescription,
+          category,
           cost,
           quantity,
           reorderLevel,
@@ -121,6 +126,7 @@ const UpdateProduct = () => {
         productNoValidation.message,
         productNameValidation.message,
         shortDescriptionValidation.message,
+        categoryValidation.message,
         costValidation.message,
         quantityValidation.message,
         reorderLevelValidation.message,
@@ -145,7 +151,7 @@ const UpdateProduct = () => {
 
   return (
     <div
-      className="flex justify-center items-center h-100 pt-2 pb-5"
+      className="flex justify-center items-center h-100% pt-2 pb-2"
       style={{
         backgroundImage:
           'url("https://media.istockphoto.com/id/1192284372/photo/composition-of-natural-alternative-medicine-with-capsules-essence-and-plants.jpg?b=1&s=612x612&w=0&k=20&c=1ocZIu_aNqFvD-VZlJPTAlPNeZGK7afMYahtNKd9YdM=")',
@@ -155,19 +161,19 @@ const UpdateProduct = () => {
     >
       <Card
         shadow={false}
-        pt="5"
+        pt="1"
         pb="1"
-        className="p-3"
+        className="p-2  content-center"
         style={{ backgroundColor: '#D4EFDF', width: '40%' }}
       >
         <Typography variant="h4" color="blue-gray" className="text-center">
           Update Product
         </Typography>
         <form
-          className="mt-8 mb-2 ml-4 w-80 max-w-70-lg sm:w-96"
+          className="mt-1 mb-1 ml-4 w-80 max-w-70-lg sm:w-96"
           onSubmit={Update}
         >
-          <div className="grid grid-cols-2 gap-3 gap-x-20">
+          <div className="grid grid-cols-2 gap-5 gap-x-20">
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray">
                 Product No
@@ -190,19 +196,19 @@ const UpdateProduct = () => {
                 placeholder="Enter Product Name"
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
+                readOnly
                 className="bg-white"
               />
             </div>
-
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray">
                 Description
               </Typography>
               <Input
                 size="lg"
-                placeholder="Enter Discription"
+                placeholder="Enter description"
                 value={shortDescription}
-                onChange={(e) => setShortDescription(e.target.value.toString)}
+                onChange={(e) => setShortDescription(e.target.value)}
                 className="bg-white"
               />
             </div>
@@ -243,6 +249,7 @@ const UpdateProduct = () => {
                 className="bg-white"
               />
             </div>
+
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray">
                 Manufacture Date
@@ -269,33 +276,85 @@ const UpdateProduct = () => {
                 className="bg-white"
               />
             </div>
-
+            <div className="flex flex-col">
+              <Typography variant="h6" color="blue-gray">
+                Category
+              </Typography>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Beauty Product"
+                    checked={category === 'Beauty Product'}
+                    onChange={() => setCategory('Beauty Product')}
+                  />
+                  Beauty Product
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Immunity Product"
+                    checked={category === 'Immunity Product'}
+                    onChange={() => setCategory('Immunity Product')}
+                  />
+                  Immunity Product
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Oils"
+                    checked={category === 'Oils'}
+                    onChange={() => setCategory('Oils')}
+                  />
+                  Oils
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="category"
+                    value="Balms"
+                    checked={category === 'Balms'}
+                    onChange={() => setCategory('Balms')}
+                  />
+                  Balms
+                </label>
+              </div>
+            </div>
             <div className="flex flex-col">
               <Typography variant="h6" color="blue-gray">
                 Image
               </Typography>
               {image && (
                 <img
-                  src={`data:image/jpeg;base64,${image}`}
-                  style={{ maxWidth: '200px', marginBottom: '10px' }}
-                  alt=""
+                  src={`http://localhost:8070/${image.replace(/\\/g, '/')}`}
+                  alt="Product"
+                  style={{ width: '100px', height: '80px' }}
                 />
               )}
               <Input
-                size="lg"
+                id="image"
                 type="file"
+                accept=".jpg,.png,.jpeg"
                 onChange={(e) => setImage(e.target.files[0])}
                 className="bg-white"
               />
             </div>
           </div>
-
           <Button
             type="submit"
             color="black"
             ripple="light"
             fullWidth
-            className="mt-6 ml-5"
+            className="mt-1 ml-5"
           >
             Update
           </Button>
