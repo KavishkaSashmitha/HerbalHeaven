@@ -19,9 +19,9 @@ function UpdateUser() {
   const { id } = useParams();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
+  // const [age, setAge] = useState("");
   const [rawMaterial, setRawMaterial] = useState("");
-  const [country, setCountry] = useState("");
+  // const [country, setCountry] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const [errors, setErrors] = useState({});
@@ -38,9 +38,9 @@ function UpdateUser() {
         const userData = result.data;
         setName(userData.name);
         setEmail(userData.email);
-        setAge(userData.age);
+        // setAge(userData.age);
         setRawMaterial(userData.rawMaterial);
-        setCountry(userData.country);
+        // setCountry(userData.country);
         setMobile(userData.mobile);
         setAddress(userData.address);
       })
@@ -64,23 +64,23 @@ function UpdateUser() {
       isValid = false;
     }
 
-    if (!age) {
-      errors.age = "Age is required";
-      isValid = false;
-    } else if (!/^\d+$/.test(age) || age < 0 || age > 100) {
-      errors.age = "Age must be a positive number less than 100";
-      isValid = false;
-    }
+    // if (!age) {
+    //   errors.age = "Age is required";
+    //   isValid = false;
+    // } else if (!/^\d+$/.test(age) || age < 0 || age > 100) {
+    //   errors.age = "Age must be a positive number less than 100";
+    //   isValid = false;
+    // }
 
     if (!rawMaterial) {
       errors.rawMaterial = "Raw Material is required";
       isValid = false;
     }
 
-    if (!country) {
-      errors.country = "Country is required";
-      isValid = false;
-    }
+    // if (!country) {
+    //   errors.country = "Country is required";
+    //   isValid = false;
+    // }
 
     if (!mobile) {
       errors.mobile = "Mobile is required";
@@ -112,9 +112,9 @@ function UpdateUser() {
           .put(`http://localhost:8070/sup/updateSupplier/${id}`, {
             name,
             email,
-            age,
+            // age,
             rawMaterial,
-            country,
+            // country,
             mobile,
             address,
           })
@@ -183,7 +183,7 @@ function UpdateUser() {
                         error={errors.email}
                       />
                     </div>
-                    <div className="mt-4 mb-4">
+                    {/* <div className="mt-4 mb-4">
                       <Input
                         label="Age"
                         size="lg"
@@ -199,7 +199,7 @@ function UpdateUser() {
                         }}
                         error={errors.age}
                       />
-                    </div>
+                    </div> */}
                   </div>
                   {/* Form Inputs - Right Part */}
                   <div className="">
@@ -231,7 +231,7 @@ function UpdateUser() {
                         {errors.rawMaterial}
                       </p>
                     )}
-                    <div className="mt-4 mb-4">
+                    {/* <div className="mt-4 mb-4">
                       <Select
                         size="lg"
                         label="Select Country"
@@ -246,13 +246,13 @@ function UpdateUser() {
                         {/* <Select.Option value="Pakistan">Pakistan</Select.Option>
                       <Select.Option value="China">China</Select.Option>
                       <Select.Option value="Japan">Japan</Select.Option> */}
-                      </Select>
+                    {/* </Select>
                       {errors.country && (
                         <p className="text-red-500 text-sm mt-1">
                           {errors.country}
                         </p>
                       )}
-                    </div>
+                    </div>  */}
                     <div className="mt-4 mb-4">
                       <Input
                         label="Mobile"
