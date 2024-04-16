@@ -23,6 +23,7 @@ function MaterialReport() {
   const { id } = useParams();
   const [supplierName, setSupplierName] = useState("");
   const [rawMaterial, setRawMaterial] = useState("");
+  const [errors, setErrors] = useState({});
   const [country, setCountry] = useState("");
   const [quantity, setQuantity] = useState("");
   const [materialCost, setMaterialCost] = useState("");
@@ -33,6 +34,14 @@ function MaterialReport() {
     setOpen(!open);
   };
   // const [errors, setErrors] = useState({});
+  const validateForm = () => {
+    let errors = {};
+    let isValid = true;
+    if (!quantity) {
+      errors.quantity = "Name is required";
+      isValid = false;
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -416,10 +425,12 @@ function MaterialReport() {
                                   <input
                                     type="number"
                                     name="quantity"
+                                    required
                                     value={quantity}
                                     onChange={(event) => {
                                       setQuantity(event.target.value);
                                     }}
+                                    error={errors.quantity}
                                     placeholder="Enter Quantity"
                                     class="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                                   />
