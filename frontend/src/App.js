@@ -1,54 +1,62 @@
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import Home from './pages/Home';
-import { SidebarWithBurgerMenu } from './components/navBar';
+import Home from "./pages/Home";
+import { SidebarWithBurgerMenu } from "./components/navBar";
 
-import Register from './pages/Register';
-import Dashboard from './pages/DashBoard';
-import { EcommerceCard } from './pages/Products';
-import Cart from './pages/Cart';
+import Register from "./pages/Register";
+import Dashboard from "./pages/DashBoard";
+import { EcommerceCard } from "./pages/Products";
+import cart from "./pages/cart";
 
-import CreatPost from './pages_Pasindu/CreateEmployee';
-import EditPost from './pages_Pasindu/EditEmployee';
-import Posts from './pages_Pasindu/Employee';
-import PostDetails from './pages_Pasindu/EmployeeDetails';
-import 'react-toastify/dist/ReactToastify.css';
+import CreatPost from "./pages_Pasindu/CreateEmployee";
+import EditPost from "./pages_Pasindu/EditEmployee";
+import Posts from "./pages_Pasindu/Employee";
+import PostDetails from "./pages_Pasindu/EmployeeDetails";
+import "react-toastify/dist/ReactToastify.css";
 
-import Display_Employee_Details from './pages_Pasindu/Display_Employee_Details';
-import Employee_Dashboard from './pages_Pasindu/Employee_Dashboard';
+// import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
+// import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
+// import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
+import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
+import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
+// import HiestSalary from "./pages_Pasindu/HiestSalary";
 
-import CreateUser from './pages_kavindu/CreateUser';
-import UpdateUser from './pages_kavindu/UpdateUser';
-import User from './pages_kavindu/User';
-import AdminDashboard from './pages/AdminDashboard';
 
-import SalaryReport from './pages_Pasindu/SalaryReport';
-import DirectCartTable from './pages/DirectOrder';
+import CreateUser from "./pages_kavindu/CreateUser";
+import UpdateUser from "./pages_kavindu/UpdateUser";
+import User from "./pages_kavindu/User";
+import adminDashboard from "./pages/adminDashboard";
+
+import SalaryReport from "./pages_Pasindu/SalaryReport";
+import DirectCartTable from "./pages/DirectOrder";
 
 //Kumesh-----------------------
-import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 //Kumesh-user
 
-import Payment from './pages-Kumesh/User/Payment';
-import CardDetails from './pages-Kumesh/User/Cards';
-import AddCard from './pages-Kumesh/User/AddCard';
-import UpdateCard from './pages-Kumesh/User/UpdateCard';
-import PayPal from './pages-Kumesh/User/PayPal';
-import PaypalCheckOut from './pages-Kumesh/User/PaypalCheckOut';
-import PrintPage from './pages-Kumesh/User/PrintPage';
+import Payment from "./pages-Kumesh/User/Payment";
+import CardDetails from "./pages-Kumesh/User/Cards";
+import AddCard from "./pages-Kumesh/User/AddCard";
+import UpdateCard from "./pages-Kumesh/User/UpdateCard";
+import PayPal from "./pages-Kumesh/User/PayPal";
+import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
+import PrintPage from "./pages-Kumesh/User/PrintPage";
+
 
 import CashDelivery from './pages-Kumesh/User/CashDelivery';
+
 //Kumesh-Admin
-import NetIncome from './pages-Kumesh/Admin/Income/Incomes';
-import Expens from './pages-Kumesh/Admin/Expens/Expens';
+import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
+import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 //Kumesh END-----------------------
+
 import EditOrder from './pages_Ridmi/EditOrder';
 import Order from './pages_Ridmi/Order';
 import './index.css';
@@ -86,6 +94,7 @@ import ImageUpload from './imageUpload';
 
 import ProtectedRoute from './middleware/ProtectedRoute';
 
+
 function App() {
   const { isLoggedIn } = useAuth();
 
@@ -111,6 +120,7 @@ function App() {
       </Route>
 
       <Route path="/" element={<Home />} />
+
 
       {/* //Protected Routes */}
       <Route element={<ProtectedRoute manager />}>
