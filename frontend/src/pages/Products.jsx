@@ -17,7 +17,7 @@ import { FaCartShopping } from 'react-icons/fa6';
 
 const Product = ({ product, addToCart }) => {
   return (
-    <Card key={product._id} className="w-72 mb-4 mt-2 ml-2 bg-blue-gray-200">
+    <Card key={product._id} className="w-72 mb-4 mt-2 ml-2 bg-light-green-200">
       <CardHeader shadow={false} floated={false} className="h-48">
         <img
           src={product.image}
@@ -31,13 +31,17 @@ const Product = ({ product, addToCart }) => {
             <Typography color="blue-gray" className="font-bold variant-h3 ">
               {product.name}
             </Typography>
-          </div>
-
-          <div>
             <Typography color="blue-gray" className="font-medium">
-              Rs. {product.price}
+              ${product.price}
             </Typography>
           </div>
+          <Typography
+            variant="small"
+            color="gray"
+            className="font-normal opacity-75"
+          >
+            {product.description}
+          </Typography>
         </div>
       </CardBody>
       <CardFooter className="pt-0">

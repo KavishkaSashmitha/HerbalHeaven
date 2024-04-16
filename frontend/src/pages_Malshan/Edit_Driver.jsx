@@ -199,7 +199,7 @@ export default function Edit_Driver() {
             </Link>
             <Link to="">
               <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                <span>Update Driver</span>
+                <span>Update Transport</span>
 
                 <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
               </li>
@@ -222,7 +222,7 @@ export default function Edit_Driver() {
                 </svg>
               </div>
               <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white">
-                Update Driver Details
+                Update Transport Information
               </h5>
             </div>
             <div class="grid grid-cols-2 gap-6">
@@ -390,7 +390,7 @@ export default function Edit_Driver() {
                               }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                             `}
                             >
-                              <option value="car">Car</option>
+                              <option value="Car">Car</option>
                               <option value="Van">Van</option>
                               <option value="Lorry">Lorry</option>
                               <option value="MotorBike">Motor Bike</option>
