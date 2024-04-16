@@ -287,7 +287,7 @@ const UpdateProduct = () => {
                     name="category"
                     value="Beauty Product"
                     checked={category === 'Beauty Product'}
-                    onChange={() => setCategory('Beauty Product')}
+                    onChange={(e) => setCategory(e.target.value)}
                   />
                   Beauty Product
                 </label>
@@ -299,7 +299,7 @@ const UpdateProduct = () => {
                     name="category"
                     value="Immunity Product"
                     checked={category === 'Immunity Product'}
-                    onChange={() => setCategory('Immunity Product')}
+                    onChange={(e) => setCategory(e.target.value)}
                   />
                   Immunity Product
                 </label>
@@ -311,7 +311,7 @@ const UpdateProduct = () => {
                     name="category"
                     value="Oils"
                     checked={category === 'Oils'}
-                    onChange={() => setCategory('Oils')}
+                    onChange={(e) => setCategory(e.target.value)}
                   />
                   Oils
                 </label>
@@ -323,7 +323,7 @@ const UpdateProduct = () => {
                     name="category"
                     value="Balms"
                     checked={category === 'Balms'}
-                    onChange={() => setCategory('Balms')}
+                    onChange={(e) => setCategory(e.target.value)}
                   />
                   Balms
                 </label>
