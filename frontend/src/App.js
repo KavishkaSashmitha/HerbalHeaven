@@ -93,12 +93,12 @@ import "./index.css";
 
 import ImageUpload from "./imageUpload";
 
+
+
+
+
 import ProtectedRoute from "./middleware/ProtectedRoute";
 
-
-
-import ProtectedRoute from "./middleware/ProtectedRoute";
-import Cart from "./pages/cart";
 import AdminDashboard from "./pages/adminDashboard";
 
 
