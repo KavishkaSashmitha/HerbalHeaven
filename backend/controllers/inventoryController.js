@@ -13,6 +13,7 @@ const inventoryController = {
         productNo,
         productName,
         shortDescription,
+        category,
         cost,
         quantity,
         reorderLevel,
@@ -25,6 +26,7 @@ const inventoryController = {
         !productNo ||
         !productName ||
         !shortDescription ||
+        !category ||
         !cost ||
         !quantity ||
         !reorderLevel ||
@@ -53,6 +55,7 @@ const inventoryController = {
         productNo: productNo,
         productName: productName,
         shortDescription: shortDescription,
+        category: category,
         cost: cost,
         quantity: quantity,
         reorderLevel: reorderLevel,
@@ -100,6 +103,7 @@ const inventoryController = {
         reorderLevel,
         manufactureDate,
         expiaryDate,
+        category,
         image,
       } = req.body;
 
@@ -112,6 +116,7 @@ const inventoryController = {
         reorderLevel,
         manufactureDate,
         expiaryDate,
+        category,
         image,
       });
 

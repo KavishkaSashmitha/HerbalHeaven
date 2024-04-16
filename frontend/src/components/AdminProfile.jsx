@@ -106,6 +106,14 @@ const AdminProfileMenu = () => {
       setPassword('');
     }
   };
+  const handleLogout = () => {
+    // Clear authentication token from local storage
+    localStorage.removeItem('token');
+    // Update the global authentication state
+    logout();
+    // Redirect to the login page
+    navigate('/');
+  };
 
   return (
     <>
@@ -185,7 +193,7 @@ const AdminProfileMenu = () => {
               <Typography
                 variant="small"
                 className="font-medium"
-                onClick={logout}
+                onClick={handleLogout}
               >
                 Sign Out
               </Typography>
