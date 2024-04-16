@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Input, Card, Typography, Button } from "@material-tailwind/react";
 import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
+import { DefaultSidebar } from "../components/Manager-Sidebar";
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -37,6 +38,13 @@ const User = () => {
   return (
     <>
       <div className="">
+        <div
+          className={`sidebar w-68 bg-custom-color text-white ${
+            open ? "block" : "hidden"
+          }`}
+        >
+          <DefaultSidebar open={open} handleOpen={setOpen} />
+        </div>
         <AdminNavbar toggleSidebar={toggleSidebar} />
 
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700">

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Select } from "@material-tailwind/react";
 import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
+import { DefaultSidebar } from "../components/Manager-Sidebar";
 import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
@@ -54,7 +55,7 @@ function CreateUser() {
       errors.age = "Age is required";
       isValid = false;
     } else if (!/^\d+$/.test(age) || age < 18 || age > 60) {
-      errors.age = "Age must be a positive number less than 100";
+      errors.age = "Age must be between 18 and 60";
       isValid = false;
     }
 
@@ -120,6 +121,13 @@ function CreateUser() {
   return (
     <>
       <div className="bg-image01">
+        <div
+          className={`sidebar w-68 bg-custom-color text-white ${
+            open ? "block" : "hidden"
+          }`}
+        >
+          <DefaultSidebar open={open} handleOpen={setOpen} />
+        </div>
         <AdminNavbar toggleSidebar={toggleSidebar} />
         <div className="flex justify-center">
           <div className="w-full md:w-3/4 lg:w-1/2 p-4 bg-white rounded-lg shadow-md mt-4 mb-4">
@@ -167,13 +175,10 @@ function CreateUser() {
                       label="Age"
                       size="lg"
                       type="number"
+                      min={18}
+                      max={60}
                       value={age}
-                      onChange={(e) => {
-                        let value = e.target.value.replace(/\D/, ""); // Remove non-numeric characters
-                        value =
-                          value === "" ? "" : Math.min(Math.max(value, 1), 60);
-                        setAge(value);
-                      }}
+                      onChange={(e) => setAge(e.target.value)}
                       error={errors.age}
                     />
                   </div>
@@ -216,9 +221,9 @@ function CreateUser() {
                     >
                       <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
                       <Select.Option value="India">India</Select.Option>
-                      <Select.Option value="Pakistan">Pakistan</Select.Option>
+                      {/* <Select.Option value="Pakistan">Pakistan</Select.Option>
                       <Select.Option value="China">China</Select.Option>
-                      <Select.Option value="Japan">Japan</Select.Option>
+                      <Select.Option value="Japan">Japan</Select.Option> */}
                     </Select>
                     {errors.country && (
                       <p className="text-red-500 text-sm mt-1">
