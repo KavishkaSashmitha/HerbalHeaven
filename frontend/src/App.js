@@ -16,13 +16,11 @@ import { EcommerceCard } from "./pages/Products";
 
 import Cart from "./pages/cart";
 
-
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import "react-toastify/dist/ReactToastify.css";
-
 
 // import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
 // import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
@@ -31,12 +29,10 @@ import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 // import HiestSalary from "./pages_Pasindu/HiestSalary";
 
-
 import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
 import User from "./pages_kavindu/User";
 import adminDashboard from "./pages/adminDashboard";
-
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
@@ -53,21 +49,16 @@ import PayPal from "./pages-Kumesh/User/PayPal";
 import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
 import PrintPage from "./pages-Kumesh/User/PrintPage";
 
-
-
-import CashDelivery from './pages-Kumesh/User/CashDelivery';
-
+import CashDelivery from "./pages-Kumesh/User/CashDelivery";
 
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 //Kumesh END-----------------------
 
-
-import EditOrder from './pages_Ridmi/EditOrder';
-import Order from './pages_Ridmi/Order';
-import './index.css';
-
+import EditOrder from "./pages_Ridmi/EditOrder";
+import Order from "./pages_Ridmi/Order";
+import "./index.css";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -102,7 +93,6 @@ import ImageUpload from "./imageUpload";
 
 import ProtectedRoute from "./middleware/ProtectedRoute";
 
-
 function App() {
   const { isLoggedIn } = useAuth();
 
@@ -132,10 +122,9 @@ function App() {
 
       <Route path="/" element={<Home />} />
 
-
       {/* //Protected Routes */}
       <Route element={<ProtectedRoute manager />}>
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-dashboard" element={<adminDashboard />} />
         {/* cart-related */}
         <Route path="/cart-Admin" element={<CartAdmin />} />
         <Route path="/productCategory" element={<ProductList />} />
