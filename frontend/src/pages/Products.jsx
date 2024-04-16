@@ -34,16 +34,10 @@ const Product = ({ product, addToCart }) => {
               {product.name}
             </Typography>
             <Typography color="blue-gray" className="font-medium">
-              ${product.price}
+              Rs.{product.price}
             </Typography>
           </div>
-          <Typography
-            variant="small"
-            color="gray"
-            className="font-normal opacity-75"
-          >
-            {product.description}
-          </Typography>
+          
         </div>
       </CardBody>
       <CardFooter className="pt-0">
@@ -67,21 +61,31 @@ export function EcommerceCard() {
   const { addToCart } = useAuth();
   const [sortBy, setSortBy] = useState('');
 
+  useEffect(() => {
+    const storedSortBy = localStorage.getItem('sortBy');
+    if (storedSortBy) {
+      setSortBy(storedSortBy);
+    }
+    const storedSearchTerm = localStorage.getItem('searchTerm');
+    if (storedSearchTerm) {
+      setSearchTerm(storedSearchTerm);
+    }
+    fetchInfo();
+  }, []);
+
   const fetchInfo = () => {
     return axios.get(`${url}/api/products`).then((res) => setData(res.data));
   };
 
-  useEffect(() => {
-    fetchInfo();
-  }, []);
-
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+    localStorage.setItem('searchTerm', e.target.value);
   };
 
   const handleSortBy = (selectedValue) => {
     if (selectedValue) {
       setSortBy(selectedValue);
+      localStorage.setItem('sortBy', selectedValue);
     }
   };
 
@@ -108,7 +112,7 @@ export function EcommerceCard() {
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  console.log(sortBy);
+  
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
       <div
@@ -133,6 +137,7 @@ export function EcommerceCard() {
             containerProps={{
               className: 'min-w-[288px]',
             }}
+            value={searchTerm}
             onChange={handleSearch}
           />
           <Button
