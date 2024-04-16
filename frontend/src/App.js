@@ -51,6 +51,7 @@ import PrintPage from "./pages-Kumesh/User/PrintPage";
 
 import CashDelivery from "./pages-Kumesh/User/CashDelivery";
 
+
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 import Expens from "./pages-Kumesh/Admin/Expens/Expens";
@@ -59,6 +60,7 @@ import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 import EditOrder from "./pages_Ridmi/EditOrder";
 import Order from "./pages_Ridmi/Order";
 import "./index.css";
+
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -92,6 +94,13 @@ import "./index.css";
 import ImageUpload from "./imageUpload";
 
 import ProtectedRoute from "./middleware/ProtectedRoute";
+
+
+
+import ProtectedRoute from "./middleware/ProtectedRoute";
+import Cart from "./pages/cart";
+import AdminDashboard from "./pages/adminDashboard";
+
 
 function App() {
   const { isLoggedIn } = useAuth();
