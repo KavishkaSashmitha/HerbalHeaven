@@ -17,8 +17,6 @@ import { EcommerceCard } from './pages/Products';
 import Cart from './pages/cart';
 
 
-import Cart from "./pages/cart";
-
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
@@ -36,7 +34,7 @@ import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
-import AdminDashboard from './pages/adminDashboard';
+
 
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
@@ -102,23 +100,12 @@ import ImageUpload from "./imageUpload";
 import ProtectedRoute from "./middleware/ProtectedRoute";
 import AdminDashboard from "./pages/adminDashboard";
 
-//Dileesha
-import AddProduct from './pages-Dileesha/AddProduct';
-import UpdateProduct from './pages-Dileesha/UpdateProduct';
-import InventoryList from './pages-Dileesha/InventoryList';
-import InventoryReport from './pages-Dileesha/InventoryReport';
-
-import MyOrders from './pages_Ridmi/myOrders';
-import ProductList from './pages/Direct_Order_Products';
-import CartAdminDashboard from './pages/Cart-AdminDashboard';
-import DirectOrdersTable from './pages/DirectOrders';
 
 
 
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
-import Cart from "./pages/cart";
-import AdminDashboard from "./pages/adminDashboard";
+
+
 
 
 function App() {
@@ -260,7 +247,7 @@ function App() {
       <Route path="/inventory/add" element={<AddProduct />} />
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
-      <Route path="/inventory/report" element={<InventoryReport />} />
+     
 
 
       <Route path="/test" element={<ImageUpload />} />
