@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@heroicons/react": "^2.1.1",
     "@material-tailwind/react": "^2.1.8",
     "@paypal/react-paypal-js": "^8.2.0",
@@ -12,19 +13,17 @@
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.48.0",
     "axios": "^1.6.8",
+    "chart.js": "^4.4.2",
     "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
     "express-async-handler": "^1.2.0",
     "firebase": "^10.11.0",
-    "https": "^1.0.0",
-    "https-browserify": "^1.0.0",
-    "install": "^0.13.0",
-    "jspdf": "^2.5.1",
-    "jspdf-autotable": "^3.8.2",
     "multer": "^1.4.4",
     "npm": "^10.5.0",
     "react": "^18.2.0",
+    "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.0",
     "react-scripts": "^5.0.1",
@@ -32,18 +31,16 @@
     "react-to-print": "^2.15.1",
     "react-toastify": "^10.0.4",
     "slick-carousel": "^1.8.1",
-    "stream": "^0.0.2",
-    "stream-http": "^3.2.0",
     "streamifier": "^0.1.1",
-    "sweetalert2": "^11.10.7",
+    "sweetalert2": "^11.10.5",
     "toastify": "^2.0.1",
     "url": "^0.11.3",
     "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "CI= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -66,6 +63,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "prettier": "^3.2.5",
     "tailwindcss": "^3.4.1"
   }
 }
