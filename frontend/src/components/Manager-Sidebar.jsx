@@ -374,19 +374,19 @@ export function DefaultSidebar() {
             </Accordion>
 
             <Accordion
-              open={open === 4}
+              open={open === 5}
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 4 ? "rotate-180" : ""
+                    open === 5 ? "rotate-180" : ""
                   }`}
                 />
               }
             >
-              <ListItem className="p-0 mr-5" selected={open === 1}>
+              <ListItem className="p-0 mr-5" selected={open === 5}>
                 <AccordionHeader
-                  onClick={() => handleOpen(4)}
+                  onClick={() => handleOpen(5)}
                   className="p-3 border-b-0 hover:bg-teal-800"
                 >
                   <ListItemPrefix>
@@ -440,46 +440,9 @@ export function DefaultSidebar() {
               </AccordionBody>
             </Accordion>
 
-            <hr className="my-2 border-white" />
-            {isLoggedIn ? ( // Conditional rendering based on isLoggedIn state
-              <>
-                <Link to="/dashboard">
-                  <ListItem className="p-2 py-2 hover:bg-cyan-500 ">
-                    <ListItemPrefix>
-                      <UserCircleIcon className="w-5 h-5 text-yellow-400 " />
-                    </ListItemPrefix>
-                    <Typography
-                      color="blue-gray"
-                      className="mr-auto font-normal text-yellow-400 "
-                    >
-                      Profile
-                    </Typography>
-                  </ListItem>
-                </Link>
-                <ListItem className="p-2 py-1 bg-red-500" onClick={logout}>
-                  <ListItemPrefix>
-                    <PowerIcon className="w-5 h-5" />
-                  </ListItemPrefix>
-                  <Typography
-                    color="blue-gray"
-                    className="mr-auto font-normal logout"
-                  >
-                    Log Out
-                  </Typography>
-                </ListItem>
-              </>
-            ) : (
-              <Link to="/login">
-                <ListItem className="p-2 py-2 bg-light-green-500">
-                  <ListItemPrefix>
-                    <UserCircleIcon className="w-5 h-5" />
-                  </ListItemPrefix>
-                  <Typography color="blue-gray" className="mr-auto font-bold ">
-                    Log In
-                  </Typography>
-                </ListItem>
-              </Link>
-            )}
+            
+           
+
           </List>
         </div>
       </Card>
