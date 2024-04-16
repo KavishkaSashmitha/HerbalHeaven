@@ -55,18 +55,19 @@ function Incomes() {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
-                <tr key={index}>
-                  <td className="table_income_th">
-                    <p className="sub_par_dis">
-                      {order.total ? `$${order.total.toFixed(2)}` : "-"}
-                    </p>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+  {orders && orders.map((order, index) => (
+    <tr key={index}>
+      <td className="table_income_th">
+        <p className="sub_par_dis">
+          {order.total ? `LKR ${order.total.toFixed(2)}` : "Null"}
+        </p>
+      </td>
+    </tr>
+  ))}
+</tbody>
+
           </table>
-          <h2  className="tot_amout">Total Income: ${totalIncome.toFixed(2)}</h2>
+          <h2  className="tot_amout">Total Income: LKR {totalIncome.toFixed(2)}</h2>
         </div>
       </div>
       <DeretOrders/>

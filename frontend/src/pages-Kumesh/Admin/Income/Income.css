@@ -1,39 +1,75 @@
+/* Styling for income topic */
 .income_topic {
   text-align: center;
   font-size: 40px;
   font-weight: bold;
   text-transform: capitalize;
+  color: #333; /* Dark gray color */
+  margin-bottom: 5px; /* Add some space below */
 }
-.tbl_continer_incme {
-  padding: 30px 0;
 
+/* Styling for income table container */
+.tbl_continer_incme {
+  padding: 5px 0;
   width: 100%;
 }
+
+/* Styling for income table */
 .table_income {
   text-align: center;
   text-transform: capitalize;
-  width: 600px;
-  border: 2px solid green;
+  width: 800px;
+  border: 2px solid #4CAF50; /* Green border */
   margin: 0 auto;
+  border-collapse: collapse; /* Collapse borders */
+  background-color: #f9f9f9; /* Light gray background */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Hide overflowing rounded corners */
 }
-.tot_amout{
-text-align: center;
-font-size: 25px;
-margin-top: 20px;
-font-weight: bold;
+
+/* Styling for total amount */
+.tot_amout {
+  text-align: right;
+  font-size: 28px;
+  margin-top: -30px;
+  font-weight: bold;
+  color: #4CAF50; /* Green color */
+ margin-left: 20px;
+ margin-right: 100px;
 }
-.table_income_th {
-  border: 2px solid green;
+
+/* Styling for table header */
+.table_income th {
+  border: 2px solid #4CAF50; /* Green border */
+  padding: 15px;
+  background: linear-gradient(to bottom, #4CAF50, #45a049); /* Gradient background */
+  color: white; /* White text */
 }
+
+/* Styling for table rows */
+.table_income td {
+  border: 1px solid #0a0a0a; /* Light gray border */
+  padding: 12px;
+}
+
+/* Styling for download report button */
 .dwon_repot_income {
-  background-color: green;
-  color: white;
-  padding: 5px 15px;
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 12px 24px; /* Larger padding */
   border-radius: 8px;
   cursor: pointer;
-  margin: 20px;
-  justify-content: flex-end;
-  margin-left: auto;
+  margin: 20px auto; /* Center horizontally */
+  display: inline-block; /* Display as inline block */
   font-weight: bold;
-  display: flex;
+  text-decoration: none; /* Remove default underline */
+  transition: background-color 0.3s; /* Smooth transition */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+/* Change button color on hover */
+.dwon_repot_income:hover {
+  background-color: #45a049; /* Darker green */
+  transform: translateY(-2px); /* Move button up on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Add stronger shadow on hover */
 }

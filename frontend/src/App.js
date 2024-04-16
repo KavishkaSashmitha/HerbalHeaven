@@ -13,7 +13,7 @@ import { SidebarWithBurgerMenu } from './components/navBar';
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
-import Cart from './pages/Cart';
+import Cart from './pages/cart';
 
 import CreatPost from './pages_Pasindu/CreateEmployee';
 import EditPost from './pages_Pasindu/EditEmployee';
@@ -27,7 +27,7 @@ import Employee_Dashboard from './pages_Pasindu/Employee_Dashboard';
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
-import AdminDashboard from './pages/AdminDashboard';
+import AdminDashboard from './pages/adminDashboard';
 
 import SalaryReport from './pages_Pasindu/SalaryReport';
 import DirectCartTable from './pages/DirectOrder';
@@ -85,6 +85,7 @@ import './index.css';
 import ImageUpload from './imageUpload';
 
 import ProtectedRoute from './middleware/ProtectedRoute';
+import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -162,6 +163,7 @@ function App() {
         <Route path="/expensive" element={<Expens />} />
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
+        <Route path="/dir" element={<DeretOrders />} />
       </Route>
 
       <Route path="/emp" element={<Posts />} />
