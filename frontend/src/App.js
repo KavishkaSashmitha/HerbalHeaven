@@ -93,6 +93,8 @@ import ImageUpload from "./imageUpload";
 
 import ProtectedRoute from "./middleware/ProtectedRoute";
 
+import AdminDashboard from "./pages/adminDashboard";
+
 function App() {
   const { isLoggedIn } = useAuth();
 
