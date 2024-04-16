@@ -13,13 +13,16 @@ import { SidebarWithBurgerMenu } from "./components/navBar";
 import Register from "./pages/Register";
 import Dashboard from "./pages/DashBoard";
 import { EcommerceCard } from "./pages/Products";
-import cart from "./pages/cart";
+
+import Cart from "./pages/cart";
+
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import "react-toastify/dist/ReactToastify.css";
+
 
 // import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
 // import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
@@ -32,6 +35,7 @@ import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
 import User from "./pages_kavindu/User";
 import adminDashboard from "./pages/adminDashboard";
+
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
@@ -48,16 +52,23 @@ import PayPal from "./pages-Kumesh/User/PayPal";
 import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
 import PrintPage from "./pages-Kumesh/User/PrintPage";
 
-import CashDelivery from "./pages-Kumesh/User/CashDelivery";
+
+
+import CashDelivery from './pages-Kumesh/User/CashDelivery';
+
+
 
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 //Kumesh END-----------------------
 
-import EditOrder from "./pages_Ridmi/EditOrder";
-import Order from "./pages_Ridmi/Order";
-import "./index.css";
+
+import EditOrder from './pages_Ridmi/EditOrder';
+import Order from './pages_Ridmi/Order';
+import './index.css';
+
+
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -91,6 +102,9 @@ import "./index.css";
 import ImageUpload from "./imageUpload";
 
 import ProtectedRoute from "./middleware/ProtectedRoute";
+
+
+import ProtectedRoute from "./middleware/ProtectedRoute";
 import Cart from "./pages/cart";
 import AdminDashboard from "./pages/adminDashboard";
 
@@ -116,6 +130,9 @@ function App() {
         <Route path="/carddetails" element={<CardDetails />} />
         <Route path="/addnewcard" element={<AddCard />} />
         <Route path="/carddetails/:id" element={<UpdateCard />} />
+
+        {/*Ridmi*/}
+        <Route path="/my-orders" element={<MyOrders />} />
       </Route>
 
       <Route path="/" element={<Home />} />
@@ -156,7 +173,6 @@ function App() {
         <Route path="/sup/material_report/:id" element={<MaterialReport />} />
 
         {/*Ridmi*/}
-        <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/admin-orders" element={<Order />} />
         <Route path="/edit/:id" element={<EditOrder />} />
 
