@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Avatar,
   Badge,
@@ -18,8 +18,10 @@ import {
 } from '@material-tailwind/react';
 import { BellIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../middleware/authContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './cartContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const ProfileMenu = () => {
   const { isLoggedIn, login, logout } = useAuth();
@@ -28,29 +30,77 @@ const ProfileMenu = () => {
   const handleOpen = () => setOpen((cur) => !cur);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState('');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      setCurrentTime(`${hours}:${minutes}:${seconds}`);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogin = async (email, password) => {
     try {
-      // Call the login function with email and password
-      await login(email, password);
-      // Close the dialog after successful login
+      if (!email || !password) {
+        toast.error('Empty Fields');
+        return;
+      }
+
+      const response = await axios.post('http://localhost:8070/api/user', {
+        email,
+        password,
+      });
+
+      const token = response.data.token;
+
+      // Save the token to local storage or a state management solution
+      localStorage.setItem('token', token);
+
+      // Update the global authentication state
+      login(token);
+
+      navigate('/dashboard');
       setOpen(false);
     } catch (error) {
-      // Handle login errors
-      console.error('Login failed:', error.message);
+      console.error('Login failed:', error.response.data);
+      toast.error('Login Failed');
+      setEmail('');
+      setPassword('');
     }
   };
+
   return (
     <>
       <div className="flex items-center justify-end mr-5 mt-2 mb-2">
+        <Typography
+          variant="medium"
+          className=" font-bold text-teal-50 mr-4 hover:text-amber-800"
+        >
+          {currentTime}
+        </Typography>
         <Link to="/user/cart">
           <Badge content={cartCount} overlap="circular" placement="top-end">
-            <IconButton variant="text" color="black" className=" mb-2 mr-0">
+            <IconButton
+              variant="text"
+              color="black"
+              className=" mb-2 mr-0 hover:text-amber-800 text-white"
+            >
               <ShoppingCartIcon className="h-8 w-6" />
             </IconButton>
           </Badge>
         </Link>
-        <IconButton variant="text" color="black" className="mb-2 ml-4 mr-2">
+
+        <IconButton
+          variant="text"
+          color="black"
+          className="mb-2 ml-4 mr-2 hover:text-amber-800 text-white"
+        >
           <BellIcon className="h-6 w-6" />
         </IconButton>
 
@@ -60,7 +110,7 @@ const ProfileMenu = () => {
               <Avatar
                 variant="circular"
                 alt="tania andrew"
-                className="cursor-pointer"
+                className="cursor-pointer hover:text-amber-800"
                 src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
               />
             </MenuHandler>
@@ -246,7 +296,7 @@ const ProfileMenu = () => {
                     className="mt-4 flex justify-center"
                   >
                     Staff?
-                    <Link to="/signup">
+                    <Link to="/otp">
                       <Typography
                         as="a"
                         href="#signup"

@@ -24,6 +24,19 @@ const empSchema = new Schema({
   address: {
     type: String,
   },
+  payment: {
+    type: Map,
+    of: Number,
+
+    default: {},
+  },
+
+  materialCost: {
+    type: Map,
+    of: Number,
+    required: true,
+    default: {},
+  },
 });
 
 module.exports = mongoose.model("supplier", empSchema);

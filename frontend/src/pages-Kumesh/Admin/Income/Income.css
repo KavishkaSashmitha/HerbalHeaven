@@ -1,6 +1,3 @@
-
-
-
 .income_topic {
   text-align: center;
   font-size: 40px;
@@ -19,7 +16,12 @@
   border: 2px solid green;
   margin: 0 auto;
 }
-
+.tot_amout{
+text-align: center;
+font-size: 25px;
+margin-top: 20px;
+font-weight: bold;
+}
 .table_income_th {
   border: 2px solid green;
 }

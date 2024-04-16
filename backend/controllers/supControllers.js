@@ -49,6 +49,8 @@ const supController = {
     }
   },
 
+ 
+  
   //view only one suppliers details
 
   getEmployee: async (req, res) => {
@@ -94,6 +96,39 @@ const supController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+
+  //update payment
+
+  updatePayment: async (req, res) => {
+    try {
+      const { payment } = req.body;
+      await Emp.findByIdAndUpdate(req.params.id, {
+        payment,
+      });
+
+      return res.status(200).json({ msg: "Record succesfully update." });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+
+  getAllPyment :async (req, res, next) => {
+    let employees;
+    try {
+      employees = await Emp.find();
+    } catch (err) {
+      console.log(err);
+    }
+    if (!employees) {
+      return res.status(404).json({ message: "employees not found" });
+    }
+    return res.status(200).json({ employees });
+  },
+
+
 };
 
+
+
 module.exports = supController;
+

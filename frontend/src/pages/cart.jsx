@@ -20,6 +20,7 @@ import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import ProfileMenu from '../components/Profile';
 import Swal from 'sweetalert2';
 import { Footer } from '../components/Footer';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
   const location = useLocation();
@@ -44,6 +45,8 @@ const Cart = () => {
             }
           );
           setCart(response.data);
+        } else {
+          toast.error('SignIn Please');
         }
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -74,6 +77,8 @@ const Cart = () => {
         setCart(updatedCart);
         setSelectedItems(selectedItems.filter((id) => id !== itemId));
         navigate(location.pathname, { replace: true });
+      } else {
+        toast.error('SignIn Please');
       }
     } catch (error) {
       console.error('Error deleting cart item:', error);
@@ -165,12 +170,15 @@ const Cart = () => {
     <>
       <div
         style={{
-          backgroundImage: `url(${backgroundImage})`,
+          backgroundColor: '#02353c',
           backgroundSize: 'cover',
           minHeight: '100vh',
         }}
       >
-        <div className="relative flex justify-between">
+        <div
+          className="relative flex justify-between"
+          style={{ width: '100%' }}
+        >
           <SidebarWithBurgerMenu />
 
           <ProfileMenu />
@@ -240,18 +248,20 @@ const Cart = () => {
                 </div>
               </div>
 
-              <Typography variant="h3" color="white" className="total-bill">
+              <Typography variant="h3" color="white" className="total-bill ">
                 Total Bill: Rs.{calculateTotalBill()}
-              </Typography>
-
-              <div className="mt-32 flex justify-center mx-auto">
-                <Button color="green" onClick={handleCheckout}>
+                <br />
+                <Button
+                  className="mb-4 transition duration-300 ease-in-out hover:bg-yellow-100"
+                  style={{ backgroundColor: '#ff8f00' }}
+                  onClick={handleCheckout}
+                >
                   Checkout
                 </Button>
-              </div>
+              </Typography>
             </>
           ) : (
-            <Card className="empty-cart" color="light-green">
+            <Card className="empty-cart" style={{ backgroundColor: '#ff8f00' }}>
               <p>Your cart is empty.</p>
               <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
                 <li>

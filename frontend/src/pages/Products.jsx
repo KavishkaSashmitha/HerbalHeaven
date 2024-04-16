@@ -13,10 +13,11 @@ import { useAuth } from '../middleware/authContext';
 import { SidebarWithBurgerMenu } from '../components/navBar';
 import backgroundImage from '../assets/product-list.jpg';
 import ProfileMenu from '../components/Profile';
+import { FaCartShopping } from 'react-icons/fa6';
 
 const Product = ({ product, addToCart }) => {
   return (
-    <Card key={product._id} className="w-72 mb-4 mt-2 ml-2 bg-light-green-200">
+    <Card key={product._id} className="w-72 mb-4 mt-2 ml-2 bg-blue-gray-200">
       <CardHeader shadow={false} floated={false} className="h-48">
         <img
           src={product.image}
@@ -42,9 +43,11 @@ const Product = ({ product, addToCart }) => {
       <CardFooter className="pt-0">
         <Button
           onClick={() => addToCart(product)}
-          className="w-full  hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
-          color="green"
+          style={{ backgroundColor: '#ff8f00' }}
+          className="flex items-center w-full hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
         >
+          <FaCartShopping className="h-5 w-5 mr-2" />{' '}
+          {/* Added margin to separate icon and text */}
           Add to Cart
         </Button>
       </CardFooter>
@@ -53,13 +56,13 @@ const Product = ({ product, addToCart }) => {
 };
 
 export function EcommerceCard() {
-  const url = 'http://localhost:8070/api';
+  const url = 'http://localhost:8070';
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { addToCart } = useAuth();
 
   const fetchInfo = () => {
-    return axios.get(`${url}/products`).then((res) => setData(res.data));
+    return axios.get(`${url}/api/products`).then((res) => setData(res.data));
   };
 
   useEffect(() => {
@@ -90,10 +93,8 @@ export function EcommerceCard() {
           left: 0,
           width: '100%',
           height: '100%',
-          backgroundImage: `url(${backgroundImage})`,
+          backgroundColor: '#02353c',
           backgroundSize: 'cover',
-          filter: 'blur(10px)', // Adjust the blur intensity as needed
-          zIndex: -1,
         }}
       />
       <div className="relative flex justify-between">
