@@ -86,6 +86,8 @@ import ImageUpload from './imageUpload';
 
 import ProtectedRoute from './middleware/ProtectedRoute';
 import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
+import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
+import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -164,6 +166,8 @@ function App() {
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
         <Route path="/dir" element={<DeretOrders />} />
+        <Route path="/material" element={<MaterialCost />} />
+        <Route path="/employesalary" element={<EmpSalary />} />
       </Route>
 
       <Route path="/emp" element={<Posts />} />

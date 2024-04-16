@@ -6,7 +6,8 @@ import MaterialCost from "./MaterialCost";
 import EmpSalary from "./EmpSalary";
 import { DefaultSidebar } from "../../../components/Manager-Sidebar";
 import AdminNavbar from "../../../components/AdminNavbar";
-import { Card } from "@material-tailwind/react";
+import { Card, Collapse, Navbar,IconButton,Typography } from "@material-tailwind/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const URL = "http://localhost:8070/api/transports/transget";
 
@@ -44,6 +45,63 @@ function Expens() {
   };
 
   const [open, setOpen] = useState(false);
+  function NavList() {
+    return (
+      <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-medium"
+        >
+          <a href="#" className="flex items-center hover:text-blue-500 transition-colors">
+            Transport
+          </a>
+        </Typography>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-medium"
+        >
+          <a href="/material" className="flex items-center hover:text-blue-500 transition-colors">
+            Material
+          </a>
+        </Typography>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-medium"
+        >
+          <a href="/employesalary" className="flex items-center hover:text-blue-500 transition-colors">
+            Employee Sallary
+          </a>
+        </Typography>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-medium"
+        >
+         
+        </Typography>
+      </ul>
+    );
+  }
+   
+  const [openNav, setOpenNav] = React.useState(false);
+ 
+  const handleWindowResize = () =>
+    window.innerWidth >= 960 && setOpenNav(false);
+ 
+  React.useEffect(() => {
+    window.addEventListener("resize", handleWindowResize);
+ 
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
   return (
     <div>
@@ -61,13 +119,44 @@ function Expens() {
         </div>
         <div className="flex flex-col flex-1 overflow-auto">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card>
+          <Card className="flex flex-1">
       <div ref={componentRef}>
+      <Navbar className="mx-auto max-w-screen-xl px-6 py-3 sticky ">
+      <div className="flex items-center justify-between text-blue-gray-900">
+        <Typography
+          as="a"
+          href="#"
+          variant="h6"
+          className="mr-4 cursor-pointer py-1.5"
+        >
+          Expenses Details
+        </Typography>
+        <div className="hidden lg:block">
+          <NavList />
+        </div>
+        <IconButton
+          variant="text"
+          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+          ripple={false}
+          onClick={() => setOpenNav(!openNav)}
+        >
+          {openNav ? (
+            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+          ) : (
+            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+          )}
+        </IconButton>
+      </div>
+      <Collapse open={openNav}>
+        <NavList />
+      </Collapse>
+    </Navbar>
         <button onClick={handlePrint} className="dwon_repot_income">
           Download Report
         </button>
         <div>
           <h1 className="income_topic">Transport Details</h1>
+          
           <div className="tbl_continer_incme">
             <table className="table_income">
               <thead>
@@ -102,8 +191,7 @@ function Expens() {
             <h1 className="tot_amout">Total Transport Cost:Rs.{totalTransportCost.toFixed(2)}</h1>
           </div>
         </div>
-        <MaterialCost />
-        <EmpSalary />
+        
       </div>
       </Card>
     </div>
