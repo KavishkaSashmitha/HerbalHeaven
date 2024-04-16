@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Badge,
@@ -15,25 +15,25 @@ import {
   MenuItem,
   MenuList,
   Typography,
-} from '@material-tailwind/react';
+} from "@material-tailwind/react";
 import {
   BellIcon,
   InboxArrowDownIcon,
   ShoppingCartIcon,
-} from '@heroicons/react/24/solid';
-import { useAuth } from '../middleware/authContext';
-import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from './cartContext';
-import { toast } from 'react-toastify';
-import axios from 'axios';
+} from "@heroicons/react/24/solid";
+import { useAuth } from "../middleware/authContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "./cartContext";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const AdminProfileMenu = () => {
   const { isLoggedIn, login, logout } = useAuth();
-  const [userImage, setUserImage] = useState('');
+  const [userImage, setUserImage] = useState("");
 
   useEffect(() => {
     // Retrieve user data from localStorage
-    const userData = localStorage.getItem('manager');
+    const userData = localStorage.getItem("manager");
 
     if (userData) {
       // Parse JSON string to JavaScript object
@@ -53,17 +53,17 @@ const AdminProfileMenu = () => {
       setUserImage(profileImage);
       console.log(profileImage);
     } catch (error) {
-      console.error('Error fetching profile image:', error);
+      console.error("Error fetching profile image:", error);
       // Handle error
     }
   };
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [currentTime, setCurrentTime] = useState('');
+  const [currentTime, setCurrentTime] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -80,11 +80,11 @@ const AdminProfileMenu = () => {
   const handleLogin = async (email, password) => {
     try {
       if (!email || !password) {
-        toast.error('Empty Fields');
+        toast.error("Empty Fields");
         return;
       }
 
-      const response = await axios.post('http://localhost:8070/api/user', {
+      const response = await axios.post("http://localhost:8070/api/user", {
         email,
         password,
       });
@@ -92,27 +92,28 @@ const AdminProfileMenu = () => {
       const token = response.data.token;
 
       // Save the token to local storage or a state management solution
-      localStorage.setItem('token', token);
+      localStorage.setItem("token", token);
 
       // Update the global authentication state
       login(token);
 
-      navigate('/dashboard');
+      navigate("/dashboard");
       setOpen(false);
     } catch (error) {
-      console.error('Login failed:', error.response.data);
-      toast.error('Login Failed');
-      setEmail('');
-      setPassword('');
+      console.error("Login failed:", error.response.data);
+      toast.error("Login Failed");
+      setEmail("");
+      setPassword("");
     }
   };
   const handleLogout = () => {
     // Clear authentication token from local storage
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
+    localStorage.removeItem("manager");
     // Update the global authentication state
     logout();
     // Redirect to the login page
-    navigate('/');
+    navigate("/");
   };
 
   return (
