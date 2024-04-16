@@ -13,13 +13,16 @@ import { SidebarWithBurgerMenu } from "./components/navBar";
 import Register from "./pages/Register";
 import Dashboard from "./pages/DashBoard";
 import { EcommerceCard } from "./pages/Products";
-import cart from "./pages/cart";
+
+import Cart from "./pages/cart";
+
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import "react-toastify/dist/ReactToastify.css";
+
 
 // import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
 // import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
@@ -33,6 +36,7 @@ import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
 import User from "./pages_kavindu/User";
 import adminDashboard from "./pages/adminDashboard";
+
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
@@ -50,49 +54,53 @@ import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
 import PrintPage from "./pages-Kumesh/User/PrintPage";
 
 
+
 import CashDelivery from './pages-Kumesh/User/CashDelivery';
+
 
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 //Kumesh END-----------------------
 
+
 import EditOrder from './pages_Ridmi/EditOrder';
 import Order from './pages_Ridmi/Order';
 import './index.css';
 
-import 'react-toastify/dist/ReactToastify.css';
 
-import SupplierReport from './pages_kavindu/SupplierReport';
-import MaterialReport from './pages_kavindu/MaterialCostReport';
+import "react-toastify/dist/ReactToastify.css";
 
-import Transport from './pages_Malshan/Transport';
-import Add_Driver from './pages_Malshan/Add_Driver';
-import Edit_Driver from './pages_Malshan/Edit_Driver';
-import Driver_Details from './pages_Malshan/Driver_Details';
-import FuelReport from './pages_Malshan/FuelReport';
-import { CartAdmin, CartDetails } from './pages/Cart-Admin';
-import CartChart from './pages/Cart-Chart';
-import OTPVerification from './pages/Manager-SignIn';
+import SupplierReport from "./pages_kavindu/SupplierReport";
+import MaterialReport from "./pages_kavindu/MaterialCostReport";
 
-import { useAuth } from './middleware/authContext';
-import { CustomerLogin } from './pages/Customer-login';
+import Transport from "./pages_Malshan/Transport";
+import Add_Driver from "./pages_Malshan/Add_Driver";
+import Edit_Driver from "./pages_Malshan/Edit_Driver";
+import Driver_Details from "./pages_Malshan/Driver_Details";
+import FuelReport from "./pages_Malshan/FuelReport";
+import { CartAdmin, CartDetails } from "./pages/Cart-Admin";
+import CartChart from "./pages/Cart-Chart";
+import OTPVerification from "./pages/Manager-SignIn";
 
-import AddProduct from './pages-Dileesha/AddProduct';
-import UpdateProduct from './pages-Dileesha/UpdateProduct';
-import InventoryList from './pages-Dileesha/InventoryList';
-import MyOrders from './pages_Ridmi/myOrders';
+import { useAuth } from "./middleware/authContext";
+import { CustomerLogin } from "./pages/Customer-login";
 
-import ProductList from './pages/Direct_Order_Products';
+import AddProduct from "./pages-Dileesha/AddProduct";
+import UpdateProduct from "./pages-Dileesha/UpdateProduct";
+import InventoryList from "./pages-Dileesha/InventoryList";
+import MyOrders from "./pages_Ridmi/myOrders";
 
-import CartAdminDashboard from './pages/Cart-AdminDashboard';
-import DirectOrdersTable from './pages/DirectOrders';
+import ProductList from "./pages/Direct_Order_Products";
 
-import './index.css';
+import CartAdminDashboard from "./pages/Cart-AdminDashboard";
+import DirectOrdersTable from "./pages/DirectOrders";
 
-import ImageUpload from './imageUpload';
+import "./index.css";
 
-import ProtectedRoute from './middleware/ProtectedRoute';
+import ImageUpload from "./imageUpload";
+
+import ProtectedRoute from "./middleware/ProtectedRoute";
 
 
 function App() {
@@ -117,6 +125,9 @@ function App() {
         <Route path="/carddetails" element={<CardDetails />} />
         <Route path="/addnewcard" element={<AddCard />} />
         <Route path="/carddetails/:id" element={<UpdateCard />} />
+
+        {/*Ridmi*/}
+        <Route path="/my-orders" element={<MyOrders />} />
       </Route>
 
       <Route path="/" element={<Home />} />
@@ -158,7 +169,6 @@ function App() {
         <Route path="/sup/material_report/:id" element={<MaterialReport />} />
 
         {/*Ridmi*/}
-        <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/admin-orders" element={<Order />} />
         <Route path="/edit/:id" element={<EditOrder />} />
 
