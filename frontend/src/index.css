@@ -77,3 +77,7 @@
 .bg-custom-color {
   background-color: #02353c;
 }
+
+.button-hover-effect:hover {
+  background-color: #bb981c; /* Color to apply on hover */
+}

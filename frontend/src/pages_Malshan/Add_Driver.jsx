@@ -426,7 +426,7 @@ export default class Add_Driver extends Component {
                             `}
                             >
                               <option value="">Select Vehicle</option>
-                              <option value="car">Car</option>
+                              <option value="Car">Car</option>
                               <option value="Van">Van</option>
                               <option value="Lorry">Lorry</option>
                               <option value="MotorBike">Motor Bike</option>
