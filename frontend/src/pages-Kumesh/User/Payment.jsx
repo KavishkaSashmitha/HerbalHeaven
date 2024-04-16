@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Stepper, Step } from '@material-tailwind/react';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Stepper, Step } from "@material-tailwind/react";
 import {
   ShoppingCartIcon,
   CurrencyDollarIcon,
   ArchiveBoxIcon,
-} from '@heroicons/react/24/outline';
-import { useAuth } from '../../middleware/authContext';
-import { SidebarWithBurgerMenu } from '../../components/navBar';
-import { Link, useLocation } from 'react-router-dom';
-import './Payment.css';
-import card from './img/card.png';
-import paypal from './img/paypal.png';
-import amazon from './img/amo.png';
-import tic from './img/tic.png';
-import axios from 'axios';
-import { StepperWithContent } from '../../components/Stepper';
+} from "@heroicons/react/24/outline";
+import { useAuth } from "../../middleware/authContext";
+import { SidebarWithBurgerMenu } from "../../components/navBar";
+import { Link, useLocation } from "react-router-dom";
+import "./Payment.css";
+import card from "./img/card.png";
+import paypal from "./img/paypal.png";
+import amazon from "./img/amo.png";
+import tic from "./img/tic.png";
+import axios from "axios";
+import { StepperWithContent } from "../../components/Stepper";
 
 function Payment() {
   const location = useLocation();
@@ -52,14 +52,14 @@ function Payment() {
   //   fetchCartItems();
   // }, [isLoggedIn, token]);
 
-  console.log('cart', cart);
+  console.log("cart", cart);
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         if (isLoggedIn) {
           const response = await axios.get(
-            'http://localhost:8070/api/user/cart',
+            "http://localhost:8070/api/user/cart",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ function Payment() {
           setCart(response.data);
         }
       } catch (error) {
-        console.error('Error fetching cart items:', error);
+        console.error("Error fetching cart items:", error);
       }
     };
 
@@ -86,13 +86,13 @@ function Payment() {
   const steps = [
     {
       icon: <ShoppingCartIcon className="h-5 w-5" color="green" />,
-      path: '/user/cart',
+      path: "/user/cart",
     },
     {
       icon: <CurrencyDollarIcon className="h-5 w-5" color="green" />,
-      path: '/user/payment',
+      path: "/user/payment",
     },
-    { icon: <ArchiveBoxIcon className="h-5 w-5" />, path: '/address' },
+    { icon: <ArchiveBoxIcon className="h-5 w-5" />, path: "/address" },
   ];
 
   // Find the index of the current step based on the route path
@@ -103,16 +103,16 @@ function Payment() {
   //data insert part
   const history = useNavigate();
   const [inputs, setInputs] = useState({
-    fullname: '',
-    address: '',
-    city: '',
-    zip: '',
-    country: '',
-    cardholdername: '',
-    cardnumber: '',
-    expmonth: '',
-    expyear: '',
-    cvv: '',
+    fullname: "",
+    address: "",
+    city: "",
+    zip: "",
+    country: "",
+    cardholdername: "",
+    cardnumber: "",
+    expmonth: "",
+    expyear: "",
+    cvv: "",
   });
   const handleChange = (e) => {
     setInputs((prevState) => ({
@@ -125,16 +125,16 @@ function Payment() {
     console.log(inputs);
     sendRequest()
       .then(() => {
-        alert('Card details Validated successfully!');
-        history('/address');
+        alert("Card details Validated successfully!");
+        history("/address");
       })
       .catch((error) => {
-        console.error('Error adding card details:', error);
+        console.error("Error adding card details:", error);
       });
   };
   const placeOrder = async () => {
     await axios.post(
-      'http://localhost:8070/api/orders/order/save',
+      "http://localhost:8070/api/orders/order/save",
       {
         total: calculateTotalBill(),
 
@@ -143,8 +143,8 @@ function Payment() {
           city: inputs.city,
           zip: inputs.zip,
         },
-        paymentStatus: 'Paid',
-        orderStatus: 'Preparing',
+        paymentStatus: "Paid",
+        orderStatus: "Preparing",
 
         items: cart.map(({ name, price, quantity, image }) => ({
           name,
@@ -156,15 +156,16 @@ function Payment() {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }
     );
   };
 
   const sendRequest = async () => {
+    placeOrder();
     await axios
-      .post('http://localhost:8070/cards', {
+      .post("http://localhost:8070/cards", {
         fullname: String(inputs.fullname),
         address: String(inputs.address),
         city: String(inputs.city),
@@ -201,7 +202,7 @@ function Payment() {
               <div
                 className="method-two method-box"
                 onClick={() => {
-                  window.location.href = '/paypal';
+                  window.location.href = "/paypal";
                 }}
               >
                 <img
@@ -214,7 +215,7 @@ function Payment() {
               <div
                 className="method-three method-box"
                 onClick={() => {
-                  window.location.href = '/cashdelivery';
+                  window.location.href = "/cashdelivery";
                 }}
               >
                 <img src={amazon} alt="amazon" className="img-paymt card-amo" />
@@ -387,7 +388,7 @@ function Payment() {
                 </div>
               </div>
               <h1 className="paypal-para2">
-                Your Total Ammount :{' '}
+                Your Total Ammount :{" "}
                 <span className="price-pay">{calculateTotalBill()}</span>
               </h1>
 

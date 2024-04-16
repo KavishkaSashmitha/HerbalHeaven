@@ -3,6 +3,7 @@ import axios from "axios";
 import { Breadcrumbs, Select } from "@material-tailwind/react";
 import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
+import { DefaultSidebar } from "../components/Manager-Sidebar";
 
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -129,6 +130,13 @@ function UpdateUser() {
   return (
     <>
       <div className="bg-image01">
+        <div
+          className={`sidebar w-68 bg-custom-color text-white ${
+            open ? "block" : "hidden"
+          }`}
+        >
+          <DefaultSidebar open={open} handleOpen={setOpen} />
+        </div>
         <AdminNavbar toggleSidebar={toggleSidebar} />
         <div className="flex justify-center">
           <div className="w-full md:w-3/4 lg:w-1/2 p-4 bg-white rounded-lg shadow-md mt-4 mb-4">
@@ -225,9 +233,9 @@ function UpdateUser() {
                     >
                       <Select.Option value="Sri Lanka">Sri Lanka</Select.Option>
                       <Select.Option value="India">India</Select.Option>
-                      <Select.Option value="Pakistan">Pakistan</Select.Option>
+                      {/* <Select.Option value="Pakistan">Pakistan</Select.Option>
                       <Select.Option value="China">China</Select.Option>
-                      <Select.Option value="Japan">Japan</Select.Option>
+                      <Select.Option value="Japan">Japan</Select.Option> */}
                     </Select>
                     {errors.country && (
                       <p className="text-red-500 text-sm mt-1">
