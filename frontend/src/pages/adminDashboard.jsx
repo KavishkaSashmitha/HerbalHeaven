@@ -1,38 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  ListItem,
-  ListItemPrefix,
-  ListItemSuffix,
-  Chip,
-  AccordionBody,
-  List,
-  AccordionHeader,
-  Accordion,
-} from '@material-tailwind/react';
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon,
-  PresentationChartBarIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/solid';
 import AdminNavbar from '../components/AdminNavbar';
 
-import { DefaultSidebar } from '../components/Manager-Sidebar';
-import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
+
+import { DefaultSidebar } from "../components/Manager-Sidebar";
+import CreateLoadingScreen from "../pages_Pasindu/LoadingScreen";
 
 function AdminDashboard() {
   const [documents, setDocuments] = useState([]);
   const [loading, setloading] = useState([true]);
+
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -41,11 +19,11 @@ function AdminDashboard() {
     const fetchDocuments = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8070/api/posts/posts'
+          "http://localhost:8070/api/posts/posts"
         );
         setDocuments(response.data.existingPosts);
       } catch (error) {
-        console.error('Error fetching documents:', error);
+        console.error("Error fetching documents:", error);
       }
     };
 
@@ -67,7 +45,7 @@ function AdminDashboard() {
       <div className="flex h-screen overflow-scroll">
         <div
           className={`sidebar w-64 bg-custom-color text-white ${
-            open ? 'block' : 'hidden'
+            open ? "block" : "hidden"
           }`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />

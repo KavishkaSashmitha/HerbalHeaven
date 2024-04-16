@@ -7,17 +7,17 @@ import {
   MenuItem,
   MenuList,
   Typography,
-} from '@material-tailwind/react';
-import React from 'react';
-import ProfileMenu from './Profile';
-import { Link } from 'react-router-dom';
-import AdminProfileMenu from './AdminProfile';
+} from "@material-tailwind/react";
+import React from "react";
+import ProfileMenu from "./Profile";
+import { Link } from "react-router-dom";
+import AdminProfileMenu from "./AdminProfile";
 
 function AdminNavbar({ toggleSidebar }) {
   return (
     <div
       className="sticky top-0  h-16 px-6 sm:px-10 py-4   flex items-center justify-between z-50"
-      style={{ backgroundColor: '#02353c' }}
+      style={{ backgroundColor: "#02353c" }}
     >
       <div className="flex items-center space-x-8 text-sm text-white">
         <i
@@ -51,6 +51,9 @@ function AdminNavbar({ toggleSidebar }) {
             </Link>
             <Link to="/Employee_Dashboard">
               <MenuItem>Employee</MenuItem>
+            </Link>
+            <Link to="/sup">
+              <MenuItem>Supplier</MenuItem>
             </Link>
             <MenuItem>Menu Item 2</MenuItem>
             <MenuItem>Menu Item 3</MenuItem>
