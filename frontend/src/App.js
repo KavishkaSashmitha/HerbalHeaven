@@ -127,9 +127,14 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
+
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         <Route path="/signUp" element={<Register />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
