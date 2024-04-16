@@ -11,10 +11,12 @@ import Home from "./pages/Home";
 import { SidebarWithBurgerMenu } from "./components/navBar";
 
 
+
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
 import Cart from './pages/cart';
+
 
 
 
@@ -38,7 +40,6 @@ import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
 import AdminDashboard from './pages/adminDashboard';
 
-
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
 
@@ -55,7 +56,6 @@ import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
 import PrintPage from "./pages-Kumesh/User/PrintPage";
 
 import CashDelivery from "./pages-Kumesh/User/CashDelivery";
-
 
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
@@ -91,6 +91,7 @@ import { CustomerLogin } from "./pages/Customer-login";
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
+
 
 
 
