@@ -14,10 +14,9 @@ import { SidebarWithBurgerMenu } from "./components/navBar";
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
-import Cart from './pages/cart';
+import Cart from './pages/Cart';
 
 
-import Cart from "./pages/cart";
 
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
@@ -85,22 +84,15 @@ import OTPVerification from "./pages/Manager-SignIn";
 import { useAuth } from "./middleware/authContext";
 import { CustomerLogin } from "./pages/Customer-login";
 
-import AddProduct from "./pages-Dileesha/AddProduct";
-import UpdateProduct from "./pages-Dileesha/UpdateProduct";
-import InventoryList from "./pages-Dileesha/InventoryList";
-import MyOrders from "./pages_Ridmi/myOrders";
 
-import ProductList from "./pages/Direct_Order_Products";
 
-import CartAdminDashboard from "./pages/Cart-AdminDashboard";
-import DirectOrdersTable from "./pages/DirectOrders";
+
 
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
 
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
 
 //Dileesha
 import AddProduct from './pages-Dileesha/AddProduct';
@@ -131,10 +123,7 @@ function App() {
 
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
         <Route path="/signUp" element={<Register />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -160,7 +149,7 @@ function App() {
 
       {/* //Protected Routes */}
       <Route element={<ProtectedRoute manager />}>
-        <Route path="/admin-dashboard" element={<adminDashboard />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* cart-related */}
         <Route path="/cart-Admin" element={<CartAdmin />} />
         <Route path="/productCategory" element={<ProductList />} />
