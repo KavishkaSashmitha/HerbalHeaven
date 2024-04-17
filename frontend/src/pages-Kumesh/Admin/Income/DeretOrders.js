@@ -1,22 +1,33 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
-
-const URL = "http://localhost:8070/api/directorders";
-
-const fetchHandler = async () => {
-  return await axios.get(URL).then((res) => res.data);
-};
+import { useState, useEffect } from "react";
 
 function DeretOrders() {
   const [directOrder, setDirectOrder] = useState([]);
   const [totalIncome, setTotalIncome] = useState(0);
 
+  const URL= 'http://localhost:8070/api/directorders';
+
   useEffect(() => {
-    fetchHandler().then((data) => {
-      setDirectOrder(data.directOrder);
-      calculateTotalIncome(data.directOrder);
-    });
+    const fetchHandler = async () => {
+      try {
+        const response = await axios.get(URL);
+        console.log("Response data:", response.data);
+        if (response.data) {
+          setDirectOrder(response.data);
+          calculateTotalIncome(response.data);
+        } else {
+          // Handle the case where directOrder is undefined or empty
+          // For example, setTotalIncome(0) or display a message to the user
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle error (e.g., show error message to user)
+      }
+    };
+  
+    fetchHandler();
   }, []);
+  
 
   const calculateTotalIncome = (orders) => {
     let total = 0;
@@ -27,7 +38,7 @@ function DeretOrders() {
     });
     setTotalIncome(total);
   };
-
+console.log(directOrder);
   return (
     <div>
       <h1 className="income_topic">DirectOrder Details</h1>
@@ -41,11 +52,11 @@ function DeretOrders() {
             </tr>
           </thead>
           <tbody>
-            {directOrder.map((order, index) =>
+            {directOrder && directOrder.map((order, index) =>
               order.items.map((item, idx) => (
                 <tr key={`${index}-${idx}`}>
-                  <td className="table_income_td">{item.quantity}</td>
                   <td className="table_income_td">{item.totalAmount.toFixed(2)}</td>
+                  <td className="table_income_td">{item.quantity}</td>
                   <td className="table_income_td">{(item.quantity * item.totalAmount).toFixed(2)}</td>
                 </tr>
               ))
@@ -54,7 +65,7 @@ function DeretOrders() {
         </table>
       </div>
       <div>
-        <h2  className="tot_amout">Total Income: ${totalIncome.toFixed(2)}</h2>
+        <h2 className="tot_amout">Total Income: ${totalIncome.toFixed(2)}</h2>
       </div>
     </div>
   );

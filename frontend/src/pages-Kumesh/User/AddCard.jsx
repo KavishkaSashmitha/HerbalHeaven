@@ -63,19 +63,19 @@ function AddCard() {
         <div className="Payment-full-box-set">
           <div>
             <h1 className="main-tpoic">Add New Card Here..</h1>
-            <p className="main-para">Card payment method below</p>
+            <p className="main-para">Saving the details of your credit/debit card</p>
             <div className="method-set">
               <div className="method-one method-box">
                 <img src={tic} alt="tick" className="img-tic" />
                 <img src={card} alt="card" className="img-paymt card-pay" />
-                <p className="paymnt-topic">Pay With Credit Card</p>
+                <p className="paymnt-topic">Card</p>
               </div>
             </div>
             <form onSubmit={handleSubmit}>
               <div className="method-set-card">
                 <div className="bil-box">
                   <h1 className="main-topic-bil">
-                    <span className="number">1</span>Biling Info
+                  <span className="number">1</span>Biling Information
                   </h1>
                   <label className="paymnt-lable">FULL NAME</label>
                   <br></br>
@@ -83,9 +83,11 @@ function AddCard() {
                     className="paymnt-inpt"
                     type="text"
                     name="fullname"
-                    placeholder="John Doe"
+                    placeholder="Saman Perera"
                     value={inputs.fullname}
                     onChange={handleChange}
+                    pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
+                    title="Please enter only letters"
                     required
                   ></input>
                   <br></br>
@@ -97,7 +99,7 @@ function AddCard() {
                     name="address"
                     value={inputs.address}
                     onChange={handleChange}
-                    placeholder="abc/25/abc"
+                    placeholder="11/16, Wilabada Road, Gampaha."
                     required
                   ></input>
                   <br></br>
@@ -111,7 +113,9 @@ function AddCard() {
                         name="city"
                         value={inputs.city}
                         onChange={handleChange}
-                        placeholder="John Doe"
+                        placeholder="Gampaha"
+                        pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
+                        title="Please enter only letters"
                         required
                       ></input>
                       <br></br>
@@ -125,7 +129,11 @@ function AddCard() {
                         name="zip"
                         value={inputs.zip}
                         onChange={handleChange}
-                        placeholder="1234"
+                        placeholder="11550"
+                        minLength={5}
+                        maxLength={5}
+                        pattern="[0-9]{5}"  // Use a regular expression to match exactly 5 digits
+                        title="Please enter a valid 5-digit ZIP code"
                         required
                       ></input>
                       <br></br>
@@ -145,21 +153,14 @@ function AddCard() {
                     <option value="" required disabled selected>
                       Select Country
                     </option>
-                    <option value="afghanistan">Afghanistan</option>
-                    <option value="albania">Albania</option>
-                    <option value="brazil">Brazil</option>
-                    <option value="canada">Canada</option>
-                    <option value="denmark">Denmark</option>
-                    <option value="egypt">Egypt</option>
-                    <option value="france">France</option>
-                    <option value="germany">Germany</option>
+                   
                     <option value="india">India</option>
                     <option value="sri_lanka">Sri Lanka</option>
                   </select>
                 </div>
                 <div className="bil-box">
                   <h1 className="main-topic-bil">
-                    <span className="number">2</span>Credit Card Info
+                    <span className="number">2</span>Credit Card Information
                   </h1>
                   <label className="paymnt-lable">CARDHOLDER NAME</label>
                   <br></br>
@@ -169,7 +170,9 @@ function AddCard() {
                     value={inputs.cardholdername}
                     onChange={handleChange}
                     name="cardholdername"
-                    placeholder="John Doe"
+                    placeholder="Saman Perera"
+                    pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
+                    title="Please enter only letters"
                     required
                   ></input>
                   <br></br>
@@ -178,13 +181,15 @@ function AddCard() {
                   <input
                     className="paymnt-inpt"
                     type="text"
-                    maxLength={16}
-                    minLength={16}
                     value={inputs.cardnumber}
                     onChange={handleChange}
+                    maxLength={19}
+                    minLength={19}
                     name="cardnumber"
                     placeholder="5645-6456-7665-0456"
-                    required
+                    pattern="\d{4}-\d{4}-\d{4}-\d{4}" // Regular expression for XXXX-XXXX-XXXX-XXXX format
+                    title="Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX"
+                  required
                   ></input>
                   <br></br>
                   <div className="method-set-card-form">
@@ -214,7 +219,7 @@ function AddCard() {
                         name="expyear"
                         required
                         placeholder="YYYY"
-                        min="1900"
+                        min="2024"
                         max="2100"
                       ></input>
                       <br></br>
@@ -231,14 +236,14 @@ function AddCard() {
                     onChange={handleChange}
                     required
                     placeholder="123"
+                    minLength={3}
                     maxLength={3}
                     pattern="[0-9]*"
                   ></input>
                 </div>
               </div>
-
               <div className="end-btn">
-                <button className="btn-pro">Add</button>
+                <button className="btn-pro">Add </button>
               </div>
             </form>
           </div>

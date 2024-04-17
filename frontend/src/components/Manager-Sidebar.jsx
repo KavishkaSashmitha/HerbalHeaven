@@ -111,15 +111,17 @@ export function DefaultSidebar() {
                       Customer
                     </ListItem>
                   </Link>
-                  <ListItem className="text-yellow-200">
-                    <ListItemPrefix>
-                      <ChevronRightIcon
-                        strokeWidth={3}
-                        className="w-5 h-3 text-yellow-200"
-                      />
-                    </ListItemPrefix>
-                    Inventory
-                  </ListItem>
+                  <Link to="/inventory">
+                    <ListItem className="text-yellow-200">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Inventory
+                    </ListItem>
+                  </Link>
 
                   <Link to="/emp">
                     <ListItem className="text-yellow-200">
@@ -314,14 +316,13 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-
             <Accordion
               open={open === 4}
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 4 ? "rotate-180" : ""
+                    open === 4 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -329,6 +330,63 @@ export function DefaultSidebar() {
               <ListItem className="p-0 mr-5" selected={open === 1}>
                 <AccordionHeader
                   onClick={() => handleOpen(4)}
+                  className="p-3 border-b-0 hover:bg-teal-800"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
+                  </ListItemPrefix>
+
+                  <Typography
+                    color="blue-gray"
+                    className="mr-auto font-normal text-teal-200 "
+                  >
+                    Finance-Manager
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="px-4">
+                  <Link to="/netincome">
+                    <ListItem className="text-yellow-200 ">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      NetIncome
+                    </ListItem>
+                  </Link>
+                  <Link to="/expensive">
+                    <ListItem className="text-yellow-200">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Expenses
+                    </ListItem>
+                  </Link>
+                  
+                </List>
+              </AccordionBody>
+            </Accordion>
+
+            <Accordion
+              open={open === 5}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
+                    open === 5 ? "rotate-180" : ""
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0 mr-5" selected={open === 5}>
+                <AccordionHeader
+                  onClick={() => handleOpen(5)}
                   className="p-3 border-b-0 hover:bg-teal-800"
                 >
                   <ListItemPrefix>
@@ -381,47 +439,6 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-
-            <hr className="my-2 border-white" />
-            {isLoggedIn ? ( // Conditional rendering based on isLoggedIn state
-              <>
-                <Link to="/dashboard">
-                  <ListItem className="p-2 py-2 hover:bg-cyan-500 ">
-                    <ListItemPrefix>
-                      <UserCircleIcon className="w-5 h-5 text-yellow-400 " />
-                    </ListItemPrefix>
-                    <Typography
-                      color="blue-gray"
-                      className="mr-auto font-normal text-yellow-400 "
-                    >
-                      Profile
-                    </Typography>
-                  </ListItem>
-                </Link>
-                <ListItem className="p-2 py-1 bg-red-500" onClick={logout}>
-                  <ListItemPrefix>
-                    <PowerIcon className="w-5 h-5" />
-                  </ListItemPrefix>
-                  <Typography
-                    color="blue-gray"
-                    className="mr-auto font-normal logout"
-                  >
-                    Log Out
-                  </Typography>
-                </ListItem>
-              </>
-            ) : (
-              <Link to="/login">
-                <ListItem className="p-2 py-2 bg-light-green-500">
-                  <ListItemPrefix>
-                    <UserCircleIcon className="w-5 h-5" />
-                  </ListItemPrefix>
-                  <Typography color="blue-gray" className="mr-auto font-bold ">
-                    Log In
-                  </Typography>
-                </ListItem>
-              </Link>
-            )}
           </List>
         </div>
       </Card>
