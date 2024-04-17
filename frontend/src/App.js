@@ -8,7 +8,8 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
-import { SidebarWithBurgerMenu } from "./components/navBar";
+
+import AdminDashboard from './pages/adminDashboard';
 
 
 

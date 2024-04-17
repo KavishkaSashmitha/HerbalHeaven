@@ -81,6 +81,9 @@ export default class Add_Driver extends Component {
     if (!nicFormat.test(nic)) {
       return "National ID must contain either 9 digits followed by an optional 'v' or 'V', or exactly 12 digits";
     }
+    if (nic.length > 12) {
+      return "National ID must be maximum 12 characters long";
+    }
     return "";
   };
 
@@ -270,16 +273,22 @@ export default class Add_Driver extends Component {
                             <label>Owner Name</label>
                           </p>
                           <div class="relative h-10 w-full min-w-[200px]">
-                            <input
+                          <input
                               value={this.state.d_name}
                               type="text"
                               name="d_name"
                               onChange={this.handleInputChange}
+                              onKeyPress={(e) => {
+                                  const pattern = /[a-zA-Z\s]/; // Regular expression to match letters and spaces
+                                  if (!pattern.test(e.key)) {
+                                      e.preventDefault(); // Prevents the input of characters other than letters and spaces
+                                  }
+                              }}
                               className={`${
-                                errors.d_name && "border-red-500"
+                                  errors.d_name && "border-red-500"
                               }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                            `}
-                            />
+                              `}
+                          />
                             {errors.d_name && (
                               <span className="ml-1 text-sm text-red-500 sans">
                                 {errors.d_name}

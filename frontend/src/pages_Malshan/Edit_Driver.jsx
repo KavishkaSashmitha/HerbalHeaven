@@ -54,6 +54,19 @@ export default function Edit_Driver() {
     });
   };
 
+  function handleKeyPress(event) {
+    // Get the character that the user is trying to type
+    const char = event.key;
+
+    // Regular expression to allow only letters (A-Z, a-z) and spaces
+    const regex = /^[A-Za-z ]$/;
+
+    // If the character does not match the regex, prevent the default behavior
+    if (!regex.test(char)) {
+      event.preventDefault(); // Prevents the non-letter or non-space character from being typed
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -241,6 +254,7 @@ export default function Edit_Driver() {
                               type="text"
                               name="d_name"
                               onChange={handleInputChange}
+                              onKeyPress={handleKeyPress}
                               className={`${
                                 errors.d_name && "border-red-500"
                               }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"

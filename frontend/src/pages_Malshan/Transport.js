@@ -111,15 +111,18 @@ export default function Transports() {
   
 
   function filterData(transports, searchKey) {
+    
+    const lowerCaseSearchKey  = searchKey.toLowerCase();
+
     const result = transports.filter(
       (transport) =>
-        transport.d_name.toLowerCase().includes(searchKey) ||
-        transport.d_mobile.toLowerCase().includes(searchKey) ||
-        transport.dob.toLowerCase().includes(searchKey)||
-        transport.nic.toLowerCase().includes(searchKey) ||
-        transport.vehicle_type.toLowerCase().includes(searchKey) ||
-        transport.category.toLowerCase().includes(searchKey) ||
-        transport.vehicle_No.toLowerCase().includes(searchKey)
+        transport.d_name.toLowerCase().includes(lowerCaseSearchKey) ||
+        transport.d_mobile.toLowerCase().includes(lowerCaseSearchKey) ||
+        transport.dob.toLowerCase().includes(lowerCaseSearchKey)||
+        transport.nic.toLowerCase().includes(lowerCaseSearchKey) ||
+        transport.vehicle_type.toLowerCase().includes(lowerCaseSearchKey) ||
+        transport.category.toLowerCase().includes(lowerCaseSearchKey) ||
+        transport.vehicle_No.toLowerCase().includes(lowerCaseSearchKey)
     );
     setFilteredTransports(result);
     setCurrentPage(1);
