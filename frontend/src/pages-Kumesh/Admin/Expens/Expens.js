@@ -188,7 +188,7 @@ function Expens() {
                 ))}
               </tbody>
             </table>
-            <h1 className="tot_amout">Total Transport Cost:Rs.{totalTransportCost.toFixed(2)}</h1>
+            <h1 className="tot_amout">Total Transport Cost:LKR {totalTransportCost.toFixed(2)}</h1>
           </div>
         </div>
         

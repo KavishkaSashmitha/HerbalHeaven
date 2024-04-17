@@ -9,15 +9,15 @@ const empSchema = new Schema({
   email: {
     type: String,
   },
-  age: {
-    type: String,
-  },
+  // age: {
+  //   type: String,
+  // },
   rawMaterial: {
     type: String,
   },
-  country: {
-    type: String,
-  },
+  // country: {
+  //   type: String,
+  // },
   mobile: {
     type: String,
   },
