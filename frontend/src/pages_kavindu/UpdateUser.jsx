@@ -211,19 +211,15 @@ function UpdateUser() {
                         onChange={(value) => setRawMaterial(value)}
                         error={errors.rawMaterial ? true : false}
                       >
-                        <Select.Option value="Sadalwood">
-                          Sandalwood
-                        </Select.Option>
-                        <Select.Option value="ValerianRoot">
-                          Valerian Root
-                        </Select.Option>
-                        <Select.Option value="Ginkgo Biloba">
-                          Ginkgo Biloba
-                        </Select.Option>
-                        <Select.Option value="Echinacea">
-                          Echinacea
-                        </Select.Option>
-                        <Select.Option value="Tumeric">Turmeric</Select.Option>
+                         <Select.Option value="Cinnomon">Cinnomon</Select.Option>
+                          <Select.Option value="Ginger">Ginger</Select.Option>
+                          <Select.Option value="Alovera">Alovera</Select.Option>
+                          <Select.Option value="Weniwalgata">Weniwalgata</Select.Option>
+                          <Select.Option value="Tumeric">Turmeric</Select.Option>
+                          <Select.Option value="Ginson">Ginson</Select.Option>
+                          <Select.Option value="SandalWood">SandalWood</Select.Option>
+                          <Select.Option value="Rath Hadun">Rath Hadun</Select.Option>
+
                       </Select>
                     </div>
                     {errors.rawMaterial && (

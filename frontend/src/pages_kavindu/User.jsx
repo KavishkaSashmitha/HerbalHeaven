@@ -19,6 +19,8 @@ const User = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = React.useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Change this number to set the number of items per page
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -43,6 +45,13 @@ const User = () => {
         .catch((err) => console.log(err));
     }
   };
+
+  // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -93,9 +102,7 @@ const User = () => {
                         {[
                           "Name",
                           "Email",
-
                           "Raw Material",
-
                           "Mobile",
                           "Address",
                           "Action",
@@ -116,7 +123,7 @@ const User = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {users
+                      {currentItems
                         .filter((user) =>
                           Object.values(user)
                             .join(" ")
@@ -130,9 +137,7 @@ const User = () => {
                           >
                             <td className="p-4">{user.name}</td>
                             <td className="p-4">{user.email}</td>
-
                             <td className="p-4">{user.rawMaterial}</td>
-
                             <td className="p-4">{user.mobile}</td>
                             <td className="p-4">{user.address}</td>
                             <td className="p-4">
@@ -147,7 +152,6 @@ const User = () => {
                                   ></i>
                                 </Button>
                               </Link>
-
                               <Button
                                 color="red"
                                 onClick={() => handleDelete(user._id)}
@@ -157,7 +161,6 @@ const User = () => {
                                   style={{ fontSize: "20px" }}
                                 ></i>
                               </Button>
-
                               <Link
                                 to={`/sup/material_report/${user._id}`}
                                 className="btn btn-warning "
@@ -179,7 +182,28 @@ const User = () => {
                   </table>
                 </div>
               </CardBody>
-              <CardFooter>
+              <CardFooter className="flex justify-between">
+                <nav>
+                  <ul className="flex justify-center">
+                    {Array.from(
+                      { length: Math.ceil(users.length / itemsPerPage) },
+                      (_, i) => (
+                        <li key={i}>
+                          <button
+                            onClick={() => paginate(i + 1)}
+                            className={`${
+                              currentPage === i + 1
+                                ? "bg-blue-500 text-white"
+                                : "bg-white text-blue-500"
+                            } font-medium px-4 py-2 mx-1 border border-gray-300 rounded-md`}
+                          >
+                            {i + 1}
+                          </button>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </nav>
                 <Footer />
               </CardFooter>
             </Card>

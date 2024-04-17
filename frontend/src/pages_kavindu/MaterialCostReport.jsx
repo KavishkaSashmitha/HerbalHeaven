@@ -233,20 +233,29 @@ function MaterialReport() {
 
   useEffect(() => {
     switch (rawMaterial.toLowerCase()) {
-      case "sadalwood":
-        setUnitPrice(450);
+      case "cinnomon":
+        setUnitPrice(870);
         break;
-      case "valerianroot":
-        setUnitPrice(400);
+      case "ginger":
+        setUnitPrice(580);
         break;
-      case "ginkgo Biloba":
+      case "alovera":
         setUnitPrice(350);
         break;
-      case "echinacea":
-        setUnitPrice(300);
+      case "weniwalgata":
+        setUnitPrice(650);
         break;
       case "tumeric":
-        setUnitPrice(225);
+        setUnitPrice(1100);
+        break;
+        case "ginson":
+        setUnitPrice(865);
+        break;
+        case "sandalWood":
+        setUnitPrice(320);
+        break;
+        case "Rath Hadun":
+        setUnitPrice(2100);
         break;
 
       default:
@@ -289,7 +298,7 @@ function MaterialReport() {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="w-full h-screen">
+        <div className="w-full h-screen  ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
           <Card className="edit-post-bg overflow-auto">
             <div class=" overflow-scroll">
