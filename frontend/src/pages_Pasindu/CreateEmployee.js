@@ -259,10 +259,8 @@ export default function CreatePost() {
                 age: "",
                 image: "",
               });
-              if (state.confirmation) {
-                setCreating(false);
-                window.location.href = "/emp";
-              }
+              setCreating(false);
+              window.location.href = "/emp";
             }
           })
           .catch((error) => {

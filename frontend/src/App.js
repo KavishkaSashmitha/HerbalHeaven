@@ -15,7 +15,12 @@ import { SidebarWithBurgerMenu } from "./components/navBar";
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
+
+
 import Cart from './pages/cart';
+
+
+
 
 
 
@@ -115,20 +120,28 @@ import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
 import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
 
 
+
+
+
+
+
+
+
+
 function App() {
   const { isLoggedIn } = useAuth();
 
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-
+      <Route path="/products" element={<EcommerceCard />} />
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
         <Route path="/signUp" element={<Register />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<EcommerceCard />} />
+        
 
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
