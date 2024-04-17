@@ -65,7 +65,7 @@ const ProfileMenu = () => {
       // Update the global authentication state
       login(token);
 
-      navigate('/dashboard');
+      navigate('/');
       setOpen(false);
     } catch (error) {
       console.error('Login failed:', error.response.data);
@@ -256,11 +256,13 @@ const ProfileMenu = () => {
                     Your Password
                   </Typography>
                   <Input
-                    label="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    size="lg"
-                  />
+  label="Password"
+  onChange={(e) => setPassword(e.target.value)}
+  value={password}
+  size="lg"
+  type="password" // This line sets the input type to password
+/>
+
                   <div className="-ml-2.5 -mt-3">
                     <Checkbox label="Remember Me" />
                   </div>

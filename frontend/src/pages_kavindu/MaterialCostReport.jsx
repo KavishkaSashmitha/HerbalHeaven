@@ -233,20 +233,29 @@ function MaterialReport() {
 
   useEffect(() => {
     switch (rawMaterial.toLowerCase()) {
-      case "sadalwood":
-        setUnitPrice(450);
+      case "cinnomon":
+        setUnitPrice(870);
         break;
-      case "valerianroot":
-        setUnitPrice(400);
+      case "ginger":
+        setUnitPrice(580);
         break;
-      case "ginkgo Biloba":
+      case "alovera":
         setUnitPrice(350);
         break;
-      case "echinacea":
-        setUnitPrice(300);
+      case "weniwalgata":
+        setUnitPrice(650);
         break;
       case "tumeric":
-        setUnitPrice(225);
+        setUnitPrice(1100);
+        break;
+      case "ginson":
+        setUnitPrice(865);
+        break;
+        case "sandalwood":
+        setUnitPrice(320);
+        break;
+        case "rath hadun":
+        setUnitPrice(2100);
         break;
 
       default:
@@ -289,10 +298,11 @@ function MaterialReport() {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="w-full h-screen">
+        <div className="w-full h-screen overflow-scroll ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="edit-post-bg overflow-auto">
-            <div class="">
+          <Card className=" overflow-auto">
+            <div class="overflow-scroll">
+
               <CardHeader
                 floated={false}
                 shadow={false}
@@ -334,7 +344,7 @@ function MaterialReport() {
                   </Breadcrumbs>
                 </div>
               </CardHeader>
-              <CardBody>
+              <CardBody className="">
                 <div class="w-auto max-w-[56rem] mx-auto mt-10 mb-10">
                   <div class="relative flex flex-col rounded-xl border-blue-gray-100 bg-blue-gray-100/50 text-gray-700 shadow-md">
                     <div className="bg-blue-gray-50/50  rounded-xl">

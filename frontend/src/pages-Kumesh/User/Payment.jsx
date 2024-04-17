@@ -1,33 +1,28 @@
-
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Stepper, Step, Button } from '@material-tailwind/react';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Stepper, Step, Button } from "@material-tailwind/react";
 
 import {
   ShoppingCartIcon,
   CurrencyDollarIcon,
   ArchiveBoxIcon,
-
-} from '@heroicons/react/24/outline';
-import { useAuth } from '../../middleware/authContext';
-import { SidebarWithBurgerMenu } from '../../components/navBar';
-import { Link, useLocation } from 'react-router-dom';
-import './Payment.css';
-import card from './img/card.png';
-import paypal from './img/paypal.png';
-import amazon from './img/amo.png';
-import tic from './img/tic.png';
-import axios from 'axios';
-
+} from "@heroicons/react/24/outline";
+import { useAuth } from "../../middleware/authContext";
+import { SidebarWithBurgerMenu } from "../../components/navBar";
+import { Link, useLocation } from "react-router-dom";
+import "./Payment.css";
+import card from "./img/card.png";
+import paypal from "./img/paypal.png";
+import amazon from "./img/amo.png";
+import tic from "./img/tic.png";
+import axios from "axios";
 
 function Payment() {
   const location = useLocation();
   const [cart, setCart] = useState([]);
   const { isLoggedIn, token } = useAuth();
 
-
   // const { token } = useAuth();
-
 
   // useEffect(() => {
   //   const fetchCartItems = async () => {
@@ -77,7 +72,6 @@ function Payment() {
           ).map((name) => {
             return response.data.find((item) => item.name === name);
           });
-          setCart(response.data);
         }
       } catch (error) {
         console.error("Error fetching cart items:", error);
@@ -104,6 +98,9 @@ function Payment() {
   const activeStepIndex = steps.findIndex(
     (step) => location.pathname === step.path
   );
+  useEffect(() => {
+    setCart(location.state.selectedCartItems);
+  }, [location.state.selectedCartItems]);
 
   //data insert part
   const history = useNavigate();
@@ -125,16 +122,14 @@ function Payment() {
       [e.target.name]: e.target.value,
     }));
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs);
     sendRequest()
       .then(() => {
-
         alert("Card details Validated successfully!");
-        history("/address");
-
+        history("/my-orders");
       })
       .catch((error) => {
         console.error("Error adding card details:", error);
@@ -210,7 +205,9 @@ function Payment() {
         <div className="Payment-full-box-set">
           <div>
             <h1 className="main-tpoic">Payment</h1>
-            <p className="main-para">Choose your preffered payment method below</p>
+            <p className="main-para">
+              Choose your preffered payment method below
+            </p>
             <div className="method-set">
               <div className="method-one method-box">
                 <img src={tic} alt="tick" className="img-tic" />
@@ -237,7 +234,6 @@ function Payment() {
                   window.location.href = "/cashdelivery";
                 }}
               >
-
                 <img src={amazon} alt="amazon" className="img-paymt card-amo" />
                 <p className="paymnt-topic">pay with cash on delivery</p>
               </div>
@@ -303,7 +299,7 @@ function Payment() {
                         placeholder="11550"
                         minLength={5}
                         maxLength={5}
-                        pattern="[0-9]{5}"  // Use a regular expression to match exactly 5 digits
+                        pattern="[0-9]{5}" // Use a regular expression to match exactly 5 digits
                         title="Please enter a valid 5-digit ZIP code"
                         required
                       ></input>
@@ -324,7 +320,7 @@ function Payment() {
                     <option value="" required disabled selected>
                       Select Country
                     </option>
-                   
+
                     <option value="india">India</option>
                     <option value="sri_lanka">Sri Lanka</option>
                   </select>
@@ -360,7 +356,7 @@ function Payment() {
                     placeholder="5645-6456-7665-0456"
                     pattern="\d{4}-\d{4}-\d{4}-\d{4}" // Regular expression for XXXX-XXXX-XXXX-XXXX format
                     title="Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX"
-                  required
+                    required
                   ></input>
                   <br></br>
                   <div className="method-set-card-form">
@@ -414,9 +410,7 @@ function Payment() {
                 </div>
               </div>
               <h1 className="paypal-para2">
-
-                Your Total Amount :LKR{' '}
-
+                Your Total Amount :LKR{" "}
                 <span className="price-pay">{calculateTotalBill()}</span>
               </h1>
 
