@@ -439,10 +439,6 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-
-            
-           
-
           </List>
         </div>
       </Card>

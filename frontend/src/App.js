@@ -121,14 +121,14 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-
+      <Route path="/products" element={<EcommerceCard />} />
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
         <Route path="/signUp" element={<Register />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<EcommerceCard />} />
+        
 
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
