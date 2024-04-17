@@ -300,7 +300,7 @@ function MaterialReport() {
         </div>
         <div className="w-full h-screen overflow-scroll ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="edit-post-bg overflow-auto">
+          <Card className=" overflow-auto">
             <div class="overflow-scroll">
 
               <CardHeader
