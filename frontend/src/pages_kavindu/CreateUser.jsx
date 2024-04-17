@@ -102,9 +102,14 @@ function CreateUser() {
 
   return (
     <>
-      <div className="flex flex-col h-screen overflow-hidden overflow-x-hidden" style={{ backgroundColor: "#02353c" }}>
+      <div
+        className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+        style={{ backgroundColor: "#02353c" }}
+      >
         <div className="flex flex-1 overflow-hidden">
-          <div className={`sidebar w-68 bg-custom-color text-white ${open ? "block" : "hidden"}`}>
+          <div
+            className={`sidebar w-68 bg-custom-color text-white ${open ? "block" : "hidden"}`}
+          >
             <DefaultSidebar open={open} handleOpen={setOpen} />
           </div>
 
@@ -130,7 +135,10 @@ function CreateUser() {
                           size="lg"
                           value={name}
                           onChange={(e) => {
-                            const value = e.target.value.replace(/[^a-zA-Z\s]/g, "");
+                            const value = e.target.value.replace(
+                              /[^a-zA-Z\s]/g,
+                              ""
+                            );
                             setName(value);
                           }}
                           error={errors.name}
@@ -156,19 +164,30 @@ function CreateUser() {
                           onChange={(value) => setRawMaterial(value)}
                           error={errors.rawMaterial ? true : false}
                         >
-                          <Select.Option value="Cinnomon">Cinnomon</Select.Option>
+                          <Select.Option value="Cinnomon">
+                            Cinnomon
+                          </Select.Option>
                           <Select.Option value="Ginger">Ginger</Select.Option>
                           <Select.Option value="Alovera">Alovera</Select.Option>
-                          <Select.Option value="Weniwalgata">Weniwalgata</Select.Option>
-                          <Select.Option value="Tumeric">Turmeric</Select.Option>
+                          <Select.Option value="Weniwalgata">
+                            Weniwalgata
+                          </Select.Option>
+                          <Select.Option value="Tumeric">
+                            Turmeric
+                          </Select.Option>
                           <Select.Option value="Ginson">Ginson</Select.Option>
-                          <Select.Option value="SandalWood">SandalWood</Select.Option>
-                          <Select.Option value="Rath Hadun">Rath Hadun</Select.Option>
-
+                          <Select.Option value="SandalWood">
+                            SandalWood
+                          </Select.Option>
+                          <Select.Option value="Rath Hadun">
+                            Rath Hadun
+                          </Select.Option>
                         </Select>
                       </div>
                       {errors.rawMaterial && (
-                        <p className="text-red-500 text-sm mt-1">{errors.rawMaterial}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.rawMaterial}
+                        </p>
                       )}
                       <div className="mt-4 mb-4">
                         <Input
@@ -198,6 +217,7 @@ function CreateUser() {
                     <button
                       className="w-full py-3.5 px-14 rounded-lg bg-orange-500 text-center font-sans text-sm font-bold uppercase text-white shadow-md hover:shadow-lg focus:opacity-85 active:opacity-85 disabled:opacity-50 disabled:pointer-events-none"
                       type="submit"
+                      onClick={handleSubmit}
                     >
                       Add New Supplier
                     </button>

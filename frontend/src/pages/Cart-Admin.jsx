@@ -295,7 +295,7 @@ export function CartAdmin() {
           >
             <DefaultSidebar open={open} handleOpen={setOpen} />
           </div>
-          <div className="flex flex-col flex-1 overflow-hidden">
+          <div className="flex flex-col flex-1 overflow-auto">
             <AdminNavbar toggleSidebar={toggleSidebar} />
             <Card className="flex flex-col flex-1 ml-2">
               <Breadcrumbs className="ml-2 mt-2">

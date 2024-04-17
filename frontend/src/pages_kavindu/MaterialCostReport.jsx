@@ -248,13 +248,13 @@ function MaterialReport() {
       case "tumeric":
         setUnitPrice(1100);
         break;
-        case "ginson":
+      case "ginson":
         setUnitPrice(865);
         break;
-        case "sandalWood":
+      case "sandalWood":
         setUnitPrice(320);
         break;
-        case "Rath Hadun":
+      case "Rath Hadun":
         setUnitPrice(2100);
         break;
 
@@ -298,10 +298,10 @@ function MaterialReport() {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="w-full h-screen  ">
+        <div className="w-full h-screen overflow-scroll ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="edit-post-bg overflow-auto">
-            <div class=" overflow-scroll">
+          <Card className=" overflow-auto">
+            <div class="">
               <CardHeader
                 floated={false}
                 shadow={false}
