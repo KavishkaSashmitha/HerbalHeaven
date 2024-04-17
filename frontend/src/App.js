@@ -11,12 +11,13 @@ import Home from "./pages/Home";
 import { SidebarWithBurgerMenu } from "./components/navBar";
 
 
+
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
+
+
 import Cart from './pages/cart';
-
-
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
@@ -34,7 +35,6 @@ import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
-
 
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
@@ -80,37 +80,60 @@ import OTPVerification from "./pages/Manager-SignIn";
 import { useAuth } from "./middleware/authContext";
 import { CustomerLogin } from "./pages/Customer-login";
 
-import AddProduct from "./pages-Dileesha/AddProduct";
-import UpdateProduct from "./pages-Dileesha/UpdateProduct";
-import InventoryList from "./pages-Dileesha/InventoryList";
-import MyOrders from "./pages_Ridmi/myOrders";
 
-import ProductList from "./pages/Direct_Order_Products";
 
-import CartAdminDashboard from "./pages/Cart-AdminDashboard";
-import DirectOrdersTable from "./pages/DirectOrders";
+
 
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
 
-import AdminDashboard from "./pages/adminDashboard";
+
+//Dileesha
+import AddProduct from './pages-Dileesha/AddProduct';
+import UpdateProduct from './pages-Dileesha/UpdateProduct';
+import InventoryList from './pages-Dileesha/InventoryList';
+import InventoryReport from './pages-Dileesha/InventoryReport';
+
+import MyOrders from './pages_Ridmi/myOrders';
+import ProductList from './pages/Direct_Order_Products';
+import CartAdminDashboard from './pages/Cart-AdminDashboard';
+import DirectOrdersTable from './pages/DirectOrders';
+
+
+
+
+import ProtectedRoute from './middleware/ProtectedRoute';
+import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
+import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
+import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
+
+
+
+
+
+
+
 
 function App() {
   const { isLoggedIn } = useAuth();
 
   return (
     <Routes>
+
+      <Route path="/" element={<Home />} />
+      <Route path="/products" element={<EcommerceCard />} />
+
       <Route path="/signUp" element={<Register />} />
+
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
         
         
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<EcommerceCard />} />
+        
 
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
@@ -179,16 +202,16 @@ function App() {
         <Route path="/expensive" element={<Expens />} />
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
+        <Route path="/dir" element={<DeretOrders />} />
+        <Route path="/material" element={<MaterialCost />} />
+        <Route path="/employesalary" element={<EmpSalary />} />
       </Route>
 
       <Route path="/emp" element={<Posts />} />
       <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      <Route path="/salaryreport/:id" element={<SalaryReport />} />
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
+     
 
       {/*Kumesh Start */}
       <Route path="/paypal" element={<PayPal />} />
@@ -223,13 +246,7 @@ function App() {
       <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      {/* Kavindu */}
-
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
-      <Route path="/sup/supreport/:id" element={<SupplierReport />} />
-      <Route path="/sup/material_report/:id" element={<MaterialReport />} />
+      
 
       <Route path="/salaryreport" element={<SalaryReport />} />
 
