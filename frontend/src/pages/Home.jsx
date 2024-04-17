@@ -33,7 +33,7 @@ const Product = ({ product }) => {
   const { addToCart, isLoggedIn } = useAuth(); // Accessing addToCart function from AuthProvider
 
   return (
-    <Card key={product._id} className="w-72 mb-4 bg-green-300">
+    <Card key={product._id} className="w-72 mb-4 bg-light-green-200">
       <CardHeader shadow={false} floated={false} className="h-48">
         <img
           src={product.image}
@@ -58,10 +58,11 @@ const Product = ({ product }) => {
       </CardBody>
       <CardFooter className="pt-0">
         <Button
+          style={{ backgroundColor: '#ff8f00' }}
           onClick={() => addToCart(product)}
           disabled={!isLoggedIn} // Disable button if user is not logged in
           className="w-full hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
-          color="green"
+        
         >
           Add to Cart
         </Button>

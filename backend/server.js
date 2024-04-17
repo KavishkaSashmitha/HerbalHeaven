@@ -13,6 +13,7 @@ connectDB();
 const path = require('path');
 
 const bodyParser = require('body-parser');
+
 const app = express();
 const PORT = process.env.PORT || 8070;
 
@@ -25,11 +26,13 @@ app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: false }));
 
 // Routes
+
 app.use('/api/user/cart', require('./routes/cartRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/directorders', require('./routes/directOrderRoute'));
 app.use('/api/posts', require('./routes/posts'));
+app.use('/api/directcart', require('./routes/directCart'));
 
 app.use('/sup', require('./routes/supplierRouter'));
 
@@ -37,6 +40,7 @@ app.use('/', require('./routes/PaymnetRoutes'));
 app.use('/api/transports', require('./routes/transports'));
 app.use('/', Cardrouter);
 app.use('/cash', CashRouter);
+
 app.use(bodyParser.json());
 
 // Use routes
