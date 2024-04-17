@@ -42,7 +42,6 @@ export default function CreatePost() {
   const [creating, setCreating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [uploadImage, setUploadImage] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -167,13 +166,10 @@ export default function CreatePost() {
 
     // Check if file exists
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
       setUploadImage(file);
-      setImagePreview(imageUrl);
     } else {
       // Handle case where no file is selected
       setUploadImage(null);
-      setImagePreview(null);
     }
   };
 
@@ -212,6 +208,21 @@ export default function CreatePost() {
       setLoading(false);
       return;
     }
+
+    // const { name, jobrole, gender, mobile, nic, email, address, age, image } =
+    //   state;
+
+    // const data = {
+    //   name: name,
+    //   jobrole: jobrole,
+    //   gender: gender,
+    //   mobile: mobile,
+    //   nic: nic,
+    //   email: email,
+    //   address: address,
+    //   age: age,
+    //   image: image,
+    // };
 
     Swal.fire({
       title: "Are you sure?",
@@ -259,10 +270,10 @@ export default function CreatePost() {
                 age: "",
                 image: "",
               });
-              if (state.confirmation) {
-                setCreating(false);
-                window.location.href = "/emp";
-              }
+            }
+            if (state.confirmation) {
+              setCreating(false);
+              window.location.href = "/emp";
             }
           })
           .catch((error) => {
@@ -368,12 +379,9 @@ export default function CreatePost() {
                   <Card>
                     <CardHeader></CardHeader>
                     <CardBody>
-                      <p className="pt-10 text-xl flex flex-center justify-center mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
-                        Employee Image
-                      </p>
                       <div className="flex justify-center pt-5">
                         <Avatar
-                          src={imagePreview}
+                          src={state.image}
                           size="custom"
                           style={{
                             width: "200px",
@@ -381,56 +389,29 @@ export default function CreatePost() {
                           }} // Adjust the width and height as desired
                           className="border border-blue-gray-50 bg-blue-gray-50/50 object-contain"
                         />
-                        <img src={state.image} />
                       </div>
                       <div>
-                        <div className="pt-12 flex justify-center relative h-10 w-full min-w-[200px]">
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="file"
-                              name="image"
-                              accept="image/*"
-                              id="imageUpload"
-                              onChange={handleImageUpload}
-                              className="hidden"
-                            />
-                            <button
-                              type="button"
-                              className=" bg-amber-800 hover:bg-amber-900 text-white font-semibold
-                py-2 px-4 rounded
-                focus:outline-none focus:ring-2 focus:ring-amber-400
-                transition duration-300 ease-in-out
-                transform hover:scale-105
-                active:scale-95
-                shadow-lg flex items-center space-x-2"
-                              onClick={() =>
-                                document.getElementById("imageUpload").click()
-                              }
-                            >
-                              {/* SVG icon with a plus mark */}
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M12 4v16m8-8H4"
-                                />
-                              </svg>
-                              <span className="">Choose Image</span>
-                            </button>
-                          </div>
-
+                        <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                          <label>Image</label>
+                        </p>
+                        <div class="relative h-10 w-full min-w-[200px]">
+                          <input
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                            className={`${
+                              errors?.image
+                                ? "border-red-500"
+                                : "border-blue-gray-200"
+                            }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
+                          />
                           {errors?.image && (
-                            <p className="text-red-500 ml-1 text-sm">
+                            <p className="text-red-500 ml-1 text-sm sans">
                               {errors?.image}
                             </p>
                           )}
+                          <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
                         </div>
                       </div>
                       <div className="w-auto pt-3 text-center text-3xl font-bold font-sans">

@@ -1,29 +1,24 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { Input, Card, Typography, Button } from "@material-tailwind/react";
-import { Footer } from "../components/Footer";
-import AdminNavbar from "../components/AdminNavbar";
-import { DefaultSidebar } from "../components/Manager-Sidebar";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Input, Card, Typography, Button } from '@material-tailwind/react';
+import { Footer } from '../components/Footer';
+import { SidebarWithBurgerMenu } from '../components/navBar';
 
 const User = () => {
   const [users, setUsers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [open, setOpen] = React.useState(0);
-  const toggleSidebar = () => {
-    setOpen(!open);
-  };
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     axios
-      .get("http://localhost:8070/sup/getSuppliers")
+      .get('http://localhost:8070/sup/getSuppliers')
       .then((result) => setUsers(result.data))
       .catch((err) => console.log(err));
   }, []);
 
   const handleDelete = (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this user?"
+      'Are you sure you want to delete this user?'
     );
     if (confirmDelete) {
       axios
@@ -38,23 +33,16 @@ const User = () => {
   return (
     <>
       <div className="">
-        <div
-          className={`sidebar w-68 bg-custom-color text-white ${
-            open ? "block" : "hidden"
-          }`}
-        >
-          <DefaultSidebar open={open} handleOpen={setOpen} />
-        </div>
-        <AdminNavbar toggleSidebar={toggleSidebar} />
+        <SidebarWithBurgerMenu />
 
         <div className="relative mx-4 mt-4 overflow-hidden text-gray-700">
           <div className="flex items-center justify-between gap-8 mb-8">
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '',
               }}
             >
               <Card className="overflow-x-auto">
@@ -89,14 +77,14 @@ const User = () => {
                     <thead>
                       <tr>
                         {[
-                          "Name",
-                          "Email",
-                          "Age",
-                          "Raw Material",
-                          "Country",
-                          "Mobile",
-                          "Address",
-                          "Action",
+                          'Name',
+                          'Email',
+                          'Age',
+                          'Raw Material',
+                          'Country',
+                          'Mobile',
+                          'Address',
+                          'Action',
                         ].map((head, index) => (
                           <th
                             key={index}
@@ -117,7 +105,7 @@ const User = () => {
                       {users
                         .filter((user) =>
                           Object.values(user)
-                            .join(" ")
+                            .join(' ')
                             .toLowerCase()
                             .includes(searchTerm.toLowerCase())
                         )
@@ -142,14 +130,13 @@ const User = () => {
                               </Link>
                               <Button
                                 color="red"
-                                className=" mr-3"
                                 onClick={() => handleDelete(user._id)}
                               >
                                 Delete
                               </Button>
                               <Link
                                 to={`/sup/material_report/${user._id}`}
-                                className="btn btn-warning "
+                                className="btn btn-warning"
                               >
                                 <Button color="green">Supplier Report</Button>
                               </Link>

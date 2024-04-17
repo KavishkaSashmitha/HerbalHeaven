@@ -198,8 +198,6 @@ function SalaryReport() {
       [`Employee Name : ${capitalizeSecondPart(employeeName)}`],
       [`Job Role : ${jobRole}`],
       [`Month : ${selectedMonth}`],
-      [`Hourly Rate (Rs.): ${rate}/=`],
-      [`Working Hours (h) : ${hours}`],
     ];
 
     const data2 = [
@@ -756,7 +754,7 @@ function SalaryReport() {
 
                                   {showMessage && (
                                     <p className="text-red-500 mt-2">
-                                      To generate salary report, please firstly  click on the "Calculate Salary" button.
+                                      To generate salary report, please click on the 'Calculate Salary' button.
                                     </p>
                                   )}
                                 </div>

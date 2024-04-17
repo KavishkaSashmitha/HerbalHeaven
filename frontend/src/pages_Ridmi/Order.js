@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { DefaultSidebar } from "../components/Manager-Sidebar";
-import AdminNavbar from "../components/AdminNavbar";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { DefaultSidebar } from '../components/Manager-Sidebar';
+import AdminNavbar from '../components/AdminNavbar';
 import {
   Button,
   Card,
@@ -11,21 +11,21 @@ import {
   IconButton,
   Input,
   Typography,
-} from "@material-tailwind/react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
+} from '@material-tailwind/react';
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
 
 export function getStatusColor(status) {
   switch (status) {
-    case "Paid":
-    case "Delivered":
-      return "text-green-900 bg-green-500/20";
-    case "Canceled":
-    case "Unpaid":
-      return "text-red-900 bg-red-500/20";
-    case "Preparing":
-      return "text-blue-900 bg-blue-500/20";
+    case 'Paid':
+    case 'Delivered':
+      return 'text-green-900 bg-green-500/20';
+    case 'Canceled':
+    case 'Unpaid':
+      return 'text-red-900 bg-red-500/20';
+    case 'Preparing':
+      return 'text-blue-900 bg-blue-500/20';
     default:
-      return "";
+      return '';
   }
 }
 
@@ -40,7 +40,7 @@ export default function Order() {
   }, []);
 
   const retrieveOrders = () => {
-    axios.get("http://localhost:8070/api/orders/orders").then((res) => {
+    axios.get('http://localhost:8070/api/orders/orders').then((res) => {
       if (res.data.success) {
         setOrders(res.data.existingOrders);
         setOriginalOrders(res.data.existingOrders);
@@ -52,7 +52,7 @@ export default function Order() {
     axios
       .delete(`http://localhost:8070/api/orders/order/delete/${id}`)
       .then((_res) => {
-        alert("Deleted successfully");
+        alert('Deleted successfully');
         retrieveOrders();
       });
   };
@@ -99,12 +99,12 @@ export default function Order() {
   return (
     <div
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
-      style={{ backgroundColor: "#02353c" }}
+      style={{ backgroundColor: '#02353c' }}
     >
       <div className="flex flex-1 overflow-hidden">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
-            open ? "block" : "hidden"
+            open ? 'block' : 'hidden'
           }`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
@@ -243,8 +243,8 @@ export default function Order() {
                         </td>
                         <td className="p-4 border-b border-blue-gray-50">
                           <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                            {order.shippingAddress.address},{" "}
-                            {order.shippingAddress.city},{" "}
+                            {order.shippingAddress.address},{' '}
+                            {order.shippingAddress.city},{' '}
                             {order.shippingAddress.zip}
                           </p>
                         </td>
@@ -329,13 +329,13 @@ export default function Order() {
                 {pageNumbers.map((number) => (
                   <IconButton
                     key={number}
-                    variant={number === currentPage ? "filled" : "outlined"}
+                    variant={number === currentPage ? 'filled' : 'outlined'}
                     size="sm"
                     onClick={() => paginate(number)}
                     className={`${
                       number === currentPage
-                        ? "bg-blue-500 text-white"
-                        : "text-blue-500"
+                        ? 'bg-blue-500 text-white'
+                        : 'text-blue-500'
                     }`}
                   >
                     {number}

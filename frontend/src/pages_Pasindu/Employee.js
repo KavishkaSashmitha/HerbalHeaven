@@ -213,8 +213,10 @@ export default function Posts() {
                     <div className="flex flex-row gap-2 shrink-0 sm:flex-row">
                       <Link to="/emp/add">
                         <Button
-                          style={{ backgroundColor: "#02353c", color: "white" }} // Set background color inline
-                          className="flex items-center gap-3"
+                          variant="gradient"
+                          color="blue"
+                          className="flex items-center gap-3 "
+                          href=""
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -444,8 +446,7 @@ export default function Posts() {
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-transparent p-4">
               <Button
-                className=""
-                style={{ backgroundColor: "#02353c", color: "white" }}
+                className="bg-blue-500 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={prevPage}
@@ -456,8 +457,7 @@ export default function Posts() {
               <div className="flex items-center gap-2 ">
                 {pageNumbers.map((number) => (
                   <IconButton
-                    className=""
-                    style={{ backgroundColor: "#02353c", color: "white" }}
+                    className="bg-blue-500 hover:bg-blue-700 text-cyan-50"
                     key={number}
                     variant={number === currentPage ? "outlined" : "text"}
                     size="sm"
@@ -468,8 +468,7 @@ export default function Posts() {
                 ))}
               </div>
               <Button
-                className=""
-                style={{ backgroundColor: "#02353c", color: "white" }}
+                className="bg-blue-500 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={nextPage}
