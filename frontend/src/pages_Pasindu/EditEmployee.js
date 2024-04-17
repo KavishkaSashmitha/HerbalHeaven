@@ -85,6 +85,20 @@ export default function EditPost() {
     }
   }
 
+  function handleKeyPressEmail(event) {
+    // Get the character that the user is trying to type
+    const char = event.key;
+    const input = event.target;
+
+    const endsWithDotCom = input.value.endsWith(".com");
+    const endsWithDotLk = input.value.endsWith(".lk");
+
+    if ((endsWithDotCom && char !== "Backspace")||(endsWithDotLk && char !== "Backspace")) {
+      event.preventDefault(); // Prevents further characters after ".com"
+      return;
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -589,6 +603,7 @@ export default function EditPost() {
                                       type="email"
                                       name="email"
                                       placeholder="Enter Employee Email"
+                                      onKeyPress={handleKeyPressEmail}
                                       onChange={handleInputChange}
                                       className={`${
                                         errors.email && "border-red-500"
