@@ -308,21 +308,21 @@ export default function EditPost() {
                     </svg>
                   </Link>
                   <Link to="/Employee_Dashboard">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                       <span>Dashboard</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                     </li>
                   </Link>
                   <Link to="/emp">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                       <span>Employee</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                     </li>
                   </Link>
                   <Link to="">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                       <span>Edit Employee</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
@@ -365,7 +365,7 @@ export default function EditPost() {
                             />
                             <button
                               type="button"
-                              className=" bg-amber-800 hover:bg-amber-900 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-amber-400 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-lg flex items-center space-x-2"
+                              className=" bg-custom-color hover:bg-amber-900 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-amber-400 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-lg flex items-center space-x-2"
                               onClick={() =>
                                 document.getElementById("imageUpload").click()
                               }
