@@ -18,15 +18,6 @@ import { EcommerceCard } from './pages/Products';
 
 
 import Cart from './pages/cart';
-
-
-
-
-
-
-
-
-
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
@@ -44,7 +35,7 @@ import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
-import AdminDashboard from './pages/adminDashboard';
+
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
@@ -72,7 +63,6 @@ import EditOrder from "./pages_Ridmi/EditOrder";
 import Order from "./pages_Ridmi/Order";
 import "./index.css";
 
-
 import "react-toastify/dist/ReactToastify.css";
 
 import SupplierReport from "./pages_kavindu/SupplierReport";
@@ -97,7 +87,6 @@ import { CustomerLogin } from "./pages/Customer-login";
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
-
 
 
 
@@ -127,20 +116,22 @@ import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
 
 
 
-
-
 function App() {
   const { isLoggedIn } = useAuth();
 
   return (
     <Routes>
+
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<EcommerceCard />} />
+
+      <Route path="/signUp" element={<Register />} />
+
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
-        <Route path="/signUp" element={<Register />} />
-        <Route path="/register" element={<Register />} />
+        
+        
         <Route path="/dashboard" element={<Dashboard />} />
         
 
@@ -263,7 +254,7 @@ function App() {
       <Route path="/inventory/add" element={<AddProduct />} />
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
-      <Route path="/inventory/report" element={<InventoryReport />} />
+     
 
 
       <Route path="/test" element={<ImageUpload />} />
