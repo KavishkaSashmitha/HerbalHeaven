@@ -70,119 +70,7 @@ export function DefaultSidebar() {
         </div>
         <div className="overflow-x-hidden overflow-y-scroll">
           <List className="mr-10">
-            <Accordion
-              open={open === 1}
-              icon={
-                <ChevronDownIcon
-                  strokeWidth={2.5}
-                  className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? "rotate-180" : ""
-                  }`}
-                />
-              }
-            >
-              <ListItem className="p-0 mr-5" selected={open === 1}>
-                <AccordionHeader
-                  onClick={() => handleOpen(1)}
-                  className="p-3 border-b-0 hover:bg-teal-800"
-                >
-                  <ListItemPrefix>
-                    <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
-                  </ListItemPrefix>
-
-                  <Typography
-                    color="blue-gray"
-                    className="mr-auto font-normal text-teal-200 "
-                  >
-                    Managers
-                  </Typography>
-                </AccordionHeader>
-              </ListItem>
-              <AccordionBody className="py-1">
-                <List className="px-4">
-                  <Link to="#">
-                    <ListItem className="text-yellow-200 ">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Customer
-                    </ListItem>
-                  </Link>
-                  <Link to="/inventory">
-                    <ListItem className="text-yellow-200">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Inventory
-                    </ListItem>
-                  </Link>
-
-                  <Link to="/emp">
-                    <ListItem className="text-yellow-200">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Employee
-                    </ListItem>
-                  </Link>
-
-                  <Link to="/sup">
-                    <ListItem className="text-yellow-200">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Supplier
-                    </ListItem>
-                  </Link>
-
-                  <Link to="/transport">
-                    <ListItem className="text-yellow-200">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Transport
-                    </ListItem>
-                  </Link>
-                  <Link to="/admin-orders">
-                    <ListItem className="text-yellow-200">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Order
-                    </ListItem>
-                  </Link>
-                  <Link to="/netincome">
-                    <ListItem className="text-yellow-200">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Payment
-                    </ListItem>
-                  </Link>
-                </List>
-              </AccordionBody>
-            </Accordion>
+            
             <Accordion
               open={open === 2}
               icon={
@@ -316,13 +204,14 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
+
             <Accordion
               open={open === 4}
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 4 ? 'rotate-180' : ''
+                    open === 4 ? "rotate-180" : ""
                   }`}
                 />
               }
@@ -368,7 +257,6 @@ export function DefaultSidebar() {
                       Expenses
                     </ListItem>
                   </Link>
-                  
                 </List>
               </AccordionBody>
             </Accordion>
@@ -439,6 +327,141 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
+
+            <Accordion
+              open={open === 6}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
+                    open === 6 ? "rotate-180" : ""
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0 mr-5" selected={open === 6}>
+                <AccordionHeader
+                  onClick={() => handleOpen(6)}
+                  className="p-3 border-b-0 hover:bg-teal-800"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
+                  </ListItemPrefix>
+
+                  <Typography
+                    color="blue-gray"
+                    className="mr-auto font-normal text-teal-200 "
+                  >
+                    Transp-Manager
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="px-4">
+                  <Link to="/transport">
+                    <ListItem className="text-yellow-200 ">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Dashboard
+                    </ListItem>
+                  </Link>
+                  <Link to="/transport">
+                    <ListItem className="text-yellow-200">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Transport Statics
+                    </ListItem>
+                  </Link>
+                  {/* <Link to="/cart-admin">
+                    <ListItem className="text-yellow-200">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Online-Cart-Stats
+                    </ListItem>
+                  </Link> */}
+                </List>
+              </AccordionBody>
+            </Accordion>
+
+            <Accordion
+              open={open === 7}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
+                    open === 7 ? "rotate-180" : ""
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0 mr-5" selected={open === 7}>
+                <AccordionHeader
+                  onClick={() => handleOpen(7)}
+                  className="p-3 border-b-0 hover:bg-teal-800"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
+                  </ListItemPrefix>
+
+                  <Typography
+                    color="blue-gray"
+                    className="mr-auto font-normal text-teal-200 "
+                  >
+                    Order-Manager
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="px-4">
+                  <Link to="/admin-orders">
+                    <ListItem className="text-yellow-200 ">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Dashboard
+                    </ListItem>
+                  </Link>
+                  <Link to="/admin-orders">
+                    <ListItem className="text-yellow-200">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Order Statics
+                    </ListItem>
+                  </Link>
+                  {/* <Link to="/cart-admin">
+                    <ListItem className="text-yellow-200">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Online-Cart-Stats
+                    </ListItem>
+                  </Link> */}
+                </List>
+              </AccordionBody>
+            </Accordion>
+
           </List>
         </div>
       </Card>

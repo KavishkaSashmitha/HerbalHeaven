@@ -302,6 +302,7 @@ function MaterialReport() {
           <AdminNavbar toggleSidebar={toggleSidebar} />
           <Card className="edit-post-bg overflow-auto">
             <div class="overflow-scroll">
+
               <CardHeader
                 floated={false}
                 shadow={false}
@@ -343,7 +344,7 @@ function MaterialReport() {
                   </Breadcrumbs>
                 </div>
               </CardHeader>
-              <CardBody>
+              <CardBody className="">
                 <div class="w-auto max-w-[56rem] mx-auto mt-10 mb-10">
                   <div class="relative flex flex-col rounded-xl border-blue-gray-100 bg-blue-gray-100/50 text-gray-700 shadow-md">
                     <div className="bg-blue-gray-50/50  rounded-xl">

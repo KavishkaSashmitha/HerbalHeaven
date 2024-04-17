@@ -17,7 +17,8 @@ import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
 
 
-import Cart from './pages/cart';
+import Cart from './pages/Cart';
+
 
 
 
