@@ -137,10 +137,10 @@ export default function Order() {
                   </div>
                   <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Suppliers
+                      Order
                     </p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      20
+                      15
                     </p>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ export default function Order() {
                   </div>
                   <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Suppliers
+                      Orders
                     </p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                       20
