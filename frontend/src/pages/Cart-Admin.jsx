@@ -310,12 +310,12 @@ export function CartAdmin() {
                   </svg>
                 </Link>
                 <Link to="/dashboard">
-                  <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                  <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                     <span>Dashboard</span>
                   </li>
                 </Link>
                 <Link to="/cart-admin">
-                  <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                  <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                     <span>Cart-Manager</span>
                   </li>
                 </Link>

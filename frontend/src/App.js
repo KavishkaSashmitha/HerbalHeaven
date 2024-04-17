@@ -11,13 +11,17 @@ import Home from "./pages/Home";
 import { SidebarWithBurgerMenu } from "./components/navBar";
 
 
+
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
 
+import Cart from './pages/cart';
 
 
-import Cart from "./pages/cart";
+
+
+
 
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
@@ -39,7 +43,6 @@ import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
 import AdminDashboard from './pages/adminDashboard';
 
-
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
 
@@ -56,7 +59,6 @@ import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
 import PrintPage from "./pages-Kumesh/User/PrintPage";
 
 import CashDelivery from "./pages-Kumesh/User/CashDelivery";
-
 
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
@@ -85,22 +87,16 @@ import OTPVerification from "./pages/Manager-SignIn";
 import { useAuth } from "./middleware/authContext";
 import { CustomerLogin } from "./pages/Customer-login";
 
-import AddProduct from "./pages-Dileesha/AddProduct";
-import UpdateProduct from "./pages-Dileesha/UpdateProduct";
-import InventoryList from "./pages-Dileesha/InventoryList";
-import MyOrders from "./pages_Ridmi/myOrders";
 
-import ProductList from "./pages/Direct_Order_Products";
 
-import CartAdminDashboard from "./pages/Cart-AdminDashboard";
-import DirectOrdersTable from "./pages/DirectOrders";
+
 
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
 
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
+
 
 //Dileesha
 import AddProduct from './pages-Dileesha/AddProduct';
@@ -127,13 +123,15 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/products" element={<EcommerceCard />} />
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
         <Route path="/signUp" element={<Register />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<EcommerceCard />} />
+        
 
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
@@ -155,7 +153,7 @@ function App() {
 
       {/* //Protected Routes */}
       <Route element={<ProtectedRoute manager />}>
-        <Route path="/admin-dashboard" element={<adminDashboard />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* cart-related */}
         <Route path="/cart-Admin" element={<CartAdmin />} />
         <Route path="/productCategory" element={<ProductList />} />

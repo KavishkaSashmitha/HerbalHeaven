@@ -27,7 +27,6 @@ const DirectOrdersTable = () => {
   const [mostRepeatedItem, setMostRepeatedItem] = useState(null);
   const [mostRepeatedItemCount, setMostRepeatedItemCount] = useState(0);
   const [recentlySoldItem, setRecentlySoldItem] = useState(null);
-
   const [imageLoading, setImageLoading] = useState({});
 
   useEffect(() => {
