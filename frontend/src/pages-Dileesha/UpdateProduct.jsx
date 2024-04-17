@@ -151,7 +151,7 @@ const UpdateProduct = () => {
 
   return (
     <div
-      className="flex justify-center items-center h-100% pt-2 pb-2"
+      className="h-screen flex justify-center items-center bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage:
           'url("https://media.istockphoto.com/id/1192284372/photo/composition-of-natural-alternative-medicine-with-capsules-essence-and-plants.jpg?b=1&s=612x612&w=0&k=20&c=1ocZIu_aNqFvD-VZlJPTAlPNeZGK7afMYahtNKd9YdM=")',

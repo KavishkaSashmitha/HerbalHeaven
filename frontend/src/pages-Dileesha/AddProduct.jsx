@@ -181,21 +181,9 @@ const AddProduct = () => {
   }, [formState.inputs.image.value]);
 
   return (
-    <div
-      className="flex justify-center items-center h-100 pt-2 pb-2"
-      style={{
-        backgroundImage:
-          'url("https://cache.desktopnexus.com/thumbseg/2447/2447104-bigthumbnail.jpg")',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-      }}
-    >
-      <Card
-        shadow={false}
-        pt="3"
-        className="p-3"
-        style={{ backgroundColor: '#D4EFDF', width: '40%' }}
-      >
+    <div className="h-screen flex justify-center items-center bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("https://cache.desktopnexus.com/thumbseg/2447/2447104-bigthumbnail.jpg")' }}>
+    <Card shadow={false} pt="3" className="p-3" style={{ backgroundColor: '#D4EFDF', width: '40%' }}>
+      
         <Typography variant="h4" color="blue-gray" className="text-center">
           Add New Product
         </Typography>

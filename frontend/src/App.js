@@ -85,6 +85,7 @@ import { CustomerLogin } from "./pages/Customer-login";
 import AddProduct from "./pages-Dileesha/AddProduct";
 import UpdateProduct from "./pages-Dileesha/UpdateProduct";
 import InventoryList from "./pages-Dileesha/InventoryList";
+import InventoryReport from "./pages-Dileesha/InventoryReport";
 import MyOrders from "./pages_Ridmi/myOrders";
 
 import ProductList from "./pages/Direct_Order_Products";
@@ -247,8 +248,7 @@ function App() {
       <Route path="/inventory/add" element={<AddProduct />} />
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
-     
-
+      <Route path="/inventory/report"element={<InventoryReport />} />
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>
