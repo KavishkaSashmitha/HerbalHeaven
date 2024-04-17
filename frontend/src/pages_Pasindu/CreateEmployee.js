@@ -194,12 +194,24 @@ export default function CreatePost() {
     // Get the character that the user is trying to type
     const char = event.key;
 
-    // Regular expression to allow only letters (A-Z, a-z) and spaces
     const regex = /^[A-Za-z ]$/;
 
-    // If the character does not match the regex, prevent the default behavior
     if (!regex.test(char)) {
       event.preventDefault(); // Prevents the non-letter or non-space character from being typed
+    }
+  }
+
+  function handleKeyPressEmail(event) {
+    // Get the character that the user is trying to type
+    const char = event.key;
+    const input = event.target;
+
+    const endsWithDotCom = input.value.endsWith(".com");
+    const endsWithDotLk = input.value.endsWith(".lk");
+
+    if ((endsWithDotCom && char !== "Backspace")||(endsWithDotLk && char !== "Backspace")) {
+      event.preventDefault(); // Prevents further characters after ".com"
+      return;
     }
   }
 
@@ -713,6 +725,7 @@ export default function CreatePost() {
                                       name="email"
                                       placeholder="Enter Employee Email"
                                       onChange={handInputChange}
+                                      onKeyPress={handleKeyPressEmail}
                                       class={`${
                                         errors?.email
                                           ? "border-red-500"
