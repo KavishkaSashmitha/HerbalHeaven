@@ -15,8 +15,8 @@ const otpMap = new Map();
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'herbalheaven.pvt.ltd@gmail.com',
-    pass: '457825pasikaviya',
+    user: 'kavivlogs20@gmail.com',
+    pass: 'hija edlo oehj ebbh',
   },
 });
 
