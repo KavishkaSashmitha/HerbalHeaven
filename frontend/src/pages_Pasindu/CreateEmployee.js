@@ -194,12 +194,12 @@ export default function CreatePost() {
     // Get the character that the user is trying to type
     const char = event.key;
 
-    // Regular expression to allow only letters (A-Z, a-z)
-    const regex = /^[A-Za-z]$/;
+    // Regular expression to allow only letters (A-Z, a-z) and spaces
+    const regex = /^[A-Za-z ]$/;
 
     // If the character does not match the regex, prevent the default behavior
     if (!regex.test(char)) {
-      event.preventDefault(); // Prevents the non-letter character from being typed
+      event.preventDefault(); // Prevents the non-letter or non-space character from being typed
     }
   }
 

@@ -16,7 +16,7 @@ import {
   MenuList,
   Typography,
 } from '@material-tailwind/react';
-import { BellIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
+import { BellIcon, ShieldExclamationIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../middleware/authContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './cartContext';
@@ -96,6 +96,8 @@ const ProfileMenu = () => {
           </Badge>
         </Link>
 
+        
+
         <IconButton
           variant="text"
           color="black"
@@ -103,6 +105,18 @@ const ProfileMenu = () => {
         >
           <BellIcon className="h-6 w-6" />
         </IconButton>
+
+        <Link to="/admin-dashboard">
+          {/* <Badge content={cartCount} overlap="circular" placement="top-end"> */}
+            <IconButton
+              variant="text"
+              color="black"
+              className="mr-2 mb-2 hover:text-amber-800 text-white"
+            >
+              <ShieldExclamationIcon className="h-6 w-6" />
+            </IconButton>
+          {/* </Badge> */}
+        </Link>
 
         {isLoggedIn ? (
           <Menu>
