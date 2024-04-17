@@ -16,7 +16,9 @@ import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
 
+
 import Cart from './pages/cart';
+
 
 
 
@@ -217,10 +219,7 @@ function App() {
       <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      <Route path="/salaryreport/:id" element={<SalaryReport />} />
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
+     
 
       {/*Kumesh Start */}
       <Route path="/paypal" element={<PayPal />} />
@@ -255,13 +254,7 @@ function App() {
       <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      {/* Kavindu */}
-
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
-      <Route path="/sup/supreport/:id" element={<SupplierReport />} />
-      <Route path="/sup/material_report/:id" element={<MaterialReport />} />
+      
 
       <Route path="/salaryreport" element={<SalaryReport />} />
 
