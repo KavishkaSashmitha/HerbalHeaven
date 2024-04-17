@@ -54,7 +54,7 @@ console.log(directOrder);
           <tbody>
             {directOrder && directOrder.map((order, index) =>
               order.items.map((item, idx) => (
-                <tr key={`${index}-${idx}`}>
+                <tr key={`LKR ${index}-LKR ${idx}`}>
                   <td className="table_income_td">{item.totalAmount.toFixed(2)}</td>
                   <td className="table_income_td">{item.quantity}</td>
                   <td className="table_income_td">{(item.quantity * item.totalAmount).toFixed(2)}</td>
@@ -65,7 +65,7 @@ console.log(directOrder);
         </table>
       </div>
       <div>
-        <h2 className="tot_amout">Total Income: ${totalIncome.toFixed(2)}</h2>
+        <h2 className="tot_amout">Total Income:LKR {totalIncome.toFixed(2)}</h2>
       </div>
     </div>
   );

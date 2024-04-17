@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import "jspdf-autotable";
+import jsPDF from "jspdf";
 import { SidebarWithBurgerMenu } from "../../../components/navBar";
 import { useReactToPrint } from "react-to-print";
 import MaterialCost from "./MaterialCost";
@@ -36,6 +38,7 @@ function Expens() {
   const componentRef = useRef();
 
   const handlePrint = useReactToPrint({
+    
     content: () => componentRef.current,
     documentTitle: "Income Details Report",
     onAfterPrint: () => alert("Successfully Downloaded!"),
@@ -173,7 +176,7 @@ function Expens() {
                           <ul>
                             {Object.entries(item.cost).map(
                               ([month, cost]) => (
-                                <li key={month}>{`${month}: $${cost.toFixed(
+                                <li key={month}>{`${month}: LKR ${cost.toFixed(
                                   2
                                 )}`}</li>
                               )

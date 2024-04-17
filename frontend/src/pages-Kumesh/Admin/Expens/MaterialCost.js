@@ -67,7 +67,7 @@ function MaterialCost() {
                       Object.entries(employee.materialCost).map(
                         ([month, materialCost]) => (
                           <li key={month}>
-                            {`${month}: $${materialCost ? materialCost.toFixed(2) : "-"}`}
+                            {`${month}: LKR ${materialCost ? materialCost.toFixed(2) : "-"}`}
                           </li>
                         )
                       )

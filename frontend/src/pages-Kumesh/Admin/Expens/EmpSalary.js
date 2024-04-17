@@ -60,7 +60,7 @@ const EmpSalary = () => {
                         {Object.entries(employee.salary).map(
                           ([month, amount]) => (
                             <li key={month}>
-                              {`${month}: LKR${amount.toFixed(2)}`}
+                              {`${month}: LKR ${amount.toFixed(2)}`}
                             </li>
                           )
                         )}
@@ -74,7 +74,7 @@ const EmpSalary = () => {
             ))}
           </tbody>
         </table>
-        <h1 className="tot_amout">Total: LKR{totalSalary.toFixed(2)}</h1>
+        <h1 className="tot_amout">Total:LKR {totalSalary.toFixed(2)}</h1>
       </div>
     </div>
   );

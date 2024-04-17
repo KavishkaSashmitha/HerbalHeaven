@@ -77,7 +77,7 @@ function Payment() {
           ).map((name) => {
             return response.data.find((item) => item.name === name);
           });
-          setCart(response.data);
+         
         }
       } catch (error) {
         console.error("Error fetching cart items:", error);
@@ -191,6 +191,9 @@ function Payment() {
   const calculateTotalBill = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
+  useEffect(() => {
+    setCart(location.state.selectedCartItems);
+  }, [location.state.selectedCartItems]);
 
   return (
     <div className="w-auto px-24 py-4 step">
