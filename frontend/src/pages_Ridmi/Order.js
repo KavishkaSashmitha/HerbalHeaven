@@ -104,7 +104,7 @@ export default function Order() {
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: "#02353c" }}
     >
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-auto">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? "block" : "hidden"
@@ -145,7 +145,7 @@ export default function Order() {
                   </div>
                 </div>
               </div>
-              <div className="card w-full">
+              {/* <div className="card w-full">
                 <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                   <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                     <svg
@@ -169,7 +169,7 @@ export default function Order() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex items-center ml-2 mb-4">
