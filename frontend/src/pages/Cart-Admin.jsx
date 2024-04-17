@@ -40,7 +40,7 @@ const TABLE_HEAD = [
   'Amount',
   'Date',
   'Cart User',
-  'Send Notifications',
+  
 ];
 
 export function CartAdmin() {
@@ -477,7 +477,7 @@ export function CartAdmin() {
                               </Typography>
                             </div>
                           </td>
-                          <td className="p-4">
+                          {/* <td className="p-4">
                             <div className="flex items-center gap-3">
                               <div className="h-9 w-12 rounded-md border border-blue-gray-50 p-1">
                                 <Avatar
@@ -505,7 +505,7 @@ export function CartAdmin() {
                                 ></Typography>
                               </div>
                             </div>
-                          </td>
+                          </td> */}
                         </tr>
                       ))}
                     </tbody>
