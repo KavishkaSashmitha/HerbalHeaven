@@ -68,7 +68,7 @@ function UpdateCard() {
                 <div className="method-set-card">
                   <div className="bil-box">
                     <h1 className="main-topic-bil">
-                      <span className="number">1</span>Biling Info
+                      <span className="number">1</span>Biling Information
                     </h1>
                     <label className="paymnt-lable">FULL NAME</label>
                     <br></br>
@@ -76,9 +76,11 @@ function UpdateCard() {
                       className="paymnt-inpt"
                       type="text"
                       name="fullname"
-                      placeholder="John Doe"
+                      placeholder="Saman Perera"
                       value={inputs.fullname}
                       onChange={handleChange}
+                      pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
+                        title="Please enter only letters"
                       required
                     ></input>
                     <br></br>
@@ -193,6 +195,7 @@ function UpdateCard() {
                           name="expmonth"
                           value={inputs.expmonth}
                           onChange={handleChange}
+                          
                           placeholder="Desember 10"
                           required
                         ></input>
@@ -235,7 +238,7 @@ function UpdateCard() {
                 </div>
 
                 <div className="end-btn">
-                  <button className="btn-pro">Update</button>
+                  <button className="btn-pro">Update Card</button>
                 </div>
               </form>
             )}
