@@ -127,7 +127,7 @@ function CashDelivery() {
           <div className="Payment-full-box-set">
             <div>
               <h1 className="main-tpoic">Payment</h1>
-              <p className="main-para">Choose payment method below</p>
+              <p className="main-para">Choose your preffered payment method below</p>
               <div className="method-set">
                 <div
                   className="method-thre method-box"
@@ -140,7 +140,7 @@ function CashDelivery() {
                     alt="card"
                     className="img-paymt card-pay-new_payment"
                   />
-                  <p className="paymnt-topic">Pay With Credit Card</p>
+                  <p className="paymnt-topic">Pay With Credit/Debit Card</p>
                 </div>
                 <div
                   className="method-two method-box"
@@ -153,7 +153,7 @@ function CashDelivery() {
                     alt="paypal"
                     className="img-paymt card-paypal"
                   />
-                  <p className="paymnt-topic">Pay With pay pal</p>
+                  <p className="paymnt-topic">Pay With paypal</p>
                 </div>
                 <div className="method-one method-box">
                   <img src={tic} alt="tick" className="img-tic-new" />

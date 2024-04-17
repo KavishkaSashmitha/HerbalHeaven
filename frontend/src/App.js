@@ -14,10 +14,10 @@ import { SidebarWithBurgerMenu } from "./components/navBar";
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import { EcommerceCard } from './pages/Products';
-import Cart from './pages/cart';
 
 
 
+import Cart from "./pages/cart";
 
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
