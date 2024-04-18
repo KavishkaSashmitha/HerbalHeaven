@@ -100,7 +100,7 @@ export function DefaultSidebar() {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="px-4">
-                  <Link to="#">
+                <Link to="/all">
                     <ListItem className="text-yellow-200 ">
                       <ListItemPrefix>
                         <ChevronRightIcon

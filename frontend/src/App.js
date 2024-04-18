@@ -10,11 +10,21 @@ import {
 import Home from "./pages/Home";
 import { SidebarWithBurgerMenu } from "./components/navBar";
 
+//praveen
 
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
+import EditProfile from "./pages/EditProfile";
+import CustomerManager from "./pages/CustomerManager";
+import CustomerReport from "./pages/CustomerReport";
+
+
+
+
+
+
 import { EcommerceCard } from './pages/Products';
-import Cart from './pages/cart';
+
 
 
 import Cart from "./pages/cart";
@@ -84,22 +94,14 @@ import OTPVerification from "./pages/Manager-SignIn";
 import { useAuth } from "./middleware/authContext";
 import { CustomerLogin } from "./pages/Customer-login";
 
-import AddProduct from "./pages-Dileesha/AddProduct";
-import UpdateProduct from "./pages-Dileesha/UpdateProduct";
-import InventoryList from "./pages-Dileesha/InventoryList";
-import MyOrders from "./pages_Ridmi/myOrders";
 
-import ProductList from "./pages/Direct_Order_Products";
-
-import CartAdminDashboard from "./pages/Cart-AdminDashboard";
-import DirectOrdersTable from "./pages/DirectOrders";
 
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
 
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
+
 
 //Dileesha
 import AddProduct from './pages-Dileesha/AddProduct';
@@ -116,8 +118,8 @@ import DirectOrdersTable from './pages/DirectOrders';
 
 
 import ProtectedRoute from "./middleware/ProtectedRoute";
-import Cart from "./pages/cart";
-import AdminDashboard from "./pages/adminDashboard";
+
+
 
 
 function App() {
@@ -128,15 +130,14 @@ function App() {
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
-        <Route path="/signUp" element={<Register />} />
-        <Route path="/register" element={<Register />} />
+       
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={<EcommerceCard />} />
 
-        <Route path="/user/cart" element={<Cart />} />
+        <Route path="/customer/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
         <Route path="/login" element={<CustomerLogin />} />
-        <Route path="/signUp" element={<Register />} />
+     
 
         {/*Kumesh*/}
         <Route path="/user/payment" element={<Payment />} />
@@ -153,7 +154,7 @@ function App() {
 
       {/* //Protected Routes */}
       <Route element={<ProtectedRoute manager />}>
-        <Route path="/admin-dashboard" element={<adminDashboard />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* cart-related */}
         <Route path="/cart-Admin" element={<CartAdmin />} />
         <Route path="/productCategory" element={<ProductList />} />
@@ -172,6 +173,14 @@ function App() {
           element={<Display_Employee_Details />}
         />
         <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
+           
+
+        {/* Praveen */}
+    
+        <Route path="/all" element={<CustomerManager />} />
+        <Route path="/signUp" element={<Register />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/customer-report" element={<CustomerReport/>} />
 
         {/* Malshan */}
         <Route path="/transport" element={<Transport />} />

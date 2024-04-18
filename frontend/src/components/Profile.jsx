@@ -52,7 +52,7 @@ const ProfileMenu = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:8070/api/user', {
+      const response = await axios.post('http://localhost:8070/api/customer', {
         email,
         password,
       });
@@ -84,7 +84,7 @@ const ProfileMenu = () => {
         >
           {currentTime}
         </Typography>
-        <Link to="/user/cart">
+        <Link to="/customer/cart">
           <Badge content={cartCount} overlap="circular" placement="top-end">
             <IconButton
               variant="text"
@@ -137,6 +137,7 @@ const ProfileMenu = () => {
                   </Typography>
                 </MenuItem>
               </Link>
+              <Link to="/edit-profile">
               <MenuItem className="flex items-center gap-2">
                 <svg
                   width="16"
@@ -157,6 +158,7 @@ const ProfileMenu = () => {
                   Edit Profile
                 </Typography>
               </MenuItem>
+              </Link>
               <MenuItem className="flex items-center gap-2">
                 <svg
                   width="14"
@@ -278,7 +280,7 @@ const ProfileMenu = () => {
                     className="mt-4 flex justify-center"
                   >
                     Don&apos;t have an account?
-                    <Link to="/signup">
+                    <Link to="/signUp">
                       <Typography
                         as="a"
                         href="#signup"
