@@ -153,7 +153,7 @@ function CashDelivery() {
                     alt="paypal"
                     className="img-paymt card-paypal"
                   />
-                  <p className="paymnt-topic">Pay With paypal</p>
+                  <p className="paymnt-topic">Pay With Paypal</p>
                 </div>
                 <div className="method-one method-box">
                   <img src={tic} alt="tick" className="img-tic-new" />
@@ -162,7 +162,7 @@ function CashDelivery() {
                     alt="amazon"
                     className="img-paymt card-pay-new"
                   />
-                  <p className="paymnt-topic">pay with cash on delivery</p>
+                  <p className="paymnt-topic">pay with Cash on Delivery</p>
                 </div>
               </div>
               <form onSubmit={handleSubmit}>

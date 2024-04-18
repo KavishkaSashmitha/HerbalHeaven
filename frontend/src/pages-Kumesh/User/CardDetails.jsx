@@ -5,6 +5,7 @@ import { RiBankFill } from "react-icons/ri";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 function CardDetails(props) {
   const { _id, address, cardholdername } = props.card;
   const history = useNavigate();
@@ -17,7 +18,6 @@ function CardDetails(props) {
         await axios.delete(`http://localhost:8070/cards/${_id}`);
         alert("Card details deleted successfully!");
         history("/carddetails");
-        window.location.reload("./carddetails");
       } catch (error) {
         console.error("Error deleting card details:", error);
         // Handle the error appropriately
@@ -27,6 +27,7 @@ function CardDetails(props) {
       console.log("Deletion canceled by user");
     }
   };
+  
   
   return (
     <div>

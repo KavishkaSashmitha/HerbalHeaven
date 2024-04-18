@@ -116,7 +116,7 @@ function Payment() {
     cardholdername: "",
     cardnumber: "",
     expmonth: "",
-    expyear: "",
+    //expyear: "",
     cvv: "",
   });
   const handleChange = (e) => {
@@ -182,7 +182,7 @@ function Payment() {
         cardholdername: String(inputs.cardholdername),
         cardnumber: String(inputs.cardnumber),
         expmonth: String(inputs.expmonth),
-        expyear: String(inputs.expyear),
+        //expyear: String(inputs.expyear),
         cvv: String(inputs.cvv),
       })
       .then((res) => res.data);
@@ -194,6 +194,16 @@ function Payment() {
   useEffect(() => {
     setCart(location.state.selectedCartItems);
   }, [location.state.selectedCartItems]);
+
+  //function to get date from today which means not to input  date before today
+  const getMinimumMonth = () => {
+    const today = new Date();
+    const month = today.getMonth() + 1; // Month is zero-indexed, so add 1
+    const year = today.getFullYear();
+    const formattedMonth = month < 10 ? `0${month}` : `${month}`;
+    return `${year}-${formattedMonth}`;
+  };
+  
 
   return (
     <div className="w-auto px-24 py-4 step">
@@ -213,7 +223,7 @@ function Payment() {
         <div className="Payment-full-box-set">
           <div>
             <h1 className="main-tpoic">Payment</h1>
-            <p className="main-para">Choose your preffered payment method below</p>
+            <p className="main-para">Choose your prefered payment method below</p>
             <div className="method-set">
               <div className="method-one method-box">
                 <img src={tic} alt="tick" className="img-tic" />
@@ -231,7 +241,7 @@ function Payment() {
                   alt="paypal"
                   className="img-paymt card-paypal"
                 />
-                <p className="paymnt-topic">Pay With paypal</p>
+                <p className="paymnt-topic">Pay With Paypal</p>
               </div>
 
               <div
@@ -242,7 +252,7 @@ function Payment() {
               >
 
                 <img src={amazon} alt="amazon" className="img-paymt card-amo" />
-                <p className="paymnt-topic">pay with cash on delivery</p>
+                <p className="paymnt-topic">pay with Cash on Delivery</p>
               </div>
             </div>
             <form onSubmit={handleSubmit}>
@@ -398,21 +408,23 @@ function Payment() {
                   <br></br>
                   <div className="method-set-card-form">
                     <div>
-                      <label className="paymnt-lable">EXP MONTH</label>
+                      <label className="paymnt-lable">EXPIRE DATE</label>
                       <br></br>
                       <input
-                        className="paymnt-inpt-one"
-                        type="month"
-                        name="expmonth"
-                        value={inputs.expmonth}
-                        onChange={handleChange}
-                        placeholder="Desember 10"
-                        required
-                      ></input>
+  className="paymnt-inpt-one"
+  type="month"
+  name="expmonth"
+  value={inputs.expmonth}
+  onChange={handleChange}
+  placeholder="Desember 10"
+  min={getMinimumMonth()}
+  required
+/>
+
                       <br></br>
                     </div>
                     <div>
-                      <label className="paymnt-lable">EXP YEAR</label>
+                      {/* <label className="paymnt-lable">EXP YEAR</label>
                       <br></br>
                       <input
                         className="paymnt-inpt-one"
@@ -431,7 +443,7 @@ function Payment() {
                           }
                         }}
                       ></input>
-                      <br></br>
+                      <br></br> */}
                     </div>
                   </div>
                   <label className="paymnt-lable">CVV NUMBER</label>

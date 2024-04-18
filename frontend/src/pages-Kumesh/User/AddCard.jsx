@@ -15,7 +15,7 @@ function AddCard() {
     cardholdername: "",
     cardnumber: "",
     expmonth: "",
-    expyear: "",
+   // expyear: "",
     cvv: "",
   });
 
@@ -50,10 +50,18 @@ function AddCard() {
         cardholdername: String(inputs.cardholdername),
         cardnumber: String(inputs.cardnumber),
         expmonth: String(inputs.expmonth),
-        expyear: String(inputs.expyear),
+        //expyear: String(inputs.expyear),
         cvv: String(inputs.cvv),
       })
       .then((res) => res.data);
+  };
+  //function to get date from today which means not to input  date before today
+  const getMinimumMonth = () => {
+    const today = new Date();
+    const month = today.getMonth() + 1; // Month is zero-indexed, so add 1
+    const year = today.getFullYear();
+    const formattedMonth = month < 10 ? `0${month}` : `${month}`;
+    return `${year}-${formattedMonth}`;
   };
 
   return (
@@ -221,14 +229,15 @@ function AddCard() {
                       <label className="paymnt-lable">EXP MONTH</label>
                       <br></br>
                       <input
-                        className="paymnt-inpt-one"
-                        type="month"
-                        name="expmonth"
-                        value={inputs.expmonth}
-                        onChange={handleChange}
-                        placeholder="Desember 10"
-                        required
-                      ></input>
+  className="paymnt-inpt-one"
+  type="month"
+  name="expmonth"
+  value={inputs.expmonth}
+  onChange={handleChange}
+  placeholder="Desember 10"
+  min={getMinimumMonth()}
+  required
+/>
                       <br></br>
                     </div>
                     <div>

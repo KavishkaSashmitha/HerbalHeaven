@@ -31,15 +31,14 @@ function CardBox(props) {
   const maskedCardNumber = "xxxx xxxx xxxx " + lastFourDigits;
 
   return (
-    <div>
-      <div className="card-details-box">
-        <div className="card-set-pay">
-          <h1 className="card-num">{maskedCardNumber}</h1>
-          <p>{address}</p>
-          <p>{cardholdername}</p>
-        </div>
-      </div>
+    <div className="card-details-box bg-white shadow-md rounded-lg p-6">
+    <div className="card-set-pay">
+      <h1 className="text-xl font-bold">{maskedCardNumber}</h1>
+      <p className="text-gray-600">{address}</p>
+      <p className="text-gray-600">{cardholdername}</p>
     </div>
+  </div>
+  
   );
 }
 
