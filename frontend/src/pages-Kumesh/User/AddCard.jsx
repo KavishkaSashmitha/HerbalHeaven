@@ -84,11 +84,11 @@ function AddCard() {
   type="text"
   name="fullname"
   placeholder="Saman Perera"
-  value={inputs.fullname}
+  value={inputs.fullnamename}
   onChange={handleChange}
   onKeyPress={(event) => {
-    // Check if the pressed key is a number or a special character
-    if (/\d|\W/.test(event.key)) {
+    // Check if the pressed key is a number or a special character, but allow spaces
+    if (!/[a-zA-Z\s]/.test(event.key)) {
       event.preventDefault(); // Prevent default behavior (typing the key)
     }
   }}
@@ -118,12 +118,11 @@ function AddCard() {
   value={inputs.city}
   onChange={handleChange}
   onKeyPress={(event) => {
-    if (/\d/.test(event.key)) {
-      event.preventDefault();
+    // Check if the pressed key is a number or a special character, but allow spaces
+    if (!/[a-zA-Z\s]/.test(event.key)) {
+      event.preventDefault(); // Prevent default behavior (typing the key)
     }
   }}
-  title="Please enter only letters"
-  required
 />
                       <br></br>
                     </div>
@@ -179,13 +178,13 @@ function AddCard() {
                   <input
   className="paymnt-inpt"
   type="text"
-  name="fullname"
+  name="cardholdername"
   placeholder="Saman Perera"
   value={inputs.cardholdername}
   onChange={handleChange}
   onKeyPress={(event) => {
-    // Check if the pressed key is a number or a special character
-    if (/\d|\W/.test(event.key)) {
+    // Check if the pressed key is a number or a special character, but allow spaces
+    if (!/[a-zA-Z\s]/.test(event.key)) {
       event.preventDefault(); // Prevent default behavior (typing the key)
     }
   }}
@@ -206,7 +205,7 @@ function AddCard() {
   maxLength={19}
   minLength={19}
   name="cardnumber"
-  placeholder="5645645676650456"
+  placeholder="5645-6456-7665-0456"
   pattern="\d{4}-\d{4}-\d{4}-\d{4}"
   title="Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX"
   required
