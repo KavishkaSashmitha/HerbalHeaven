@@ -190,6 +190,6 @@ module.exports = {
   dashboard,
   updateProfile,
   deleteProfile,
-  getAllCustomers
+  getAllCustomers,
  
 };

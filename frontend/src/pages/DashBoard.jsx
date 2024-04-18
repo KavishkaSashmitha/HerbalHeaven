@@ -4,6 +4,7 @@ import { useAuth } from '../middleware/authContext';
 import { Button, Card, CardBody, CardHeader } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import { SidebarWithBurgerMenu } from '../components/navBar';
+import { Footer } from "../components/Footer";
 
 function DashBoard() {
   const [customer, setUser] = useState(null);
@@ -66,7 +67,7 @@ function DashBoard() {
       <SidebarWithBurgerMenu />
       <div className="container mx-auto py-10 ">
         {isLoggedIn && customer ? (
-          <Card className="bg-teal-100">
+          <Card className="bg-green-100">
             <CardHeader color="blueGray">
               <h2 className="text-xl font-bold">Welcome, {customer.name}!</h2>
             </CardHeader>
@@ -107,6 +108,7 @@ function DashBoard() {
           <p className="text-base text-gray-700">Please log in to access the user profile.</p>
         )}
       </div>
+      <Footer />
     </>
   );
 }

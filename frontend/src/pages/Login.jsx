@@ -5,12 +5,13 @@ import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext';
 import 'react-toastify/dist/ReactToastify.css';
-import backgroundImage from '../assets/sign-in.jpg';
+import backgroundImage from '../assets/Login-Page-Background.jpg';
 import { SidebarWithBurgerMenu } from '../components/navBar';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isChecked, setIsChecked] = useState(false); // State to track checkbox
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -18,6 +19,11 @@ export default function Login() {
     try {
       if (!email || !password) {
         toast.error('Empty Fields');
+        return;
+      }
+
+      if (!isChecked) { // Check if the checkbox is checked
+        toast.error('Please accept the terms and conditions');
         return;
       }
 
@@ -124,6 +130,8 @@ export default function Login() {
                   </Typography>
                 }
                 containerProps={{ className: '-ml-2.5' }}
+                checked={isChecked} // Pass checked state
+                onChange={(e) => setIsChecked(e.target.checked)} // Update checked state
               />
               <Button
                 className="mt-6"

@@ -81,7 +81,7 @@ const CustomerManager = () => {
           <span className="text-gray-500">Customer Manager</span>
         </Breadcrumbs>
         <h1 className="text-2xl font-bold mb-4">Customer Manager</h1>
-       
+              
        
         <div className="mb-4">
           <input
@@ -91,9 +91,10 @@ const CustomerManager = () => {
             value={searchQuery}
             onChange={handleSearchChange}
           />
-        </div>
+        </div> 
+        
         {error && <p className="text-red-200">{error}</p>}
-    
+         
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-blue-gray-100 ">
             <tr>
@@ -147,9 +148,9 @@ const CustomerManager = () => {
               </tr>
             ))}
           </tbody>
-        
+            
         </table>
-    
+        <Link to="/customer-report" className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 inline-block">View Report</Link>
         <CardFooter>
           <Footer />
         </CardFooter>

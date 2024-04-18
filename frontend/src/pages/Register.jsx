@@ -4,6 +4,7 @@ import { Card, Input, Checkbox, Button, Typography } from '@material-tailwind/re
 import { Link, useNavigate } from 'react-router-dom';
 import { SidebarWithBurgerMenu } from '../components/navBar';
 
+
 export default function Register() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -101,8 +102,10 @@ export default function Register() {
 
   return (
     <>
+      
       <SidebarWithBurgerMenu />
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen"
+      >
         <Card color="transparent" shadow={false} className="bg-green-100 w-full max-w-md p-8" >
           <Typography variant="h4" color="blue-gray">
             Sign Up
@@ -225,6 +228,7 @@ export default function Register() {
               onChange={handleChange}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900 mb-4"
             />
+            
             <Checkbox
               label={
                 <Typography

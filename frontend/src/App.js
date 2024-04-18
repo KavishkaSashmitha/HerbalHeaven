@@ -10,6 +10,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/DashBoard";
 import EditProfile from "./pages/EditProfile";
 import CustomerManager from "./pages/CustomerManager";
+import CustomerReport from "./pages/CustomerReport";
+
 import { EcommerceCard } from "./pages/Products";
 import Cart from "./pages/cart";
 
@@ -62,6 +64,7 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/signUp" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/customer-report" element={<CustomerReport/>} />
         <Route path="/products" element={<EcommerceCard />} />
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/emp/add" element={<CreatPost />} />
@@ -76,7 +79,7 @@ function App() {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/all" element={<CustomerManager />} />
         
-
+      
         
       </Routes>
     </>
