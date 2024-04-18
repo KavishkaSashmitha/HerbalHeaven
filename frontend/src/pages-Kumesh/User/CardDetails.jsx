@@ -17,7 +17,7 @@ function CardDetails(props) {
         await axios.delete(`http://localhost:8070/cards/${_id}`);
         alert("Card details deleted successfully!");
         history("/carddetails");
-        window.location.reload();
+        window.location.reload("./carddetails");
       } catch (error) {
         console.error("Error deleting card details:", error);
         // Handle the error appropriately

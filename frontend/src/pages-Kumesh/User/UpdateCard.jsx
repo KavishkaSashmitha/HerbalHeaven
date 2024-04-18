@@ -81,6 +81,11 @@ function UpdateCard() {
                       onChange={handleChange}
                       pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
                         title="Please enter only letters"
+                        onKeyPress={(event) => {
+                          if (/\d/.test(event.key)) {
+                            event.preventDefault();
+                          }
+                        }}
                       required
                     ></input>
                     <br></br>
@@ -109,6 +114,11 @@ function UpdateCard() {
                         placeholder="Gampaha"
                         pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
                         title="Please enter only letters"
+                        onKeyPress={(event) => {
+                          if (/\d/.test(event.key)) {
+                            event.preventDefault();
+                          }
+                        }}
                         required
                         ></input>
                         <br></br>
@@ -166,6 +176,11 @@ function UpdateCard() {
                       placeholder="Saman Perera"
                       pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
                       title="Please enter only letters"
+                      onKeyPress={(event) => {
+                        if (/\d/.test(event.key)) {
+                          event.preventDefault();
+                        }
+                      }}
                       required
                     ></input>
                     <br></br>

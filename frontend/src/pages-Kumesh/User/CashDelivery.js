@@ -107,7 +107,7 @@ function CashDelivery() {
   const calculateTotalBill = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
-
+  
   return (
     <div>
       <div className="w-auto px-24 py-4 step">
@@ -172,16 +172,19 @@ function CashDelivery() {
                     <label className="paymnt-lable">FULL NAME</label>
                     <br></br>
                     <input
-                     className="paymnt-inpt"
-                     type="text"
-                     name="fullname"
-                     placeholder="Saman Perera"
-                     value={inputs.fullname}
-                     onChange={handleChange}
-                     pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
-                     title="Please enter only letters"
-                     required
-                    ></input>
+  className="paymnt-inpt"
+  type="text"
+  name="fullname"
+  placeholder="Saman Perera"
+  value={inputs.fullname}
+  onChange={handleChange}
+  onKeyPress={(event) => {
+    // Check if the pressed key is a number or a special character
+    if (/\d|\W/.test(event.key)) {
+      event.preventDefault(); // Prevent default behavior (typing the key)
+    }
+  }}
+/>
                     <br></br>
                     <label className="paymnt-lable">BILLING ADDRESS</label>
                     <br></br>
@@ -200,16 +203,20 @@ function CashDelivery() {
                         <label className="paymnt-lable">CITY</label>
                         <br></br>
                         <input
-                           className="paymnt-inpt-two"
-                           type="text"
-                           name="city"
-                           value={inputs.city}
-                           onChange={handleChange}
-                           placeholder="Gampaha"
-                           pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
-                           title="Please enter only letters"
-                           required
-                        ></input>
+  className="paymnt-inpt"
+  type="text"
+  name="city"
+  placeholder="Gampaha"
+  value={inputs.city}
+  onChange={handleChange}
+  onKeyPress={(event) => {
+    if (/\d/.test(event.key)) {
+      event.preventDefault();
+    }
+  }}
+  title="Please enter only letters"
+  required
+/>
                         <br></br>
                       </div>
                       <div>
@@ -227,6 +234,11 @@ function CashDelivery() {
                           pattern="[0-9]{5}"  // Use a regular expression to match exactly 5 digits
                           title="Please enter a valid 5-digit ZIP code"
                           required
+                          onKeyPress={(event) => {
+                            if (!/\d/.test(event.key)) { // If the key pressed is not a digit
+                              event.preventDefault(); // Prevent default behavior (typing the key)
+                            }
+                          }}
                         ></input>
                         <br></br>
                       </div>

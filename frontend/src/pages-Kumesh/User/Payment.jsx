@@ -254,16 +254,21 @@ function Payment() {
                   <label className="paymnt-lable">FULL NAME</label>
                   <br></br>
                   <input
-                    className="paymnt-inpt"
-                    type="text"
-                    name="fullname"
-                    placeholder="Saman Perera"
-                    value={inputs.fullname}
-                    onChange={handleChange}
-                    pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
-                    title="Please enter only letters"
-                    required
-                  ></input>
+  className="paymnt-inpt"
+  type="text"
+  name="fullname"
+  placeholder="Saman Perera"
+  value={inputs.fullname}
+  onChange={handleChange}
+  onKeyPress={(event) => {
+    // Check if the pressed key is a number or a special character
+    if (/\d|\W/.test(event.key)) {
+      event.preventDefault(); // Prevent default behavior (typing the key)
+    }
+  }}
+/>
+
+ 
                   <br></br>
                   <label className="paymnt-lable">BILLING ADDRESS</label>
                   <br></br>
@@ -282,16 +287,21 @@ function Payment() {
                       <label className="paymnt-lable">CITY</label>
                       <br></br>
                       <input
-                        className="paymnt-inpt-two"
-                        type="text"
-                        name="city"
-                        value={inputs.city}
-                        onChange={handleChange}
-                        placeholder="Gampaha"
-                        pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
-                        title="Please enter only letters"
-                        required
-                      ></input>
+  className="paymnt-inpt"
+  type="text"
+  name="city"
+  placeholder="Saman Perera"
+  value={inputs.city}
+  onChange={handleChange}
+  onKeyPress={(event) => {
+    if (/\d/.test(event.key)) {
+      event.preventDefault();
+    }
+  }}
+  title="Please enter only letters"
+  required
+/>
+
                       <br></br>
                     </div>
                     <div>
@@ -309,6 +319,11 @@ function Payment() {
                         pattern="[0-9]{5}"  // Use a regular expression to match exactly 5 digits
                         title="Please enter a valid 5-digit ZIP code"
                         required
+                        onKeyPress={(event) => {
+                          if (!/\d/.test(event.key)) { // If the key pressed is not a digit
+                            event.preventDefault(); // Prevent default behavior (typing the key)
+                          }
+                        }}
                       ></input>
                       <br></br>
                     </div>
@@ -339,32 +354,49 @@ function Payment() {
                   <label className="paymnt-lable">CARDHOLDER NAME</label>
                   <br></br>
                   <input
-                    className="paymnt-inpt"
-                    type="text"
-                    value={inputs.cardholdername}
-                    onChange={handleChange}
-                    name="cardholdername"
-                    placeholder="Saman Perera"
-                    pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
-                    title="Please enter only letters"
-                    required
-                  ></input>
+  className="paymnt-inpt"
+  type="text"
+  name="fullname"
+  placeholder="Saman Perera"
+  value={inputs.cardholdername}
+  onChange={handleChange}
+  onKeyPress={(event) => {
+    // Check if the pressed key is a number or a special character
+    if (/\d|\W/.test(event.key)) {
+      event.preventDefault(); // Prevent default behavior (typing the key)
+    }
+  }}
+/>
+
+
                   <br></br>
                   <label className="paymnt-lable">CARD NUMBER</label>
                   <br></br>
                   <input
-                    className="paymnt-inpt"
-                    type="text"
-                    value={inputs.cardnumber}
-                    onChange={handleChange}
-                    maxLength={19}
-                    minLength={19}
-                    name="cardnumber"
-                    placeholder="5645-6456-7665-0456"
-                    pattern="\d{4}-\d{4}-\d{4}-\d{4}" // Regular expression for XXXX-XXXX-XXXX-XXXX format
-                    title="Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX"
-                  required
-                  ></input>
+  className="paymnt-inpt"
+  type="text"
+  value={inputs.cardnumber}
+  onChange={(event) => {
+    const inputValue = event.target.value;
+    const sanitizedValue = inputValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
+    const formattedValue = sanitizedValue.replace(/(\d{4})/g, '$1-').slice(0, 19); // Format to XXXX-XXXX-XXXX-XXXX
+    handleChange({ target: { name: 'cardnumber', value: formattedValue } });
+  }}
+  maxLength={19}
+  minLength={19}
+  name="cardnumber"
+  placeholder="5645645676650456"
+  pattern="\d{4}-\d{4}-\d{4}-\d{4}"
+  title="Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX"
+  required
+  onKeyPress={(event) => {
+    if (event.key === '-' || (!/\d/.test(event.key) && event.key !== 'Backspace')) { // If the key pressed is a dash or not a digit (except Backspace)
+      event.preventDefault(); // Prevent default behavior (typing the key)
+    }
+  }}
+/>
+
+
                   <br></br>
                   <div className="method-set-card-form">
                     <div>
@@ -395,6 +427,11 @@ function Payment() {
                         placeholder="YYYY"
                         min="2024"
                         max="2100"
+                        onKeyPress={(event) => {
+                          if (!/\d/.test(event.key)) { // If the key pressed is not a digit
+                            event.preventDefault(); // Prevent default behavior (typing the key)
+                          }
+                        }}
                       ></input>
                       <br></br>
                     </div>
@@ -413,6 +450,11 @@ function Payment() {
                     minLength={3}
                     maxLength={3}
                     pattern="[0-9]*"
+                    onKeyPress={(event) => {
+                      if (!/\d/.test(event.key)) { // If the key pressed is not a digit
+                        event.preventDefault(); // Prevent default behavior (typing the key)
+                      }
+                    }}
                   ></input>
                 </div>
               </div>
@@ -424,7 +466,7 @@ function Payment() {
               </h1>
 
               <div className="end-btn">
-                <button className="btn-pro">Proceed</button>
+                <button className="btn-pro">Place Order</button>
               </div>
             </form>
           </div>
