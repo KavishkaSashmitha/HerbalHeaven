@@ -208,6 +208,24 @@ export default function CreatePost() {
     }
   }
 
+  function handleKeyPressAge(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+    
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+    
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 2;
+    
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
   function handleKeyPressNic(event) {
     // Allow only numeric characters (digits)
     const charCode = event.which || event.keyCode;
@@ -818,8 +836,7 @@ export default function CreatePost() {
                                       value={state?.age}
                                       type="number"
                                       name="age"
-                                      min={18}
-                                      max={60}
+                                      onKeyPress={handleKeyPressAge}
                                       placeholder="Enter Age"
                                       onChange={handInputChange}
                                       class={`${
