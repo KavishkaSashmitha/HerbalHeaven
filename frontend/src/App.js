@@ -10,11 +10,22 @@ import {
 import Home from "./pages/Home";
 import { SidebarWithBurgerMenu } from "./components/navBar";
 
+//praveen
 
 
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
+import EditProfile from "./pages/EditProfile";
+import CustomerManager from "./pages/CustomerManager";
+import CustomerReport from "./pages/CustomerReport";
+
+
+
+
+
+
 import { EcommerceCard } from './pages/Products';
+
 
 
 import Cart from './pages/cart';
@@ -44,7 +55,7 @@ import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
-import AdminDashboard from './pages/adminDashboard';
+
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
@@ -72,7 +83,6 @@ import EditOrder from "./pages_Ridmi/EditOrder";
 import Order from "./pages_Ridmi/Order";
 import "./index.css";
 
-
 import "react-toastify/dist/ReactToastify.css";
 
 import SupplierReport from "./pages_kavindu/SupplierReport";
@@ -93,11 +103,9 @@ import { CustomerLogin } from "./pages/Customer-login";
 
 
 
-
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
-
 
 
 
@@ -115,11 +123,12 @@ import DirectOrdersTable from './pages/DirectOrders';
 
 
 
+
 import ProtectedRoute from './middleware/ProtectedRoute';
 import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
 import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
 import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
-
+import AdminDashboard from "./pages/adminDashboard";
 
 
 
@@ -134,20 +143,22 @@ function App() {
 
   return (
     <Routes>
+
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<EcommerceCard />} />
+
+      <Route path="/signUp" element={<Register />} />
+
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
-        <Route path="/signUp" element={<Register />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         
 
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
         <Route path="/login" element={<CustomerLogin />} />
-        <Route path="/signUp" element={<Register />} />
+     
 
         {/*Kumesh*/}
         <Route path="/user/payment" element={<Payment />} />
@@ -183,6 +194,14 @@ function App() {
           element={<Display_Employee_Details />}
         />
         <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
+           
+
+        {/* Praveen */}
+    
+        <Route path="/all" element={<CustomerManager />} />
+        <Route path="/signUp" element={<Register />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/customer-report" element={<CustomerReport/>} />
 
         {/* Malshan */}
         <Route path="/transport" element={<Transport />} />
@@ -263,7 +282,7 @@ function App() {
       <Route path="/inventory/add" element={<AddProduct />} />
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
-      <Route path="/inventory/report" element={<InventoryReport />} />
+     
 
 
       <Route path="/test" element={<ImageUpload />} />

@@ -111,7 +111,8 @@ export function EcommerceCard() {
     (product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+);
+
   
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
@@ -131,9 +132,9 @@ export function EcommerceCard() {
         <div className="relative flex w-1/2 gap-2 mt-2 mb-2 md:auto justify-center mx-auto">
           <Input
             type="search"
-            color="black"
+            color="white"
             label="Type here..."
-            className="pr-20"
+            className="pr-20 text-white"
             containerProps={{
               className: 'min-w-[288px]',
             }}

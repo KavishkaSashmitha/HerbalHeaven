@@ -68,7 +68,7 @@ const Cart = () => {
   const handleDeleteItem = async (itemId) => {
     try {
       if (isLoggedIn) {
-        await axios.delete(`http://localhost:8070/api/user/cart/${itemId}`, {
+        await axios.delete(`http://localhost:8070/api/customer/cart/${itemId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -97,7 +97,7 @@ const Cart = () => {
     try {
       if (isLoggedIn) {
         await axios.put(
-          `http://localhost:8070/api/user/cart/${itemId}`,
+          `http://localhost:8070/api/customer/cart/${itemId}`,
           { quantity: newQuantity },
           {
             headers: {
