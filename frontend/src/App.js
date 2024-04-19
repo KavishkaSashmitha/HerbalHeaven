@@ -19,24 +19,9 @@ import EditProfile from "./pages/EditProfile";
 import CustomerManager from "./pages/CustomerManager";
 import CustomerReport from "./pages/CustomerReport";
 
-
-
-
-
-
 import { EcommerceCard } from './pages/Products';
 
-
-
 import Cart from './pages/cart';
-
-
-
-
-
-
-
-
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
@@ -44,12 +29,10 @@ import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import "react-toastify/dist/ReactToastify.css";
 
-// import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
-// import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
-// import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
 import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
-// import HiestSalary from "./pages_Pasindu/HiestSalary";
+
+import Currentmonth from "./pages_Pasindu/currentmonth";
 
 
 import CreateUser from './pages_kavindu/CreateUser';
@@ -119,10 +102,6 @@ import MyOrders from './pages_Ridmi/myOrders';
 import ProductList from './pages/Direct_Order_Products';
 import CartAdminDashboard from './pages/Cart-AdminDashboard';
 import DirectOrdersTable from './pages/DirectOrders';
-
-
-
-
 
 import ProtectedRoute from './middleware/ProtectedRoute';
 import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
@@ -194,6 +173,7 @@ function App() {
           element={<Display_Employee_Details />}
         />
         <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
+        <Route path="/current_month" element={<Currentmonth />} />
            
 
         {/* Praveen */}

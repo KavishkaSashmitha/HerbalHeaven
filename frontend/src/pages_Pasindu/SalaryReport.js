@@ -18,6 +18,7 @@ import { Footer } from "../components/Footer";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
 import createLoadingScreen from "./LoadingScreen";
+import MonthPicker from "./currentmonth";
 
 function SalaryReport() {
   const { id } = useParams();
@@ -54,6 +55,46 @@ function SalaryReport() {
     };
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    // Fetch current date and time from World Clock API
+    fetch("http://worldclockapi.com/api/json/utc/now")
+      .then((response) => response.json())
+      .then((data) => {
+        // Parse the current date and time from the API response
+        const currentDate = new Date(data.currentDateTime);
+
+        // Get the month index (0-11) from the current date
+        const monthIndex = currentDate.getMonth(); // Returns 0-11
+
+        // Array of month names
+        const monthNames = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+
+        // Set the current month name in state
+        setSelectedMonth(monthNames[monthIndex]);
+
+        // Data is loaded, set loading state to false
+        // setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching date and time:", error);
+        // In case of an error, stop loading and handle accordingly
+        // setIsLoading(false);
+      });
+  }, []); // Empty dependency array so this effect runs once on mount
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -380,9 +421,9 @@ function SalaryReport() {
     }
   }, [jobRole]);
 
-  const handleMonthChange = (event) => {
-    setSelectedMonth(event.target.value);
-  };
+  // const handleMonthChange = (event) => {
+  //   setSelectedMonth(event.target.value);
+  // };
 
   function capitalizeSecondPart(name) {
     if (!name) return "";
@@ -555,32 +596,19 @@ function SalaryReport() {
                                   <label>Month :</label>
                                 </p>
                                 <div class="relative h-10 w-full min-w-[200px] mb-4">
-                                  <select
+                                  <MonthPicker
                                     id="selectMonth"
                                     type="text"
                                     value={selectedMonth}
                                     name="month"
                                     placeholder="Enter Month"
-                                    onChange={handleMonthChange}
+                                    // onChange={handleMonthChange}
                                     class={`${
                                       errors.month && "border-red-500"
                                     }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-100
                             `}
-                                  >
-                                    <option value="">Select Month</option>
-                                    <option value="January">January</option>
-                                    <option value="February">February</option>
-                                    <option value="March">March</option>
-                                    <option value="April">April</option>
-                                    <option value="May">May</option>
-                                    <option value="June">June</option>
-                                    <option value="July">July</option>
-                                    <option value="August">August</option>
-                                    <option value="September">September</option>
-                                    <option value="October">October</option>
-                                    <option value="November">November</option>
-                                    <option value="December">December</option>
-                                  </select>
+                                  />
+                                  <MonthPicker />
                                   {errors.month && (
                                     <span className="text-red-500 ml-1 text-sm sans">
                                       {errors.month}
