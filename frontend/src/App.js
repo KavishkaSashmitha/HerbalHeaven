@@ -12,6 +12,7 @@ import { SidebarWithBurgerMenu } from "./components/navBar";
 
 //praveen
 
+
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
 import EditProfile from "./pages/EditProfile";
@@ -27,7 +28,15 @@ import { EcommerceCard } from './pages/Products';
 
 
 
-import Cart from "./pages/cart";
+import Cart from './pages/Cart';
+
+
+
+
+
+
+
+
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
@@ -46,7 +55,6 @@ import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 import CreateUser from './pages_kavindu/CreateUser';
 import UpdateUser from './pages_kavindu/UpdateUser';
 import User from './pages_kavindu/User';
-import AdminDashboard from './pages/adminDashboard';
 
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
@@ -66,7 +74,6 @@ import PrintPage from "./pages-Kumesh/User/PrintPage";
 
 import CashDelivery from "./pages-Kumesh/User/CashDelivery";
 
-
 //Kumesh-Admin
 import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
 import Expens from "./pages-Kumesh/Admin/Expens/Expens";
@@ -75,7 +82,6 @@ import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 import EditOrder from "./pages_Ridmi/EditOrder";
 import Order from "./pages_Ridmi/Order";
 import "./index.css";
-
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -96,10 +102,10 @@ import { CustomerLogin } from "./pages/Customer-login";
 
 
 
+
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
-
 
 
 
@@ -117,7 +123,17 @@ import DirectOrdersTable from './pages/DirectOrders';
 
 
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
+
+import ProtectedRoute from './middleware/ProtectedRoute';
+import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
+import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
+import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
+import AdminDashboard from "./pages/adminDashboard";
+
+
+
+
+
 
 
 
@@ -127,12 +143,17 @@ function App() {
 
   return (
     <Routes>
+
+      <Route path="/" element={<Home />} />
+      <Route path="/products" element={<EcommerceCard />} />
+
+      <Route path="/signUp" element={<Register />} />
+
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
-       
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<EcommerceCard />} />
+        
 
         <Route path="/customer/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
@@ -209,16 +230,16 @@ function App() {
         <Route path="/expensive" element={<Expens />} />
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
+        <Route path="/dir" element={<DeretOrders />} />
+        <Route path="/material" element={<MaterialCost />} />
+        <Route path="/employesalary" element={<EmpSalary />} />
       </Route>
 
       <Route path="/emp" element={<Posts />} />
       <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      <Route path="/salaryreport/:id" element={<SalaryReport />} />
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
+     
 
       {/*Kumesh Start */}
       <Route path="/paypal" element={<PayPal />} />
@@ -253,13 +274,7 @@ function App() {
       <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      {/* Kavindu */}
-
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
-      <Route path="/sup/supreport/:id" element={<SupplierReport />} />
-      <Route path="/sup/material_report/:id" element={<MaterialReport />} />
+      
 
       <Route path="/salaryreport" element={<SalaryReport />} />
 
@@ -267,7 +282,7 @@ function App() {
       <Route path="/inventory/add" element={<AddProduct />} />
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
-      <Route path="/inventory/report" element={<InventoryReport />} />
+     
 
 
       <Route path="/test" element={<ImageUpload />} />

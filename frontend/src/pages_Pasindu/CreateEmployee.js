@@ -259,10 +259,8 @@ export default function CreatePost() {
                 age: "",
                 image: "",
               });
-              if (state.confirmation) {
-                setCreating(false);
-                window.location.href = "/emp";
-              }
+              setCreating(false);
+              window.location.href = "/emp";
             }
           })
           .catch((error) => {
@@ -396,7 +394,7 @@ export default function CreatePost() {
                             />
                             <button
                               type="button"
-                              className=" bg-amber-800 hover:bg-amber-900 text-white font-semibold
+                              className=" bg-custom-color hover:bg-amber-900 text-white font-semibold
                 py-2 px-4 rounded
                 focus:outline-none focus:ring-2 focus:ring-amber-400
                 transition duration-300 ease-in-out

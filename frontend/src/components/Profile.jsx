@@ -16,7 +16,7 @@ import {
   MenuList,
   Typography,
 } from '@material-tailwind/react';
-import { BellIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
+import { BellIcon, ShieldExclamationIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../middleware/authContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './cartContext';
@@ -65,7 +65,7 @@ const ProfileMenu = () => {
       // Update the global authentication state
       login(token);
 
-      navigate('/dashboard');
+      navigate('/');
       setOpen(false);
     } catch (error) {
       console.error('Login failed:', error.response.data);
@@ -95,7 +95,6 @@ const ProfileMenu = () => {
             </IconButton>
           </Badge>
         </Link>
-
         <IconButton
           variant="text"
           color="black"
@@ -103,6 +102,17 @@ const ProfileMenu = () => {
         >
           <BellIcon className="h-6 w-6" />
         </IconButton>
+        <Link to="/admin-dashboard">
+          
+            <IconButton
+              variant="text"
+              color="black"
+              className=" mb-2 mr-2  hover:text-amber-800 text-white"
+            >
+              <ShieldExclamationIcon className="h-6 w-6" />
+            </IconButton>
+          
+        </Link>
 
         {isLoggedIn ? (
           <Menu>
@@ -258,11 +268,13 @@ const ProfileMenu = () => {
                     Your Password
                   </Typography>
                   <Input
-                    label="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    size="lg"
-                  />
+  label="Password"
+  onChange={(e) => setPassword(e.target.value)}
+  value={password}
+  size="lg"
+  type="password" // This line sets the input type to password
+/>
+
                   <div className="-ml-2.5 -mt-3">
                     <Checkbox label="Remember Me" />
                   </div>
