@@ -15,7 +15,7 @@ const CartDetails = () => {
     const fetchCartItems = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8070/api/user/cart/cart-details'
+          'http://localhost:8070/api/customer/cart/cart-details'
         );
         // Preprocess cartItems to merge duplicates by name
         const mergedCartItems = mergeItemsByName(response.data);

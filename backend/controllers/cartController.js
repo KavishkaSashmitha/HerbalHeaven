@@ -1,13 +1,13 @@
 const asyncHandler = require('express-async-handler');
 const Cart = require('../model/cartModel');
-const User = require('../model/userModel');
+const Customer = require('../model/customerModel');
 
 const viewCart = asyncHandler(async (req, res) => {
-  const cart = await Cart.find({ user: req.user.id });
+  const cart = await Cart.find({ customer: req.customer.id });
   res.status(200).json(cart);
 });
 const CartDetails = asyncHandler(async (req, res) => {
-  const cart = await Cart.find().populate('user', 'name email');
+  const cart = await Cart.find().populate('customer', 'name email');
   res.status(200).json(cart);
 });
 
@@ -19,7 +19,7 @@ const AddToCart = asyncHandler(async (req, res) => {
     throw new Error('Please add Item');
   }
   const cart = await Cart.create({
-    user: req.user.id,
+    customer: req.customer.id,
     name: req.body.name,
     quantity: req.body.quantity,
     price: req.body.price,
@@ -39,14 +39,14 @@ const updateCart = asyncHandler(async (req, res) => {
     //express use
     throw new Error('Please add Item');
   }
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  const customer = await Customer.findById(req.customer.id);
+  if (!customer) {
     res.status(401);
     throw new Error('User not found');
   }
 
   //Make sure the logged if  in thuser match the cart user
-  if (updateCart.user.toString() !== user.id) {
+  if (updateCart.customer.toString() !== customer.id) {
     res.status(401);
     throw new Error('User not Authorized');
   }
@@ -65,14 +65,14 @@ const deleteCartItems = asyncHandler(async (req, res) => {
     //express use
     throw new Error('No Item Found');
   }
-  const user = await User.findById(req.user.id);
-  if (!user) {
+  const customer = await Customer.findById(req.customer.id);
+  if (!customer) {
     res.status(401);
     throw new Error('User not found');
   }
 
   //Make sure the logged if  in thuser match the cart user
-  if (deleteCart.user.toString() !== user.id) {
+  if (deleteCart.customer.toString() !== customer.id) {
     res.status(401);
     throw new Error('User not Authorized');
   }
