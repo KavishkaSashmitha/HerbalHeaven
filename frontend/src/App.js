@@ -12,16 +12,15 @@ import { SidebarWithBurgerMenu } from "./components/navBar";
 
 //praveen
 
-
-import Register from './pages/Register';
-import Dashboard from './pages/DashBoard';
+import Register from "./pages/Register";
+import Dashboard from "./pages/DashBoard";
 import EditProfile from "./pages/EditProfile";
 import CustomerManager from "./pages/CustomerManager";
 import CustomerReport from "./pages/CustomerReport";
 
-import { EcommerceCard } from './pages/Products';
+import { EcommerceCard } from "./pages/Products";
 
-import Cart from './pages/cart';
+import Cart from "./pages/cart";
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
@@ -32,13 +31,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 
-import Currentmonth from "./pages_Pasindu/currentmonth";
-
-
-import CreateUser from './pages_kavindu/CreateUser';
-import UpdateUser from './pages_kavindu/UpdateUser';
-import User from './pages_kavindu/User';
-
+import CreateUser from "./pages_kavindu/CreateUser";
+import UpdateUser from "./pages_kavindu/UpdateUser";
+import User from "./pages_kavindu/User";
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
@@ -83,46 +78,32 @@ import OTPVerification from "./pages/Manager-SignIn";
 import { useAuth } from "./middleware/authContext";
 import { CustomerLogin } from "./pages/Customer-login";
 
-
-
-
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
 
-
-
 //Dileesha
-import AddProduct from './pages-Dileesha/AddProduct';
-import UpdateProduct from './pages-Dileesha/UpdateProduct';
-import InventoryList from './pages-Dileesha/InventoryList';
-import InventoryReport from './pages-Dileesha/InventoryReport';
+import AddProduct from "./pages-Dileesha/AddProduct";
+import UpdateProduct from "./pages-Dileesha/UpdateProduct";
+import InventoryList from "./pages-Dileesha/InventoryList";
+import InventoryReport from "./pages-Dileesha/InventoryReport";
 
-import MyOrders from './pages_Ridmi/myOrders';
-import ProductList from './pages/Direct_Order_Products';
-import CartAdminDashboard from './pages/Cart-AdminDashboard';
-import DirectOrdersTable from './pages/DirectOrders';
+import MyOrders from "./pages_Ridmi/myOrders";
+import ProductList from "./pages/Direct_Order_Products";
+import CartAdminDashboard from "./pages/Cart-AdminDashboard";
+import DirectOrdersTable from "./pages/DirectOrders";
 
-import ProtectedRoute from './middleware/ProtectedRoute';
-import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
-import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
-import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
+import ProtectedRoute from "./middleware/ProtectedRoute";
+import DeretOrders from "./pages-Kumesh/Admin/Income/DeretOrders";
+import MaterialCost from "./pages-Kumesh/Admin/Expens/MaterialCost";
+import EmpSalary from "./pages-Kumesh/Admin/Expens/EmpSalary";
 import AdminDashboard from "./pages/adminDashboard";
-
-
-
-
-
-
-
-
 
 function App() {
   const { isLoggedIn } = useAuth();
 
   return (
     <Routes>
-
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<EcommerceCard />} />
 
@@ -132,12 +113,10 @@ function App() {
         {/* Kavishka */}
 
         <Route path="/dashboard" element={<Dashboard />} />
-        
 
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
         <Route path="/login" element={<CustomerLogin />} />
-     
 
         {/*Kumesh*/}
         <Route path="/user/payment" element={<Payment />} />
@@ -147,7 +126,6 @@ function App() {
 
         {/*Ridmi*/}
         <Route path="/my-orders" element={<MyOrders />} />
-
       </Route>
 
       <Route path="/" element={<Home />} />
@@ -173,15 +151,13 @@ function App() {
           element={<Display_Employee_Details />}
         />
         <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
-        <Route path="/current_month" element={<Currentmonth />} />
-           
 
         {/* Praveen */}
-    
+
         <Route path="/all" element={<CustomerManager />} />
         <Route path="/signUp" element={<Register />} />
         <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/customer-report" element={<CustomerReport/>} />
+        <Route path="/customer-report" element={<CustomerReport />} />
 
         {/* Malshan */}
         <Route path="/transport" element={<Transport />} />
@@ -219,8 +195,6 @@ function App() {
       <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-     
-
       {/*Kumesh Start */}
       <Route path="/paypal" element={<PayPal />} />
       <Route path="/paypalcheckout" element={<PaypalCheckOut />} />
@@ -228,7 +202,6 @@ function App() {
       {/* Routes that require authentication */}
 
       <Route path="/otp" element={<OTPVerification />} />
-
 
       {/* Pasindu */}
       <Route path="/emp/add" element={<CreatPost />} />
@@ -254,16 +227,12 @@ function App() {
       <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      
-
       <Route path="/salaryreport" element={<SalaryReport />} />
 
       {/*Dileesha*/}
       <Route path="/inventory/add" element={<AddProduct />} />
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
-     
-
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>
