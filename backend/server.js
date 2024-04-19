@@ -1,22 +1,17 @@
 const express = require('express');
-const app = express();
+
 require('dotenv').config();
 const connectDB = require('./config/dbConfig');
 const Cardrouter = require('./routes/PaymnetRoutes');
 const CashRouter = require('./routes/CashRoutes');
 
-
-
 const colors = require('colors');
 const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
 
- 
-
 const path = require('path');
 
 const bodyParser = require('body-parser');
-
 
 const app = express();
 
@@ -48,9 +43,6 @@ app.use('/cash', CashRouter);
 
 app.use(bodyParser.json());
 
-
-
-
 app.use('/api/customer', require('./routes/customerRoutes'));
 
 // Use routes
@@ -80,5 +72,4 @@ app.listen(PORT, () => {
   console.log('Connect To Mongo db');
 
   console.log(`Server is running on port ${PORT}`.yellow.bold);
-
 });

@@ -84,7 +84,7 @@ const ProfileMenu = () => {
         >
           {currentTime}
         </Typography>
-        <Link to="/customer/cart">
+        <Link to="/user/cart">
           <Badge content={cartCount} overlap="circular" placement="top-end">
             <IconButton
               variant="text"

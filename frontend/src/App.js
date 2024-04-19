@@ -28,7 +28,7 @@ import { EcommerceCard } from './pages/Products';
 
 
 
-import Cart from './pages/Cart';
+import Cart from './pages/cart';
 
 
 
@@ -155,7 +155,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         
 
-        <Route path="/customer/cart" element={<Cart />} />
+        <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
         <Route path="/login" element={<CustomerLogin />} />
      
