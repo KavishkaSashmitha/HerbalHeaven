@@ -209,7 +209,10 @@ export default function CreatePost() {
     const endsWithDotCom = input.value.endsWith(".com");
     const endsWithDotLk = input.value.endsWith(".lk");
 
-    if ((endsWithDotCom && char !== "Backspace")||(endsWithDotLk && char !== "Backspace")) {
+    if (
+      (endsWithDotCom && char !== "Backspace") ||
+      (endsWithDotLk && char !== "Backspace")
+    ) {
       event.preventDefault(); // Prevents further characters after ".com"
       return;
     }
