@@ -32,7 +32,7 @@ function AddCard() {
     sendRequest()
       .then(() => {
         alert("Card details added successfully!");
-        history("/carddetails");
+        
       })
       .catch((error) => {
         console.error("Error adding card details:", error);

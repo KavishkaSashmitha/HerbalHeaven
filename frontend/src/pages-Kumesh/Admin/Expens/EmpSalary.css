@@ -1,0 +1,32 @@
+/* Style for the income table */
+.table_income {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px; /* Add some space between tables */
+  }
+  
+  /* Style for table headers and data cells */
+  .table_income th,
+  .table_income td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 12px; /* Increase padding for better spacing */
+  }
+  
+  /* Style for table headers */
+  .table_income th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Alternate row color for better readability */
+  .table_income tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style for total amount section */
+  .tot_amout {
+    margin-top: 20px;
+    font-weight: bold; /* Make the total amount stand out */
+  }
+  
+  

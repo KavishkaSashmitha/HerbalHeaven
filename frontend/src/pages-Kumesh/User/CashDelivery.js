@@ -21,6 +21,8 @@ function CashDelivery() {
   const [cart, setCart] = useState([]);
   const { isLoggedIn, token } = useAuth();
 
+  console.log("cart", cart);
+
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -39,7 +41,7 @@ function CashDelivery() {
           ).map((name) => {
             return response.data.find((item) => item.name === name);
           });
-          setCart(response.data);
+         
         }
       } catch (error) {
         console.error("Error fetching cart items:", error);
