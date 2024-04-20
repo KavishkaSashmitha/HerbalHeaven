@@ -515,6 +515,7 @@ function FuelReport() {
                                     type="number"
                                     name="Travel Distance"
                                     value={range}
+                                    required
                                     onChange={(event) => {
                                       setRange(event.target.value);
                                     }}
