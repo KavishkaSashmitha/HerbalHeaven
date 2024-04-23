@@ -268,7 +268,7 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        Owner Name
+                        Driver Name
                       </p>
                     </th>
                     <th className="p-4 ">
@@ -283,7 +283,7 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        NIC
+                        Driver NIC
                       </p>
                     </th>
                     <th className="p-4 ">
@@ -301,8 +301,8 @@ export default function Transports() {
                         Vehicle NO.
                       </p>
                     </th>
-                    <th className="p-4 ">
-                      <p className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1">
+                    <th className="p-4" > 
+                      <p className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1" style={{marginLeft:'27%'}}>
                         Actions
                       </p>
                     </th>

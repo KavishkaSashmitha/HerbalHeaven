@@ -246,7 +246,7 @@ export default function Edit_Driver() {
                       <form class="flex flex-col gap-4 mt-12">
                         <div>
                           <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
-                            <label>Owner Name</label>
+                            <label>Driver Name</label>
                           </p>
                           <div class="relative h-10 w-full min-w-[200px]">
                             <input
@@ -299,7 +299,7 @@ export default function Edit_Driver() {
 
                         <div>
                           <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
-                            <label>Age</label>
+                            <label>Driver Age</label>
                           </p>
                           <div class="relative h-10 w-full min-w-[200px]">
                             <input
