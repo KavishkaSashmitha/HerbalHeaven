@@ -410,14 +410,15 @@ export default function Transports() {
                             href={`/transport/edit/${transport._id}`}
                           >
                             <Button color="green">
-                              <i className="mr-2 fas fa-edit"></i>Edit
+                              <i className="fas fa-edit"
+                              style={{fontSize:"15px"}}></i>
                             </Button>
                           </a>
 
                           <a className="mr-2 btn btn-primary" onClick={() => onDelete(transport._id)}>
                             <Button color="red">
-                              <i className="mr-2 fas fa-edit"></i>
-                              Delete
+                              <i className="fas fa-trash-alt"
+                              style={{fontSize:"15px"}}></i>
                             </Button>
                           </a>
                           
@@ -426,7 +427,8 @@ export default function Transports() {
                             href={`/FuelReport/${transport._id}`}
                           >
                             <Button color="orange">
-                              <i className="mr-2 fas fa-file">  </i>Report
+                              <i className="fas fa-file"
+                              style={{fontSize:"15px"}} >  </i>
                             </Button>
                           </a>
                         </div>
