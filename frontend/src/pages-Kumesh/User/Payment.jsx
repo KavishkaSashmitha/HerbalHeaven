@@ -254,6 +254,16 @@ function Payment() {
                 <img src={amazon} alt="amazon" className="img-paymt card-amo" />
                 <p className="paymnt-topic">pay with Cash on Delivery</p>
               </div>
+              {/* <div
+                className="method-four method-box"
+                onClick={() => {
+                  window.location.href = "/bankslip";
+                }}
+              >
+
+                <img src={amazon} alt="amazon" className="img-paymt card-amo" />
+                <p className="paymnt-topic">pay with DirectTransfer</p>
+              </div> */}
             </div>
             <form onSubmit={handleSubmit}>
               <div className="method-set-card">

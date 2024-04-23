@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './EmpSalary.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faFilePdf } from '@fortawesome/free-solid-svg-icons'; // Assuming you have imported the faFilePdf icon
+import jsPDF from 'jspdf';
+
 
 const URL = "http://localhost:8070/api/posts/sallrypost";
 
@@ -63,6 +65,32 @@ const EmpSalary = () => {
     });
   });
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    
+    // Add logo image
+    const logoWidth = 50; // Adjust the width of the logo as needed
+    const logoHeight = 50; // Adjust the height of the logo as needed
+    
+    doc.text("Employees Salary Report", 70, 30); // Adjust the position of the title
+    
+    let yOffset = 50; // Adjust the initial vertical position
+    Object.entries(salaryByMonth).forEach(([month, salaries]) => {
+      doc.text(`${month} Salary:`, 10, yOffset);
+      yOffset += 10;
+      salaries.forEach((entry) => {
+        doc.text(`${entry.name}: LKR ${entry.amount.toFixed(2)}`, 20, yOffset);
+        yOffset += 7;
+      });
+    });
+    
+    // Add total salary
+    doc.text(`Total Salary: LKR ${totalSalary.toFixed(2)}`, 10, yOffset);
+    
+    doc.save("employees_salary_report.pdf");
+  };
+ 
+
   return (
     <div>
       <div className="search-container">
@@ -74,6 +102,10 @@ const EmpSalary = () => {
           className="search-input"
         />
         <FontAwesomeIcon icon={faSearch} className="search-icon" />
+        <button onClick={generatePDF} className="report-button">
+          <FontAwesomeIcon icon={faFilePdf} />
+          Generate Report
+        </button>
       </div>
       <h1 className="income_topic">Employees Salary</h1>
       <div className="tbl_continer_incme">
