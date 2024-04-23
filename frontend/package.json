@@ -16,8 +16,10 @@
     "chart.js": "^4.4.2",
     "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
+    "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
     "firebase": "^10.11.0",
+
 
     "html-entities": "^2.5.2",
     "https": "^1.0.0",

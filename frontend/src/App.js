@@ -11,14 +11,34 @@ import Home from "./pages/Home";
 
 import AdminDashboard from './pages/adminDashboard';
 
+//praveen
 
 
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
+import EditProfile from "./pages/EditProfile";
+import CustomerManager from "./pages/CustomerManager";
+import CustomerReport from "./pages/CustomerReport";
+
+
+
+
+
+
 import { EcommerceCard } from './pages/Products';
 
 
+
 import Cart from './pages/cart';
+
+
+
+
+
+
+
+
+
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
 import Posts from "./pages_Pasindu/Employee";
@@ -84,7 +104,6 @@ import { CustomerLogin } from "./pages/Customer-login";
 
 
 
-
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
@@ -105,10 +124,13 @@ import DirectOrdersTable from './pages/DirectOrders';
 
 
 
+
 import ProtectedRoute from './middleware/ProtectedRoute';
 import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
 import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
 import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
+import AdminDashboard from "./pages/adminDashboard";
+
 
 
 
@@ -131,15 +153,13 @@ function App() {
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
-        
-        
         <Route path="/dashboard" element={<Dashboard />} />
         
 
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
         <Route path="/login" element={<CustomerLogin />} />
-        <Route path="/signUp" element={<Register />} />
+     
 
         {/*Kumesh*/}
         <Route path="/user/payment" element={<Payment />} />
@@ -175,6 +195,14 @@ function App() {
           element={<Display_Employee_Details />}
         />
         <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
+           
+
+        {/* Praveen */}
+    
+        <Route path="/all" element={<CustomerManager />} />
+        <Route path="/signUp" element={<Register />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/customer-report" element={<CustomerReport/>} />
 
         {/* Malshan */}
         <Route path="/transport" element={<Transport />} />
