@@ -9,13 +9,13 @@ const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
 
 connectDB();
-
+ 
 const path = require('path');
 
 const bodyParser = require('body-parser');
-
+ 
 const app = express();
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT || 8070;     
 
 // Connect to MongoDB
 connectDB();

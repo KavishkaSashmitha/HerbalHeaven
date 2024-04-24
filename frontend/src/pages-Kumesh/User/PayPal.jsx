@@ -30,7 +30,6 @@ function PayPal() {
           ).map((name) => {
             return response.data.find((item) => item.name === name);
           });
-         
         }
       } catch (error) {
         console.error("Error fetching cart items:", error);

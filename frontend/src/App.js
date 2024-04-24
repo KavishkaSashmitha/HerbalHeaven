@@ -151,8 +151,8 @@ function App() {
 
       <Route path="/" element={<Home />} />
 
-      {/* //Protected Routes */}
-      <Route element={<ProtectedRoute manager />}>
+      {/* //Protected Routes  element={<ProtectedRoute manager />} */}
+      <Route>
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* cart-related */}
         <Route path="/cart-Admin" element={<CartAdmin />} />
