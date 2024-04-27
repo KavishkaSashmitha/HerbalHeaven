@@ -5,27 +5,14 @@ const TransportSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   d_mobile: {
     type: String,
     required: true,
   },
-
-  dob: {
-    type: String,
-    required: true,
-  },
-
   category: {
     type: String,
     required: true,
   },
-
-  nic: {
-    type: String,
-    required: true,
-  },
-
   vehicle_type: {
     type: String,
     required: true,
@@ -35,16 +22,11 @@ const TransportSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cost: {
-    type: Map,
-    of: Number,
+  address: {
+    ype: String,
     required: true,
-    default: {},
   },
-  assign_driver: {
-    type: String,
-    required: true,
-  }
+  
 });
 
 module.exports = mongoose.model("transports", TransportSchema);

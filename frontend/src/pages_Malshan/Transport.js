@@ -18,9 +18,7 @@ import { Breadcrumbs } from "@material-tailwind/react";
 import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
 
-
-
-export default function Transports() {
+export default function Transports(props) {
   const [transport, setTransports] = useState([]);
   const [filteredtransports, setFilteredTransports] = useState([]);
   const [isScrollDisabled, setIsScrollDisabled] = useState(false);
@@ -29,7 +27,7 @@ export default function Transports() {
   const [itemsPerPage] = useState(5);
   const [open, setOpen] = React.useState(0);
   const [loading, setLoading] = useState(true);
-
+  //const { d_name, d_mobile, vehicle_type, vehicle_No } = transport;
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -107,9 +105,6 @@ export default function Transports() {
       }
     });
   };
-
-  
-
   function filterData(transports, searchKey) {
     
     const lowerCaseSearchKey  = searchKey.toLowerCase();
@@ -152,6 +147,15 @@ export default function Transports() {
 
     // Join the parts back into a single string
     return parts.join(" ");
+  }
+
+    const handleDeliverButtonClick = () => {
+    const {d_name,d_mobile,vehicle_type,vehicle_No} = this.state.transport;
+    this.props.history.push({
+      pathname: '#',
+      state:{d_name:d_name,d_mobile:d_mobile,vehicle_type:vehicle_type,vehicle_No:vehicle_No}
+    });
+    window.location.reload();
   }
 
   return (
@@ -278,7 +282,7 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        Age
+                        Driver Age
                       </p>
                     </th>
                     <th className="p-4 ">
@@ -304,6 +308,11 @@ export default function Transports() {
                     <th className="p-4" > 
                       <p className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1" style={{marginLeft:'27%'}}>
                         Actions
+                      </p>
+                    </th>
+                    <th className="p-4" > 
+                      <p className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1" style={{marginLeft:'27%'}}>
+                        Assign
                       </p>
                     </th>
                   </tr>
@@ -401,8 +410,7 @@ export default function Transports() {
                           </div>
                         </div>
                       </td>
-                    
-                     
+
                       <td className="p-4 ">
                         <div>
                           <a
@@ -432,8 +440,21 @@ export default function Transports() {
                             </Button>
                           </a>
                         </div>
+
                       </td>
-                      
+                      <td>
+                        <div>
+                        <a
+                            className="mr-2 btn btn-primary" onClick={handleDeliverButtonClick}
+                          >
+                            <Button color="" >
+                              <i className="fas fa-truck"
+                              style={{fontSize:"15px"}} >  </i>
+                            </Button>
+                          </a>
+
+                        </div>
+                      </td>
                   
                     </tr>
                   ))}
@@ -473,10 +494,8 @@ export default function Transports() {
             >
               Next
             </Button>
-          </CardFooter>
-          
+          </CardFooter>  
         </div>
-
         <Footer />
       </Card>
     </>
