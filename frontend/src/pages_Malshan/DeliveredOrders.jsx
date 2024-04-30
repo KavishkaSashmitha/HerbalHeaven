@@ -60,65 +60,55 @@ export default function Transports() {
   }
 
   useEffect(() => {
-    retrieveTransport();
+    retrieveDelivery();
   }, []);
 
-  if (isScrollDisabled) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
-
-  function retrieveTransport() {
+  function retrieveDelivery() {
     axios
-      .get("http://localhost:8070/api/transports/transports")
+      .get("http://localhost:8070/api/deliveries/deliveries")
       .then((res) => {
         if (res.data.success) {
-          setTransports(res.data.existingTransports);
-          setCartItems(res.data.existingTransports); // Assuming `existingPosts` holds all the data
-
+          setTransports(res.data.existingDeliveries);
           // Add setTimeout to setLoading after data retrieval
-          setTimeout(() => {
-            setLoading(false);
-          }, 800);
+          // setTimeout(() => {
+          //   setLoading(false);
+          // }, 800);
         }
       })
       .catch((error) => console.error("Error fetching posts:", error));
   }
 
-  const onDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You will not be able to recover this driver!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`http://localhost:8070/api/transports/transport/delete/${id}`)
-          .then((res) => {
-            Swal.fire("Deleted!", "Driver has been deleted.", "success");
-            retrieveTransport();
-          });
-      }
-    });
-  };
+  // const onDelete = (id) => {
+  //   Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "You will not be able to recover this driver!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonText: "Yes, delete it!",
+  //     cancelButtonText: "No, cancel!",
+  //     reverseButtons: true,
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       axios
+  //         .delete(`http://localhost:8070/api/transports/transport/delete/${id}`)
+  //         .then((res) => {
+  //           Swal.fire("Deleted!", "Driver has been deleted.", "success");
+  //           retrieveDelivery();
+  //         });
+  //     }
+  //   });
+  // };
 
   function filterData(transports, searchKey) {
-    const lowerCaseSearchKey = searchKey.toLowerCase();
-
     const result = transports.filter(
       (transport) =>
-        transport.d_name.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.d_mobile.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.dob.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.nic.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.vehicle_type.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.category.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.vehicle_No.toLowerCase().includes(lowerCaseSearchKey)
+        transport.d_name.toLowerCase().includes(searchKey) ||
+        transport.d_mobile.toLowerCase().includes(searchKey) ||
+        transport.dob.toLowerCase().includes(searchKey) ||
+        transport.nic.toLowerCase().includes(searchKey) ||
+        transport.vehicle_type.toLowerCase().includes(searchKey) ||
+        transport.category.toLowerCase().includes(searchKey) ||
+        transport.vehicle_No.toLowerCase().includes(searchKey)
     );
     setFilteredTransports(result);
     setCurrentPage(1);
@@ -128,7 +118,7 @@ export default function Transports() {
     const searchKey = e.currentTarget.value;
     console.log("Search key:", searchKey);
 
-    axios.get("http://localhost:8070/api/transports/transports").then((res) => {
+    axios.get("http://localhost:8070/api/deliveries/deliveries").then((res) => {
       if (res.data.success) {
         filterData(res.data.existingTransports, searchKey);
       }
@@ -197,47 +187,7 @@ export default function Transports() {
                     See information about Transport
                   </p>
                 </div>
-                <div className="flex flex-row gap-2 shrink-0 sm:flex-row">
-                  <Link to="/deliveredOrders">
-                    <Button
-                      variant="gradient"
-                      color="blue"
-                      className="flex items-center gap-3 "
-                      href=""
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        strokeWidth="2"
-                        className="w-4 h-4"
-                      >
-                        <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                      </svg>
-                      Delivered Orders
-                    </Button>
-                  </Link>
-                  <Link to="/delivery">
-                    <Button
-                      variant="gradient"
-                      color="blue"
-                      className="flex items-center gap-3 "
-                      href=""
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        strokeWidth="2"
-                        className="w-4 h-4"
-                      >
-                        <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                      </svg>
-                      Delivery
-                    </Button>
-                  </Link>
+                {/* <div className="flex flex-row gap-2 shrink-0 sm:flex-row">
                   <Link to="/transport/add">
                     <Button
                       variant="gradient"
@@ -258,7 +208,7 @@ export default function Transports() {
                       Add New
                     </Button>
                   </Link>
-                </div>
+                </div> */}
               </div>
               <div class="w-full md:w-72 ">
                 <div class="relative h-10 w-full min-w-[200px]">
@@ -307,7 +257,7 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        Driver Name
+                        Owner Name
                       </p>
                     </th>
                     <th className="p-4 ">
@@ -317,12 +267,12 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        Driver Age
+                        Age
                       </p>
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        Driver NIC
+                        NIC
                       </p>
                     </th>
                     <th className="p-4 ">
@@ -340,11 +290,8 @@ export default function Transports() {
                         Vehicle NO.
                       </p>
                     </th>
-                    <th className="p-4">
-                      <p
-                        className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1"
-                        style={{ marginLeft: "27%" }}
-                      >
+                    <th className="p-4 ">
+                      <p className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1">
                         Actions
                       </p>
                     </th>
@@ -446,17 +393,14 @@ export default function Transports() {
                         </div>
                       </td>
 
-                      <td className="p-4 ">
+                      {/* <td className="p-4 ">
                         <div>
                           <a
                             className="mr-2 btn btn-primary"
                             href={`/transport/edit/${transport._id}`}
                           >
                             <Button color="green">
-                              <i
-                                className="fas fa-edit"
-                                style={{ fontSize: "15px" }}
-                              ></i>
+                              <i className="mr-2 fas fa-edit"></i>Edit
                             </Button>
                           </a>
 
@@ -465,29 +409,13 @@ export default function Transports() {
                             onClick={() => onDelete(transport._id)}
                           >
                             <Button color="red">
-                              <i
-                                className="fas fa-trash-alt"
-                                style={{ fontSize: "15px" }}
-                              ></i>
+                              <i className="mr-2 fas fa-edit"></i>
+                              Delete
                             </Button>
                           </a>
 
-                          <a
-                            className="mr-2 btn btn-primary"
-                            href={`/FuelReport/${transport._id}`}
-                          >
-                            <Button color="orange">
-                              <i
-                                className="fas fa-file"
-                                style={{ fontSize: "15px" }}
-                              >
-                                {" "}
-                              </i>
-                              <i className="mr-2 fas fa-file"> </i>Report
-                            </Button>
-                          </a>
                         </div>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>
@@ -528,6 +456,7 @@ export default function Transports() {
             </Button>
           </CardFooter>
         </div>
+
         <Footer />
       </Card>
     </>

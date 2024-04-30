@@ -89,6 +89,8 @@ import "react-toastify/dist/ReactToastify.css";
 import SupplierReport from "./pages_kavindu/SupplierReport";
 import MaterialReport from "./pages_kavindu/MaterialCostReport";
 
+import DeliveredOrders from "./pages_Malshan/DeliveredOrders";
+import Delivery from "./pages_Malshan/Delivery";
 import Transport from "./pages_Malshan/Transport";
 import Add_Driver from "./pages_Malshan/Add_Driver";
 import Edit_Driver from "./pages_Malshan/Edit_Driver";
@@ -210,6 +212,8 @@ function App() {
         <Route path="/transport/edit/:id" element={<Edit_Driver />} />
         <Route path="/transport/:id" element={<Driver_Details />} />
         <Route path="/FuelReport/:id" element={<FuelReport />} />
+        <Route path="/delivery" element={<Delivery />} />
+        <Route path="/deliveredOrders" element={<DeliveredOrders />} />
 
         {/* Kavindu */}
         <Route path="/sup/addsup" element={<CreateUser />} />
