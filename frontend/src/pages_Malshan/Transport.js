@@ -27,7 +27,7 @@ export default function Transports(props) {
   const [itemsPerPage] = useState(5);
   const [open, setOpen] = React.useState(0);
   const [loading, setLoading] = useState(true);
-  //const { d_name, d_mobile, vehicle_type, vehicle_No } = transport;
+  
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -149,14 +149,6 @@ export default function Transports(props) {
     return parts.join(" ");
   }
 
-    const handleDeliverButtonClick = () => {
-    const {d_name,d_mobile,vehicle_type,vehicle_No} = this.state.transport;
-    this.props.history.push({
-      pathname: '#',
-      state:{d_name:d_name,d_mobile:d_mobile,vehicle_type:vehicle_type,vehicle_No:vehicle_No}
-    });
-    window.location.reload();
-  }
 
   return (
     <>
@@ -310,11 +302,6 @@ export default function Transports(props) {
                         Actions
                       </p>
                     </th>
-                    <th className="p-4" > 
-                      <p className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1" style={{marginLeft:'27%'}}>
-                        Assign
-                      </p>
-                    </th>
                   </tr>
                 </thead>
 
@@ -442,19 +429,7 @@ export default function Transports(props) {
                         </div>
 
                       </td>
-                      <td>
-                        <div>
-                        <a
-                            className="mr-2 btn btn-primary" onClick={handleDeliverButtonClick}
-                          >
-                            <Button color="" >
-                              <i className="fas fa-truck"
-                              style={{fontSize:"15px"}} >  </i>
-                            </Button>
-                          </a>
-
-                        </div>
-                      </td>
+                     
                   
                     </tr>
                   ))}
