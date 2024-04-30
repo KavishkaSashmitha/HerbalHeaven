@@ -6,15 +6,12 @@ const MIME_TYPE_MAP = {
   'image/jpeg': 'jpeg',
   'image/jpg': 'jpg',
 };
-
 const ImageUpload = multer({
   limits: 500000,
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, 'backend/img/inventory'); //backend/img/inventory
+      cb(null, 'backend/img/inventory');
     },
-
-    //frontend/public/img/products
     filename: (req, file, cb) => {
       const ext = MIME_TYPE_MAP[file.mimetype];
       cb(null, uuidv4() + '.' + ext);

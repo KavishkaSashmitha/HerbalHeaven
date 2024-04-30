@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import {
-  Card,
-  CardHeader,
-  Breadcrumbs,
-  Avatar,
-} from '@material-tailwind/react';
+import { Card, CardHeader, Breadcrumbs } from '@material-tailwind/react';
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
 
 import { Link } from 'react-router-dom';
 import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
-import BarChart from './Product_Details_Chart';
+//import BarChart from './Product_Details_Chart';
 import OrderAmountLineGraph from './OrderAmountLineGraph';
 import { FaMoneyBill } from 'react-icons/fa6';
 // import { renderChart } from './Product_Details_Chart';
@@ -20,7 +15,7 @@ import { FaMoneyBill } from 'react-icons/fa6';
 function CartAdminDashboard() {
   const [directOrders, setDirectOrders] = useState([]);
   const [totalAmountSum, setTotalAmountSum] = useState(0);
-  const [documents, setDocuments] = useState([]);
+  //const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [productDetails, setProductDetails] = useState({});
   const [mostRepeatedItemCount, setMostRepeatedItemCount] = useState(0);

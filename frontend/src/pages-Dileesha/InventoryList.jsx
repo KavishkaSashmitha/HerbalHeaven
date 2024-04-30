@@ -248,7 +248,7 @@ const InventoryList = () => {
                     </Link>
                     <Button
                       color="red"
-                      className="mr-1"
+                      className="mr-1 mt-1"
                       onClick={() => handleDelete(item._id)}
                     >
                       Delete

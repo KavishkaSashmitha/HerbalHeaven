@@ -194,9 +194,14 @@ const UpdateProduct = () => {
               <Input
                 size="lg"
                 placeholder="Enter Product Name"
+                onKeyPress={(event) => {
+                  const regex = /^[a-zA-Z\s]+$/;
+                  if (!regex.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
-                readOnly
                 className="bg-white"
               />
             </div>
@@ -207,6 +212,12 @@ const UpdateProduct = () => {
               <Input
                 size="lg"
                 placeholder="Enter description"
+                onKeyPress={(event) => {
+                  const regex = /^[a-zA-Z\s]+$/;
+                  if (!regex.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
                 value={shortDescription}
                 onChange={(e) => setShortDescription(e.target.value)}
                 className="bg-white"

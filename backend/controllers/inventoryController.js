@@ -35,22 +35,7 @@ const inventoryController = {
         !image
       )
         return res.status(400).json({ msg: 'Please fill all fields.' });
-      /*
-      const Quantity = Number(quantity);
-      const UnitPrice = Number(cost);
 
-      if (typeof Quantity !== 'number' || isNaN(Quantity) || Quantity <= 0) {
-        return res
-          .status(400)
-          .json({ error: 'Quantity must be a positive number' });
-      }
-
-      if (typeof UnitPrice !== 'number' || isNaN(UnitPrice) || UnitPrice <= 0) {
-        return res
-          .status(400)
-          .json({ error: 'Unit price must be a positive number' });
-      }
-*/
       const newItem = new Inventory({
         productNo: productNo,
         productName: productName,

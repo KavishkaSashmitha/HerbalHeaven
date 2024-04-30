@@ -236,6 +236,12 @@ const AddProduct = () => {
                 onInput={(event) =>
                   inputHandler('productName', event.target.value, true)
                 }
+                onKeyPress={(event) => {
+                  const regex = /^[a-zA-Z\s]+$/;
+                  if (!regex.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
                 required
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900 bg-white "
                 labelProps={{
@@ -255,6 +261,12 @@ const AddProduct = () => {
                 onInput={(event) =>
                   inputHandler('shortDescription', event.target.value, true)
                 }
+                onKeyPress={(event) => {
+                  const regex = /^[a-zA-Z\s]+$/;
+                  if (!regex.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
                 required
                 className=" !border-t-blue-gray-200 focus:!border-t-gray-900 bg-white "
                 labelProps={{
