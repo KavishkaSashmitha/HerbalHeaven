@@ -317,6 +317,11 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
+                        Email
+                      </p>
+                    </th>
+                    <th className="p-4 ">
+                      <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
                         Driver Age
                       </p>
                     </th>
@@ -385,6 +390,15 @@ export default function Transports() {
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
                               {transport.d_mobile}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="p-4 ">
+                        <div className="flex items-center gap-3">
+                          <div className="flex flex-col">
+                            <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
+                              {transport.email}
                             </p>
                           </div>
                         </div>
