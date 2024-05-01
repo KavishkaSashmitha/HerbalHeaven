@@ -147,7 +147,7 @@ export default function Edit_Driver() {
 
   //   Swal.fire({
   //     title: "Are you sure?",
-  //     text: "This will add a new Employee.",
+  //     text: "This will add a new Delivery.",
   //     icon: "question",
   //     showCancelButton: true,
   //     confirmButtonText: "Yes, add it!",
@@ -202,7 +202,7 @@ export default function Edit_Driver() {
 
     Swal.fire({
       title: "Are you sure?",
-      text: "This will add a new Employee.",
+      text: "This will add a new Delivery.",
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Yes, add it!",
@@ -225,16 +225,16 @@ export default function Edit_Driver() {
                 shippingAddress: "",
                 errors: {},
               });
-              Swal.fire("Success", "Employee added successfully!", "success");
+              Swal.fire("Success", "Delivery added successfully!", "success");
             } else {
-              Swal.fire("Error", "Failed to add employee", "error");
+              Swal.fire("Error", "Failed to add Delivery", "error");
             }
           })
           .catch((error) => {
-            console.error("Error adding employee:", error);
+            console.error("Error adding Delivery:", error);
             Swal.fire(
               "Error",
-              "An error occurred while adding employee",
+              "An error occurred while adding Delivery",
               "error"
             );
           });

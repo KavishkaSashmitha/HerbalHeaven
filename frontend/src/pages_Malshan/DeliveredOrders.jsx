@@ -99,31 +99,31 @@ export default function Transports() {
   //   });
   // };
 
-  function filterData(transports, searchKey) {
-    const result = transports.filter(
-      (transport) =>
-        transport.d_name.toLowerCase().includes(searchKey) ||
-        transport.d_mobile.toLowerCase().includes(searchKey) ||
-        transport.dob.toLowerCase().includes(searchKey) ||
-        transport.nic.toLowerCase().includes(searchKey) ||
-        transport.vehicle_type.toLowerCase().includes(searchKey) ||
-        transport.category.toLowerCase().includes(searchKey) ||
-        transport.vehicle_No.toLowerCase().includes(searchKey)
-    );
-    setFilteredTransports(result);
-    setCurrentPage(1);
-  }
+  // function filterData(transports, searchKey) {
+  //   const result = transports.filter(
+  //     (transport) =>
+  //       transport.d_name.toLowerCase().includes(searchKey) ||
+  //       transport.d_mobile.toLowerCase().includes(searchKey) ||
+  //       transport.dob.toLowerCase().includes(searchKey) ||
+  //       transport.nic.toLowerCase().includes(searchKey) ||
+  //       transport.vehicle_type.toLowerCase().includes(searchKey) ||
+  //       transport.category.toLowerCase().includes(searchKey) ||
+  //       transport.vehicle_No.toLowerCase().includes(searchKey)
+  //   );
+  //   setFilteredTransports(result);
+  //   setCurrentPage(1);
+  // }
 
-  const handleSearchArea = (e) => {
-    const searchKey = e.currentTarget.value;
-    console.log("Search key:", searchKey);
+  // const handleSearchArea = (e) => {
+  //   const searchKey = e.currentTarget.value;
+  //   console.log("Search key:", searchKey);
 
-    axios.get("http://localhost:8070/api/deliveries/deliveries").then((res) => {
-      if (res.data.success) {
-        filterData(res.data.existingTransports, searchKey);
-      }
-    });
-  };
+  //   axios.get("http://localhost:8070/api/deliveries/deliveries").then((res) => {
+  //     if (res.data.success) {
+  //       filterData(res.data.existingTransports, searchKey);
+  //     }
+  //   });
+  // };
 
   function capitalizeSecondPart(name, vehicle_No) {
     if (!(name || vehicle_No)) return "";
