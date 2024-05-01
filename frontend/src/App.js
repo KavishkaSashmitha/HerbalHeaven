@@ -28,7 +28,7 @@ import { EcommerceCard } from './pages/Products';
 
 
 
-import Cart from './pages/Cart';
+import Cart from './pages/cart';
 
 
 
