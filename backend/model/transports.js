@@ -38,13 +38,9 @@ const TransportSchema = new mongoose.Schema({
   cost: {
     type: Map,
     of: Number,
-    required: true,
+    required: false,
     default: {},
   },
-  assign_driver: {
-    type: String,
-    required: true,
-  }
 });
 
 module.exports = mongoose.model("transports", TransportSchema);
