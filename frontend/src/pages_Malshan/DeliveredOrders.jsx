@@ -19,7 +19,7 @@ import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
 
 export default function Transports() {
-  const [transport, setTransports] = useState([]);
+  const [delivery, setTransports] = useState([]);
   const [filteredtransports, setFilteredTransports] = useState([]);
   const [isScrollDisabled, setIsScrollDisabled] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -37,7 +37,7 @@ export default function Transports() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const paginatedPosts = cartItems.slice(indexOfFirstItem, indexOfLastItem);
   const paginatedTransports = (
-    filteredtransports.length > 0 ? filteredtransports : transport
+    filteredtransports.length > 0 ? filteredtransports : delivery
   ).slice(indexOfFirstItem, indexOfLastItem);
 
   // Change page
@@ -51,7 +51,7 @@ export default function Transports() {
     let i = 1;
     i <=
     Math.ceil(
-      (filteredtransports.length > 0 ? filteredtransports : transport).length /
+      (filteredtransports.length > 0 ? filteredtransports : delivery).length /
         itemsPerPage
     );
     i++
@@ -78,37 +78,37 @@ export default function Transports() {
       .catch((error) => console.error("Error fetching posts:", error));
   }
 
-  // const onDelete = (id) => {
-  //   Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "You will not be able to recover this driver!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonText: "Yes, delete it!",
-  //     cancelButtonText: "No, cancel!",
-  //     reverseButtons: true,
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axios
-  //         .delete(`http://localhost:8070/api/transports/transport/delete/${id}`)
-  //         .then((res) => {
-  //           Swal.fire("Deleted!", "Driver has been deleted.", "success");
-  //           retrieveDelivery();
-  //         });
-  //     }
-  //   });
-  // };
+  const onDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will not be able to recover this delivery!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:8070/api/deliveries/delivery/delete/${id}`)
+          .then((res) => {
+            Swal.fire("Deleted!", "Delivery has been deleted.", "success");
+            retrieveDelivery();
+          });
+      }
+    });
+  };
 
   // function filterData(transports, searchKey) {
   //   const result = transports.filter(
-  //     (transport) =>
-  //       transport.d_name.toLowerCase().includes(searchKey) ||
-  //       transport.d_mobile.toLowerCase().includes(searchKey) ||
-  //       transport.dob.toLowerCase().includes(searchKey) ||
-  //       transport.nic.toLowerCase().includes(searchKey) ||
-  //       transport.vehicle_type.toLowerCase().includes(searchKey) ||
-  //       transport.category.toLowerCase().includes(searchKey) ||
-  //       transport.vehicle_No.toLowerCase().includes(searchKey)
+  //     (delivery) =>
+  //       delivery.d_name.toLowerCase().includes(searchKey) ||
+  //       delivery.d_mobile.toLowerCase().includes(searchKey) ||
+  //       delivery.dob.toLowerCase().includes(searchKey) ||
+  //       delivery.nic.toLowerCase().includes(searchKey) ||
+  //       delivery.vehicle_type.toLowerCase().includes(searchKey) ||
+  //       delivery.category.toLowerCase().includes(searchKey) ||
+  //       delivery.vehicle_No.toLowerCase().includes(searchKey)
   //   );
   //   setFilteredTransports(result);
   //   setCurrentPage(1);
@@ -167,7 +167,7 @@ export default function Transports() {
                   <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                 </li>
               </Link>
-              <Link to="/transport">
+              <Link to="/delivery">
                 <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
                   <span>Transport</span>
 
@@ -188,7 +188,7 @@ export default function Transports() {
                   </p>
                 </div>
                 {/* <div className="flex flex-row gap-2 shrink-0 sm:flex-row">
-                  <Link to="/transport/add">
+                  <Link to="/delivery/add">
                     <Button
                       variant="gradient"
                       color="blue"
@@ -229,14 +229,14 @@ export default function Transports() {
                       ></path>
                     </svg>
                   </div>
-                  <input
+                  {/* <input
                     class="peer h-full w-full rounded-[7px] border border-blue-gray-100 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-100 focus:border-2 focus:border-gray-100 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                     placeholder=" "
                     onChange={(e) => handleSearchArea(e)}
                   />
                   <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-200 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-100 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-100 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-100 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-200 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-200 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-200 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-100">
                     Search
-                  </label>
+                  </label> */}
                 </div>
               </div>
             </div>
@@ -257,6 +257,11 @@ export default function Transports() {
                     </th>
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
+                        Order Name
+                      </p>
+                    </th>
+                    <th className="p-4 ">
+                      <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
                         Owner Name
                       </p>
                     </th>
@@ -265,11 +270,7 @@ export default function Transports() {
                         Mobile
                       </p>
                     </th>
-                    <th className="p-4 ">
-                      <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        Age
-                      </p>
-                    </th>
+
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
                         NIC
@@ -280,11 +281,7 @@ export default function Transports() {
                         Vehicle Type
                       </p>
                     </th>
-                    <th className="p-4 ">
-                      <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                        Category
-                      </p>
-                    </th>
+
                     <th className="p-4 ">
                       <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
                         Vehicle NO.
@@ -299,7 +296,7 @@ export default function Transports() {
                 </thead>
 
                 <tbody className="divide-y">
-                  {paginatedTransports.map((transport, index) => (
+                  {paginatedTransports.map((delivery, index) => (
                     <tr key={index}>
                       <td className="p-4">
                         <div className="flex items-center gap-3 ">
@@ -317,12 +314,19 @@ export default function Transports() {
                               className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900"
                               style={{ textAlign: "center" }}
                             >
-                              <a
-                                href={`/transports/transport/${transport._id}`}
-                                style={{ textDecoration: "none" }}
-                              >
-                                {capitalizeSecondPart(transport.d_name)}
-                              </a>
+                              <p>{delivery._id}</p>
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="p-4 ">
+                        <div className="flex items-center gap-3">
+                          <div className="flex flex-col">
+                            <p
+                              className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900"
+                              style={{ textAlign: "center" }}
+                            >
+                              <p>{capitalizeSecondPart(delivery.d_name)}</p>
                             </p>
                           </div>
                         </div>
@@ -331,16 +335,7 @@ export default function Transports() {
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {transport.d_mobile}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="p-4 ">
-                        <div className="flex items-center gap-3">
-                          <div className="flex flex-col">
-                            <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {transport.dob}
+                              {delivery.d_mobile}
                             </p>
                           </div>
                         </div>
@@ -350,12 +345,12 @@ export default function Transports() {
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {transport &&
-                              transport.nic &&
-                              typeof transport.nic === "string"
-                                ? transport.nic.length === 9
-                                  ? transport.nic.slice(0, 9) + "v"
-                                  : transport.nic
+                              {delivery &&
+                              delivery.nic &&
+                              typeof delivery.nic === "string"
+                                ? delivery.nic.length === 9
+                                  ? delivery.nic.slice(0, 9) + "v"
+                                  : delivery.nic
                                 : "NIC not available"}
                             </p>
                           </div>
@@ -366,7 +361,7 @@ export default function Transports() {
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {transport.vehicle_type}
+                              {delivery.vehicle_type}
                             </p>
                           </div>
                         </div>
@@ -376,46 +371,25 @@ export default function Transports() {
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {transport.category?.charAt(0)?.toUpperCase() +
-                                transport.category?.slice(1)}
+                              {delivery.vehicle_No}
                             </p>
                           </div>
                         </div>
                       </td>
 
                       <td className="p-4 ">
-                        <div className="flex items-center gap-3">
-                          <div className="flex flex-col">
-                            <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                              {transport.vehicle_No}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* <td className="p-4 ">
                         <div>
                           <a
                             className="mr-2 btn btn-primary"
-                            href={`/transport/edit/${transport._id}`}
-                          >
-                            <Button color="green">
-                              <i className="mr-2 fas fa-edit"></i>Edit
-                            </Button>
-                          </a>
-
-                          <a
-                            className="mr-2 btn btn-primary"
-                            onClick={() => onDelete(transport._id)}
+                            onClick={() => onDelete(delivery._id)}
                           >
                             <Button color="red">
                               <i className="mr-2 fas fa-edit"></i>
                               Delete
                             </Button>
                           </a>
-
                         </div>
-                      </td> */}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

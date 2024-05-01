@@ -33,4 +33,23 @@ router.get("/deliveries", async (req, res) => {
   }
 });
 
+//delete post
+
+router.delete('/delivery/delete/:id', (req, res) => {
+  Delivery.findByIdAndDelete(req.params.id)
+    .exec()
+    .then((deletedDelivery) => {
+      return res.json({
+        message: 'Delete Succesfully',
+        deletedDelivery,
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({
+        message: 'Delete unsuccesfully',
+        err,
+      });
+    });
+});
+
 module.exports = router;
