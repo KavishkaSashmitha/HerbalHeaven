@@ -191,7 +191,7 @@ export default function Edit_Driver() {
       vehicle_type: selectedTransport.vehicle_type,
       _id: selectedTransport._id,
       shipping_Id: selectedOrder.orderId,
-      shipping_Address: `${selectedOrder.shippingAddress.address}, ${selectedOrder.shippingAddress.city}, ${selectedOrder.shippingAddress.zip}`,
+      shippingAddress: selectedOrder.shippingAddress,
     };
 
     // Check if any errors exist
@@ -209,18 +209,9 @@ export default function Edit_Driver() {
       cancelButtonText: "No, cancel!",
       reverseButtons: true,
     }).then((result) => {
-      console.log("data", data);
       if (result.isConfirmed) {
         axios
-          .post("http://localhost:8070/api/deliveries/delivery/save", {
-            d_name,
-            d_mobile,
-            category,
-            nic,
-            vehicle_No,
-            vehicle_type,
-            shippingAddress,
-          })
+          .post("http://localhost:8070/api/deliveries/delivery/save", data)
           .then((res) => {
             if (res.data.success) {
               setState({
