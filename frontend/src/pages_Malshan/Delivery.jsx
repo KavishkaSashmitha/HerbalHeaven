@@ -182,6 +182,18 @@ export default function Edit_Driver() {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    const data = {
+      d_name: selectedTransport.d_name,
+      d_mobile: selectedTransport.d_mobile,
+      category: selectedTransport.category,
+      nic: selectedTransport.nic,
+      vehicle_No: selectedTransport.vehicle_No,
+      vehicle_type: selectedTransport.vehicle_type,
+      _id: selectedTransport._id,
+      shipping_Id: selectedOrder.orderId,
+      shipping_Address: `${selectedOrder.shippingAddress.address}, ${selectedOrder.shippingAddress.city}, ${selectedOrder.shippingAddress.zip}`,
+    };
+
     // Check if any errors exist
     if (Object.values(errors).some((error) => error !== "")) {
       setState((prevState) => ({ ...prevState, errors }));
@@ -197,6 +209,7 @@ export default function Edit_Driver() {
       cancelButtonText: "No, cancel!",
       reverseButtons: true,
     }).then((result) => {
+      console.log("data", data);
       if (result.isConfirmed) {
         axios
           .post("http://localhost:8070/api/deliveries/delivery/save", {
@@ -211,6 +224,7 @@ export default function Edit_Driver() {
           .then((res) => {
             if (res.data.success) {
               setState({
+                confirmation: true,
                 d_name: "",
                 d_mobile: "",
                 category: "",
