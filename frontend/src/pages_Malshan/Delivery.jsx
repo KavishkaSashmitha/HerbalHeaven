@@ -189,7 +189,6 @@ export default function Edit_Driver() {
       nic: selectedTransport.nic,
       vehicle_No: selectedTransport.vehicle_No,
       vehicle_type: selectedTransport.vehicle_type,
-      _id: selectedTransport._id,
       shipping_Id: selectedOrder.orderId,
       shippingAddress: selectedOrder.shippingAddress,
     };
