@@ -95,6 +95,7 @@ const ProfileMenu = () => {
             </IconButton>
           </Badge>
         </Link>
+
         <IconButton
           variant="text"
           color="black"
@@ -112,6 +113,18 @@ const ProfileMenu = () => {
               <ShieldExclamationIcon className="h-6 w-6" />
             </IconButton>
           
+        </Link>
+
+        <Link to="/admin-dashboard">
+          {/* <Badge content={cartCount} overlap="circular" placement="top-end"> */}
+            <IconButton
+              variant="text"
+              color="black"
+              className="mr-2 mb-2 hover:text-amber-800 text-white"
+            >
+              <ShieldExclamationIcon className="h-6 w-6" />
+            </IconButton>
+          {/* </Badge> */}
         </Link>
 
         {isLoggedIn ? (

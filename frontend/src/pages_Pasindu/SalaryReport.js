@@ -62,9 +62,12 @@ function SalaryReport() {
     if (!selectedMonth) {
       validationErrors.month = "Month is required";
     }
-    if (!hours) {
-      validationErrors.hours = "Working Hours is required";
+    if (hours === null || hours === undefined || hours === "") {
+      validationErrors.hours = "Working hours are required.";
+    } else if (hours < 0) {
+      validationErrors.hours = "Working hours cannot be negative.";
     }
+
     // If there are validation errors, update the state and return
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -114,7 +117,6 @@ function SalaryReport() {
       // Add your salary report generation logic here
       console.log("Generating salary report...");
     }
-    
   };
 
   function Calculation() {
@@ -756,7 +758,8 @@ function SalaryReport() {
 
                                   {showMessage && (
                                     <p className="text-red-500 mt-2">
-                                      To generate salary report, please firstly  click on the "Calculate Salary" button.
+                                      To generate salary report, please firstly
+                                      click on the "Calculate Salary" button.
                                     </p>
                                   )}
                                 </div>
