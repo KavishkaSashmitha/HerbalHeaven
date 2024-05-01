@@ -102,7 +102,7 @@ export function DefaultSidebar() {
               <AccordionBody className="py-1">
                 <List className="px-4">
 
-                <Link to="/all">
+                <Link to="/">
 
                     <ListItem className="text-yellow-200 ">
                       <ListItemPrefix>
@@ -136,6 +136,56 @@ export function DefaultSidebar() {
                       Online-Cart-Stats
                     </ListItem>
                   </Link>
+                </List>
+              </AccordionBody>
+            </Accordion>
+
+           
+            <Accordion
+              open={open === 2}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
+                    open === 2 ? "rotate-180" : ""
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0 mr-5" selected={open === 1}>
+                <AccordionHeader
+                  onClick={() => handleOpen(2)}
+                  className="p-3 border-b-0 hover:bg-teal-800"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
+                  </ListItemPrefix>
+
+                  <Typography
+                    color="blue-gray"
+                    className="mr-auto font-normal text-teal-200 "
+                  >
+                    Customer-Manager
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="px-4">
+
+                <Link to="/all">
+
+                    <ListItem className="text-yellow-200 ">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Dashboard
+                    </ListItem>
+                  </Link>
+                  
+                 
                 </List>
               </AccordionBody>
             </Accordion>
