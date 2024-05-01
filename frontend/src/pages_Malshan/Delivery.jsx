@@ -187,6 +187,7 @@ export default function Edit_Driver() {
       d_mobile: selectedTransport.d_mobile,
       category: selectedTransport.category,
       nic: selectedTransport.nic,
+      email: selectedTransport.email,
       vehicle_No: selectedTransport.vehicle_No,
       vehicle_type: selectedTransport.vehicle_type,
       shipping_Id: selectedOrder.orderId,
