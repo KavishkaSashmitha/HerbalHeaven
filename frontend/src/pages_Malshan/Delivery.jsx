@@ -36,6 +36,16 @@ export default function Edit_Driver() {
     shippingAddress: "",
   });
 
+  const {
+    d_name,
+    d_mobile,
+    category,
+    nic,
+    vehicle_No,
+    vehicle_type,
+    shippingAddress,
+  } = state;
+
   const handleChange = (event) => {
     const selectedName = event.target.value;
     setSelectedOwnerName(selectedName);
@@ -172,21 +182,9 @@ export default function Edit_Driver() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const data = {
-      d_name: state.d_name,
-      d_mobile: state.d_mobile,
-      category: state.category,
-      nic: state.nic,
-      vehicle_No: state.vehicle_No,
-      vehicle_type: state.vehicle_type,
-      _id: state._id,
-      shippingAddress: state.shippingAddress,
-    };
-
     // Check if any errors exist
     if (Object.values(errors).some((error) => error !== "")) {
-      setState((cs) => ({ ...cs, errors }));
-      // setLoading(false);
+      setState((prevState) => ({ ...prevState, errors }));
       return;
     }
 
@@ -201,21 +199,39 @@ export default function Edit_Driver() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .post("http://localhost:8070/api/deliveries/delivery/save", data)
+          .post("http://localhost:8070/api/deliveries/delivery/save", {
+            d_name,
+            d_mobile,
+            category,
+            nic,
+            vehicle_No,
+            vehicle_type,
+            shippingAddress,
+          })
           .then((res) => {
             if (res.data.success) {
-              this.setState({
-                confirmation: true,
+              setState({
                 d_name: "",
                 d_mobile: "",
                 category: "",
                 nic: "",
                 vehicle_No: "",
                 vehicle_type: "",
-                _id: "",
                 shippingAddress: "",
+                errors: {},
               });
+              Swal.fire("Success", "Employee added successfully!", "success");
+            } else {
+              Swal.fire("Error", "Failed to add employee", "error");
             }
+          })
+          .catch((error) => {
+            console.error("Error adding employee:", error);
+            Swal.fire(
+              "Error",
+              "An error occurred while adding employee",
+              "error"
+            );
           });
       }
     });

@@ -36,9 +36,19 @@ const DeliverySchema = new mongoose.Schema({
     required: true,
   },
 
-  shipping_Address: {
-    type: String,
-    required: true,
+  shippingAddress: {
+    address: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    zip: {
+      type: String,
+      required: true,
+    },
   },
 });
 
