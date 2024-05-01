@@ -102,7 +102,7 @@ export function DefaultSidebar() {
               <AccordionBody className="py-1">
                 <List className="px-4">
 
-                <Link to="/all">
+                <Link to="/cart-Admin">
 
                     <ListItem className="text-yellow-200 ">
                       <ListItemPrefix>
