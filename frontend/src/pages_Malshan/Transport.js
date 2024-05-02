@@ -15,18 +15,33 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@material-tailwind/react";
+import AdminNavbar from "../components/AdminNavbar";
+import { DefaultSidebar } from "../components/Manager-Sidebar";
+
+
 
 export default function Transports() {
   const [transport, setTransports] = useState([]);
+  const [filteredtransports, setFilteredTransports] = useState([]);
   const [isScrollDisabled, setIsScrollDisabled] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
+  const [open, setOpen] = React.useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
 
   // Get current items
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const paginatedPosts = cartItems.slice(indexOfFirstItem, indexOfLastItem);
+  const paginatedTransports = (
+    filteredtransports.length > 0 ? filteredtransports : transport
+  ).slice(indexOfFirstItem, indexOfLastItem);
+  
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -35,7 +50,14 @@ export default function Transports() {
 
   //generate page numbers
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(cartItems.length / itemsPerPage); i++) {
+  for (
+    let i = 1;
+    i <=
+    Math.ceil(
+      (filteredtransports.length > 0 ? filteredtransports : transport).length / itemsPerPage
+    );
+    i++
+  ) {
     pageNumbers.push(i);
   }
 
@@ -56,6 +78,11 @@ export default function Transports() {
         if (res.data.success) {
           setTransports(res.data.existingTransports);
           setCartItems(res.data.existingTransports); // Assuming `existingPosts` holds all the data
+
+          // Add setTimeout to setLoading after data retrieval
+          setTimeout(() => {
+            setLoading(false);
+          }, 800);
         }
       })
       .catch((error) => console.error("Error fetching posts:", error));
@@ -94,7 +121,7 @@ export default function Transports() {
         transport.category.toLowerCase().includes(searchKey) ||
         transport.vehicle_No.toLowerCase().includes(searchKey)
     );
-    setTransports(result);
+    setFilteredTransports(result);
     setCurrentPage(1);
   }
 
@@ -108,8 +135,8 @@ export default function Transports() {
     });
   };
 
-  function capitalizeSecondPart(name) {
-    if (!name) return "";
+  function capitalizeSecondPart(name,vehicle_No) {
+    if (!(name || vehicle_No)) return "";
 
     const parts = name.split(" "); // Split the name into parts
 
@@ -280,7 +307,7 @@ export default function Transports() {
                 </thead>
 
                 <tbody className="divide-y">
-                  {paginatedPosts.map((transport, index) => (
+                  {paginatedTransports.map((transport, index) => (
                     <tr key={index}>
                       <td className="p-4">
                         <div className="flex items-center gap-3 ">

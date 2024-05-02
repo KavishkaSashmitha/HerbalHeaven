@@ -17,6 +17,8 @@ const UpdateProduct = () => {
   const [image, setImage] = useState(null);
 
   const navigate = useNavigate();
+  const [previewUrl, setPreviewUrl] = useState('');
+  const [fileError, setFileError] = useState('');
 
   // Validation function for checking if a field is empty
   const validateField = (field) => {
@@ -65,6 +67,12 @@ const UpdateProduct = () => {
       })
       .catch((err) => console.log(err));
   }, [id]);
+
+  const handleImageChange = (e) => {
+    setProductNo({ ...productNo, image: e.target.files[0] });
+    setPreviewUrl(URL.createObjectURL(e.target.files[0]));
+    setFileError('');
+  };
 
   const Update = (e) => {
     e.preventDefault();
@@ -149,6 +157,26 @@ const UpdateProduct = () => {
     console.log('Sending email...');
   }; */
 
+  useEffect(() => {
+    if (image && image instanceof Blob) {
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        setPreviewUrl(fileReader.result);
+      };
+      fileReader.onerror = () => {
+        console.error('Error reading the file');
+      };
+      fileReader.readAsDataURL(image);
+
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+      if (!allowedTypes.includes(image.type)) {
+        setFileError('Please select a valid image file (JPEG, JPG, or PNG).');
+      } else {
+        setFileError('');
+      }
+    }
+  }, [image]);
+
   return (
     <div
       className="flex justify-center items-center h-100% pt-2 pb-2"
@@ -194,9 +222,14 @@ const UpdateProduct = () => {
               <Input
                 size="lg"
                 placeholder="Enter Product Name"
+                onKeyPress={(event) => {
+                  const regex = /^[a-zA-Z\s]+$/;
+                  if (!regex.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
-                readOnly
                 className="bg-white"
               />
             </div>
@@ -207,6 +240,12 @@ const UpdateProduct = () => {
               <Input
                 size="lg"
                 placeholder="Enter description"
+                onKeyPress={(event) => {
+                  const regex = /^[a-zA-Z\s]+$/;
+                  if (!regex.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
                 value={shortDescription}
                 onChange={(e) => setShortDescription(e.target.value)}
                 className="bg-white"
@@ -333,12 +372,20 @@ const UpdateProduct = () => {
               <Typography variant="h6" color="blue-gray">
                 Image
               </Typography>
-              {image && (
+              {previewUrl ? (
                 <img
-                  src={`http://localhost:8070/${image.replace(/\\/g, '/')}`}
-                  alt="Product"
+                  src={previewUrl}
+                  alt="Product Preview"
                   style={{ width: '100px', height: '80px' }}
                 />
+              ) : (
+                image && (
+                  <img
+                    src={`${image}`}
+                    alt="Product"
+                    style={{ width: '100px', height: '80px' }}
+                  />
+                )
               )}
               <Input
                 id="image"
@@ -348,6 +395,9 @@ const UpdateProduct = () => {
                 className="bg-white"
               />
             </div>
+            {fileError && (
+              <Typography className="text-danger">{fileError}</Typography>
+            )}
           </div>
           <Button
             type="submit"

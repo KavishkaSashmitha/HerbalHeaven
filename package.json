@@ -25,6 +25,7 @@
     "firebase": "^10.11.0",
     "firebase-admin": "^12.0.0",
     "gwt": "^1.2.0-alpha",
+    "html-entities": "^2.5.2",
     "html2canvas": "^1.4.1",
     "https-browserify": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
@@ -49,7 +50,6 @@
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.3",
     "streamifier": "^0.1.1",
-    "swiper": "^11.1.0",
     "tailwindcss": "^3.4.3",
     "url": "^0.11.3",
     "uuid": "^9.0.1"

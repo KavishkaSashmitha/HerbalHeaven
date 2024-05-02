@@ -36,6 +36,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
 
 import { useCart } from './cartContext';
+import { FaMoneyBill } from 'react-icons/fa6';
 
 export function SidebarWithBurgerMenu({}) {
   const [open, setOpen] = React.useState(0);
@@ -144,14 +145,14 @@ export function SidebarWithBurgerMenu({}) {
                 <ListItem className="p-0" selected={open === 3}>
                   <AccordionHeader
                     onClick={() => handleOpen(3)}
-                    className="border-b-0 p-3"
+                    className="border-b-0 p-3 hover:bg-teal-800"
                   >
                     <ListItemPrefix>
-                      <CubeIcon className="h-5 w-5" />
+                      <FaMoneyBill className="h-5 w-5 text-teal-200" />
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"
-                      className="mr-auto font-normal"
+                      className="mr-auto font-normal text-teal-200"
                     >
                       Payment
                     </Typography>
@@ -159,46 +160,8 @@ export function SidebarWithBurgerMenu({}) {
                 </ListItem>
               </Accordion>
             </Link>
-            <Link to="/netincome">
-              <Accordion open={open === 3}>
-                <ListItem className="p-0" selected={open === 3}>
-                  <AccordionHeader
-                    onClick={() => handleOpen(3)}
-                    className="border-b-0 p-3"
-                  >
-                    <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    <Typography
-                      color="blue-gray"
-                      className="mr-auto font-normal"
-                    >
-                      Net Income
-                    </Typography>
-                  </AccordionHeader>
-                </ListItem>
-              </Accordion>
-            </Link>
-            <Link to="/expensive">
-              <Accordion open={open === 3}>
-                <ListItem className="p-0" selected={open === 3}>
-                  <AccordionHeader
-                    onClick={() => handleOpen(3)}
-                    className="border-b-0 p-3"
-                  >
-                    <ListItemPrefix>
-                      <ShoppingBagIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    <Typography
-                      color="blue-gray"
-                      className="mr-auto font-normal"
-                    >
-                      Expensive
-                    </Typography>
-                  </AccordionHeader>
-                </ListItem>
-              </Accordion>
-            </Link>
+            
+            
             <Link to="/user/cart">
               <Accordion open={open === 3}>
                 <ListItem className="p-0" selected={open === 3}>

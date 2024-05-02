@@ -100,16 +100,22 @@ export default function Posts() {
   };
 
   function filterData(searchKey) {
+    // Convert the search key to lowercase to allow case-insensitive matching
+    const lowerCaseSearchKey = searchKey.toLowerCase();
+
+    // Filter the 'post' list based on whether the specified properties include the search key
     const result = post.filter(
       (post) =>
-        post.name.toLowerCase().includes(searchKey) ||
-        post.jobrole.toLowerCase().includes(searchKey) ||
-        post.gender.toLowerCase().includes(searchKey) ||
-        post.mobile.toLowerCase().includes(searchKey) ||
-        post.email.toLowerCase().includes(searchKey) ||
-        post.address.toLowerCase().includes(searchKey) ||
-        post.age.toLowerCase().includes(searchKey)
+        post.name.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.jobrole.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.gender.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.mobile.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.email.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.address.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.age.toString().toLowerCase().includes(lowerCaseSearchKey)
     );
+
+    // Update the filtered posts and reset the current page
     setFilteredPosts(result);
     setCurrentPage(1);
   }

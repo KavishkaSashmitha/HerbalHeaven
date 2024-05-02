@@ -62,9 +62,12 @@ function SalaryReport() {
     if (!selectedMonth) {
       validationErrors.month = "Month is required";
     }
-    if (!hours) {
-      validationErrors.hours = "Working Hours is required";
+    if (hours === null || hours === undefined || hours === "") {
+      validationErrors.hours = "Working hours are required.";
+    } else if (hours < 0) {
+      validationErrors.hours = "Working hours cannot be negative.";
     }
+
     // If there are validation errors, update the state and return
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -114,7 +117,6 @@ function SalaryReport() {
       // Add your salary report generation logic here
       console.log("Generating salary report...");
     }
-    
   };
 
   function Calculation() {
@@ -198,6 +200,8 @@ function SalaryReport() {
       [`Employee Name : ${capitalizeSecondPart(employeeName)}`],
       [`Job Role : ${jobRole}`],
       [`Month : ${selectedMonth}`],
+      [`Hourly Rate (Rs.): ${rate}/=`],
+      [`Working Hours (h) : ${hours}`],
     ];
 
     const data2 = [
@@ -440,21 +444,21 @@ function SalaryReport() {
                       </svg>
                     </Link>
                     <Link to="#">
-                      <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                      <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                         <span>Dashboard</span>
 
                         <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                       </li>
                     </Link>
                     <Link to="/emp">
-                      <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                      <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                         <span>Employee</span>
 
                         <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                       </li>
                     </Link>
                     <Link to="">
-                      <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                      <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                         <span>Salary Report</span>
 
                         <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
@@ -754,7 +758,8 @@ function SalaryReport() {
 
                                   {showMessage && (
                                     <p className="text-red-500 mt-2">
-                                      To generate salary report, please click on the 'Calculate Salary' button.
+                                      To generate salary report, please firstly
+                                      click on the "Calculate Salary" button.
                                     </p>
                                   )}
                                 </div>
