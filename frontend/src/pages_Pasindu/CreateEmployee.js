@@ -195,13 +195,13 @@ export default function CreatePost() {
     const charCode = event.which || event.keyCode;
     const char = String.fromCharCode(charCode);
     const isDigit = /[0-9]/.test(char);
-    
+
     // Get the current value of the input field
     const currentValue = event.target.value;
-    
+
     // Check the length of the input field
     const isMaxLengthReached = currentValue.length >= 10;
-    
+
     // Prevent default if the character is not a digit or if max length is reached
     if (!isDigit || isMaxLengthReached) {
       event.preventDefault();
@@ -213,13 +213,13 @@ export default function CreatePost() {
     const charCode = event.which || event.keyCode;
     const char = String.fromCharCode(charCode);
     const isDigit = /[0-9]/.test(char);
-    
+
     // Get the current value of the input field
     const currentValue = event.target.value;
-    
+
     // Check the length of the input field
     const isMaxLengthReached = currentValue.length >= 2;
-    
+
     // Prevent default if the character is not a digit or if max length is reached
     if (!isDigit || isMaxLengthReached) {
       event.preventDefault();
@@ -231,13 +231,13 @@ export default function CreatePost() {
     const charCode = event.which || event.keyCode;
     const char = String.fromCharCode(charCode);
     const isDigit = /[0-9]/.test(char);
-    
+
     // Get the current value of the input field
     const currentValue = event.target.value;
-    
+
     // Check the length of the input field
     const isMaxLengthReached = currentValue.length >= 12;
-    
+
     // Prevent default if the character is not a digit or if max length is reached
     if (!isDigit || isMaxLengthReached) {
       event.preventDefault();
@@ -406,7 +406,7 @@ export default function CreatePost() {
               shadow={false}
               className="rounded-none bg-blue-gray-100"
             >
-              <div className="m-4">
+              <div className="m-4 ">
                 <Breadcrumbs>
                   <Link to="/">
                     <svg
@@ -874,10 +874,9 @@ export default function CreatePost() {
                 </div>
               </div>
             </CardBody>
-            <CardFooter>
-              <Footer />
-            </CardFooter>
+            <CardFooter></CardFooter>
           </Card>
+          <Footer />
         </div>
       </div>
     </>

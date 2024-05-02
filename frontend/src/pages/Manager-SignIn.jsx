@@ -93,7 +93,7 @@ const OTPVerification = () => {
         <ProfileMenu />
       </div>
       <Card>
-        <div className="min-h-screen py-8  bg-gray-200 text-gray-900 flex justify-center">
+        <div className="min-h-screen py-8  bg-blue-gray-100 text-gray-900 flex justify-center">
           <div className="max-w-screen-xl m-0 sm:m-10 shadow sm:rounded-lg flex justify-center flex-1">
             <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
               <div className="lg:w-1/2 xl:w-5/12 flex items-center justify-center p-2 sm:p-12">

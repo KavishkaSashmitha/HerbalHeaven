@@ -265,7 +265,7 @@ export default function Posts() {
             </CardHeader>
             <CardBody className="p-4">
               <div className="overflow-x-auto ">
-                <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-blue-gray-200 opacity-95">
+                <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-white opacity-95">
                   <thead>
                     <tr>
                       <th className="p-4  ">
@@ -478,8 +478,8 @@ export default function Posts() {
                 Next
               </Button>
             </CardFooter>
-            <Footer />
           </Card>
+          <Footer />
         </div>
       </div>
     </>
