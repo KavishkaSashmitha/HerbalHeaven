@@ -229,10 +229,7 @@ const InventoryList = () => {
                     >
                       {item.image && (
                         <img
-                          src={`http://localhost:8070/${item.image.replace(
-                            /\\/g,
-                            '/'
-                          )}`}
+                          src={`${item.image}`}
                           alt="Product"
                           style={{ width: '100px', height: '80px' }}
                         />
@@ -248,7 +245,7 @@ const InventoryList = () => {
                     </Link>
                     <Button
                       color="red"
-                      className="mr-1"
+                      className="mr-1 mt-1"
                       onClick={() => handleDelete(item._id)}
                     >
                       Delete

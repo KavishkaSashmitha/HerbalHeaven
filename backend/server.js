@@ -52,13 +52,7 @@ app.use('/api/orders', require('./routes/orders'));
 
 app.use('/api', require('./routes/otpRoutes'));
 
-//app.use('/emp', require('./routes/empRouter'));
 app.use('/inventory', require('./routes/inventoryRoutes'));
-
-app.use(
-  '/img/inventory',
-  express.static(path.join(__dirname, 'img', 'inventory'))
-);
 
 //app.use('/backend/img/inventory', express.static('backend/img/inventory'));
 
