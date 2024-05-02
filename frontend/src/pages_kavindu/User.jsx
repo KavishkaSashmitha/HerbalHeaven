@@ -87,6 +87,7 @@ const User = () => {
                   </Button>
                 </div>
               </div>
+              <h4>search</h4>
               <Input
                 type="text"
                 placeholder="Search..."
@@ -94,6 +95,7 @@ const User = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="mb-4 border-blue-gray-100 bg-blue-gray-50/50"
               />
+
               <CardBody className="px-0 flex flex-col flex-1">
                 <div className="overflow-auto">
                   <table className="overflow-scroll mt-5 w-full min-w-max table-auto text-left border-blue-gray-100 bg-blue-gray-50/50">
