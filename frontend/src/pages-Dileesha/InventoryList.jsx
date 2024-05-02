@@ -14,7 +14,8 @@ const InventoryList = () => {
 
   const [items, setItems] = useState([]);
   const [searchItem, setSearchItem] = useState('');
-
+  const [reorderItems, setReorderItems] = useState([]);
+  
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -24,7 +25,7 @@ const InventoryList = () => {
       .get('http://localhost:8070/inventory/viewInventoryItems')
       .then((result) => setItems(result.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [items]);
 
   const handleDelete = (id) => {
     const confirmDelete = window.confirm(
@@ -40,6 +41,55 @@ const InventoryList = () => {
     }
   };
 
+  /*
+  const handleReorderList = () => {
+    const reorderItem = items.filter((item) => item.quantity < item.reorderLevel);
+    
+    const products = reorderItem
+    // Extract necessary fields and structure them according to the backend schem
+    // Send products array to the backend
+    axios.post('http://localhost:8070/inventory/addReorderItem',products )
+      .then((response) => {
+        console.log('Reorder items sent successfully:', response.data);
+        
+        // Optionally handle navigation here if needed
+      })
+      .catch((error) => {
+        console.error('Error sending reorder items:', error);
+      });
+  };
+  */
+ 
+ 
+const handleReorderList = () => {
+  // Filter items based on the reorder condition
+  const reorderItem = items.filter((item) => item.quantity < item.reorderLevel);
+  
+  // Map the filtered items to the format expected by the backend
+  const products = reorderItem.map(item => ({
+    productID: item._id, // Assuming _id is the product ID in your schema
+    productNo: item.productNo,
+    productName: item.productName,
+    category: item.category,
+    quantity: item.quantity,
+    reorderLevel: item.reorderLevel
+  }));
+
+  // Log the data to be sent (optional)
+  console.log('Data to be sent:', products);
+
+  // Send the products array to the backend
+  axios.post('http://localhost:8070/inventory/addReorderItem', { products })
+    .then((response) => {
+      console.log('Reorder items sent successfully:', response.data);
+      // Optionally handle navigation or state updates here
+      
+      
+    })
+    .catch((error) => {
+      console.error('Error sending reorder items:', error);
+    });
+};
   const filteredItems = items.filter((item) => {
     return (
       item.productName.toLowerCase().includes(searchItem.toLowerCase()) ||
@@ -53,7 +103,7 @@ const InventoryList = () => {
         className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
         style={{ backgroundColor: '#02353c' }}
     >
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-scroll">
       <div
         className={`sidebar w-68 bg-custom-color text-white ${
           open ? 'block' : 'hidden'
@@ -84,6 +134,18 @@ const InventoryList = () => {
                 onChange={(e) => setSearchItem(e.target.value)}
                 className="mb-6 max-w-30"
               />
+            </div>
+            <div>
+      
+                <Button
+                  class="select-none rounded-lg bg-black-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-black-500/20 transition-all hover:shadow-lg hover:shadow-black-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  type="button"
+                  className=" ml-2 mt-5"
+                  onClick={handleReorderList}
+                >
+                  Reorder List
+                </Button>
+            
             </div>
             <div>
               <Link to="/inventory/report" className="btn btn-primary">

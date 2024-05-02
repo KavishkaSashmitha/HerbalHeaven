@@ -5,6 +5,7 @@ const fileUpload = require('../middleware/uploadMiddleware');
 const hhmail = require('../middleware/nodeMailer');
 const fs = require('fs');
 const path = require('path');
+const reorderController = require('../controllers/reorderController');
 
 // Add directory creation logic
 const directoryPath = 'D:\\itp-herbal\\HerbalHeaven\\backend\\img\\inventory';
@@ -31,5 +32,9 @@ router.delete(
 router.post('/uploadimg', fileUpload);
 
 // router.post('/sendEmail', hhmail);
+
+router.post("/addReorderItem",reorderController.addReorderItem);
+router.get("/viewReorderItems",reorderController.viewReorderItems);
+router.delete("/deleteReorderItem/:id",reorderController.deleteReorderItem)
 
 module.exports = router;

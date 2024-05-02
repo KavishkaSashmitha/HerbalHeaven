@@ -105,6 +105,7 @@ import UpdateProduct from './pages-Dileesha/UpdateProduct';
 import InventoryList from './pages-Dileesha/InventoryList';
 import InventoryReport from './pages-Dileesha/InventoryReport';
 
+
 import AdminDashboard from './pages/adminDashboard';
 
 function App() {
@@ -242,6 +243,7 @@ function App() {
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
       <Route path="/inventory/report" element={<InventoryReport />} />
+      
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>
