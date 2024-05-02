@@ -22,7 +22,7 @@ import { TruckIcon } from "@heroicons/react/24/solid";
 function MaterialReport() {
   const { id } = useParams();
   const [supplierName, setSupplierName] = useState("");
-  const [rawMaterial, setRawMaterial] = useState("");
+  const [rawMaterial1, setRawMaterial1] = useState("");
   const [errors, setErrors] = useState({});
   // const [country, setCountry] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -59,7 +59,7 @@ function MaterialReport() {
 
         if (json) {
           setSupplierName(json.name);
-          setRawMaterial(json.rawMaterial);
+          setRawMaterial1(json.rawMaterial1);
           // setCountry(json.country);
         } else {
           console.error("Unexpected data structure:", json);
@@ -123,7 +123,7 @@ function MaterialReport() {
     const doc = new jsPDF();
     const data = [
       [`Supplier Name : ${capitalizeSecondPart(supplierName)}`],
-      [`Raw Material Type : ${rawMaterial}`],
+      [`Raw Material Type : ${rawMaterial1}`],
       // [`Country : ${country}`],
       [`Unite Price : ${unitPrice}`],
       [`Quantity : ${quantity}`],
@@ -232,7 +232,7 @@ function MaterialReport() {
   }
 
   useEffect(() => {
-    switch (rawMaterial.toLowerCase()) {
+    switch (rawMaterial1.toLowerCase()) {
       case "cinnomon":
         setUnitPrice(870);
         break;
@@ -251,17 +251,17 @@ function MaterialReport() {
       case "ginson":
         setUnitPrice(865);
         break;
-        case "sandalwood":
+      case "sandalwood":
         setUnitPrice(320);
         break;
-        case "rath hadun":
+      case "rath hadun":
         setUnitPrice(2100);
         break;
 
       default:
         setUnitPrice(0);
     }
-  }, [rawMaterial]);
+  }, [rawMaterial1]);
 
   const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value);
@@ -302,7 +302,6 @@ function MaterialReport() {
           <AdminNavbar toggleSidebar={toggleSidebar} />
           <Card className=" overflow-auto">
             <div class="overflow-scroll">
-
               <CardHeader
                 floated={false}
                 shadow={false}
@@ -383,7 +382,7 @@ function MaterialReport() {
                                 <div class="relative h-10 w-full min-w-[200px] mb-4">
                                   <input
                                     id="vehucletype"
-                                    value={rawMaterial}
+                                    value={rawMaterial1}
                                     type="text"
                                     disabled
                                     class="peer  bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"

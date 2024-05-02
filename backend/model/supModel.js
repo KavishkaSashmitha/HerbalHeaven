@@ -12,7 +12,7 @@ const empSchema = new Schema({
   // age: {
   //   type: String,
   // },
-  rawMaterial: {
+  rawMaterial1: {
     type: String,
   },
   // country: {

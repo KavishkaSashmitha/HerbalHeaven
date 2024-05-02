@@ -10,7 +10,7 @@ const SupplierReport = () => {
   const [quantity, setQuantity] = useState("");
   const [unitPrice, setUnitPrice] = useState("");
   const [name, setName] = useState("");
-  const [rawMaterial, setRawMaterial] = useState("");
+  const [rawMaterial1, setRawMaterial1] = useState("");
   const [totalPayment, setTotalPayment] = useState(0);
   const { id } = useParams();
 
@@ -36,7 +36,7 @@ const SupplierReport = () => {
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.text(20, 20, `Name: ${name}`);
-    doc.text(20, 30, `Raw Material: ${rawMaterial}`);
+    doc.text(20, 30, `Raw Material1: ${rawMaterial1}`);
     doc.text(20, 40, `Quantity: ${quantity}`);
     doc.text(20, 50, `Unit Price: ${unitPrice}`);
     doc.text(20, 60, `Total Payment: ${totalPayment}`);
@@ -58,9 +58,9 @@ const SupplierReport = () => {
           />
           <Input
             type="text"
-            label="Raw Material"
-            value={rawMaterial}
-            onChange={(e) => setRawMaterial(e.target.value)}
+            label="Raw Material_01"
+            value={rawMaterial1}
+            onChange={(e) => setRawMaterial1(e.target.value)}
             disabled
             className="mb-4"
           />

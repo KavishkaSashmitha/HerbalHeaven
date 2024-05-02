@@ -20,7 +20,7 @@ import {
 function CreateUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [rawMaterial, setRawMaterial] = useState("");
+  const [rawMaterial1, setRawMaterial1] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const [errors, setErrors] = useState({});
@@ -48,7 +48,7 @@ function CreateUser() {
       isValid = false;
     }
 
-    if (!rawMaterial) {
+    if (!rawMaterial1) {
       errors.rawMaterial = "Raw Material is required";
       isValid = false;
     }
@@ -87,7 +87,7 @@ function CreateUser() {
           .post("http://localhost:8070/sup/addsup", {
             name,
             email,
-            rawMaterial,
+            rawMaterial1,
             mobile,
             address,
           })
@@ -159,10 +159,10 @@ function CreateUser() {
                       <div className="mt-4 mb-4">
                         <Select
                           size="lg"
-                          label="Select Raw Material"
-                          value={rawMaterial}
-                          onChange={(value) => setRawMaterial(value)}
-                          error={errors.rawMaterial ? true : false}
+                          label="Select Raw Material_01"
+                          value={rawMaterial1}
+                          onChange={(value) => setRawMaterial1(value)}
+                          error={errors.rawMaterial1 ? true : false}
                         >
                           <Select.Option value="Cinnomon">
                             Cinnomon
@@ -184,7 +184,7 @@ function CreateUser() {
                           </Select.Option>
                         </Select>
                       </div>
-                      {errors.rawMaterial && (
+                      {errors.rawMaterial1 && (
                         <p className="text-red-500 text-sm mt-1">
                           {errors.rawMaterial}
                         </p>

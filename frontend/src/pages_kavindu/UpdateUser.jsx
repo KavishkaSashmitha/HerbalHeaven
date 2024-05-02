@@ -20,7 +20,7 @@ function UpdateUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   // const [age, setAge] = useState("");
-  const [rawMaterial, setRawMaterial] = useState("");
+  const [rawMaterial1, setRawMaterial1] = useState("");
   // const [country, setCountry] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
@@ -39,7 +39,7 @@ function UpdateUser() {
         setName(userData.name);
         setEmail(userData.email);
         // setAge(userData.age);
-        setRawMaterial(userData.rawMaterial);
+        setRawMaterial1(userData.rawMaterial1);
         // setCountry(userData.country);
         setMobile(userData.mobile);
         setAddress(userData.address);
@@ -72,7 +72,7 @@ function UpdateUser() {
     //   isValid = false;
     // }
 
-    if (!rawMaterial) {
+    if (!rawMaterial1) {
       errors.rawMaterial = "Raw Material is required";
       isValid = false;
     }
@@ -113,7 +113,7 @@ function UpdateUser() {
             name,
             email,
             // age,
-            rawMaterial,
+            rawMaterial1,
             // country,
             mobile,
             address,
@@ -206,20 +206,25 @@ function UpdateUser() {
                     <div className="mt-4 mb-4">
                       <Select
                         size="lg"
-                        label="Select Raw Material"
-                        value={rawMaterial}
-                        onChange={(value) => setRawMaterial(value)}
-                        error={errors.rawMaterial ? true : false}
+                        label="Select Raw Material_01"
+                        value={rawMaterial1}
+                        onChange={(value) => setRawMaterial1(value)}
+                        error={errors.rawMaterial1 ? true : false}
                       >
-                         <Select.Option value="Cinnomon">Cinnomon</Select.Option>
-                          <Select.Option value="Ginger">Ginger</Select.Option>
-                          <Select.Option value="Alovera">Alovera</Select.Option>
-                          <Select.Option value="Weniwalgata">Weniwalgata</Select.Option>
-                          <Select.Option value="Tumeric">Turmeric</Select.Option>
-                          <Select.Option value="Ginson">Ginson</Select.Option>
-                          <Select.Option value="SandalWood">SandalWood</Select.Option>
-                          <Select.Option value="Rath Hadun">Rath Hadun</Select.Option>
-
+                        <Select.Option value="Cinnomon">Cinnomon</Select.Option>
+                        <Select.Option value="Ginger">Ginger</Select.Option>
+                        <Select.Option value="Alovera">Alovera</Select.Option>
+                        <Select.Option value="Weniwalgata">
+                          Weniwalgata
+                        </Select.Option>
+                        <Select.Option value="Tumeric">Turmeric</Select.Option>
+                        <Select.Option value="Ginson">Ginson</Select.Option>
+                        <Select.Option value="SandalWood">
+                          SandalWood
+                        </Select.Option>
+                        <Select.Option value="Rath Hadun">
+                          Rath Hadun
+                        </Select.Option>
                       </Select>
                     </div>
                     {errors.rawMaterial && (

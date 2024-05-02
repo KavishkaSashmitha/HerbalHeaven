@@ -102,7 +102,7 @@ const User = () => {
                         {[
                           "Name",
                           "Email",
-                          "Raw Material",
+                          "Raw Material_01",
                           "Mobile",
                           "Address",
                           "Action",
@@ -137,7 +137,7 @@ const User = () => {
                           >
                             <td className="p-4">{user.name}</td>
                             <td className="p-4">{user.email}</td>
-                            <td className="p-4">{user.rawMaterial}</td>
+                            <td className="p-4">{user.rawMaterial1}</td>
                             <td className="p-4">{user.mobile}</td>
                             <td className="p-4">{user.address}</td>
                             <td className="p-4">
