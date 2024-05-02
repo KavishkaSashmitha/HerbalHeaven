@@ -100,16 +100,22 @@ export default function Posts() {
   };
 
   function filterData(searchKey) {
+    // Convert the search key to lowercase to allow case-insensitive matching
+    const lowerCaseSearchKey = searchKey.toLowerCase();
+
+    // Filter the 'post' list based on whether the specified properties include the search key
     const result = post.filter(
       (post) =>
-        post.name.toLowerCase().includes(searchKey) ||
-        post.jobrole.toLowerCase().includes(searchKey) ||
-        post.gender.toLowerCase().includes(searchKey) ||
-        post.mobile.toLowerCase().includes(searchKey) ||
-        post.email.toLowerCase().includes(searchKey) ||
-        post.address.toLowerCase().includes(searchKey) ||
-        post.age.toLowerCase().includes(searchKey)
+        post.name.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.jobrole.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.gender.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.mobile.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.email.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.address.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.age.toString().toLowerCase().includes(lowerCaseSearchKey)
     );
+
+    // Update the filtered posts and reset the current page
     setFilteredPosts(result);
     setCurrentPage(1);
   }
@@ -213,8 +219,10 @@ export default function Posts() {
                     <div className="flex flex-row gap-2 shrink-0 sm:flex-row">
                       <Link to="/emp/add">
                         <Button
-                          style={{ backgroundColor: "#02353c", color: "white" }} // Set background color inline
-                          className="flex items-center gap-3"
+                          variant="gradient"
+                          color="blue"
+                          className="flex items-center gap-3 "
+                          href=""
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -444,8 +452,7 @@ export default function Posts() {
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-transparent p-4">
               <Button
-                className=""
-                style={{ backgroundColor: "#02353c", color: "white" }}
+                className="bg-blue-500 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={prevPage}
@@ -456,8 +463,7 @@ export default function Posts() {
               <div className="flex items-center gap-2 ">
                 {pageNumbers.map((number) => (
                   <IconButton
-                    className=""
-                    style={{ backgroundColor: "#02353c", color: "white" }}
+                    className="bg-blue-500 hover:bg-blue-700 text-cyan-50"
                     key={number}
                     variant={number === currentPage ? "outlined" : "text"}
                     size="sm"
@@ -468,8 +474,7 @@ export default function Posts() {
                 ))}
               </div>
               <Button
-                className=""
-                style={{ backgroundColor: "#02353c", color: "white" }}
+                className="bg-blue-500 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={nextPage}

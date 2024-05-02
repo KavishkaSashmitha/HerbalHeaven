@@ -49,7 +49,11 @@ const InventoryList = () => {
   });
 
   return (
-    <div className="flex justify-center items-center h-100 pt-1">
+    <div
+        className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+        style={{ backgroundColor: '#02353c' }}
+    >
+      <div className="flex flex-1 overflow-hidden">
       <div
         className={`sidebar w-68 bg-custom-color text-white ${
           open ? 'block' : 'hidden'
@@ -229,10 +233,7 @@ const InventoryList = () => {
                     >
                       {item.image && (
                         <img
-                          src={`http://localhost:8070/${item.image.replace(
-                            /\\/g,
-                            '/'
-                          )}`}
+                          src={`${item.image}`}
                           alt="Product"
                           style={{ width: '100px', height: '80px' }}
                         />
@@ -248,7 +249,7 @@ const InventoryList = () => {
                     </Link>
                     <Button
                       color="red"
-                      className="mr-1"
+                      className="mr-1 mt-1"
                       onClick={() => handleDelete(item._id)}
                     >
                       Delete
@@ -269,7 +270,8 @@ const InventoryList = () => {
           </Link>
         </Card>
         <Footer />
-      </div>
+        </div>
+        </div>
     </div>
   );
 };
