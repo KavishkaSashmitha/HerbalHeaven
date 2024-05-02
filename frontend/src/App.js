@@ -101,6 +101,13 @@ import InventoryReport from "./pages-Dileesha/InventoryReport";
 
 import MyOrders from "./pages_Ridmi/myOrders";
 
+
+import AdminDashboard from "./pages/adminDashboard";
+
+
+
+
+
 import DeretOrders from "./pages-Kumesh/Admin/Income/DeretOrders";
 import MaterialCost from "./pages-Kumesh/Admin/Expens/MaterialCost";
 import EmpSalary from "./pages-Kumesh/Admin/Expens/EmpSalary";
