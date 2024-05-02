@@ -170,3 +170,12 @@ Navbar {
   transform: translateX(-50%);
   width: calc(100% - 40px);
 }
+.full-screen-background {
+  
+  width: 100%;
+  height: 60vh;
+  /* background-image: url('assets/cool-background.png'); */
+  background-color: #ddfad6;
+  background-size: cover;
+  background-position: center;
+}

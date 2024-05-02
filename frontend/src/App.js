@@ -105,12 +105,10 @@ import InventoryList from "./pages-Dileesha/InventoryList";
 import InventoryReport from "./pages-Dileesha/InventoryReport";
 
 import AdminDashboard from "./pages/adminDashboard";
-import MyOrders from "./pages_Ridmi/myOrders";
-import ProductList from "./pages/Direct_Order_Products";
-import CartAdminDashboard from "./pages/Cart-AdminDashboard";
-import DirectOrdersTable from "./pages/DirectOrders";
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
+
+
+
 import DeretOrders from "./pages-Kumesh/Admin/Income/DeretOrders";
 import MaterialCost from "./pages-Kumesh/Admin/Expens/MaterialCost";
 import EmpSalary from "./pages-Kumesh/Admin/Expens/EmpSalary";
