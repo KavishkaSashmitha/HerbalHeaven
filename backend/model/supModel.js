@@ -24,12 +24,6 @@ const empSchema = new Schema({
   address: {
     type: String,
   },
-  // payment: {
-  //   type: Map,
-  //   of: Number,
-
-  //   default: {},
-  // },
 
   materialCost: {
     type: Map,
