@@ -21,6 +21,8 @@ function CreateUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [rawMaterial1, setRawMaterial1] = useState("");
+  const [rawMaterial2, setRawMaterial2] = useState("");
+  const [rawMaterial3, setRawMaterial3] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const [errors, setErrors] = useState({});
@@ -52,6 +54,14 @@ function CreateUser() {
       errors.rawMaterial = "Raw Material is required";
       isValid = false;
     }
+    // if (!rawMaterial2) {
+    //   errors.rawMaterial = "Raw Material is required";
+    //   isValid = false;
+    // }
+    // if (!rawMaterial3) {
+    //   errors.rawMaterial = "Raw Material is required";
+    //   isValid = false;
+    // }
 
     if (!mobile) {
       errors.mobile = "Mobile is required";
@@ -88,6 +98,9 @@ function CreateUser() {
             name,
             email,
             rawMaterial1,
+            rawMaterial2,
+            rawMaterial3,
+
             mobile,
             address,
           })
@@ -154,6 +167,19 @@ function CreateUser() {
                           error={errors.email}
                         />
                       </div>
+                      <div className="mt-4 mb-4">
+                        <Input
+                          label="Mobile"
+                          size="lg"
+                          value={mobile}
+                          onChange={(e) => {
+                            if (/^\d{0,10}$/.test(e.target.value)) {
+                              setMobile(e.target.value);
+                            }
+                          }}
+                          error={errors.mobile}
+                        />
+                      </div>
                     </div>
                     <div className="">
                       <div className="mt-4 mb-4">
@@ -190,6 +216,72 @@ function CreateUser() {
                         </p>
                       )}
                       <div className="mt-4 mb-4">
+                        <Select
+                          size="lg"
+                          label="Select Raw Material_02"
+                          value={rawMaterial2}
+                          onChange={(value) => setRawMaterial2(value)}
+                          error={errors.rawMaterial2 ? true : false}
+                        >
+                          <Select.Option value="Cinnomon">
+                            Cinnomon
+                          </Select.Option>
+                          <Select.Option value="Ginger">Ginger</Select.Option>
+                          <Select.Option value="Alovera">Alovera</Select.Option>
+                          <Select.Option value="Weniwalgata">
+                            Weniwalgata
+                          </Select.Option>
+                          <Select.Option value="Tumeric">
+                            Turmeric
+                          </Select.Option>
+                          <Select.Option value="Ginson">Ginson</Select.Option>
+                          <Select.Option value="SandalWood">
+                            SandalWood
+                          </Select.Option>
+                          <Select.Option value="Rath Hadun">
+                            Rath Hadun
+                          </Select.Option>
+                        </Select>
+                      </div>
+                      {errors.rawMaterial2 && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.rawMaterial2}
+                        </p>
+                      )}
+                      <div className="mt-4 mb-4">
+                        <Select
+                          size="lg"
+                          label="Select Raw Material_03"
+                          value={rawMaterial3}
+                          onChange={(value) => setRawMaterial3(value)}
+                          error={errors.rawMaterial3 ? true : false}
+                        >
+                          <Select.Option value="Cinnomon">
+                            Cinnomon
+                          </Select.Option>
+                          <Select.Option value="Ginger">Ginger</Select.Option>
+                          <Select.Option value="Alovera">Alovera</Select.Option>
+                          <Select.Option value="Weniwalgata">
+                            Weniwalgata
+                          </Select.Option>
+                          <Select.Option value="Tumeric">
+                            Turmeric
+                          </Select.Option>
+                          <Select.Option value="Ginson">Ginson</Select.Option>
+                          <Select.Option value="SandalWood">
+                            SandalWood
+                          </Select.Option>
+                          <Select.Option value="Rath Hadun">
+                            Rath Hadun
+                          </Select.Option>
+                        </Select>
+                      </div>
+                      {errors.rawMaterial3 && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.rawMateria3}
+                        </p>
+                      )}
+                      {/* <div className="mt-4 mb-4">
                         <Input
                           label="Mobile"
                           size="lg"
@@ -201,7 +293,7 @@ function CreateUser() {
                           }}
                           error={errors.mobile}
                         />
-                      </div>
+                      </div> */}
                     </div>
                     <div className="w-full flex justify-center">
                       <Input

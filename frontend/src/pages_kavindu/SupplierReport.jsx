@@ -20,7 +20,7 @@ const SupplierReport = () => {
       .then((result) => {
         const userData = result.data;
         setName(userData.name);
-        setRawMaterial(userData.rawMaterial);
+        setRawMaterial1(userData.rawMaterial1);
       })
       .catch((err) => console.log(err));
   }, [id]);

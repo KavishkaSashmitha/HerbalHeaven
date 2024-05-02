@@ -21,6 +21,8 @@ function UpdateUser() {
   const [email, setEmail] = useState("");
   // const [age, setAge] = useState("");
   const [rawMaterial1, setRawMaterial1] = useState("");
+  const [rawMaterial2, setRawMaterial2] = useState("");
+  const [rawMaterial3, setRawMaterial3] = useState("");
   // const [country, setCountry] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
@@ -40,6 +42,8 @@ function UpdateUser() {
         setEmail(userData.email);
         // setAge(userData.age);
         setRawMaterial1(userData.rawMaterial1);
+        setRawMaterial2(userData.rawMaterial2);
+        setRawMaterial3(userData.rawMaterial3);
         // setCountry(userData.country);
         setMobile(userData.mobile);
         setAddress(userData.address);
@@ -73,9 +77,17 @@ function UpdateUser() {
     // }
 
     if (!rawMaterial1) {
-      errors.rawMaterial = "Raw Material is required";
+      errors.rawMaterial1 = "Raw Material is required";
       isValid = false;
     }
+    // if (!rawMaterial2) {
+    //   errors.rawMaterial2 = "Raw Material is required";
+    //   isValid = false;
+    // }
+    // if (!rawMaterial3) {
+    //   errors.rawMaterial3 = "Raw Material is required";
+    //   isValid = false;
+    // }
 
     // if (!country) {
     //   errors.country = "Country is required";
@@ -114,6 +126,8 @@ function UpdateUser() {
             email,
             // age,
             rawMaterial1,
+            rawMaterial2,
+            rawMaterial3,
             // country,
             mobile,
             address,
@@ -183,6 +197,19 @@ function UpdateUser() {
                         error={errors.email}
                       />
                     </div>
+                    <div className="mt-4 mb-4">
+                      <Input
+                        label="Mobile"
+                        size="lg"
+                        value={mobile}
+                        onChange={(e) => {
+                          if (/^\d{0,10}$/.test(e.target.value)) {
+                            setMobile(e.target.value);
+                          }
+                        }}
+                        error={errors.mobile}
+                      />
+                    </div>
                     {/* <div className="mt-4 mb-4">
                       <Input
                         label="Age"
@@ -232,6 +259,64 @@ function UpdateUser() {
                         {errors.rawMaterial}
                       </p>
                     )}
+                    <div className="mt-4 mb-4">
+                      <Select
+                        size="lg"
+                        label="Select Raw Material_02"
+                        value={rawMaterial2}
+                        onChange={(value) => setRawMaterial2(value)}
+                        error={errors.rawMaterial2 ? true : false}
+                      >
+                        <Select.Option value="Cinnomon">Cinnomon</Select.Option>
+                        <Select.Option value="Ginger">Ginger</Select.Option>
+                        <Select.Option value="Alovera">Alovera</Select.Option>
+                        <Select.Option value="Weniwalgata">
+                          Weniwalgata
+                        </Select.Option>
+                        <Select.Option value="Tumeric">Turmeric</Select.Option>
+                        <Select.Option value="Ginson">Ginson</Select.Option>
+                        <Select.Option value="SandalWood">
+                          SandalWood
+                        </Select.Option>
+                        <Select.Option value="Rath Hadun">
+                          Rath Hadun
+                        </Select.Option>
+                      </Select>
+                    </div>
+                    {errors.rawMaterial2 && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.rawMaterial2}
+                      </p>
+                    )}
+                    <div className="mt-4 mb-4">
+                      <Select
+                        size="lg"
+                        label="Select Raw Material_03"
+                        value={rawMaterial3}
+                        onChange={(value) => setRawMaterial3(value)}
+                        error={errors.rawMaterial3 ? true : false}
+                      >
+                        <Select.Option value="Cinnomon">Cinnomon</Select.Option>
+                        <Select.Option value="Ginger">Ginger</Select.Option>
+                        <Select.Option value="Alovera">Alovera</Select.Option>
+                        <Select.Option value="Weniwalgata">
+                          Weniwalgata
+                        </Select.Option>
+                        <Select.Option value="Tumeric">Turmeric</Select.Option>
+                        <Select.Option value="Ginson">Ginson</Select.Option>
+                        <Select.Option value="SandalWood">
+                          SandalWood
+                        </Select.Option>
+                        <Select.Option value="Rath Hadun">
+                          Rath Hadun
+                        </Select.Option>
+                      </Select>
+                    </div>
+                    {errors.rawMaterial3 && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.rawMaterial3}
+                      </p>
+                    )}
                     {/* <div className="mt-4 mb-4">
                       <Select
                         size="lg"
@@ -254,7 +339,7 @@ function UpdateUser() {
                         </p>
                       )}
                     </div>  */}
-                    <div className="mt-4 mb-4">
+                    {/* <div className="mt-4 mb-4">
                       <Input
                         label="Mobile"
                         size="lg"
@@ -266,7 +351,7 @@ function UpdateUser() {
                         }}
                         error={errors.mobile}
                       />
-                    </div>
+                    </div> */}
                   </div>
                   <div className="w-full flex justify-center">
                     <Input

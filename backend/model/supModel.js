@@ -15,6 +15,13 @@ const empSchema = new Schema({
   rawMaterial1: {
     type: String,
   },
+  rawMaterial2: {
+    type: String,
+  },
+  rawMaterial3: {
+    type: String,
+  },
+
   // country: {
   //   type: String,
   // },
