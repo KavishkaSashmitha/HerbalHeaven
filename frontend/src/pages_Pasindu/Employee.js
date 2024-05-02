@@ -444,7 +444,7 @@ export default function Posts() {
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-transparent p-4">
               <Button
-                className="bg-blue-500 text-cyan-50"
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={prevPage}
@@ -455,7 +455,7 @@ export default function Posts() {
               <div className="flex items-center gap-2 ">
                 {pageNumbers.map((number) => (
                   <IconButton
-                    className="bg-blue-500 hover:bg-blue-700 text-cyan-50"
+                    className="bg-custom-color hover:bg-amber-800 text-cyan-50"
                     key={number}
                     variant={number === currentPage ? "outlined" : "text"}
                     size="sm"
@@ -466,7 +466,7 @@ export default function Posts() {
                 ))}
               </div>
               <Button
-                className="bg-blue-500 text-cyan-50"
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={nextPage}
