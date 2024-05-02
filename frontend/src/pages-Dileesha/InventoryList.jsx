@@ -139,7 +139,7 @@ const InventoryList = () => {
                 {[
                   'Product No',
                   'Product Name',
-                  'Short Description',
+                  
                   'category',
                   'Cost',
                   'Quantity',
@@ -147,7 +147,8 @@ const InventoryList = () => {
                   'Manufacture Date',
                   'Expiary Date',
                   'Image',
-                  'Action',
+                    'Action',
+                  'Publish'
                 ].map((head, index) => (
                   <th
                     key={index}

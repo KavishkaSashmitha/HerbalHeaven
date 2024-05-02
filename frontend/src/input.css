@@ -179,3 +179,24 @@ Navbar {
   background-size: cover;
   background-position: center;
 }
+
+@keyframes slideUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+/* Styles */
+.text-home-1 {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  color: #333;
+  animation: slideUp 1s ease-in-out; /* Apply slideUp animation */
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f3f4f6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align: center;
+}
