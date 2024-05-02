@@ -8,9 +8,10 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
-import { SidebarWithBurgerMenu } from "./components/navBar";
 
 //praveen
+
+import { SidebarWithBurgerMenu } from "./components/navBar";
 
 import Register from "./pages/Register";
 import Dashboard from "./pages/DashBoard";
@@ -30,6 +31,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
+// import HiestSalary from "./pages_Pasindu/HiestSalary";
 
 import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
@@ -39,7 +41,7 @@ import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
 
 //Kumesh-----------------------
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+//import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 //Kumesh-user
 
 import Payment from "./pages-Kumesh/User/Payment";
@@ -72,15 +74,24 @@ import Edit_Driver from "./pages_Malshan/Edit_Driver";
 import Driver_Details from "./pages_Malshan/Driver_Details";
 import FuelReport from "./pages_Malshan/FuelReport";
 import { CartAdmin, CartDetails } from "./pages/Cart-Admin";
-import CartChart from "./pages/Cart-Chart";
+//import CartChart from './pages/Cart-Chart';
 import OTPVerification from "./pages/Manager-SignIn";
+import DeliveredOrders from "./pages_Malshan/DeliveredOrders";
+import Delivery from "./pages_Malshan/Delivery";
 
 import { useAuth } from "./middleware/authContext";
 import { CustomerLogin } from "./pages/Customer-login";
 
+import ProductList from "./pages/Direct_Order_Products";
+
+import CartAdminDashboard from "./pages/Cart-AdminDashboard";
+import DirectOrdersTable from "./pages/DirectOrders";
+
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
+
+import ProtectedRoute from "./middleware/ProtectedRoute";
 
 //Dileesha
 import AddProduct from "./pages-Dileesha/AddProduct";
@@ -89,15 +100,13 @@ import InventoryList from "./pages-Dileesha/InventoryList";
 import InventoryReport from "./pages-Dileesha/InventoryReport";
 
 import MyOrders from "./pages_Ridmi/myOrders";
-import ProductList from "./pages/Direct_Order_Products";
-import CartAdminDashboard from "./pages/Cart-AdminDashboard";
-import DirectOrdersTable from "./pages/DirectOrders";
 
-import ProtectedRoute from "./middleware/ProtectedRoute";
 import DeretOrders from "./pages-Kumesh/Admin/Income/DeretOrders";
 import MaterialCost from "./pages-Kumesh/Admin/Expens/MaterialCost";
 import EmpSalary from "./pages-Kumesh/Admin/Expens/EmpSalary";
 import AdminDashboard from "./pages/adminDashboard";
+
+//import AdminDashboard from "./pages/adminDashboard";
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -165,6 +174,8 @@ function App() {
         <Route path="/transport/edit/:id" element={<Edit_Driver />} />
         <Route path="/transport/:id" element={<Driver_Details />} />
         <Route path="/FuelReport/:id" element={<FuelReport />} />
+        <Route path="/delivery" element={<Delivery />} />
+        <Route path="/deliveredOrders" element={<DeliveredOrders />} />
 
         {/* Kavindu */}
         <Route path="/sup/addsup" element={<CreateUser />} />
@@ -186,9 +197,9 @@ function App() {
         <Route path="/expensive" element={<Expens />} />
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
-        <Route path="/dir" element={<DeretOrders />} />
+        {/* <Route path="/dir" element={<DeretOrders />} />
         <Route path="/material" element={<MaterialCost />} />
-        <Route path="/employesalary" element={<EmpSalary />} />
+        <Route path="/employesalary" element={<EmpSalary />} /> */}
       </Route>
 
       <Route path="/emp" element={<Posts />} />
@@ -233,6 +244,7 @@ function App() {
       <Route path="/inventory/add" element={<AddProduct />} />
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
+      <Route path="/inventory/report" element={<InventoryReport />} />
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>

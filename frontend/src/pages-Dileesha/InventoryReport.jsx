@@ -104,6 +104,11 @@ const InventoryReport = () => {
       (item) => item.quantity < item.reorderLevel
     );
 
+    const expiredItems = items.filter((item) => {
+      const expiryDate = new Date(item.expiaryDate);
+      return expiryDate < currentDate;
+    });
+
     const generateTable = (
       tableItems,
       showQuantity = false,
@@ -172,6 +177,8 @@ const InventoryReport = () => {
         <Typography variant="h4" className="text-center font-bold text-4xl">
           Inventory Report
         </Typography>
+        {generateTable(expiredItems, false, true, 'Expired Products')}
+
         {generateTable(
           itemsNearExpiry,
           false,

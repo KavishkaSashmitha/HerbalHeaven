@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+require('dotenv').config();
 
 const firebaseConfig = {
   apiKey: 'AIzaSyC_E2o026Y58jQO8FQXsxnHNyeKSe6SKKM',
@@ -9,6 +9,4 @@ const firebaseConfig = {
   appId: '1:654458706208:web:f122ff742b6c8151cd9f45',
 };
 
-const firebase = initializeApp(firebaseConfig);
-
-export default firebase;
+module.exports = { firebaseConfig };
