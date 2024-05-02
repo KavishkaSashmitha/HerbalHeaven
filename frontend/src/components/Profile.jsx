@@ -16,7 +16,7 @@ import {
   MenuList,
   Typography,
 } from '@material-tailwind/react';
-import { BellIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
+import { BellIcon, ShieldExclamationIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../middleware/authContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from './cartContext';
@@ -52,7 +52,7 @@ const ProfileMenu = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:8070/api/user', {
+      const response = await axios.post('http://localhost:8070/api/customer', {
         email,
         password,
       });
@@ -65,7 +65,7 @@ const ProfileMenu = () => {
       // Update the global authentication state
       login(token);
 
-      navigate('/dashboard');
+      navigate('/');
       setOpen(false);
     } catch (error) {
       console.error('Login failed:', error.response.data);
@@ -103,6 +103,29 @@ const ProfileMenu = () => {
         >
           <BellIcon className="h-6 w-6" />
         </IconButton>
+        <Link to="/admin-dashboard">
+          
+            <IconButton
+              variant="text"
+              color="black"
+              className=" mb-2 mr-2  hover:text-amber-800 text-white"
+            >
+              <ShieldExclamationIcon className="h-6 w-6" />
+            </IconButton>
+          
+        </Link>
+
+        <Link to="/admin-dashboard">
+          {/* <Badge content={cartCount} overlap="circular" placement="top-end"> */}
+            <IconButton
+              variant="text"
+              color="black"
+              className="mr-2 mb-2 hover:text-amber-800 text-white"
+            >
+              <ShieldExclamationIcon className="h-6 w-6" />
+            </IconButton>
+          {/* </Badge> */}
+        </Link>
 
         {isLoggedIn ? (
           <Menu>
@@ -137,6 +160,7 @@ const ProfileMenu = () => {
                   </Typography>
                 </MenuItem>
               </Link>
+              <Link to="/edit-profile">
               <MenuItem className="flex items-center gap-2">
                 <svg
                   width="16"
@@ -157,6 +181,7 @@ const ProfileMenu = () => {
                   Edit Profile
                 </Typography>
               </MenuItem>
+              </Link>
               <MenuItem className="flex items-center gap-2">
                 <svg
                   width="14"
@@ -256,11 +281,13 @@ const ProfileMenu = () => {
                     Your Password
                   </Typography>
                   <Input
-                    label="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    size="lg"
-                  />
+  label="Password"
+  onChange={(e) => setPassword(e.target.value)}
+  value={password}
+  size="lg"
+  type="password" // This line sets the input type to password
+/>
+
                   <div className="-ml-2.5 -mt-3">
                     <Checkbox label="Remember Me" />
                   </div>
@@ -278,7 +305,7 @@ const ProfileMenu = () => {
                     className="mt-4 flex justify-center"
                   >
                     Don&apos;t have an account?
-                    <Link to="/signup">
+                    <Link to="/signUp">
                       <Typography
                         as="a"
                         href="#signup"

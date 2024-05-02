@@ -87,7 +87,10 @@ export default function Order() {
   // Change page
   const indexOfLastItem = currentPage * ordersPerPage;
   const indexOfFirstItem = indexOfLastItem - ordersPerPage;
-  const currentItems = originalOrders.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = (orders ?? originalOrders).slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(originalOrders.length / ordersPerPage); i++) {
     pageNumbers.push(i);
@@ -101,7 +104,7 @@ export default function Order() {
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: "#02353c" }}
     >
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-auto">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? "block" : "hidden"
@@ -134,15 +137,15 @@ export default function Order() {
                   </div>
                   <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Suppliers
+                      Order
                     </p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      20
+                      15
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="card w-full">
+              {/* <div className="card w-full">
                 <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                   <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                     <svg
@@ -159,14 +162,14 @@ export default function Order() {
                   </div>
                   <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Suppliers
+                      Orders
                     </p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                       20
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex items-center ml-2 mb-4">

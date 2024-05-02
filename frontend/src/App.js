@@ -3,11 +3,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Home from './pages/Home';
-//import { SidebarWithBurgerMenu } from './components/navBar';
+import { SidebarWithBurgerMenu } from './components/navBar';
 
 import Register from './pages/Register';
 import Dashboard from './pages/DashBoard';
+import EditProfile from './pages/EditProfile';
+import CustomerManager from './pages/CustomerManager';
+import CustomerReport from './pages/CustomerReport';
+
 import { EcommerceCard } from './pages/Products';
+
+import Cart from './pages/cart';
+
 import Cart from './pages/cart';
 
 import CreatPost from './pages_Pasindu/CreateEmployee';
@@ -70,9 +77,21 @@ import OTPVerification from './pages/Manager-SignIn';
 import { useAuth } from './middleware/authContext';
 import { CustomerLogin } from './pages/Customer-login';
 
+import AddProduct from './pages-Dileesha/AddProduct';
+import UpdateProduct from './pages-Dileesha/UpdateProduct';
+import InventoryList from './pages-Dileesha/InventoryList';
+import MyOrders from './pages_Ridmi/myOrders';
+
+import ProductList from './pages/Direct_Order_Products';
+
+import CartAdminDashboard from './pages/Cart-AdminDashboard';
+import DirectOrdersTable from './pages/DirectOrders';
+
 import './index.css';
 
 import ImageUpload from './imageUpload';
+
+import ProtectedRoute from './middleware/ProtectedRoute';
 
 //Dileesha
 import AddProduct from './pages-Dileesha/AddProduct';
@@ -86,6 +105,7 @@ import CartAdminDashboard from './pages/Cart-AdminDashboard';
 import DirectOrdersTable from './pages/DirectOrders';
 
 import ProtectedRoute from './middleware/ProtectedRoute';
+import Cart from './pages/cart';
 import AdminDashboard from './pages/adminDashboard';
 
 function App() {
@@ -93,18 +113,19 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/products" element={<EcommerceCard />} />
+
+      <Route path="/signUp" element={<Register />} />
+
       <Route element={<ProtectedRoute />}>
         {/* Kavishka */}
 
-        <Route path="/signUp" element={<Register />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/products" element={<EcommerceCard />} />
 
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
         <Route path="/login" element={<CustomerLogin />} />
-        <Route path="/signUp" element={<Register />} />
 
         {/*Kumesh*/}
         <Route path="/user/payment" element={<Payment />} />
@@ -140,6 +161,13 @@ function App() {
         />
         <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
 
+        {/* Praveen */}
+
+        <Route path="/all" element={<CustomerManager />} />
+        <Route path="/signUp" element={<Register />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/customer-report" element={<CustomerReport />} />
+
         {/* Malshan */}
         <Route path="/transport" element={<Transport />} />
         <Route path="/transport/add" element={<Add_Driver />} />
@@ -167,16 +195,14 @@ function App() {
         <Route path="/expensive" element={<Expens />} />
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
+        <Route path="/dir" element={<DeretOrders />} />
+        <Route path="/material" element={<MaterialCost />} />
+        <Route path="/employesalary" element={<EmpSalary />} />
       </Route>
 
       <Route path="/emp" element={<Posts />} />
       <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/user/payment" element={<Payment />} />
-
-      <Route path="/salaryreport/:id" element={<SalaryReport />} />
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
 
       {/*Kumesh Start */}
       <Route path="/paypal" element={<PayPal />} />
@@ -209,14 +235,6 @@ function App() {
       <Route path="/transport/:id" element={<Driver_Details />} />
       <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
-
-      {/* Kavindu */}
-
-      <Route path="/sup/addsup" element={<CreateUser />} />
-      <Route path="/sup/update/:id" element={<UpdateUser />} />
-      <Route path="/sup" element={<User />} />
-      <Route path="/sup/supreport/:id" element={<SupplierReport />} />
-      <Route path="/sup/material_report/:id" element={<MaterialReport />} />
 
       <Route path="/salaryreport" element={<SalaryReport />} />
 

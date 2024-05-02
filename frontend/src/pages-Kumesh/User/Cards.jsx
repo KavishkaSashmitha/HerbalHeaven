@@ -39,10 +39,10 @@ function Cards() {
               <FaAddressCard className="add-pay-btn-icon" />
               Add New Card
             </button>
-            <button className="add-pay-btn">
+            {/* <button className="add-pay-btn">
               <RiBankFill className="add-pay-btn-icon" />
               Add New Bank Account
-            </button>
+            </button> */}
             <button className="add-pay-btn" onClick={handlePrint}>
               Download Card Details Report
             </button>

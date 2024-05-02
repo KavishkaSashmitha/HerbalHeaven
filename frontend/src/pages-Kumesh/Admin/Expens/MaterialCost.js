@@ -80,7 +80,7 @@ function MaterialCost() {
             ))}
           </tbody>
         </table>
-        <h2 className="tot_amout">Total Material Cost: ${totalMaterialCost.toFixed(2)}</h2>
+        <h2 className="tot_amout">Total Material Cost:LKR {totalMaterialCost.toFixed(2)}</h2>
       </div>
     </div>
   );

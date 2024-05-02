@@ -190,6 +190,34 @@ export default function CreatePost() {
     }));
   };
 
+  function handleKeyPress(event) {
+    // Get the character that the user is trying to type
+    const char = event.key;
+
+    const regex = /^[A-Za-z ]$/;
+
+    if (!regex.test(char)) {
+      event.preventDefault(); // Prevents the non-letter or non-space character from being typed
+    }
+  }
+
+  function handleKeyPressEmail(event) {
+    // Get the character that the user is trying to type
+    const char = event.key;
+    const input = event.target;
+
+    const endsWithDotCom = input.value.endsWith(".com");
+    const endsWithDotLk = input.value.endsWith(".lk");
+
+    if (
+      (endsWithDotCom && char !== "Backspace") ||
+      (endsWithDotLk && char !== "Backspace")
+    ) {
+      event.preventDefault(); // Prevents further characters after ".com"
+      return;
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -259,10 +287,8 @@ export default function CreatePost() {
                 age: "",
                 image: "",
               });
-              if (state.confirmation) {
-                setCreating(false);
-                window.location.href = "/emp";
-              }
+              setCreating(false);
+              window.location.href = "/emp";
             }
           })
           .catch((error) => {
@@ -396,7 +422,7 @@ export default function CreatePost() {
                             />
                             <button
                               type="button"
-                              className=" bg-amber-800 hover:bg-amber-900 text-white font-semibold
+                              className=" bg-custom-color hover:bg-amber-900 text-white font-semibold
                 py-2 px-4 rounded
                 focus:outline-none focus:ring-2 focus:ring-amber-400
                 transition duration-300 ease-in-out
@@ -546,6 +572,8 @@ export default function CreatePost() {
                                       value={state?.name}
                                       type="text"
                                       name="name"
+                                      onKeyPress={handleKeyPress}
+                                      required
                                       placeholder="Enter Employee Name"
                                       onChange={handInputChange}
                                       className={`peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 ${
@@ -700,6 +728,7 @@ export default function CreatePost() {
                                       name="email"
                                       placeholder="Enter Employee Email"
                                       onChange={handInputChange}
+                                      onKeyPress={handleKeyPressEmail}
                                       class={`${
                                         errors?.email
                                           ? "border-red-500"
