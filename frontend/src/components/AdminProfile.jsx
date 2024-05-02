@@ -30,6 +30,7 @@ import axios from "axios";
 const AdminProfileMenu = () => {
   const { isLoggedIn, login, logout } = useAuth();
   const [userImage, setUserImage] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     // Retrieve user data from localStorage
@@ -52,6 +53,9 @@ const AdminProfileMenu = () => {
       const profileImage = response.data.post.image; // Assuming the API response contains a key named profileImage with the URL of the image
       setUserImage(profileImage);
       console.log(profileImage);
+      const profileId = response.data.post._id; // Assuming the API response contains a key named profileImage with the URL of the image
+      setUserId(profileId);
+      console.log(profileId);
     } catch (error) {
       console.error("Error fetching profile image:", error);
       // Handle error
@@ -168,10 +172,11 @@ const AdminProfileMenu = () => {
                     fill="#90A4AE"
                   />
                 </svg>
-
-                <Typography variant="small" className="font-medium">
-                  My Profile
-                </Typography>
+                <Link to={`/Display_Employee_Details/${userId}`}>
+                  <Typography variant="small" className="font-medium">
+                    My Profile
+                  </Typography>
+                </Link>
               </MenuItem>
             </Link>
             {/* Other menu items */}

@@ -212,7 +212,7 @@ export default function Posts() {
                       <Link to="/emp/add">
                         <Button
                           variant="gradient"
-                          color="blue"
+                          color="orange"
                           className="flex items-center gap-3 "
                           href=""
                         >
