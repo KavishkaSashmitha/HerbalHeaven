@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "jspdf-autotable";
-import { SidebarWithBurgerMenu } from "../components/navBar";
-import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
 import {
   Button,
@@ -13,7 +11,6 @@ import {
   CardFooter,
   IconButton,
   Avatar,
-  Input,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@material-tailwind/react";
@@ -123,11 +120,6 @@ export default function Posts() {
   const handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
     filterData(searchKey);
-    // axios.get("http://localhost:8070/api/posts/posts").then((res) => {
-    //   if (res.data.success) {
-    //     filterData(res.data.existingPosts, searchKey);
-    //   }
-    // });
   };
 
   useEffect(() => {

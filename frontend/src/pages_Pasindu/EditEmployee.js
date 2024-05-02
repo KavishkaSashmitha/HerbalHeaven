@@ -72,6 +72,60 @@ export default function EditPost() {
     });
   };
 
+  function handleKeyPressMobile(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+    
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+    
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 10;
+    
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
+  function handleKeyPressAge(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+    
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+    
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 2;
+    
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
+  function handleKeyPressNic(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+    
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+    
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 12;
+    
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
   function handleKeyPress(event) {
     // Get the character that the user is trying to type
     const char = event.key;
@@ -548,6 +602,7 @@ export default function EditPost() {
                                       type="number"
                                       name="nic"
                                       placeholder="Enter National ID"
+                                      onKeyPress={handleKeyPressNic}
                                       onChange={handleInputChange}
                                       className={`${
                                         errors.nic && "border-red-500"
@@ -577,7 +632,7 @@ export default function EditPost() {
                                       value={formData.mobile}
                                       type="number"
                                       name="mobile"
-                                      placeholder="Enter Mobile Number"
+                                      onKeyPress={handleKeyPressMobile}
                                       onChange={handleInputChange}
                                       className={`${
                                         errors.mobile && "border-red-500"
@@ -654,8 +709,7 @@ export default function EditPost() {
                                       value={formData.age}
                                       type="number"
                                       name="age"
-                                      min={18}
-                                      max={60}
+                                      onKeyPress={handleKeyPressAge}
                                       placeholder="Enter Age"
                                       onChange={handleInputChange}
                                       className={`${

@@ -29,9 +29,6 @@ import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import "react-toastify/dist/ReactToastify.css";
 
-// import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
-// import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
-// import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
 import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 // import HiestSalary from "./pages_Pasindu/HiestSalary";
@@ -85,8 +82,6 @@ import Delivery from "./pages_Malshan/Delivery";
 import { useAuth } from "./middleware/authContext";
 import { CustomerLogin } from "./pages/Customer-login";
 
-import MyOrders from "./pages_Ridmi/myOrders";
-
 import ProductList from "./pages/Direct_Order_Products";
 
 import CartAdminDashboard from "./pages/Cart-AdminDashboard";
@@ -104,7 +99,11 @@ import UpdateProduct from "./pages-Dileesha/UpdateProduct";
 import InventoryList from "./pages-Dileesha/InventoryList";
 import InventoryReport from "./pages-Dileesha/InventoryReport";
 
+import MyOrders from "./pages_Ridmi/myOrders";
+
+
 import AdminDashboard from "./pages/adminDashboard";
+
 
 
 
@@ -112,6 +111,8 @@ import AdminDashboard from "./pages/adminDashboard";
 import DeretOrders from "./pages-Kumesh/Admin/Income/DeretOrders";
 import MaterialCost from "./pages-Kumesh/Admin/Expens/MaterialCost";
 import EmpSalary from "./pages-Kumesh/Admin/Expens/EmpSalary";
+import AdminDashboard from "./pages/adminDashboard";
+
 //import AdminDashboard from "./pages/adminDashboard";
 
 function App() {
