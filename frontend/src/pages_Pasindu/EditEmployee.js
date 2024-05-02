@@ -77,13 +77,13 @@ export default function EditPost() {
     const charCode = event.which || event.keyCode;
     const char = String.fromCharCode(charCode);
     const isDigit = /[0-9]/.test(char);
-    
+
     // Get the current value of the input field
     const currentValue = event.target.value;
-    
+
     // Check the length of the input field
     const isMaxLengthReached = currentValue.length >= 10;
-    
+
     // Prevent default if the character is not a digit or if max length is reached
     if (!isDigit || isMaxLengthReached) {
       event.preventDefault();
@@ -95,13 +95,13 @@ export default function EditPost() {
     const charCode = event.which || event.keyCode;
     const char = String.fromCharCode(charCode);
     const isDigit = /[0-9]/.test(char);
-    
+
     // Get the current value of the input field
     const currentValue = event.target.value;
-    
+
     // Check the length of the input field
     const isMaxLengthReached = currentValue.length >= 2;
-    
+
     // Prevent default if the character is not a digit or if max length is reached
     if (!isDigit || isMaxLengthReached) {
       event.preventDefault();
@@ -113,13 +113,13 @@ export default function EditPost() {
     const charCode = event.which || event.keyCode;
     const char = String.fromCharCode(charCode);
     const isDigit = /[0-9]/.test(char);
-    
+
     // Get the current value of the input field
     const currentValue = event.target.value;
-    
+
     // Check the length of the input field
     const isMaxLengthReached = currentValue.length >= 12;
-    
+
     // Prevent default if the character is not a digit or if max length is reached
     if (!isDigit || isMaxLengthReached) {
       event.preventDefault();
@@ -147,7 +147,10 @@ export default function EditPost() {
     const endsWithDotCom = input.value.endsWith(".com");
     const endsWithDotLk = input.value.endsWith(".lk");
 
-    if ((endsWithDotCom && char !== "Backspace")||(endsWithDotLk && char !== "Backspace")) {
+    if (
+      (endsWithDotCom && char !== "Backspace") ||
+      (endsWithDotLk && char !== "Backspace")
+    ) {
       event.preventDefault(); // Prevents further characters after ".com"
       return;
     }
@@ -746,10 +749,9 @@ export default function EditPost() {
                 </div>
               </div>
             </CardBody>
-            <CardFooter>
-              <Footer />
-            </CardFooter>
+            <CardFooter></CardFooter>
           </Card>
+          <Footer />
         </div>
       </div>
     </>

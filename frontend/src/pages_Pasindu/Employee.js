@@ -212,7 +212,7 @@ export default function Posts() {
                       <Link to="/emp/add">
                         <Button
                           variant="gradient"
-                          color="blue"
+                          color="orange"
                           className="flex items-center gap-3 "
                           href=""
                         >
@@ -265,7 +265,7 @@ export default function Posts() {
             </CardHeader>
             <CardBody className="p-4">
               <div className="overflow-x-auto ">
-                <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-blue-gray-200 opacity-95">
+                <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-white opacity-95">
                   <thead>
                     <tr>
                       <th className="p-4  ">
@@ -444,7 +444,7 @@ export default function Posts() {
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-transparent p-4">
               <Button
-                className="bg-blue-500 text-cyan-50"
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={prevPage}
@@ -455,7 +455,7 @@ export default function Posts() {
               <div className="flex items-center gap-2 ">
                 {pageNumbers.map((number) => (
                   <IconButton
-                    className="bg-blue-500 hover:bg-blue-700 text-cyan-50"
+                    className="bg-custom-color hover:bg-amber-800 text-cyan-50"
                     key={number}
                     variant={number === currentPage ? "outlined" : "text"}
                     size="sm"
@@ -466,7 +466,7 @@ export default function Posts() {
                 ))}
               </div>
               <Button
-                className="bg-blue-500 text-cyan-50"
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={nextPage}
@@ -478,8 +478,8 @@ export default function Posts() {
                 Next
               </Button>
             </CardFooter>
-            <Footer />
           </Card>
+          <Footer />
         </div>
       </div>
     </>
