@@ -48,7 +48,7 @@ const AddProduct = () => {
         isValid: false,
       },
       image: {
-        value: null,
+        value: '',
         isValid: false,
       },
     },
@@ -129,35 +129,39 @@ const AddProduct = () => {
       return;
     }
 
-    try {
-      const formData = new FormData();
-      formData.append('productNo', formState.inputs.productNo.value); // Corrected
-      formData.append('productName', formState.inputs.productName.value); // Corrected
-      formData.append(
-        'shortDescription',
-        formState.inputs.shortDescription.value
-      ); // Corrected
-      formData.append('category', formState.inputs.category.value);
-      formData.append('cost', formState.inputs.cost.value); // Corrected
-      formData.append('quantity', formState.inputs.quantity.value); // Corrected
-      formData.append('reorderLevel', formState.inputs.reorderLevel.value); // Corrected
-      formData.append(
-        'manufactureDate',
-        formState.inputs.manufactureDate.value
-      ); // Corrected
-      formData.append('expiaryDate', formState.inputs.expiaryDate.value); // Corrected
-      formData.append('image', formState.inputs.image.value); // Corrected
+    const upimg = new FormData();
 
-      const response = await axios.post(
-        'http://localhost:8070/inventory/addInventoryItem',
-        formData
-      );
-      console.log(response);
-      console.log(formState.inputs);
-      navigate('/inventory');
-    } catch (err) {
-      console.log(err);
-    }
+    upimg.append('image', formState.inputs.image.value);
+
+    axios
+      .post('http://localhost:8070/inventory/uploadimg', upimg)
+      .then((res) => {
+        const url = res.data.downloadURL;
+        console.log(url);
+        try {
+          const formData = {
+            productNo: formState.inputs.productNo.value,
+            productName: formState.inputs.productName.value,
+            shortDescription: formState.inputs.shortDescription.value,
+            category: formState.inputs.category.value,
+            cost: formState.inputs.cost.value,
+            quantity: formState.inputs.quantity.value,
+            reorderLevel: formState.inputs.reorderLevel.value,
+            manufactureDate: formState.inputs.manufactureDate.value,
+            expiaryDate: formState.inputs.expiaryDate.value,
+            image: url,
+          };
+          const response = axios.post(
+            'http://localhost:8070/inventory/addInventoryItem',
+            formData
+          );
+          console.log(response);
+          console.log(formState.inputs);
+          navigate('/inventory');
+        } catch (err) {
+          console.log(err);
+        }
+      });
   };
 
   useEffect(() => {

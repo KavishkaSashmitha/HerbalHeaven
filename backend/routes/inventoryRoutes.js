@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const inventoryController = require('../controllers/inventoryController');
 const fileUpload = require('../middleware/uploadMiddleware');
+const hhmail = require('../middleware/nodeMailer');
 const fs = require('fs');
 const path = require('path');
 
@@ -14,11 +15,7 @@ if (!fs.existsSync(directoryPath)) {
   console.log(`Directory ${directoryPath} already exists`);
 }
 
-router.post(
-  '/addInventoryItem',
-  fileUpload.single('image'),
-  inventoryController.addInventoryItem
-);
+router.post('/addInventoryItem', inventoryController.addInventoryItem);
 
 router.get('/viewInventoryItems', inventoryController.viewInventoryItems);
 
@@ -30,5 +27,9 @@ router.delete(
   '/deleteInventoryItem/:id',
   inventoryController.deleteInventoryItem
 );
+
+router.post('/uploadimg', fileUpload);
+
+// router.post('/sendEmail', hhmail);
 
 module.exports = router;

@@ -229,10 +229,7 @@ const InventoryList = () => {
                     >
                       {item.image && (
                         <img
-                          src={`http://localhost:8070/${item.image.replace(
-                            /\\/g,
-                            '/'
-                          )}`}
+                          src={`${item.image}`}
                           alt="Product"
                           style={{ width: '100px', height: '80px' }}
                         />
