@@ -15,8 +15,6 @@ import { EcommerceCard } from './pages/Products';
 
 import Cart from './pages/cart';
 
-import Cart from './pages/cart';
-
 import CreatPost from './pages_Pasindu/CreateEmployee';
 import EditPost from './pages_Pasindu/EditEmployee';
 import Posts from './pages_Pasindu/Employee';
@@ -77,9 +75,6 @@ import OTPVerification from './pages/Manager-SignIn';
 import { useAuth } from './middleware/authContext';
 import { CustomerLogin } from './pages/Customer-login';
 
-import AddProduct from './pages-Dileesha/AddProduct';
-import UpdateProduct from './pages-Dileesha/UpdateProduct';
-import InventoryList from './pages-Dileesha/InventoryList';
 import MyOrders from './pages_Ridmi/myOrders';
 
 import ProductList from './pages/Direct_Order_Products';
@@ -99,13 +94,6 @@ import UpdateProduct from './pages-Dileesha/UpdateProduct';
 import InventoryList from './pages-Dileesha/InventoryList';
 import InventoryReport from './pages-Dileesha/InventoryReport';
 
-import MyOrders from './pages_Ridmi/myOrders';
-import ProductList from './pages/Direct_Order_Products';
-import CartAdminDashboard from './pages/Cart-AdminDashboard';
-import DirectOrdersTable from './pages/DirectOrders';
-
-import ProtectedRoute from './middleware/ProtectedRoute';
-import Cart from './pages/cart';
 import AdminDashboard from './pages/adminDashboard';
 
 function App() {
@@ -195,9 +183,9 @@ function App() {
         <Route path="/expensive" element={<Expens />} />
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
-        <Route path="/dir" element={<DeretOrders />} />
+        {/* <Route path="/dir" element={<DeretOrders />} />
         <Route path="/material" element={<MaterialCost />} />
-        <Route path="/employesalary" element={<EmpSalary />} />
+        <Route path="/employesalary" element={<EmpSalary />} /> */}
       </Route>
 
       <Route path="/emp" element={<Posts />} />
