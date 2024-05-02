@@ -20,7 +20,7 @@ import AdminNavbar from "../components/AdminNavbar";
 import { DefaultSidebar } from "../components/Manager-Sidebar";
 
 export default function Transports() {
-  const [transport, setTransports] = useState([]);
+  const [delivery, setTransports] = useState([]);
   const [filteredtransports, setFilteredTransports] = useState([]);
   const [isScrollDisabled, setIsScrollDisabled] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -38,7 +38,7 @@ export default function Transports() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const paginatedPosts = cartItems.slice(indexOfFirstItem, indexOfLastItem);
   const paginatedTransports = (
-    filteredtransports.length > 0 ? filteredtransports : transport
+    filteredtransports.length > 0 ? filteredtransports : delivery
   ).slice(indexOfFirstItem, indexOfLastItem);
 
   // Change page
@@ -52,7 +52,7 @@ export default function Transports() {
     let i = 1;
     i <=
     Math.ceil(
-      (filteredtransports.length > 0 ? filteredtransports : transport).length /
+      (filteredtransports.length > 0 ? filteredtransports : delivery).length /
         itemsPerPage
     );
     i++
@@ -61,27 +61,19 @@ export default function Transports() {
   }
 
   useEffect(() => {
-    retrieveTransport();
+    retrieveDelivery();
   }, []);
 
-  if (isScrollDisabled) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
-
-  function retrieveTransport() {
+  function retrieveDelivery() {
     axios
-      .get("http://localhost:8070/api/transports/transports")
+      .get("http://localhost:8070/api/deliveries/deliveries")
       .then((res) => {
         if (res.data.success) {
-          setTransports(res.data.existingTransports);
-          setCartItems(res.data.existingTransports); // Assuming `existingPosts` holds all the data
-
+          setTransports(res.data.existingDeliveries);
           // Add setTimeout to setLoading after data retrieval
-          setTimeout(() => {
-            setLoading(false);
-          }, 800);
+          // setTimeout(() => {
+          //   setLoading(false);
+          // }, 800);
         }
       })
       .catch((error) => console.error("Error fetching posts:", error));
@@ -90,7 +82,7 @@ export default function Transports() {
   const onDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You will not be able to recover this driver!",
+      text: "You will not be able to recover this delivery!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, delete it!",
@@ -99,41 +91,40 @@ export default function Transports() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:8070/api/transports/transport/delete/${id}`)
+          .delete(`http://localhost:8070/api/deliveries/delivery/delete/${id}`)
           .then((res) => {
-            Swal.fire("Deleted!", "Driver has been deleted.", "success");
-            retrieveTransport();
+            Swal.fire("Deleted!", "Delivery has been deleted.", "success");
+            retrieveDelivery();
           });
       }
     });
   };
 
-  function filterData(transports, searchKey) {
-    const lowerCaseSearchKey = searchKey.toLowerCase();
+  // function filterData(transports, searchKey) {
+  //   const result = transports.filter(
+  //     (delivery) =>
+  //       delivery.d_name.toLowerCase().includes(searchKey) ||
+  //       delivery.d_mobile.toLowerCase().includes(searchKey) ||
+  //       delivery.dob.toLowerCase().includes(searchKey) ||
+  //       delivery.nic.toLowerCase().includes(searchKey) ||
+  //       delivery.vehicle_type.toLowerCase().includes(searchKey) ||
+  //       delivery.category.toLowerCase().includes(searchKey) ||
+  //       delivery.vehicle_No.toLowerCase().includes(searchKey)
+  //   );
+  //   setFilteredTransports(result);
+  //   setCurrentPage(1);
+  // }
 
-    const result = transports.filter(
-      (transport) =>
-        transport.d_name.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.d_mobile.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.dob.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.nic.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.vehicle_type.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.category.toLowerCase().includes(lowerCaseSearchKey) ||
-        transport.vehicle_No.toLowerCase().includes(lowerCaseSearchKey)
-    );
-    setFilteredTransports(result);
-    setCurrentPage(1);
-  }
+  // const handleSearchArea = (e) => {
+  //   const searchKey = e.currentTarget.value;
+  //   console.log("Search key:", searchKey);
 
-  const handleSearchArea = (e) => {
-    const searchKey = e.currentTarget.value;
-
-    axios.get("http://localhost:8070/api/transports/transports").then((res) => {
-      if (res.data.success) {
-        filterData(res.data.existingTransports, searchKey);
-      }
-    });
-  };
+  //   axios.get("http://localhost:8070/api/deliveries/deliveries").then((res) => {
+  //     if (res.data.success) {
+  //       filterData(res.data.existingDeliveries, searchKey);
+  //     }
+  //   });
+  // };
 
   function capitalizeSecondPart(name, vehicle_No) {
     if (!(name || vehicle_No)) return "";
@@ -216,68 +207,28 @@ export default function Transports() {
                         See information about Transport
                       </p>
                     </div>
-                    <div className="flex flex-row gap-2 shrink-0 sm:flex-row">
-                      <Link to="/deliveredOrders">
-                        <Button
-                          variant="gradient"
-                          color="blue"
-                          className="flex items-center gap-3 "
-                          href=""
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            aria-hidden="true"
-                            strokeWidth="2"
-                            className="w-4 h-4"
-                          >
-                            <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                          </svg>
-                          Delivered Orders
-                        </Button>
-                      </Link>
-                      <Link to="/delivery">
-                        <Button
-                          variant="gradient"
-                          color="blue"
-                          className="flex items-center gap-3 "
-                          href=""
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            aria-hidden="true"
-                            strokeWidth="2"
-                            className="w-4 h-4"
-                          >
-                            <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                          </svg>
-                          Delivery
-                        </Button>
-                      </Link>
-                      <Link to="/transport/add">
-                        <Button
-                          variant="gradient"
-                          color="blue"
-                          className="flex items-center gap-3 "
-                          href=""
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            aria-hidden="true"
-                            strokeWidth="2"
-                            className="w-4 h-4"
-                          >
-                            <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                          </svg>
-                          Add New
-                        </Button>
-                      </Link>
-                    </div>
+                    {/* <div className="flex flex-row gap-2 shrink-0 sm:flex-row">
+                  <Link to="/delivery/add">
+                    <Button
+                      variant="gradient"
+                      color="blue"
+                      className="flex items-center gap-3 "
+                      href=""
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        strokeWidth="2"
+                        className="w-4 h-4"
+                      >
+                        <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
+                      </svg>
+                      Add New
+                    </Button>
+                  </Link>
+                </div> */}
                   </div>
                   <div class="w-full md:w-72 ">
                     <div class="relative h-10 w-full min-w-[200px]">
@@ -298,14 +249,14 @@ export default function Transports() {
                           ></path>
                         </svg>
                       </div>
-                      <input
-                        class="peer h-full w-full rounded-[7px] border border-blue-gray-100 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-100 focus:border-2 focus:border-gray-100 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                        placeholder=" "
-                        onChange={(e) => handleSearchArea(e)}
-                      />
-                      <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-200 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-100 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-100 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-100 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-200 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-200 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-200 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-100">
-                        Search
-                      </label>
+                      {/* <input
+                    class="peer h-full w-full rounded-[7px] border border-blue-gray-100 border-t-transparent bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-white outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-100 focus:border-2 focus:border-gray-100 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                    placeholder=" "
+                    onChange={(e) => handleSearchArea(e)}
+                  />
+                  <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-200 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-100 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-100 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-100 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-200 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-200 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-200 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-100">
+                    Search
+                  </label> */}
                     </div>
                   </div>
                 </div>
@@ -326,7 +277,12 @@ export default function Transports() {
                         </th>
                         <th className="p-4 ">
                           <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                            Driver Name
+                            Order Name
+                          </p>
+                        </th>
+                        <th className="p-4 ">
+                          <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
+                            Owner Name
                           </p>
                         </th>
                         <th className="p-4 ">
@@ -334,19 +290,10 @@ export default function Transports() {
                             Mobile
                           </p>
                         </th>
+
                         <th className="p-4 ">
                           <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                            Email
-                          </p>
-                        </th>
-                        <th className="p-4 ">
-                          <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                            Driver Age
-                          </p>
-                        </th>
-                        <th className="p-4 ">
-                          <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                            Driver NIC
+                            NIC
                           </p>
                         </th>
                         <th className="p-4 ">
@@ -354,21 +301,14 @@ export default function Transports() {
                             Vehicle Type
                           </p>
                         </th>
-                        <th className="p-4 ">
-                          <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                            Category
-                          </p>
-                        </th>
+
                         <th className="p-4 ">
                           <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
                             Vehicle NO.
                           </p>
                         </th>
-                        <th className="p-4">
-                          <p
-                            className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1"
-                            style={{ marginLeft: "27%" }}
-                          >
+                        <th className="p-4 ">
+                          <p className="block font-sans antialiased font-bold leading-none text-gray-900 text-x1">
                             Actions
                           </p>
                         </th>
@@ -376,7 +316,7 @@ export default function Transports() {
                     </thead>
 
                     <tbody className="divide-y">
-                      {paginatedTransports.map((transport, index) => (
+                      {paginatedTransports.map((delivery, index) => (
                         <tr key={index}>
                           <td className="p-4">
                             <div className="flex items-center gap-3 ">
@@ -394,12 +334,19 @@ export default function Transports() {
                                   className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900"
                                   style={{ textAlign: "center" }}
                                 >
-                                  <a
-                                    href={`/transports/transport/${transport._id}`}
-                                    style={{ textDecoration: "none" }}
-                                  >
-                                    {capitalizeSecondPart(transport.d_name)}
-                                  </a>
+                                  <p>{delivery._id}</p>
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="p-4 ">
+                            <div className="flex items-center gap-3">
+                              <div className="flex flex-col">
+                                <p
+                                  className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900"
+                                  style={{ textAlign: "center" }}
+                                >
+                                  <p>{capitalizeSecondPart(delivery.d_name)}</p>
                                 </p>
                               </div>
                             </div>
@@ -408,25 +355,7 @@ export default function Transports() {
                             <div className="flex items-center gap-3">
                               <div className="flex flex-col">
                                 <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                                  {transport.d_mobile}
-                                </p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="p-4 ">
-                            <div className="flex items-center gap-3">
-                              <div className="flex flex-col">
-                                <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                                  {transport.email}
-                                </p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="p-4 ">
-                            <div className="flex items-center gap-3">
-                              <div className="flex flex-col">
-                                <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                                  {transport.dob}
+                                  {delivery.d_mobile}
                                 </p>
                               </div>
                             </div>
@@ -436,12 +365,12 @@ export default function Transports() {
                             <div className="flex items-center gap-3">
                               <div className="flex flex-col">
                                 <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                                  {transport &&
-                                  transport.nic &&
-                                  typeof transport.nic === "string"
-                                    ? transport.nic.length === 9
-                                      ? transport.nic.slice(0, 9) + "v"
-                                      : transport.nic
+                                  {delivery &&
+                                  delivery.nic &&
+                                  typeof delivery.nic === "string"
+                                    ? delivery.nic.length === 9
+                                      ? delivery.nic.slice(0, 9) + "v"
+                                      : delivery.nic
                                     : "NIC not available"}
                                 </p>
                               </div>
@@ -452,7 +381,7 @@ export default function Transports() {
                             <div className="flex items-center gap-3">
                               <div className="flex flex-col">
                                 <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                                  {transport.vehicle_type}
+                                  {delivery.vehicle_type}
                                 </p>
                               </div>
                             </div>
@@ -462,20 +391,7 @@ export default function Transports() {
                             <div className="flex items-center gap-3">
                               <div className="flex flex-col">
                                 <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                                  {transport.category
-                                    ?.charAt(0)
-                                    ?.toUpperCase() +
-                                    transport.category?.slice(1)}
-                                </p>
-                              </div>
-                            </div>
-                          </td>
-
-                          <td className="p-4 ">
-                            <div className="flex items-center gap-3">
-                              <div className="flex flex-col">
-                                <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
-                                  {transport.vehicle_No}
+                                  {delivery.vehicle_No}
                                 </p>
                               </div>
                             </div>
@@ -485,40 +401,11 @@ export default function Transports() {
                             <div>
                               <a
                                 className="mr-2 btn btn-primary"
-                                href={`/transport/edit/${transport._id}`}
-                              >
-                                <Button color="green">
-                                  <i
-                                    className="fas fa-edit"
-                                    style={{ fontSize: "15px" }}
-                                  ></i>
-                                </Button>
-                              </a>
-
-                              <a
-                                className="mr-2 btn btn-primary"
-                                onClick={() => onDelete(transport._id)}
+                                onClick={() => onDelete(delivery._id)}
                               >
                                 <Button color="red">
-                                  <i
-                                    className="fas fa-trash-alt"
-                                    style={{ fontSize: "15px" }}
-                                  ></i>
-                                </Button>
-                              </a>
-
-                              <a
-                                className="mr-2 btn btn-primary"
-                                href={`/FuelReport/${transport._id}`}
-                              >
-                                <Button color="orange">
-                                  <i
-                                    className="fas fa-file"
-                                    style={{ fontSize: "15px" }}
-                                  >
-                                    {" "}
-                                  </i>
-                                  <i className="mr-2 fas fa-file"> </i>Report
+                                  <i className="mr-2 fas fa-edit"></i>
+                                  Delete
                                 </Button>
                               </a>
                             </div>

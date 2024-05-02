@@ -40,6 +40,7 @@ app.use('/sup', require('./routes/supplierRouter'));
 
 app.use('/', require('./routes/PaymnetRoutes'));
 app.use('/api/transports', require('./routes/transports'));
+app.use('/api/deliveries', require('./routes/delivery'));
 app.use('/', Cardrouter);
 app.use('/cash', CashRouter);
 

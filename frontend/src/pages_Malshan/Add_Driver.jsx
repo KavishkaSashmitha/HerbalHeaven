@@ -14,6 +14,7 @@ export default class Add_Driver extends Component {
       d_name: "",
       d_mobile: "",
       dob: "",
+      email: "",
       category: "",
       nic: "",
       vehicle_No: "",
@@ -62,6 +63,14 @@ export default class Add_Driver extends Component {
     return "";
   };
 
+  validateEmail = () => {
+    const { email } = this.state;
+    if (!email) {
+      return "Email is required";
+    }
+    return "";
+  };
+
   validateCategory = () => {
     const { category } = this.state;
     if (!category) {
@@ -69,8 +78,6 @@ export default class Add_Driver extends Component {
     }
     return "";
   };
-
-  
 
   validateNic = () => {
     const { nic } = this.state;
@@ -81,9 +88,11 @@ export default class Add_Driver extends Component {
     if (!nicFormat.test(nic)) {
       return "National ID must contain either 9 digits followed by an optional 'v' or 'V', or exactly 12 digits";
     }
+    if (nic.length > 12) {
+      return "National ID must be maximum 12 characters long";
+    }
     return "";
   };
-
 
   validateVehicleNumber = () => {
     const { vehicle_No } = this.state;
@@ -95,7 +104,7 @@ export default class Add_Driver extends Component {
       return "Please enter a valid Sri Lankan vehicle number (e.g., XX1234 or XXX1234)";
     }
     return "";
-};
+  };
 
   validateVehicleType = () => {
     const { vehicle_type } = this.state;
@@ -105,9 +114,8 @@ export default class Add_Driver extends Component {
     return "";
   };
 
- 
   handleInputChange = (e) => {
-    const {name, value } = e.target;
+    const { name, value } = e.target;
 
     this.setState({
       [name]: value,
@@ -132,12 +140,11 @@ export default class Add_Driver extends Component {
       d_name: this.validateName(),
       d_mobile: this.validateMobile(),
       dob: this.validateAge(),
+      email: this.validateEmail(),
       category: this.validateCategory(),
       nic: this.validateNic(),
       vehicle_No: this.validateVehicleNumber(),
       vehicle_type: this.validateVehicleType(),
-      
-  
     };
 
     // Check if any errors exist
@@ -146,13 +153,22 @@ export default class Add_Driver extends Component {
       return;
     }
 
-    const { d_name, d_mobile, dob, category, nic, vehicle_No, vehicle_type} =
-      this.state;
+    const {
+      d_name,
+      d_mobile,
+      dob,
+      email,
+      category,
+      nic,
+      vehicle_No,
+      vehicle_type,
+    } = this.state;
 
     const data = {
       d_name: d_name,
       d_mobile: d_mobile,
       dob: dob,
+      email: email,
       category: category,
       nic: nic,
       vehicle_No: vehicle_No,
@@ -178,8 +194,9 @@ export default class Add_Driver extends Component {
                 d_name: "",
                 d_mobile: "",
                 dob: "",
+                email: "",
                 category: "",
-                nic:"",
+                nic: "",
                 vehicle_No: "",
                 vehicle_type: "",
               });
@@ -267,7 +284,7 @@ export default class Add_Driver extends Component {
                       <form class="flex flex-col gap-4 mt-12">
                         <div>
                           <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
-                            <label>Owner Name</label>
+                            <label>Driver Name</label>
                           </p>
                           <div class="relative h-10 w-full min-w-[200px]">
                             <input
@@ -275,10 +292,16 @@ export default class Add_Driver extends Component {
                               type="text"
                               name="d_name"
                               onChange={this.handleInputChange}
+                              onKeyPress={(e) => {
+                                const pattern = /[a-zA-Z\s]/; // Regular expression to match letters and spaces
+                                if (!pattern.test(e.key)) {
+                                  e.preventDefault(); // Prevents the input of characters other than letters and spaces
+                                }
+                              }}
                               className={`${
                                 errors.d_name && "border-red-500"
                               }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                            `}
+                              `}
                             />
                             {errors.d_name && (
                               <span className="ml-1 text-sm text-red-500 sans">
@@ -291,6 +314,31 @@ export default class Add_Driver extends Component {
                         </div>
                         {errors.d_name && <div class=""></div>}
 
+                        <div>
+                          <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                            <label>Email</label>
+                          </p>
+                          <div class="relative h-10 w-full min-w-[200px]">
+                            <input
+                              value={this.state.email}
+                              type="text"
+                              name="email"
+                              placeholder="Enter Email"
+                              onChange={this.handleInputChange}
+                              className={`${
+                                errors.email && "border-red-500"
+                              }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            `}
+                            />
+                            {errors.email && (
+                              <span className="ml-1 text-sm text-red-500 sans">
+                                {errors.email}
+                              </span>
+                            )}
+                            <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                          </div>
+                        </div>
+                        {errors.email && <div class=""></div>}
 
                         <div>
                           <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
@@ -320,7 +368,7 @@ export default class Add_Driver extends Component {
 
                         <div>
                           <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
-                            <label>Age</label>
+                            <label>Driver Age</label>
                           </p>
                           <div class="relative h-10 w-full min-w-[200px]">
                             <input
@@ -343,38 +391,6 @@ export default class Add_Driver extends Component {
                           </div>
                         </div>
                         {errors.dob && <div class=""></div>}
-
-                        <div>
-                          <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
-                            <label>Category</label>
-                          </p>
-                          <div class="relative h-10 w-full min-w-[200px]">
-                            <select
-                              value={this.state.category}
-                              type="text"
-                              name="category"
-                              placeholder="Enter Category"
-                              onChange={this.handleInputChange}
-                              class={`${
-                                errors.category
-                                  ? "border-red-500"
-                                  : "border-blue-gray-200"
-                              }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
-                            >
-                              <option value="">Select Category</option>
-                              <option value="Rent">Rent</option>
-                              <option value="Own">Own</option>
-                            </select>
-                            {errors.category && (
-                              <p className="ml-1 text-sm text-red-500 sans">
-                                {errors.category}
-                              </p>
-                            )}
-                            <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
-                          </div>
-                        </div>
-                        {errors.category && <div class=""></div>}
-
                       </form>
                     </div>
                   </div>
@@ -383,7 +399,7 @@ export default class Add_Driver extends Component {
                   <div class="block overflow-visible">
                     <div class="relative block w-full overflow-visible !overflow-x-visible !overflow-y-visible bg-transparent">
                       <form class="flex flex-col gap-4 mt-12">
-                      <div>
+                        <div>
                           <p class="block  mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
                             <label>National ID</label>
                           </p>
@@ -442,7 +458,6 @@ export default class Add_Driver extends Component {
                         </div>
                         {errors.vehicle_type && <div class=""></div>}
 
-
                         <div>
                           <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
                             <label>Vehicle Number</label>
@@ -468,7 +483,37 @@ export default class Add_Driver extends Component {
                           </div>
                         </div>
                         {errors.vehicle_No && <div class=""></div>}
-                        
+
+                        <div>
+                          <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                            <label>Category</label>
+                          </p>
+                          <div class="relative h-10 w-full min-w-[200px]">
+                            <select
+                              value={this.state.category}
+                              type="text"
+                              name="category"
+                              placeholder="Enter Category"
+                              onChange={this.handleInputChange}
+                              class={`${
+                                errors.category
+                                  ? "border-red-500"
+                                  : "border-blue-gray-200"
+                              }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50`}
+                            >
+                              <option value="">Select Category</option>
+                              <option value="Rent">Rent</option>
+                              <option value="Own">Own</option>
+                            </select>
+                            {errors.category && (
+                              <p className="ml-1 text-sm text-red-500 sans">
+                                {errors.category}
+                              </p>
+                            )}
+                            <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                          </div>
+                        </div>
+                        {errors.category && <div class=""></div>}
                       </form>
                     </div>
                   </div>
