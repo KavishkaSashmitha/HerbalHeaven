@@ -101,9 +101,7 @@ export function DefaultSidebar() {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="px-4">
-
                 <Link to="/cart-Admin">
-
                     <ListItem className="text-yellow-200 ">
                       <ListItemPrefix>
                         <ChevronRightIcon
@@ -139,7 +137,6 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-
             <Accordion
               open={open === 3}
               icon={
@@ -159,7 +156,6 @@ export function DefaultSidebar() {
                   <ListItemPrefix>
                     <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
                   </ListItemPrefix>
-
                   <Typography
                     color="blue-gray"
                     className="mr-auto font-normal text-teal-200 "
@@ -206,7 +202,6 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-
             <Accordion
               open={open === 4}
               icon={
@@ -463,7 +458,6 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-
           </List>
         </div>
       </Card>
