@@ -49,7 +49,11 @@ const InventoryList = () => {
   });
 
   return (
-    <div className="flex justify-center items-center h-100 pt-1">
+    <div
+        className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+        style={{ backgroundColor: '#02353c' }}
+    >
+      <div className="flex flex-1 overflow-hidden">
       <div
         className={`sidebar w-68 bg-custom-color text-white ${
           open ? 'block' : 'hidden'
@@ -266,7 +270,8 @@ const InventoryList = () => {
           </Link>
         </Card>
         <Footer />
-      </div>
+        </div>
+        </div>
     </div>
   );
 };
