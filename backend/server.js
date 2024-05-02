@@ -13,7 +13,9 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 
+
 const app = express();
+
 
 const PORT = process.env.PORT || 8070;
 
@@ -27,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 
-app.use('/api/user/cart', require('./routes/cartRoutes'));
+app.use('/api/customer/cart', require('./routes/cartRoutes'));
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/directorders', require('./routes/directOrderRoute'));

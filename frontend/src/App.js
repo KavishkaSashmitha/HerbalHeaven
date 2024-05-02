@@ -13,13 +13,24 @@ import CustomerReport from './pages/CustomerReport';
 
 import { EcommerceCard } from './pages/Products';
 
+
+
 import Cart from './pages/cart';
 
-import CreatPost from './pages_Pasindu/CreateEmployee';
-import EditPost from './pages_Pasindu/EditEmployee';
-import Posts from './pages_Pasindu/Employee';
-import PostDetails from './pages_Pasindu/EmployeeDetails';
-import 'react-toastify/dist/ReactToastify.css';
+
+
+
+
+
+
+
+
+import CreatPost from "./pages_Pasindu/CreateEmployee";
+import EditPost from "./pages_Pasindu/EditEmployee";
+import Posts from "./pages_Pasindu/Employee";
+import PostDetails from "./pages_Pasindu/EmployeeDetails";
+import "react-toastify/dist/ReactToastify.css";
+
 
 // import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
 // import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
