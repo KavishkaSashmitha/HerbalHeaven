@@ -6,16 +6,34 @@ const supController = {
   //req ekn body ek gnnwa.req ekn body ek arn data base eke store krl record ek add krnw.success unoth res ek succes kiyl ywnwa nethnm error msg kk display krnwa.
   addsup: async (req, res) => {
     try {
-      const { name, email, rawMaterial, mobile, address } = req.body;
+      const {
+        name,
+        email,
+        rawMaterial1,
+        rawMaterial2,
+        rawMaterial3,
+        mobile,
+        address,
+      } = req.body;
 
-      if (!name || !email || !rawMaterial || !mobile || !address)
+      if (
+        !name ||
+        !email ||
+        !rawMaterial1 ||
+        !rawMaterial2 ||
+        !rawMaterial3 ||
+        !mobile ||
+        !address
+      )
         return res.status(400).json({ msg: "Please fill the all fields." });
 
       const newEmp = new Emp({
         name,
         email,
 
-        rawMaterial,
+        rawMaterial1,
+        rawMaterial2,
+        rawMaterial3,
 
         mobile,
         address,
@@ -55,12 +73,22 @@ const supController = {
 
   updateEmployee: async (req, res) => {
     try {
-      const { name, email, rawMaterial, mobile, address } = req.body;
+      const {
+        name,
+        email,
+        rawMaterial1,
+        rawMaterial2,
+        rawMaterial3,
+        mobile,
+        address,
+      } = req.body;
       await Emp.findByIdAndUpdate(req.params.id, {
         name,
         email,
 
-        rawMaterial,
+        rawMaterial1,
+        rawMaterial2,
+        rawMaterial3,
 
         mobile,
         address,
