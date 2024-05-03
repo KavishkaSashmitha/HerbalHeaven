@@ -54,7 +54,7 @@ function CreateUser() {
       errors.rawMaterial = "Raw Material is required";
       isValid = false;
     }
-    // if (!rawMaterial2) {
+
     //   errors.rawMaterial = "Raw Material is required";
     //   isValid = false;
     // }
