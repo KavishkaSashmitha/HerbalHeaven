@@ -12,9 +12,16 @@ const empSchema = new Schema({
   // age: {
   //   type: String,
   // },
-  rawMaterial: {
+  rawMaterial1: {
     type: String,
   },
+  rawMaterial2: {
+    type: String,
+  },
+  rawMaterial3: {
+    type: String,
+  },
+
   // country: {
   //   type: String,
   // },
@@ -24,12 +31,6 @@ const empSchema = new Schema({
   address: {
     type: String,
   },
-  // payment: {
-  //   type: Map,
-  //   of: Number,
-
-  //   default: {},
-  // },
 
   materialCost: {
     type: Map,

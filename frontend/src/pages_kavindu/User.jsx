@@ -87,6 +87,7 @@ const User = () => {
                   </Button>
                 </div>
               </div>
+              <h4>search</h4>
               <Input
                 type="text"
                 placeholder="Search..."
@@ -94,6 +95,7 @@ const User = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="mb-4 border-blue-gray-100 bg-blue-gray-50/50"
               />
+
               <CardBody className="px-0 flex flex-col flex-1">
                 <div className="overflow-auto">
                   <table className="overflow-scroll mt-5 w-full min-w-max table-auto text-left border-blue-gray-100 bg-blue-gray-50/50">
@@ -102,7 +104,9 @@ const User = () => {
                         {[
                           "Name",
                           "Email",
-                          "Raw Material",
+                          "Raw Material_01",
+                          "Raw Material_02",
+                          "Raw Material_03",
                           "Mobile",
                           "Address",
                           "Action",
@@ -137,7 +141,9 @@ const User = () => {
                           >
                             <td className="p-4">{user.name}</td>
                             <td className="p-4">{user.email}</td>
-                            <td className="p-4">{user.rawMaterial}</td>
+                            <td className="p-4">{user.rawMaterial1}</td>
+                            <td className="p-4">{user.rawMaterial2}</td>
+                            <td className="p-4">{user.rawMaterial3}</td>
                             <td className="p-4">{user.mobile}</td>
                             <td className="p-4">{user.address}</td>
                             <td className="p-4">
