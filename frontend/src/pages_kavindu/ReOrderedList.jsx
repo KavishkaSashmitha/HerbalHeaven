@@ -69,40 +69,7 @@ const User = () => {
 
             <Card className="flex flex-col flex-1 ml-2 mr-4">
               <h1 className="text-3xl">List of Suppliers</h1>
-              <div className="mb-5  flex justify-end">
-                <div>
-                <Link to="/ReOrderedList">
-                    <Button
-                      color="amber"
-                      className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    >
-                      ReOrdered List
-                    </Button>
-                  </Link>
-                  <Link to="/ReOrder">
-                    <Button
-                      color="amber"
-                      className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    >
-                      ReOrder
-                    </Button>
-                  </Link>
-                  <Link to="/sup/addsup">
-                    <Button
-                      color="amber"
-                      className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    >
-                      Add Supplier
-                    </Button>
-                  </Link>
-                  <Button
-                    color="red"
-                    className="py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  >
-                    Generate Report
-                  </Button>
-                </div>
-              </div>
+              <div className="mb-5  flex justify-end"></div>
               <h4>search</h4>
               <Input
                 type="text"
@@ -123,8 +90,7 @@ const User = () => {
                           "Raw Material_01",
                           "Raw Material_02",
                           "Raw Material_03",
-                          "Mobile",
-                          "Address",
+                          "Quantity",
                           "Action",
                         ].map((head, index) => (
                           <th
@@ -160,20 +126,8 @@ const User = () => {
                             <td className="p-4">{user.rawMaterial1}</td>
                             <td className="p-4">{user.rawMaterial2}</td>
                             <td className="p-4">{user.rawMaterial3}</td>
-                            <td className="p-4">{user.mobile}</td>
                             <td className="p-4">{user.address}</td>
                             <td className="p-4">
-                              <Link
-                                to={`/sup/update/${user._id}`}
-                                className="btn btn-warning mr-3"
-                              >
-                                <Button color="yellow">
-                                  <i
-                                    className="fas fa-edit"
-                                    style={{ fontSize: "20px" }}
-                                  ></i>
-                                </Button>
-                              </Link>
                               <Button
                                 color="red"
                                 onClick={() => handleDelete(user._id)}
@@ -183,20 +137,6 @@ const User = () => {
                                   style={{ fontSize: "20px" }}
                                 ></i>
                               </Button>
-                              <Link
-                                to={`/sup/material_report/${user._id}`}
-                                className="btn btn-warning "
-                              >
-                                <Button
-                                  color="green"
-                                  className="btn btn-secondary ml-2"
-                                >
-                                  <i
-                                    className="fas fa-file"
-                                    style={{ fontSize: "20px" }}
-                                  ></i>
-                                </Button>
-                              </Link>
                             </td>
                           </tr>
                         ))}
