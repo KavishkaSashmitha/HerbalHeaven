@@ -36,6 +36,8 @@ import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 import CreateUser from "./pages_kavindu/CreateUser";
 import UpdateUser from "./pages_kavindu/UpdateUser";
 import User from "./pages_kavindu/User";
+import ReOrder from "./pages_kavindu/ReOrder";
+import ReOrderedList from "./pages_kavindu/ReOrderedList";
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
@@ -65,7 +67,6 @@ import "./index.css";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import SupplierReport from "./pages_kavindu/SupplierReport";
 import MaterialReport from "./pages_kavindu/MaterialCostReport";
 
 import Transport from "./pages_Malshan/Transport";
@@ -189,6 +190,8 @@ function App() {
         <Route path="/sup/update/:id" element={<UpdateUser />} />
         <Route path="/sup" element={<User />} />
         <Route path="/sup/material_report/:id" element={<MaterialReport />} />
+        <Route path="/ReOrder" element={<ReOrder />} />
+        <Route path="/ReOrderedList" element={<ReOrderedList />} />
 
         {/*Ridmi*/}
         <Route path="/admin-orders" element={<Order />} />
