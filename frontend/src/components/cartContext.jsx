@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
       try {
         // Fetch cart count from the server
         const response = await axios.get(
-          'http://localhost:8070/api/user/cart',
+          'http://localhost:8070/api/customer/cart',
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming you store the token in localStorage

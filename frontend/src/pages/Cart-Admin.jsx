@@ -101,7 +101,7 @@ export function CartAdmin() {
     const fetchCartItems = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8070/api/customer/cart/cart-details'
+          'http://localhost:8070/api/user/cart/cart-details'
         );
         setCartItems(response.data);
       } catch (error) {

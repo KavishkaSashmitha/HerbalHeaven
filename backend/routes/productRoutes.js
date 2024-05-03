@@ -2,6 +2,7 @@ const express = require('express');
 const {
   productList,
   getProductById,
+  createProduct,
 } = require('../controllers/productController');
 
 const route = express.Router();
@@ -11,5 +12,6 @@ const route = express.Router();
 //Get Function
 route.get('/', productList);
 route.get('/:id', getProductById);
+route.post('/save', createProduct);
 
 module.exports = route;

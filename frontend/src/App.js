@@ -8,35 +8,20 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
-import { SidebarWithBurgerMenu } from "./components/navBar";
 
 //praveen
 
+import { SidebarWithBurgerMenu } from "./components/navBar";
 
-import Register from './pages/Register';
-import Dashboard from './pages/DashBoard';
+import Register from "./pages/Register";
+import Dashboard from "./pages/DashBoard";
 import EditProfile from "./pages/EditProfile";
 import CustomerManager from "./pages/CustomerManager";
 import CustomerReport from "./pages/CustomerReport";
 
+import { EcommerceCard } from "./pages/Products";
 
-
-
-
-
-import { EcommerceCard } from './pages/Products';
-
-
-
-import Cart from './pages/cart';
-
-
-
-
-
-
-
-
+import Cart from "./pages/cart";
 
 import CreatPost from "./pages_Pasindu/CreateEmployee";
 import EditPost from "./pages_Pasindu/EditEmployee";
@@ -44,24 +29,19 @@ import Posts from "./pages_Pasindu/Employee";
 import PostDetails from "./pages_Pasindu/EmployeeDetails";
 import "react-toastify/dist/ReactToastify.css";
 
-// import EmployeeChart from "./pages_Pasindu/Emp_Jobrole_Chart";
-// import MonthlySalChart from "./pages_Pasindu/Emp_Tot_SalChart";
-// import Emp_User_Chart from "./pages_Pasindu/Emp_User_Chart";
 import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
 import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 // import HiestSalary from "./pages_Pasindu/HiestSalary";
 
-
-import CreateUser from './pages_kavindu/CreateUser';
-import UpdateUser from './pages_kavindu/UpdateUser';
-import User from './pages_kavindu/User';
-
+import CreateUser from "./pages_kavindu/CreateUser";
+import UpdateUser from "./pages_kavindu/UpdateUser";
+import User from "./pages_kavindu/User";
 
 import SalaryReport from "./pages_Pasindu/SalaryReport";
 import DirectCartTable from "./pages/DirectOrder";
 
 //Kumesh-----------------------
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+//import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 //Kumesh-user
 
 import Payment from "./pages-Kumesh/User/Payment";
@@ -94,56 +74,52 @@ import Edit_Driver from "./pages_Malshan/Edit_Driver";
 import Driver_Details from "./pages_Malshan/Driver_Details";
 import FuelReport from "./pages_Malshan/FuelReport";
 import { CartAdmin, CartDetails } from "./pages/Cart-Admin";
-import CartChart from "./pages/Cart-Chart";
+//import CartChart from './pages/Cart-Chart';
 import OTPVerification from "./pages/Manager-SignIn";
+import DeliveredOrders from "./pages_Malshan/DeliveredOrders";
+import Delivery from "./pages_Malshan/Delivery";
 
 import { useAuth } from "./middleware/authContext";
 import { CustomerLogin } from "./pages/Customer-login";
 
+import ProductList from "./pages/Direct_Order_Products";
 
-
+import CartAdminDashboard from "./pages/Cart-AdminDashboard";
+import DirectOrdersTable from "./pages/DirectOrders";
 
 import "./index.css";
 
 import ImageUpload from "./imageUpload";
 
-
+import ProtectedRoute from "./middleware/ProtectedRoute";
 
 //Dileesha
-import AddProduct from './pages-Dileesha/AddProduct';
-import UpdateProduct from './pages-Dileesha/UpdateProduct';
-import InventoryList from './pages-Dileesha/InventoryList';
-import InventoryReport from './pages-Dileesha/InventoryReport';
+import AddProduct from "./pages-Dileesha/AddProduct";
+import UpdateProduct from "./pages-Dileesha/UpdateProduct";
+import InventoryList from "./pages-Dileesha/InventoryList";
+import InventoryReport from "./pages-Dileesha/InventoryReport";
 
-import MyOrders from './pages_Ridmi/myOrders';
-import ProductList from './pages/Direct_Order_Products';
-import CartAdminDashboard from './pages/Cart-AdminDashboard';
-import DirectOrdersTable from './pages/DirectOrders';
+import MyOrders from "./pages_Ridmi/myOrders";
 
 
-
-
-
-import ProtectedRoute from './middleware/ProtectedRoute';
-import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
-import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
-import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
 import AdminDashboard from "./pages/adminDashboard";
 
 
 
 
 
+import DeretOrders from "./pages-Kumesh/Admin/Income/DeretOrders";
+import MaterialCost from "./pages-Kumesh/Admin/Expens/MaterialCost";
+import EmpSalary from "./pages-Kumesh/Admin/Expens/EmpSalary";
 
 
-
+//import AdminDashboard from "./pages/adminDashboard";
 
 function App() {
   const { isLoggedIn } = useAuth();
 
   return (
     <Routes>
-
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<EcommerceCard />} />
 
@@ -153,12 +129,10 @@ function App() {
         {/* Kavishka */}
 
         <Route path="/dashboard" element={<Dashboard />} />
-        
 
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
         <Route path="/login" element={<CustomerLogin />} />
-     
 
         {/*Kumesh*/}
         <Route path="/user/payment" element={<Payment />} />
@@ -168,7 +142,6 @@ function App() {
 
         {/*Ridmi*/}
         <Route path="/my-orders" element={<MyOrders />} />
-
       </Route>
 
       <Route path="/" element={<Home />} />
@@ -194,14 +167,13 @@ function App() {
           element={<Display_Employee_Details />}
         />
         <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
-           
 
         {/* Praveen */}
-    
+
         <Route path="/all" element={<CustomerManager />} />
         <Route path="/signUp" element={<Register />} />
         <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/customer-report" element={<CustomerReport/>} />
+        <Route path="/customer-report" element={<CustomerReport />} />
 
         {/* Malshan */}
         <Route path="/transport" element={<Transport />} />
@@ -209,6 +181,8 @@ function App() {
         <Route path="/transport/edit/:id" element={<Edit_Driver />} />
         <Route path="/transport/:id" element={<Driver_Details />} />
         <Route path="/FuelReport/:id" element={<FuelReport />} />
+        <Route path="/delivery" element={<Delivery />} />
+        <Route path="/deliveredOrders" element={<DeliveredOrders />} />
 
         {/* Kavindu */}
         <Route path="/sup/addsup" element={<CreateUser />} />
@@ -230,16 +204,14 @@ function App() {
         <Route path="/expensive" element={<Expens />} />
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
-        <Route path="/dir" element={<DeretOrders />} />
+        {/* <Route path="/dir" element={<DeretOrders />} />
         <Route path="/material" element={<MaterialCost />} />
-        <Route path="/employesalary" element={<EmpSalary />} />
+        <Route path="/employesalary" element={<EmpSalary />} /> */}
       </Route>
 
       <Route path="/emp" element={<Posts />} />
       <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/user/payment" element={<Payment />} />
-
-     
 
       {/*Kumesh Start */}
       <Route path="/paypal" element={<PayPal />} />
@@ -248,7 +220,6 @@ function App() {
       {/* Routes that require authentication */}
 
       <Route path="/otp" element={<OTPVerification />} />
-
 
       {/* Pasindu */}
       <Route path="/emp/add" element={<CreatPost />} />
@@ -274,16 +245,13 @@ function App() {
       <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      
-
       <Route path="/salaryreport" element={<SalaryReport />} />
 
       {/*Dileesha*/}
       <Route path="/inventory/add" element={<AddProduct />} />
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
-     
-
+      <Route path="/inventory/report" element={<InventoryReport />} />
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>
