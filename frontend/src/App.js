@@ -252,6 +252,7 @@ function App() {
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
       <Route path="/inventory/report" element={<InventoryReport />} />
+      
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>
