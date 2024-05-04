@@ -160,9 +160,8 @@ export function SidebarWithBurgerMenu({}) {
                 </ListItem>
               </Accordion>
             </Link>
-            
-            
-            <Link to="/customer/cart">
+
+            <Link to="/user/cart">
               <Accordion open={open === 3}>
                 <ListItem className="p-0" selected={open === 3}>
                   <AccordionHeader
