@@ -11,9 +11,14 @@ router.post("/reorder/save", async (req, res) => {
     const subject = `New ReOrder Update`;
     const text = `Dear ${req.body.name},
 
-You are tasked with retrieving an order (${req.body.productName}) from our inventory and delivering it to the respective address. Please proceed to the inventory location to collect the specified order promptly and ensure its timely delivery to the designated address.
+    I hope this message finds you well. We are in need of a prompt delivery of raw materials for our production process. Below are the details of the items required:
+
+    Product Name: ${req.body.productName}
+    Quantity: ${req.body.quantity}
     
-Thank you for your attention to this matter.`;
+    Your swift action in processing this order would be greatly appreciated as it is crucial for our operations. Kindly confirm receipt of this request and provide an estimated delivery date at your earliest convenience.
+    
+    Thank you for your attention to this matter.`;
 
     await sendEmail(req.body.email, subject, text);
     await newReOrder.save();
