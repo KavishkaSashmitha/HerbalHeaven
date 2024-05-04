@@ -16,6 +16,7 @@ import { DefaultSidebar } from "../components/Manager-Sidebar";
 import { PencilIcon } from "@heroicons/react/24/solid";
 
 const User = () => {
+  const [reorder, setReOrder] = useState([]);
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = React.useState(0);
@@ -25,22 +26,34 @@ const User = () => {
     setOpen(!open);
   };
 
-  useEffect(() => {
+  function retrieveReOrder() {
     axios
-      .get("http://localhost:8070/sup/getSuppliers")
-      .then((result) => setUsers(result.data))
-      .catch((err) => console.log(err));
+      .get("http://localhost:8070/api/reorders/reorders")
+      .then((res) => {
+        if (res.data.success) {
+          setReOrder(res.data.existingReOrders);
+          // Add setTimeout to setLoading after data retrieval
+          // setTimeout(() => {
+          //   setLoading(false);
+          // }, 800);
+        }
+      })
+      .catch((error) => console.error("Error fetching posts:", error));
+  }
+
+  useEffect(() => {
+    retrieveReOrder();
   }, []);
 
   const handleDelete = (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this user?"
+      "Are you sure you want to delete this order?"
     );
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:8070/sup/deleteSupplier/${id}`)
+        .delete(`http://localhost:8070/api/reorders/reorder/delete/${id}`)
         .then(() => {
-          setUsers(users.filter((user) => user._id !== id));
+          setReOrder(reorder.filter((user) => user._id !== id));
         })
         .catch((err) => console.log(err));
     }
@@ -49,7 +62,7 @@ const User = () => {
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = reorder.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -88,8 +101,6 @@ const User = () => {
                           "Name",
                           "Email",
                           "Raw Material_01",
-                          "Raw Material_02",
-                          "Raw Material_03",
                           "Quantity",
                           "Action",
                         ].map((head, index) => (
@@ -116,21 +127,19 @@ const User = () => {
                             .toLowerCase()
                             .includes(searchTerm.toLowerCase())
                         )
-                        .map((user) => (
+                        .map((reorder) => (
                           <tr
-                            key={user._id}
+                            key={reorder._id}
                             className="border-b border-blue-gray-100 bg-blue-gray-50/50"
                           >
-                            <td className="p-4">{user.name}</td>
-                            <td className="p-4">{user.email}</td>
-                            <td className="p-4">{user.rawMaterial1}</td>
-                            <td className="p-4">{user.rawMaterial2}</td>
-                            <td className="p-4">{user.rawMaterial3}</td>
-                            <td className="p-4">{user.address}</td>
+                            <td className="p-4">{reorder.name}</td>
+                            <td className="p-4">{reorder.email}</td>
+                            <td className="p-4">{reorder.productName}</td>
+                            <td className="p-4">{reorder.quantity}</td>
                             <td className="p-4">
                               <Button
                                 color="red"
-                                onClick={() => handleDelete(user._id)}
+                                onClick={() => handleDelete(reorder._id)}
                               >
                                 <i
                                   className="fas fa-trash-alt"
@@ -148,7 +157,7 @@ const User = () => {
                 <nav>
                   <ul className="flex justify-center">
                     {Array.from(
-                      { length: Math.ceil(users.length / itemsPerPage) },
+                      { length: Math.ceil(reorder.length / itemsPerPage) },
                       (_, i) => (
                         <li key={i}>
                           <button
