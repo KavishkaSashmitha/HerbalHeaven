@@ -7,22 +7,24 @@ import {
   Button,
   Typography,
   Breadcrumbs,
-  Input,
-  Tabs,
-  TabsHeader,
-  Tab,
-  ButtonGroup,
 } from '@material-tailwind/react';
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { QrReader } from 'react-qr-reader';
+import QRCode from 'qrcode';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(5); // Number of products per page
-  const [searchInput, setSearchInput] = useState(''); // State for search input
-  const [directCart, setDirectCart] = useState({}); // State to manage cart items and quantities
+  const [productsPerPage] = useState(5);
+  const [searchInput, setSearchInput] = useState('');
+  const [directCart, setDirectCart] = useState({});
+  const [open, setOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [showScanner, setShowScanner] = useState(false);
+  const [scannedMessage, setScannedMessage] = useState(null); // State to hold scanned message
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,7 +43,6 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  // Logic to paginate products
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(
@@ -49,64 +50,140 @@ const ProductList = () => {
     indexOfLastProduct
   );
 
-  // Function to handle search input change
   const handleSearchInputChange = (e) => {
     setSearchInput(e.target.value);
-    setCurrentPage(1); // Reset pagination when searching
+    setCurrentPage(1);
   };
 
-  // Filter products based on search input
   const filteredProducts = currentProducts.filter((product) =>
     product.name.toLowerCase().includes(searchInput.toLowerCase())
   );
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const [open, setOpen] = React.useState(0);
 
-  const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
-  };
   const toggleSidebar = () => {
     setOpen(!open);
   };
+  const handleScan = async (data) => {
+    console.log('Scanned result:', data);
+    if (data) {
+      try {
+        const response = await fetch(
+          `http://localhost:8070/api/products/${data}`
+        );
+        if (!response.ok) {
+          throw new Error('Failed to fetch product');
+        }
+        const productData = await response.json();
+        await postCartData(productData); // Add the scanned product to the cart
+        setScannedMessage(`Scanned successfully: ${data}`);
+      } catch (error) {
+        console.error('Error scanning QR code:', error.message);
+        setScannedMessage(`Error scanning QR code: ${error.message}`);
+      }
+    }
+  };
 
-  // Function to post cart data to the database
-  // Function to post cart data to the database
+  const handleError = (error) => {
+    console.error('QR code scanning error:', error);
+    setScannedMessage(`QR code scanning error: ${error.message}`); // Set error message
+  };
+  const handleResult = async (result) => {
+    // Handle the result of the QR code scanning process
+    console.log('Scanned result:', result);
+    // Optionally, you can process the scanned result here
+    if (result) {
+      try {
+        const response = await fetch(
+          `http://localhost:8070/api/products/${result}`
+        );
+        if (!response.ok) {
+          throw new Error('Failed to fetch product');
+        }
+        const productData = await response.json();
+        await postCartData(productData);
+        setScannedMessage(`Scanned successfully: ${result}`); // Set scanned message
+      } catch (error) {
+        console.error('Error scanning QR code:', error.message);
+        setScannedMessage(`Error scanning QR code: ${error.message}`); // Set error message
+      } finally {
+        setShowScanner(false); // Turn off the scanner
+      }
+    }
+  };
+
+  const renderQrScanner = () => (
+    <div className="w-full max-w-md mx-auto mt-4">
+      <QrReader
+        delay={300}
+        onError={handleError}
+        onScan={handleScan}
+        onResult={handleResult}
+        style={{ width: '100%' }}
+      />
+    </div>
+  );
+
   const postCartData = async (product) => {
     try {
-      // Create a new cart item object with the required properties
       const directCartItem = {
         productId: product._id,
-        quantity: 1, // Assuming the initial quantity is 1 when adding to the cart
+        quantity: 1,
       };
 
-      // Send the cart item to the backend
       const response = await fetch('http://localhost:8070/api/directcart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ item: directCartItem }), // Send a single cart item
+        body: JSON.stringify({ item: directCartItem }),
       });
 
       if (!response.ok) {
         throw new Error('Failed to add item to cart');
       }
 
-      // Handle success, maybe clear the cart state
-      setDirectCart({});
+      // Optionally, you can update state or show a success message here
+      console.log('Product added to cart successfully');
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
+      // Handle error appropriately
+    }
+  };
+
+  const generateAndDownloadQRCode = async () => {
+    if (selectedProducts.length === 1) {
+      const product = selectedProducts[0];
+      const qrCodeDataUrl = await QRCode.toDataURL(product.name);
+
+      const downloadLink = document.createElement('a');
+      downloadLink.href = qrCodeDataUrl;
+      downloadLink.download = `${product.name}-qrcode.png`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    } else if (selectedProducts.length > 1) {
+      // Logic to generate QR codes for multiple selected products
+      // Same as the existing logic
+    }
+  };
+
+  const handleCheckboxChange = (e, product) => {
+    if (e.target.checked) {
+      setSelectedProducts([...selectedProducts, product]);
+    } else {
+      setSelectedProducts(
+        selectedProducts.filter((p) => p._id !== product._id)
+      );
     }
   };
 
   return (
     <div
-      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+      className="flex flex-col h-screen overflow-auto overflow-x-hidden"
       style={{ backgroundColor: '#02353c' }}
     >
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-scroll">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
             open ? 'block' : 'hidden'
@@ -114,116 +191,85 @@ const ProductList = () => {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="flex flex-col flex-1 overflow-hidden">
+        <div className="flex flex-col flex-1 overflow">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-
-          <Card className="overflow-hidden mr-4  ml-4 flex flex-1">
-          <Breadcrumbs className="ml-2 mb-2 mt-2">
-            <Link to="/">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-                  </svg>
-                </Link>
-                <Link to="/dashboard">
-                  <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
-                    <span>Dashboard</span>
-                  </li>
+          <Card className="overflow-hidden mr-4 ml-4 flex flex-1">
+            <CardBody>
+              <Breadcrumbs className="ml-2 mb-2 mt-2">
+                <Link to="/">
+                  <span>Dashboard</span>
                 </Link>
                 <Link to="/productCategory">
-                  <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
-                    <span>Direct-items</span>
-                  </li>
+                  <span>Direct-items</span>
                 </Link>
-            </Breadcrumbs>
-
-            <ButtonGroup className="mt-4 ml-4 mb-2" variant="outlined">
-              <Button>
-                <NavLink to="/productCategory" activeClassName="active-link">
-                  Items
-                </NavLink>
-              </Button>
-
-              <Button className="bg-black">
-                <NavLink
-                  to="/direct-cart"
-                  className="text-white"
-                  activeClassName="active-link"
-                >
-                  Cart
-                </NavLink>
-              </Button>
-            </ButtonGroup>
-
-            <div className="flex items-center ml-2 mb-4">
-              <Input
-                type="text"
-                placeholder="Search by product name"
-                value={searchInput}
-                onChange={handleSearchInputChange}
-                className="mr-2"
-                label="search"
-              />
-              {/* Button to generate report */}
-            </div>
-
-            <CardBody>
+              </Breadcrumbs>
               <div>
-                <table className="w-full min-w-max table-auto text-left text-sm">
-                  <thead>
-                    <tr className="bg-gray-200">
-                      <th className="px-4 py-2">#</th>
-                      <th className="px-4 py-2">Product Name</th>
-                      <th className="px-4 py-2">Stock</th>
-                      <th className="px-4 py-2">Price</th>
-                      <th className="px-4 py-2">Image</th>
-                      <th className="px-4 py-2">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredProducts.map((product, index) => (
-                      <tr key={product._id}>
-                        <td className="p-4">{index + 1}</td>
-                        <td className="p-4">{product.name}</td>
-                        <td className="p-4">{product.quantity}</td>
-                        <td className="p-4">Rs.{product.price}</td>
-                        <td className="p-4">
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            style={{ width: '50px' }}
-                          />
-                        </td>
-                        <td className="p-4">
-                          <Button
-                            onClick={() => postCartData(product)}
-                            color="teal"
-                            ripple="light"
-                            size="regular"
-                          >
-                            Add to Cart
-                          </Button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchInput}
+                  onChange={handleSearchInputChange}
+                  className="rounded-lg p-2 w-full mb-4"
+                />
               </div>
-            </CardBody>
-            <CardFooter>
-              <div className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal"
-                >
-                  Page {currentPage} of{' '}
-                  {Math.ceil(products.length / productsPerPage)}
-                </Typography>
+              <table className="w-full min-w-max table-auto text-left text-sm">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="px-4 py-2">#</th>
+                    <th className="px-4 py-2">Product Name</th>
+                    <th className="px-4 py-2">Stock</th>
+                    <th className="px-4 py-2">Price</th>
+                    <th className="px-4 py-2">Image</th>
+                    <th className="px-4 py-2">Actions</th>
+                    <th className="px-4 py-2">Select</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredProducts.map((product, index) => (
+                    <tr key={product._id}>
+                      <td className="p-4">{index + 1}</td>
+                      <td className="p-4">{product.name}</td>
+                      <td className="p-4">{product.quantity}</td>
+                      <td className="p-4">Rs.{product.price}</td>
+                      <td className="p-4">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          style={{ width: '50px' }}
+                        />
+                      </td>
+                      <td className="p-4">
+                        <Button
+                          onClick={() => postCartData(product)}
+                          color="teal"
+                          ripple="light"
+                          size="regular"
+                        >
+                          Add to Cart
+                        </Button>
+                      </td>
+                      <td className="p-4">
+                        <input
+                          type="checkbox"
+                          onChange={(e) => handleCheckboxChange(e, product)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <div className="flex justify-between mt-4">
+                <div>
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal"
+                  >
+                    Page {currentPage} of{' '}
+                    {Math.ceil(products.length / productsPerPage)}
+                  </Typography>
+                </div>
                 <div className="flex gap-2">
                   {Array.from({
                     length: Math.ceil(products.length / productsPerPage),
@@ -241,9 +287,23 @@ const ProductList = () => {
                   ))}
                 </div>
               </div>
-            </CardFooter>
+            </CardBody>
           </Card>
         </div>
+      </div>
+      <div className="fixed bottom-0 right-0 mr-4 mb-4">
+        <Button onClick={() => setShowScanner(!showScanner)}>
+          Toggle QR Scanner
+        </Button>
+        {showScanner && renderQrScanner()}
+        {selectedProducts.length > 0 && (
+          <Button onClick={generateAndDownloadQRCode}>Generate QR Codes</Button>
+        )}
+        {scannedMessage && (
+          <Typography color="red" className="mt-2">
+            {scannedMessage}
+          </Typography>
+        )}
       </div>
     </div>
   );

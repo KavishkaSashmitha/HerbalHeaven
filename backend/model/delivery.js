@@ -1,17 +1,12 @@
 const mongoose = require("mongoose");
 
-const TransportSchema = new mongoose.Schema({
+const DeliverySchema = new mongoose.Schema({
   d_name: {
     type: String,
     required: true,
   },
 
   d_mobile: {
-    type: String,
-    required: true,
-  },
-
-  dob: {
     type: String,
     required: true,
   },
@@ -26,11 +21,6 @@ const TransportSchema = new mongoose.Schema({
     required: true,
   },
 
-  email: {
-    type: String,
-    required: true,
-  },
-
   vehicle_type: {
     type: String,
     required: true,
@@ -41,12 +31,25 @@ const TransportSchema = new mongoose.Schema({
     required: true,
   },
 
-  cost: {
-    type: Map,
-    of: Number,
-    required: false,
-    default: {},
+  shipping_Id: {
+    type: String,
+    required: true,
+  },
+
+  shippingAddress: {
+    address: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    zip: {
+      type: String,
+      required: true,
+    },
   },
 });
 
-module.exports = mongoose.model("transports", TransportSchema);
+module.exports = mongoose.model("delivery", DeliverySchema);

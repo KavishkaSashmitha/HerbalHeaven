@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Typography, Button } from '@material-tailwind/react';
-import jsPDF from 'jspdf';
+import Chart from 'chart.js/auto';
 import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const CustomerReport = () => {
   const [customers, setCustomers] = useState([]);
@@ -73,7 +74,6 @@ const CustomerReport = () => {
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       pdf.addImage(imgData, 'PNG', 0, 70, imgWidth, imgHeight); // Add image of table
 
-     
       // Add current time
       const now = new Date();
       const currentTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
@@ -100,94 +100,148 @@ const CustomerReport = () => {
 
       // Add description
       pdf.setFontSize(12);
-      pdf.text(
-        'This report contains inventory details of Herbal Heaven company(PVT)LTD.',
-        10,
-        pdf.internal.pageSize.height - 50
-      );
+      
       pdf.save('customer_report.pdf');
     });
   };
 
+  const generateGenderPieChart = () => {
+    const ctx = document.getElementById('gender-pie-chart');
+    if (ctx) {
+      // Destroy existing chart if it exists
+      Chart.getChart(ctx)?.destroy();
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Male', 'Female'],
+          datasets: [
+            {
+              label: 'Gender Distribution',
+              data: [maleCount, femaleCount],
+              backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+          },
+        },
+      });
+    }
+  };
+
+  const generateAgePieChart = () => {
+    const ctx = document.getElementById('age-pie-chart');
+    if (ctx) {
+      // Destroy existing chart if it exists
+      Chart.getChart(ctx)?.destroy();
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(ageIntervals),
+          datasets: [
+            {
+              label: 'Age Intervals',
+              data: Object.values(ageIntervals),
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(255, 159, 64, 0.5)',
+                'rgba(255, 205, 86, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+          },
+        },
+      });
+    }
+  };
+
+  const generateAddressPieChart = () => {
+    const ctx = document.getElementById('address-pie-chart');
+    if (ctx) {
+      // Destroy existing chart if it exists
+      Chart.getChart(ctx)?.destroy();
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(addressCounts),
+          datasets: [
+            {
+              label: 'Address Counts',
+              data: Object.values(addressCounts),
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)',
+                'rgba(255, 205, 86, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: false,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+          },
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    generateGenderPieChart();
+    generateAgePieChart();
+    generateAddressPieChart();
+  }, [maleCount, femaleCount, ageIntervals, addressCounts]);
+
   return (
     <div className="flex justify-center items-center h-full">
-    <div id="report-container">   
-      <Typography type="h1" className="mb-4">
-        Customer Report
-      </Typography>
-      <div className="mb-4">
-        <Typography type="h3">Gender Distribution:</Typography>
-       <table className="w-4/5 mx-auto mt-4 mb-4 table-auto border border-gray-500">
-          <thead>
-            <tr className="bg-blue-300 text-gray-900 uppercase text-sm leading-normal">
-              <th className="py-3 px-3 text-center font-bold border border-gray-500 text-lg">
-                Gender
-              </th>
-              <th className="py-3 px-3 text-center font-bold border border-gray-500 text-lg">
-                Count
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="py-2 px-3 border border-gray-500 text-lg">Male</td>
-              <td className="py-2 px-3 border border-gray-500 text-lg">{maleCount}</td>
-            </tr>
-            <tr>
-              <td className="py-2 px-3 border border-gray-500 text-lg">Female</td>
-              <td className="py-2 px-3 border border-gray-500 text-lg">{femaleCount}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <Typography type="h3">Age Intervals:</Typography>
-        <table className="table-auto border border-gray-500 mb-4">
-          <thead>
-            <tr className="bg-blue-300 text-gray-900 uppercase text-sm leading-normal">
-              <th className="py-3 px-3 text-center font-bold border border-gray-500 text-lg">
-                Age Interval
-              </th>
-              <th className="py-3 px-3 text-center font-bold border border-gray-500 text-lg">
-                Count
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(ageIntervals).map(([interval, count]) => (
-              <tr key={interval}>
-                <td className="py-2 px-3 border border-gray-500 text-lg">{interval}</td>
-                <td className="py-2 px-3 border border-gray-500 text-lg">{count}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <Typography type="h3">Address Counts:</Typography>
-        <table className="table-auto border border-gray-500">
-          <thead>
-            <tr className="bg-blue-300 text-gray-900 uppercase text-sm leading-normal">
-              <th className="py-3 px-3 text-center font-bold border border-gray-500 text-lg">
-                Address
-              </th>
-              <th className="py-3 px-3 text-center font-bold border border-gray-500 text-lg">
-                Count
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(addressCounts).map(([address, count]) => (
-              <tr key={address}>
-                <td className="py-2 px-3 border border-gray-500 text-lg">{address}</td>
-                <td className="py-2 px-3 border border-gray-500 text-lg">{count}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div id="report-container">
+        <Typography type="h1" bold className="mb-4">
+      This report contains inventory details of Herbal Heaven company(PVT)LTD
+        </Typography>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <canvas id="gender-pie-chart"></canvas>
+            <Typography type="h3" className="mt-4">
+              Gender Distribution
+            </Typography>
+          </div>
+          <div>
+            <canvas id="age-pie-chart"></canvas>
+            <Typography type="h3" className="mt-4">
+              Age Intervals
+            </Typography>
+          </div>
+          <div>
+            <canvas id="address-pie-chart"></canvas>
+            <Typography type="h3" className="mt-4">
+              Address Counts
+            </Typography>
+          </div>
+        </div>
+        <Button color="blue" onClick={generatePDF}>
+          Download Report
+        </Button>
       </div>
-      <Button color="blue" onClick={generatePDF}>
-        Download Report
-      </Button>
-    </div> </div>
+    </div>
   );
 };
 

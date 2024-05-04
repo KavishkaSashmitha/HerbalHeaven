@@ -1,3 +1,6 @@
+
+
+
 /* Styling for income topic */
 .income_topic {
   text-align: center;
@@ -5,7 +8,7 @@
   font-weight: bold;
   text-transform: capitalize;
   color: #333; /* Dark gray color */
-  margin-bottom: 5px; /* Add some space below */
+  margin-bottom: 10px; /* Add some space below */
 }
 
 /* Styling for income table container */
@@ -65,8 +68,8 @@
   margin-top: 20px;
   font-weight: bold;
   color: #18751b; /* Green color */
- margin-left: 20px;
- margin-right: 100px;
+
+ margin-right:600px ;
 }
 
 /* Styling for table header */

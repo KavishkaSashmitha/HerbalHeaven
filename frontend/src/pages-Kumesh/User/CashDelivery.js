@@ -21,6 +21,8 @@ function CashDelivery() {
   const [cart, setCart] = useState([]);
   const { isLoggedIn, token } = useAuth();
 
+  console.log("cart", cart);
+
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -39,7 +41,7 @@ function CashDelivery() {
           ).map((name) => {
             return response.data.find((item) => item.name === name);
           });
-          setCart(response.data);
+         
         }
       } catch (error) {
         console.error("Error fetching cart items:", error);
@@ -107,7 +109,7 @@ function CashDelivery() {
   const calculateTotalBill = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
-
+  
   return (
     <div>
       <div className="w-auto px-24 py-4 step">
@@ -153,7 +155,7 @@ function CashDelivery() {
                     alt="paypal"
                     className="img-paymt card-paypal"
                   />
-                  <p className="paymnt-topic">Pay With paypal</p>
+                  <p className="paymnt-topic">Pay With Paypal</p>
                 </div>
                 <div className="method-one method-box">
                   <img src={tic} alt="tick" className="img-tic-new" />
@@ -162,7 +164,7 @@ function CashDelivery() {
                     alt="amazon"
                     className="img-paymt card-pay-new"
                   />
-                  <p className="paymnt-topic">pay with cash on delivery</p>
+                  <p className="paymnt-topic">pay with Cash on Delivery</p>
                 </div>
               </div>
               <form onSubmit={handleSubmit}>
@@ -172,16 +174,19 @@ function CashDelivery() {
                     <label className="paymnt-lable">FULL NAME</label>
                     <br></br>
                     <input
-                     className="paymnt-inpt"
-                     type="text"
-                     name="fullname"
-                     placeholder="Saman Perera"
-                     value={inputs.fullname}
-                     onChange={handleChange}
-                     pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
-                     title="Please enter only letters"
-                     required
-                    ></input>
+  className="paymnt-inpt"
+  type="text"
+  name="fullname"
+  placeholder="Saman Perera"
+  value={inputs.fullnamename}
+  onChange={handleChange}
+  onKeyPress={(event) => {
+    // Check if the pressed key is a number or a special character, but allow spaces
+    if (!/[a-zA-Z\s]/.test(event.key)) {
+      event.preventDefault(); // Prevent default behavior (typing the key)
+    }
+  }}
+/>
                     <br></br>
                     <label className="paymnt-lable">BILLING ADDRESS</label>
                     <br></br>
@@ -200,16 +205,19 @@ function CashDelivery() {
                         <label className="paymnt-lable">CITY</label>
                         <br></br>
                         <input
-                           className="paymnt-inpt-two"
-                           type="text"
-                           name="city"
-                           value={inputs.city}
-                           onChange={handleChange}
-                           placeholder="Gampaha"
-                           pattern="[A-Za-z\s]+" // Allow only alphabetic characters and spaces
-                           title="Please enter only letters"
-                           required
-                        ></input>
+  className="paymnt-inpt"
+  type="text"
+  name="city"
+  placeholder="Gampaha"
+  value={inputs.city}
+  onChange={handleChange}
+  onKeyPress={(event) => {
+    // Check if the pressed key is a number or a special character, but allow spaces
+    if (!/[a-zA-Z\s]/.test(event.key)) {
+      event.preventDefault(); // Prevent default behavior (typing the key)
+    }
+  }}
+/>
                         <br></br>
                       </div>
                       <div>
@@ -227,6 +235,11 @@ function CashDelivery() {
                           pattern="[0-9]{5}"  // Use a regular expression to match exactly 5 digits
                           title="Please enter a valid 5-digit ZIP code"
                           required
+                          onKeyPress={(event) => {
+                            if (!/\d/.test(event.key)) { // If the key pressed is not a digit
+                              event.preventDefault(); // Prevent default behavior (typing the key)
+                            }
+                          }}
                         ></input>
                         <br></br>
                       </div>
@@ -257,7 +270,7 @@ function CashDelivery() {
                 </h1>
 
                 <div className="end-btn">
-                  <button className="btn-pro">Order</button>
+                  <button className="btn-pro">Place Order</button>
                 </div>
               </form>
             </div>

@@ -36,10 +36,10 @@ const paymentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    expyear: {
-      type: String,
-      required: true,
-    },
+    // expyear: {
+    //   type: String,
+    //   required: true,
+    // },
     cvv: {
       type: String,
       required: true,

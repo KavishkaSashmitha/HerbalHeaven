@@ -1,15 +1,15 @@
 import React from "react";
-import "./CardDetails.css";
 import { FaAddressCard } from "react-icons/fa6";
 import { RiBankFill } from "react-icons/ri";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 function CardDetails(props) {
   const { _id, address, cardholdername } = props.card;
   const history = useNavigate();
 
-  const deleteHandeler = async () => {
+  const deleteHandler = async () => {
     const confirmDeletion = window.confirm("Are you sure you want to delete card details?");
     
     if (confirmDeletion) {
@@ -17,39 +17,33 @@ function CardDetails(props) {
         await axios.delete(`http://localhost:8070/cards/${_id}`);
         alert("Card details deleted successfully!");
         history("/carddetails");
-        window.location.reload();
       } catch (error) {
         console.error("Error deleting card details:", error);
         // Handle the error appropriately
       }
     } else {
-      // User chose not to delete, you can add additional logic if needed
       console.log("Deletion canceled by user");
     }
   };
-  
+
   return (
-    <div>
-      
-      <div className="ful-set-pay">
-        <tr className="card-thead">
-          <td className="card-td btn-set-rwo" data-label="Account">
-            <RiBankFill className="add-pay-btn-tbl" /> {cardholdername}
-          </td>
-          <td className="card-td" data-label="Due Date">
-            {address}
-          </td>
-
-          <td className="card-td" data-label="Amount">
-            <Link to={`/carddetails/${_id}`}>
-              <button className="updt-card">update</button>
-            </Link>
-
-            <button className="dlt-card" onClick={deleteHandeler}>
-              Delete
+    <div className="table w-full">
+      <div className="table-row bg-gray-100">
+        <div className="table-cell p-4 flex items-center">
+          <RiBankFill className="text-green-500 mr-2" />
+          {cardholdername}
+        </div>
+        <div className="table-cell p-4 pt-2">{address}</div>
+        <div className="table-cell p-4 flex items-center justify-center space-x-4">
+          <Link to={`/carddetails/${_id}`}>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              Update
             </button>
-          </td>
-        </tr>
+          </Link>
+          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={deleteHandler}>
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -20,8 +20,13 @@ export function StepperWithContent() {
         isFirstStep={(value) => setIsFirstStep(value)}
       >
         <Step isActive={activeStep === 0}>
-          <Link to="/user/cart">
-            <ShoppingCartIcon className="h-5 w-5 " color="green" />
+
+          <Link to="/customer/cart">
+            <ShoppingCartIcon
+              className="h-5 w-5 "
+              style={{ color: '#ff8f00' }}
+            />
+
           </Link>
         </Step>
         <Step isActive={activeStep === 1}>

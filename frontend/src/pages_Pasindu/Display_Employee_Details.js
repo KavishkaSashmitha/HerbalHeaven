@@ -387,10 +387,9 @@ export default function ViewPost() {
                 </main>
               </div>
             </div>
-            <CardFooter>
-              <Footer />
-            </CardFooter>
+            <CardFooter></CardFooter>
           </Card>
+          <Footer />
         </div>
       </div>
     </>
