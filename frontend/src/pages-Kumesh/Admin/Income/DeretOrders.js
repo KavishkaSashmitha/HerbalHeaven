@@ -5,7 +5,7 @@ function DeretOrders() {
   const [directOrder, setDirectOrder] = useState([]);
   const [totalIncome, setTotalIncome] = useState(0);
 
-  const URL= 'http://localhost:8070/api/directorders';
+  const URL = 'http://localhost:8070/api/directorders';
 
   useEffect(() => {
     const fetchHandler = async () => {
@@ -24,10 +24,9 @@ function DeretOrders() {
         // Handle error (e.g., show error message to user)
       }
     };
-  
+
     fetchHandler();
   }, []);
-  
 
   const calculateTotalIncome = (orders) => {
     let total = 0;
@@ -38,34 +37,38 @@ function DeretOrders() {
     });
     setTotalIncome(total);
   };
-console.log(directOrder);
+
+  console.log(directOrder);
+
   return (
-    <div>
-      <h1 className="income_topic">DirectOrder Details</h1>
-      <div className="tbl_continer_incme">
-        <table className="table_income">
-          <thead>
-            <tr className="table_income_tr">
-              <th className="table_income_th">Amount</th>
-              <th className="table_income_th">Quantity</th>
-              <th className="table_income_th">Total Amount</th>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-6">Direct Order Details</h1>
+      <div className="overflow-x-auto">
+        <table className="w-full divide-y divide-gray-200">
+          <thead className="bg-blue-500 text-white">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Item Name</th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Amount</th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quantity</th>
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Total Amount</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-200">
             {directOrder && directOrder.map((order, index) =>
               order.items.map((item, idx) => (
-                <tr key={`${index}-${idx}`}>
-                  <td className="table_income_td">{item.totalAmount.toFixed(2)}</td>
-                  <td className="table_income_td">{item.quantity}</td>
-                  <td className="table_income_td">{(item.quantity * item.totalAmount).toFixed(2)}</td>
+                <tr key={`order-${index}-item-${idx}`} className={idx % 2 === 0 ? "bg-gray-100" : "bg-gray-50"}>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.totalAmount.toFixed(2)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-700">{item.quantity}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-700">{(item.quantity * item.totalAmount).toFixed(2)}</td>
                 </tr>
               ))
             )}
           </tbody>
         </table>
       </div>
-      <div>
-        <h2 className="tot_amout">Total Income: ${totalIncome.toFixed(2)}</h2>
+      <div className="mt-6">
+        <h2 className="text-lg font-bold">Total Income: LKR {totalIncome.toFixed(2)}</h2>
       </div>
     </div>
   );

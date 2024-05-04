@@ -34,12 +34,14 @@ app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/directorders', require('./routes/directOrderRoute'));
 app.use('/api/posts', require('./routes/posts'));
+app.use('/api/reorders', require('./routes/ReOrderSup'));
 app.use('/api/directcart', require('./routes/directCart'));
 
 app.use('/sup', require('./routes/supplierRouter'));
 
 app.use('/', require('./routes/PaymnetRoutes'));
 app.use('/api/transports', require('./routes/transports'));
+app.use('/api/deliveries', require('./routes/delivery'));
 app.use('/', Cardrouter);
 app.use('/cash', CashRouter);
 
