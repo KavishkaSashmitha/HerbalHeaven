@@ -7,16 +7,15 @@ const router = express.Router();
 // save posts
 router.post("/reorder/save", async (req, res) => {
   try {
-    const { email, orderId, ...rest } = req.body;
-    let newReOrder = new ReOrder(rest);
+    let newReOrder = new ReOrder(req.body);
     const subject = `New ReOrder Update`;
-    const text = `Dear ${rest.name},
+    const text = `Dear ${req.body.name},
 
-You are tasked with retrieving an order (${productName}) from our inventory and delivering it to the respective address. Please proceed to the inventory location to collect the specified order promptly and ensure its timely delivery to the designated address.
+You are tasked with retrieving an order (${req.body.productName}) from our inventory and delivering it to the respective address. Please proceed to the inventory location to collect the specified order promptly and ensure its timely delivery to the designated address.
     
 Thank you for your attention to this matter.`;
 
-    await sendEmail(email, subject, text);
+    await sendEmail(req.body.email, subject, text);
     await newReOrder.save();
     res.status(200).json({
       success: "ReOrder saved successfully",
