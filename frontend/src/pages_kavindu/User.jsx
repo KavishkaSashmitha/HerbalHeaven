@@ -71,6 +71,22 @@ const User = () => {
               <h1 className="text-3xl">List of Suppliers</h1>
               <div className="mb-5  flex justify-end">
                 <div>
+                <Link to="/ReOrderedList">
+                    <Button
+                      color="amber"
+                      className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    >
+                      ReOrdered List
+                    </Button>
+                  </Link>
+                  <Link to="/ReOrder">
+                    <Button
+                      color="amber"
+                      className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    >
+                      ReOrder
+                    </Button>
+                  </Link>
                   <Link to="/sup/addsup">
                     <Button
                       color="amber"
@@ -87,6 +103,7 @@ const User = () => {
                   </Button>
                 </div>
               </div>
+              <h4>search</h4>
               <Input
                 type="text"
                 placeholder="Search..."
@@ -94,6 +111,7 @@ const User = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="mb-4 border-blue-gray-100 bg-blue-gray-50/50"
               />
+
               <CardBody className="px-0 flex flex-col flex-1">
                 <div className="overflow-auto">
                   <table className="overflow-scroll mt-5 w-full min-w-max table-auto text-left border-blue-gray-100 bg-blue-gray-50/50">
@@ -102,7 +120,9 @@ const User = () => {
                         {[
                           "Name",
                           "Email",
-                          "Raw Material",
+                          "Raw Material_01",
+                          "Raw Material_02",
+                          "Raw Material_03",
                           "Mobile",
                           "Address",
                           "Action",
@@ -137,7 +157,9 @@ const User = () => {
                           >
                             <td className="p-4">{user.name}</td>
                             <td className="p-4">{user.email}</td>
-                            <td className="p-4">{user.rawMaterial}</td>
+                            <td className="p-4">{user.rawMaterial1}</td>
+                            <td className="p-4">{user.rawMaterial2}</td>
+                            <td className="p-4">{user.rawMaterial3}</td>
                             <td className="p-4">{user.mobile}</td>
                             <td className="p-4">{user.address}</td>
                             <td className="p-4">
