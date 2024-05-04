@@ -72,6 +72,90 @@ export default function EditPost() {
     });
   };
 
+  function handleKeyPressMobile(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 10;
+
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
+  function handleKeyPressAge(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 2;
+
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
+  function handleKeyPressNic(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 12;
+
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
+  function handleKeyPress(event) {
+    // Get the character that the user is trying to type
+    const char = event.key;
+
+    // Regular expression to allow only letters (A-Z, a-z) and spaces
+    const regex = /^[A-Za-z ]$/;
+
+    // If the character does not match the regex, prevent the default behavior
+    if (!regex.test(char)) {
+      event.preventDefault(); // Prevents the non-letter or non-space character from being typed
+    }
+  }
+
+  function handleKeyPressEmail(event) {
+    // Get the character that the user is trying to type
+    const char = event.key;
+    const input = event.target;
+
+    const endsWithDotCom = input.value.endsWith(".com");
+    const endsWithDotLk = input.value.endsWith(".lk");
+
+    if (
+      (endsWithDotCom && char !== "Backspace") ||
+      (endsWithDotLk && char !== "Backspace")
+    ) {
+      event.preventDefault(); // Prevents further characters after ".com"
+      return;
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -294,7 +378,11 @@ export default function EditPost() {
         <div className="w-full h-full ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
           <Card className="bg-blue-gray-100">
-            <CardHeader floated={false} shadow={false} className="rounded-none bg-blue-gray-100">
+            <CardHeader
+              floated={false}
+              shadow={false}
+              className="rounded-none bg-blue-gray-100"
+            >
               <div className="m-4">
                 <Breadcrumbs>
                   <Link to="/">
@@ -308,21 +396,21 @@ export default function EditPost() {
                     </svg>
                   </Link>
                   <Link to="/Employee_Dashboard">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                       <span>Dashboard</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                     </li>
                   </Link>
                   <Link to="/emp">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                       <span>Employee</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                     </li>
                   </Link>
                   <Link to="">
-                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
+                    <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-amber-800">
                       <span>Edit Employee</span>
 
                       <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
@@ -365,7 +453,7 @@ export default function EditPost() {
                             />
                             <button
                               type="button"
-                              className=" bg-amber-800 hover:bg-amber-900 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-amber-400 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-lg flex items-center space-x-2"
+                              className=" bg-custom-color hover:bg-amber-900 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-amber-400 transition duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-lg flex items-center space-x-2"
                               onClick={() =>
                                 document.getElementById("imageUpload").click()
                               }
@@ -423,6 +511,7 @@ export default function EditPost() {
                                       name="name"
                                       placeholder="Enter Employee Name"
                                       onChange={handleInputChange}
+                                      onKeyPress={handleKeyPress}
                                       className={`${
                                         errors.name && "border-red-500"
                                       }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -516,6 +605,7 @@ export default function EditPost() {
                                       type="number"
                                       name="nic"
                                       placeholder="Enter National ID"
+                                      onKeyPress={handleKeyPressNic}
                                       onChange={handleInputChange}
                                       className={`${
                                         errors.nic && "border-red-500"
@@ -545,7 +635,7 @@ export default function EditPost() {
                                       value={formData.mobile}
                                       type="number"
                                       name="mobile"
-                                      placeholder="Enter Mobile Number"
+                                      onKeyPress={handleKeyPressMobile}
                                       onChange={handleInputChange}
                                       className={`${
                                         errors.mobile && "border-red-500"
@@ -571,6 +661,7 @@ export default function EditPost() {
                                       type="email"
                                       name="email"
                                       placeholder="Enter Employee Email"
+                                      onKeyPress={handleKeyPressEmail}
                                       onChange={handleInputChange}
                                       className={`${
                                         errors.email && "border-red-500"
@@ -621,8 +712,7 @@ export default function EditPost() {
                                       value={formData.age}
                                       type="number"
                                       name="age"
-                                      min={18}
-                                      max={60}
+                                      onKeyPress={handleKeyPressAge}
                                       placeholder="Enter Age"
                                       onChange={handleInputChange}
                                       className={`${
@@ -659,10 +749,9 @@ export default function EditPost() {
                 </div>
               </div>
             </CardBody>
-            <CardFooter>
-              <Footer />
-            </CardFooter>
+            <CardFooter></CardFooter>
           </Card>
+          <Footer />
         </div>
       </div>
     </>

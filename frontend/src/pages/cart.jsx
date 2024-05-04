@@ -68,7 +68,7 @@ const Cart = () => {
   const handleDeleteItem = async (itemId) => {
     try {
       if (isLoggedIn) {
-        await axios.delete(`http://localhost:8070/api/user/cart/${itemId}`, {
+        await axios.delete(`http://localhost:8070/api/customer/cart/${itemId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -97,7 +97,7 @@ const Cart = () => {
     try {
       if (isLoggedIn) {
         await axios.put(
-          `http://localhost:8070/api/user/cart/${itemId}`,
+          `http://localhost:8070/api/customer/cart/${itemId}`,
           { quantity: newQuantity },
           {
             headers: {
@@ -170,15 +170,12 @@ const Cart = () => {
     <>
       <div
         style={{
-          backgroundColor: '#02353c',
+          backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
           minHeight: '100vh',
         }}
       >
-        <div
-          className="relative flex justify-between"
-          style={{ width: '100%' }}
-        >
+        <div className="relative flex justify-between">
           <SidebarWithBurgerMenu />
 
           <ProfileMenu />
@@ -248,20 +245,18 @@ const Cart = () => {
                 </div>
               </div>
 
-              <Typography variant="h3" color="white" className="total-bill ">
+              <Typography variant="h3" color="white" className="total-bill">
                 Total Bill: Rs.{calculateTotalBill()}
-                <br />
-                <Button
-                  className="mb-4 transition duration-300 ease-in-out hover:bg-yellow-100"
-                  style={{ backgroundColor: '#ff8f00' }}
-                  onClick={handleCheckout}
-                >
+              </Typography>
+
+              <div className="mt-32 flex justify-center mx-auto">
+                <Button color="green" onClick={handleCheckout}>
                   Checkout
                 </Button>
-              </Typography>
+              </div>
             </>
           ) : (
-            <Card className="empty-cart" style={{ backgroundColor: '#ff8f00' }}>
+            <Card className="empty-cart" color="light-green">
               <p>Your cart is empty.</p>
               <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
                 <li>

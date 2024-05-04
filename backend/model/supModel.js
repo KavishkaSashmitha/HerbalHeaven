@@ -9,26 +9,27 @@ const empSchema = new Schema({
   email: {
     type: String,
   },
-  age: {
+  // age: {
+  //   type: String,
+  // },
+  rawMaterial1: {
     type: String,
   },
-  rawMaterial: {
+  rawMaterial2: {
     type: String,
   },
-  country: {
+  rawMaterial3: {
     type: String,
   },
+
+  // country: {
+  //   type: String,
+  // },
   mobile: {
     type: String,
   },
   address: {
     type: String,
-  },
-  payment: {
-    type: Map,
-    of: Number,
-
-    default: {},
   },
 
   materialCost: {

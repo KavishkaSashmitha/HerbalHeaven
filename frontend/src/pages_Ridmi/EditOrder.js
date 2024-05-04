@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import { Button, Card, Option, Select } from "@material-tailwind/react";
-import AdminNavbar from "../components/AdminNavbar";
-import { DefaultSidebar } from "../components/Manager-Sidebar";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { Button, Card, Option, Select } from '@material-tailwind/react';
+import AdminNavbar from '../components/AdminNavbar';
+import { DefaultSidebar } from '../components/Manager-Sidebar';
 
 export default function EditOrder() {
   const { id } = useParams();
@@ -19,7 +19,7 @@ export default function EditOrder() {
         setState(response.data.order);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error('Error fetching data:', error);
     }
   }, [id]);
 
@@ -33,9 +33,9 @@ export default function EditOrder() {
         ...state,
       });
       fetchData();
-      navigate("/admin-orders");
+      navigate('/admin-orders');
     },
-    [fetchData, id, navigate, state]
+    [fetchData, navigate, id, state]
   );
   const toggleSidebar = () => {
     setOpen(!open);
@@ -49,12 +49,12 @@ export default function EditOrder() {
   return (
     <div
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
-      style={{ backgroundColor: "#02353c" }}
+      style={{ backgroundColor: '#02353c' }}
     >
       <div className="flex flex-1 overflow-hidden">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
-            open ? "block" : "hidden"
+            open ? 'block' : 'hidden'
           }`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
@@ -68,12 +68,12 @@ export default function EditOrder() {
               <div className="bg-light-green-100 shadow-md rounded-lg px-8 py-6">
                 <div className="mb-4">
                   <p className="flex items-center">
-                    <span className="font-bold mr-2">Customer Name:</span>{" "}
+                    <span className="font-bold mr-2">Customer Name:</span>{' '}
                     {state.user}
                   </p>
                   <p className="flex items-center">
-                    <span className="font-bold mr-2">Shipping Address:</span>{" "}
-                    {state.shippingAddress.address},{" "}
+                    <span className="font-bold mr-2">Shipping Address:</span>{' '}
+                    {state.shippingAddress.address},{' '}
                     {state.shippingAddress.city}, {state.shippingAddress.zip}
                   </p>
                 </div>
@@ -86,7 +86,7 @@ export default function EditOrder() {
                       onChange={(e) =>
                         setState((cs) => ({
                           ...cs,
-                          paymentStatus: e,
+                          paymentStatus: e.target.value,
                         }))
                       }
                       label="Select Payment Status"
@@ -104,7 +104,7 @@ export default function EditOrder() {
                       onChange={(e) =>
                         setState((cs) => ({
                           ...cs,
-                          orderStatus: e,
+                          orderStatus: e.target.value,
                         }))
                       }
                       label="Select Order Status"

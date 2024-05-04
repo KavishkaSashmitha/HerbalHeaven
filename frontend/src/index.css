@@ -8,7 +8,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-image: url('../public/img/post-bg.jpg');
+  background-image: url("../public/img/post-bg.jpg");
   overflow: hidden;
   background-repeat: no-repeat;
 }
@@ -18,7 +18,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-image: url('../public/img/supbackground.jpeg');
+  background-image: url("../public/img/supbackground.jpeg");
   overflow: hidden;
   background-repeat: no-repeat;
 }
@@ -29,7 +29,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-image: url('../public/img/add_employee_bg.jpg');
+  background-image: url("../public/img/add_employee_bg.jpg");
   overflow: hidden;
   background-repeat: no-repeat;
 }
@@ -40,7 +40,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-image: url('../public/img/edit-employee-bg.jpg');
+  background-image: url("../public/img/edit-employee-bg.jpg");
   overflow: hidden;
   background-repeat: no-repeat;
 }
@@ -51,7 +51,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-image: url('../public/img/salary-report-bg.jpg');
+  background-image: url("../public/img/salary-report-bg.jpg");
   overflow: hidden;
   background-repeat: no-repeat;
 }
@@ -78,6 +78,7 @@
   background-color: #02353c;
 }
 
-.button-hover-effect:hover {
-  background-color: #bb981c; /* Color to apply on hover */
+.custom-img {
+  width: 160px;
+  height: 160px;
 }

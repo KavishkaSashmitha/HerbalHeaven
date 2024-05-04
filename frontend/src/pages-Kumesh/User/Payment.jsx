@@ -98,6 +98,9 @@ function Payment() {
   const activeStepIndex = steps.findIndex(
     (step) => location.pathname === step.path
   );
+  useEffect(() => {
+    setCart(location.state.selectedCartItems);
+  }, [location.state.selectedCartItems]);
 
   //data insert part
   const history = useNavigate();
@@ -215,7 +218,7 @@ function Payment() {
           <div>
             <h1 className="main-tpoic">Payment</h1>
             <p className="main-para">
-              Choose your prefered payment method below
+              Choose your preffered payment method below
             </p>
             <div className="method-set">
               <div className="method-one method-box">
