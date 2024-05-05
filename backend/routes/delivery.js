@@ -12,7 +12,7 @@ router.post("/delivery/save", async (req, res) => {
     const subject = `New Delivery Update`;
     const text = `Dear ${rest.d_name},
 
-You are tasked with retrieving an order (${orderId}) from our inventory and delivering it to the respective address. Please proceed to the inventory location to collect the specified order promptly and ensure its timely delivery to the designated address.
+You are tasked with retrieving an order ${orderId} from our inventory and delivering it to the respective address. Please proceed to the inventory location to collect the specified order promptly and ensure its timely delivery to the designated address.
     
 Thank you for your attention to this matter.`;
 

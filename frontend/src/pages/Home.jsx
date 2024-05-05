@@ -26,7 +26,7 @@ import Slider from 'react-slick'; // Import Slider component from react-slick
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProfileMenu from '../components/Profile';
-import { BellIcon, ChevronDownIcon, HomeIcon } from '@heroicons/react/24/solid';
+import {  ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 
 const Product = ({ product }) => {
@@ -237,16 +237,7 @@ function Home() {
       
   </div>
 </div>
-
 </div>
-
-
-
-    
-    
-
-
-
       <div className="max-w-7xl mx-auto mb-10">
         <Typography variant='' className='h2'>Product Categories</Typography>
       </div>
