@@ -296,20 +296,25 @@ export default function Order() {
                             </p>
                           </div>
                         </td>
-                        <td className="p-4 border-b border-blue-gray-50">
+                        <td className="p-4">
                           <a
-                            className="btn btn-warning"
+                            className="mr-2 btn btn-primary"
                             href={`/edit/${order._id}`}
                           >
-                            <i className="fas fa-edit"></i>&nbsp;EDIT
+                           <Button color="green">
+                              <i className="mr-2 fas fa-edit"></i>Edit
+                            </Button>
                           </a>
                           &nbsp;
                           <a
-                            className="btn btn-danger"
+                            className="mr-2 btn btn-primary"
                             href="#"
                             onClick={() => onDelete(order._id)}
                           >
-                            <i className="fas fa-trash-alt"></i>&nbsp;DELETE
+                           <Button color="red">
+                              <i className="mr-2 fas fa-trash"></i>
+                              Delete
+                            </Button>
                           </a>
                         </td>
                       </tr>
