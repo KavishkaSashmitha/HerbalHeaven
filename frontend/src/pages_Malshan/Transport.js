@@ -198,7 +198,7 @@ export default function Transports() {
                     </Link>
                     <Link to="">
                       <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                        <span>Expense Report</span>
+                        <span>Transport List</span>
 
                         <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                       </li>
