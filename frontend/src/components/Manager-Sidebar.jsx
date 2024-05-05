@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import {
   Card,
   Typography,
@@ -12,7 +12,7 @@ import {
   Chip,
   Drawer,
   Input,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 import {
   PresentationChartBarIcon,
   ShoppingBagIcon,
@@ -20,16 +20,16 @@ import {
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
-} from "@heroicons/react/24/solid";
+} from '@heroicons/react/24/solid';
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
   XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
-import { useAuth } from "../middleware/authContext"; // Importing the useAuth hook from AuthContext
-import { useCart } from "./cartContext";
+} from '@heroicons/react/24/outline';
+import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
+import { useCart } from './cartContext';
 
 export function DefaultSidebar() {
   const [open, setOpen] = React.useState(0);
@@ -45,7 +45,7 @@ export function DefaultSidebar() {
         color="transparent"
         shadow={false}
         className="h-full overflow-y-scroll w-72 bg-custom-color"
-        style={{ borderRadius: "0" }}
+        style={{ borderRadius: '0' }}
       >
         <div className="p-4 mb-2">
           <Link to="/">
@@ -69,22 +69,32 @@ export function DefaultSidebar() {
           </div>
         </div>
         <div className="overflow-x-hidden overflow-y-scroll">
-          <List className="mr-10">
-            
+          <List className="mr-3">
             <Accordion
-              open={open === 2}
+              open={open === 1}
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 2 ? "rotate-180" : ""
+                    open === 1 ? 'rotate-180' : ''
+                  }`}
+                />
+              }
+            ></Accordion>
+            <Accordion
+              open={open === 1}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
+                    open === 1 ? 'rotate-180' : ''
                   }`}
                 />
               }
             >
               <ListItem className="p-0 mr-5" selected={open === 1}>
                 <AccordionHeader
-                  onClick={() => handleOpen(2)}
+                  onClick={() => handleOpen(1)}
                   className="p-3 border-b-0 hover:bg-teal-800"
                 >
                   <ListItemPrefix>
@@ -101,9 +111,7 @@ export function DefaultSidebar() {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="px-4">
-
-                <Link to="/all">
-
+                  <Link to="/cart-Admin">
                     <ListItem className="text-yellow-200 ">
                       <ListItemPrefix>
                         <ChevronRightIcon
@@ -141,12 +149,57 @@ export function DefaultSidebar() {
             </Accordion>
 
             <Accordion
+              open={open === 2}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
+                    open === 2 ? 'rotate-180' : ''
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0 mr-5" selected={open === 2}>
+                <AccordionHeader
+                  onClick={() => handleOpen(2)}
+                  className="p-3 border-b-0 hover:bg-teal-800"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
+                  </ListItemPrefix>
+
+                  <Typography
+                    color="blue-gray"
+                    className="mr-auto font-normal text-teal-200 "
+                  >
+                    Customer-Manager
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="px-4">
+                  <Link to="/all">
+                    <ListItem className="text-yellow-200 ">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Dashboard
+                    </ListItem>
+                  </Link>
+                </List>
+              </AccordionBody>
+            </Accordion>
+
+            <Accordion
               open={open === 3}
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 3 ? "rotate-180" : ""
+                    open === 3 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -159,12 +212,11 @@ export function DefaultSidebar() {
                   <ListItemPrefix>
                     <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
                   </ListItemPrefix>
-
                   <Typography
                     color="blue-gray"
                     className="mr-auto font-normal text-teal-200 "
                   >
-                    Emp-Manager
+                    Employee-Manager
                   </Typography>
                 </AccordionHeader>
               </ListItem>
@@ -206,14 +258,13 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-
             <Accordion
               open={open === 4}
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 4 ? "rotate-180" : ""
+                    open === 4 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -269,7 +320,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 5 ? "rotate-180" : ""
+                    open === 5 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -331,12 +382,68 @@ export function DefaultSidebar() {
             </Accordion>
 
             <Accordion
+              open={open === 4}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
+                    open === 4 ? 'rotate-180' : ''
+                  }`}
+                />
+              }
+            >
+              <ListItem className="p-0 mr-5" selected={open === 1}>
+                <AccordionHeader
+                  onClick={() => handleOpen(4)}
+                  className="p-3 border-b-0 hover:bg-teal-800"
+                >
+                  <ListItemPrefix>
+                    <PresentationChartBarIcon className="w-5 h-5 text-teal-200 hover:text-teal-700" />
+                  </ListItemPrefix>
+
+                  <Typography
+                    color="blue-gray"
+                    className="mr-auto font-normal text-teal-200 "
+                  >
+                    Inventory-Manager
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="px-4">
+                  <Link to="/inventory">
+                    <ListItem className="text-yellow-200 ">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Dashboard
+                    </ListItem>
+                  </Link>
+                  <Link to="/inventory/report">
+                    <ListItem className="text-yellow-200">
+                      <ListItemPrefix>
+                        <ChevronRightIcon
+                          strokeWidth={3}
+                          className="w-5 h-3 text-yellow-200"
+                        />
+                      </ListItemPrefix>
+                      Inventory Statics
+                    </ListItem>
+                  </Link>
+                </List>
+              </AccordionBody>
+            </Accordion>
+
+            <Accordion
               open={open === 6}
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 6 ? "rotate-180" : ""
+                    open === 6 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -382,17 +489,6 @@ export function DefaultSidebar() {
                       Transport Statics
                     </ListItem>
                   </Link>
-                  {/* <Link to="/cart-admin">
-                    <ListItem className="text-yellow-200">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Online-Cart-Stats
-                    </ListItem>
-                  </Link> */}
                 </List>
               </AccordionBody>
             </Accordion>
@@ -403,7 +499,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 7 ? "rotate-180" : ""
+                    open === 7 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -463,7 +559,6 @@ export function DefaultSidebar() {
                 </List>
               </AccordionBody>
             </Accordion>
-
           </List>
         </div>
       </Card>

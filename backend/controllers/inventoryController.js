@@ -19,8 +19,8 @@ const inventoryController = {
         reorderLevel,
         manufactureDate,
         expiaryDate,
+        image,
       } = req.body;
-      const image = req.file ? req.file.path : null;
 
       if (
         !productNo ||
@@ -35,22 +35,7 @@ const inventoryController = {
         !image
       )
         return res.status(400).json({ msg: 'Please fill all fields.' });
-      /*
-      const Quantity = Number(quantity);
-      const UnitPrice = Number(cost);
 
-      if (typeof Quantity !== 'number' || isNaN(Quantity) || Quantity <= 0) {
-        return res
-          .status(400)
-          .json({ error: 'Quantity must be a positive number' });
-      }
-
-      if (typeof UnitPrice !== 'number' || isNaN(UnitPrice) || UnitPrice <= 0) {
-        return res
-          .status(400)
-          .json({ error: 'Unit price must be a positive number' });
-      }
-*/
       const newItem = new Inventory({
         productNo: productNo,
         productName: productName,
@@ -119,6 +104,25 @@ const inventoryController = {
         category,
         image,
       });
+      //   { new: true }
+      // ); // Set { new: true } to return the updated document
+
+      // // Check if the quantity is lower than the reorder level
+      // if (updatedItem.quantity < updatedItem.reorderLevel) {
+      //   // Create a new entry in the reorder model
+      //   // Assuming you have a Reorder model defined with appropriate schema
+      //   const Reorder = require('../model/reorderModel');
+
+      //   const newReorder = new Reorder({
+      //     productNo: updatedItem.productNo,
+      //     productName: updatedItem.productName,
+      //     quantity: updatedItem.quantity,
+      //     reorderLevel: updatedItem.reorderLevel,
+      //   });
+
+      //   // Save the new reorder entry
+      //   await newReorder.save();
+      // }
 
       return res
         .status(200)

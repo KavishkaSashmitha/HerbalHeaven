@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,11 +16,11 @@
     "dotenv": "^10.0.0",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
+    "firebase": "^10.11.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.2",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.13",
-    "path": "^0.12.7",
-    "uuid": "^9.0.1"
+    "nodemon": "^3.1.0"
   }
 }

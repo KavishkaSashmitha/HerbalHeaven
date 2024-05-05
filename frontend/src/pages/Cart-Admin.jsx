@@ -35,13 +35,7 @@ import jsPDF from 'jspdf';
 import { Chart } from 'chart.js';
 import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 
-const TABLE_HEAD = [
-  'Product',
-  'Amount',
-  'Date',
-  'Cart User',
-  
-];
+const TABLE_HEAD = ['Product', 'Amount', 'Date', 'Cart User'];
 
 export function CartAdmin() {
   const [cartItems, setCartItems] = useState([]);
@@ -66,12 +60,15 @@ export function CartAdmin() {
   const getUniqueUsers = () => {
     const uniqueUsers = {};
     cartItems.forEach((item) => {
-      if (item.user && item.user.email) {
+      if (item.customer && item.customer.email) {
         // Add null check
-        if (!uniqueUsers[item.user.email]) {
-          uniqueUsers[item.user.email] = { email: item.user.email, count: 1 };
+        if (!uniqueUsers[item.customer.email]) {
+          uniqueUsers[item.customer.email] = {
+            email: item.customer.email,
+            count: 1,
+          };
         } else {
-          uniqueUsers[item.user.email].count += 1;
+          uniqueUsers[item.customer.email].count += 1;
         }
       }
     });
@@ -101,7 +98,7 @@ export function CartAdmin() {
     const fetchCartItems = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8070/api/customer/cart/cart-details'
+          'http://localhost:8070/api/user/cart/cart-details'
         );
         setCartItems(response.data);
       } catch (error) {
@@ -125,7 +122,7 @@ export function CartAdmin() {
   };
   // Extract unique email addresses from cartItems
   const uniqueEmails = new Set(
-    cartItems.map((item) => (item.user ? item.user.email : null))
+    cartItems.map((item) => (item.customer ? item.customer.email : null))
   );
 
   // Remove null values if there are any
@@ -162,10 +159,10 @@ export function CartAdmin() {
   let maxUserCount = 0;
   const uniqueUsers = getUniqueUsers(); // Assuming you have implemented the getUniqueUsers function
 
-  uniqueUsers.forEach((user) => {
-    if (user.count > maxUserCount) {
-      maxUserCount = user.count;
-      mostRepeatedUser = user;
+  uniqueUsers.forEach((customer) => {
+    if (customer.count > maxUserCount) {
+      maxUserCount = customer.count;
+      mostRepeatedUser = customer;
     }
   });
   const generateReport = async () => {
@@ -249,7 +246,7 @@ export function CartAdmin() {
         item.name,
         `Rs.${item.price}`,
         item.date,
-        item.user ? item.user.email : 'N/A',
+        item.customer ? item.customer.email : 'N/A',
         '',
       ]),
     });
@@ -473,7 +470,7 @@ export function CartAdmin() {
                                 color="blue-gray"
                                 className="font-normal"
                               >
-                                {item.user ? item.user.email : 'N/A'}
+                                {item.customer ? item.customer.email : 'N/A'}
                               </Typography>
                             </div>
                           </td>

@@ -127,7 +127,6 @@ export default function Transports() {
 
   const handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
-    console.log("Search key:", searchKey);
 
     axios.get("http://localhost:8070/api/transports/transports").then((res) => {
       if (res.data.success) {
