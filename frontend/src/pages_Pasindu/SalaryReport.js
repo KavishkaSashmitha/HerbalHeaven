@@ -453,6 +453,28 @@ function SalaryReport() {
     setOpen(!open);
   };
 
+  function handleKeyPressHours(event) {
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+
+    // Calculate the number of digits currently in the input
+    const numberOfDigits = currentValue.replace(/[^0-9]/g, "").length;
+
+    // Check if the new input exceeds the maximum length of 730 characters
+    if (currentValue.length >= 730 && !isDigit) {
+      event.preventDefault(); // Prevent adding more characters if limit is reached
+    }
+
+    // Check if adding a new digit would exceed the limit of 3 digits
+    if (isDigit && numberOfDigits >= 3) {
+      event.preventDefault(); // Prevent adding more digits if limit is reached
+    }
+  }
+
   if (loading) {
     return <div>{createLoadingScreen(loading)}</div>;
   }
@@ -629,6 +651,7 @@ function SalaryReport() {
                                       type="number"
                                       name="Workhours"
                                       value={hours}
+                                      onKeyPress={handleKeyPressHours}
                                       onChange={(event) => {
                                         setHours(event.target.value);
                                       }}

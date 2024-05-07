@@ -3,15 +3,15 @@ import { Typography } from "@material-tailwind/react";
 const LINKS = [
   {
     title: "Product",
-    items: ["Overview", "Features", "Solutions", "Tutorials"],
+    items: ["Herbals", "Oils", "Drugs"],
   },
   {
     title: "Company",
-    items: ["About us", "Careers", "Press", "News"],
+    items: ["About us", "Careers", "Press"],
   },
   {
     title: "Resource",
-    items: ["Blog", "Newsletter", "Events", "Help center"],
+    items: ["Blog", "Newsletter", "Events"],
   },
 ];
 
@@ -32,13 +32,13 @@ export function Footer() {
               className="h-17 w-16 ml-10"
             />
           </div>
-          <div className="grid grid-cols-3 justify-between gap-4 mt-4">
+          <div className="grid grid-cols-3 justify-between gap-4 mt-4 ">
             {LINKS.map(({ title, items }) => (
               <ul key={title}>
                 <Typography
                   variant="small"
                   color="blue-gray"
-                  className="mb-3 font-medium opacity-40"
+                  className="mb-3 font-medium opacity-40 text-blue-gray-100"
                 >
                   {title}
                 </Typography>
@@ -48,7 +48,7 @@ export function Footer() {
                       as="a"
                       href="#"
                       color="gray"
-                      className="py-1.5 font-normal transition-colors hover:text-blue-gray-900"
+                      className=" text-blue-gray-100 py-1.5 font-normal transition-colors hover:text-amber-700"
                     >
                       {link}
                     </Typography>
@@ -61,13 +61,13 @@ export function Footer() {
         <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
           <Typography
             variant="small"
-            className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
+            className="mb-4 text-center font-normal text-blue-gray-100 md:mb-0"
           >
             &copy; {currentYear}{" "}
-            <a href="https://material-tailwind.com/">Herbal Heaven</a>. All
+            <a className="text-blue-gray-100" href="https://material-tailwind.com/">Herbal Heaven</a>. All
             Rights Reserved.
           </Typography>
-          <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
+          <div className="flex gap-4 text-green-400 sm:justify-center">
             <Typography
               as="a"
               href="#"
