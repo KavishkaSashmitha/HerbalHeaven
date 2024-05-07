@@ -109,9 +109,6 @@ import DeretOrders from "./pages-Kumesh/Admin/Income/DeretOrders";
 import MaterialCost from "./pages-Kumesh/Admin/Expens/MaterialCost";
 import EmpSalary from "./pages-Kumesh/Admin/Expens/EmpSalary";
 
-// import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
-// import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
-// import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
 
 function App() {
   const { isLoggedIn } = useAuth();
