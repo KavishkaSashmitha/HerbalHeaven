@@ -98,9 +98,65 @@ const InventoryList = () => {
     );
   });
 
+
   return (
     <div
       className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+
+  //handle publish
+  const handlePublish = async (item) => {
+    try {
+      // Check if all required fields are present in the item
+      if (
+        !item.productName ||
+        !item.quantity ||
+        !item.cost ||
+        !item.shortDescription ||
+        !item.image
+      ) {
+        console.error('Failed to create product: Missing required fields');
+        // Optionally, display an error message to the user or handle the error accordingly
+        return;
+      }
+
+      const newProductData = {
+        name: item.productName,
+        quantity: item.quantity,
+        price: item.cost,
+        description: item.shortDescription,
+        image: item.image,
+      };
+
+      const response = await axios.post(
+        'http://localhost:8070/api/products/save',
+        newProductData
+      );
+
+      if (response.status === 201) {
+        console.log('Product created successfully:', response.data);
+        // Optionally, update the state or perform any other actions
+        // Update the item to indicate it has been published
+        const updatedItems = items.map((i) => {
+          if (i._id === item._id) {
+            return { ...i, published: true };
+          }
+          return i;
+        });
+        setItems(updatedItems);
+      } else {
+        console.error('Failed to create product:', response.statusText);
+        // Optionally, display an error message to the user
+      }
+    } catch (error) {
+      console.error('Error creating product:', error.message);
+      // Optionally, display an error message to the user
+    }
+  };
+
+  return (
+    <div
+      className="flex flex-col h-screen overflow-auto overflow-x-hidden"
+
       style={{ backgroundColor: '#02353c' }}
     >
       <div className="flex flex-1 overflow-scroll">
@@ -164,7 +220,9 @@ const InventoryList = () => {
                   {[
                     'Product No',
                     'Product Name',
+
                     'Short Description',
+
                     'category',
                     'Cost',
                     'Quantity',
@@ -173,6 +231,9 @@ const InventoryList = () => {
                     'Expiary Date',
                     'Image',
                     'Action',
+
+                    'Publish',
+
                   ].map((head, index) => (
                     <th
                       key={index}
@@ -210,6 +271,7 @@ const InventoryList = () => {
                         {item.productName}
                       </Typography>
                     </td>
+
                     <td className="p-4">
                       <Typography
                         variant="small"
@@ -219,6 +281,7 @@ const InventoryList = () => {
                         {item.shortDescription}
                       </Typography>
                     </td>
+
                     <td className="p-4">
                       <Typography
                         variant="small"
@@ -315,6 +378,17 @@ const InventoryList = () => {
                         Delete
                       </Button>
                     </td>
+
+                    <td>
+                      <Button
+                        className="ml-2 mt-5"
+                        onClick={() => handlePublish(item)}
+                        disabled={item.published} // Disable button if item is already published
+                      >
+                        {item.published ? 'Published' : 'Publish'}
+                      </Button>
+                    </td>
+
                   </tr>
                 ))}
               </tbody>

@@ -10,6 +10,8 @@ import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 //import BarChart from './Product_Details_Chart';
 //import OrderAmountLineGraph from './OrderAmountLineGraph';
 import { FaMoneyBill } from 'react-icons/fa6';
+import CartDetails from './Cart-Chart';
+import BarChart from './Product_Details_Chart';
 // import { renderChart } from './Product_Details_Chart';
 
 function CartAdminDashboard() {
@@ -252,7 +254,13 @@ function CartAdminDashboard() {
 
                   <div class="pt-6">
                     <div class="bg-white rounded-m shadow-lg hover:shadow-2xl transition-shadow duration-200 dark:bg-gray-800 dark:shadow-lg dark:hover:shadow-2xl p-4">
+
                       <div class="h-full">{/* <OrderAmountLineGraph /> */}</div>
+
+                      <div class="h-full w-full">
+                        <CartDetails />
+                      </div>
+
                     </div>
                   </div>
                 </div>
