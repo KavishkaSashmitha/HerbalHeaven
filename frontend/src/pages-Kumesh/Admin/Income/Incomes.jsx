@@ -1,26 +1,74 @@
-import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
-import { SidebarWithBurgerMenu } from "../../../components/navBar";
-import { useReactToPrint } from "react-to-print";
-import MaterialCost from "../Expens/MaterialCost";
-import "./Income.css";
-import DeretOrders from "./DeretOrders";
+import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import { SidebarWithBurgerMenu } from '../../../components/navBar';
+import { useReactToPrint } from 'react-to-print';
+import MaterialCost from '../Expens/MaterialCost';
+import './Income.css';
+import DeretOrders from './DeretOrders';
 import {
   Card,
   Collapse,
   Navbar,
   IconButton,
   Typography,
-} from "@material-tailwind/react";
-import { DefaultSidebar } from "../../../components/Manager-Sidebar";
-import AdminNavbar from "../../../components/AdminNavbar";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+} from '@material-tailwind/react';
+import { DefaultSidebar } from '../../../components/Manager-Sidebar';
+import AdminNavbar from '../../../components/AdminNavbar';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import Chart from 'chart.js/auto'; // Import Chart.js
 
-const URL = "http://localhost:8070/api/orders/ordersnet";
+const URL = 'http://localhost:8070/api/orders/ordersnet';
 
 const fetchHandler = async () => {
   return await axios.get(URL).then((res) => res.data);
 };
+
+function PieChart({ orders }) {
+  useEffect(() => {
+    generatePieChart(orders);
+  }, [orders]);
+
+  const generatePieChart = (orders) => {
+    const users = {};
+    orders.forEach((order) => {
+      users[order.user] = (users[order.user] || 0) + 1;
+    });
+
+    const ctx = document.getElementById('myPieChart');
+    if (Chart.getChart(ctx)) {
+      Chart.getChart(ctx).destroy();
+    }
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: Object.keys(users),
+        datasets: [
+          {
+            label: 'Users',
+            data: Object.values(users),
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)',
+              'rgba(255, 159, 64, 0.6)',
+            ],
+          },
+        ],
+      },
+    });
+  };
+
+  return (
+    <canvas
+      id="myPieChart"
+      width="200"
+      height="200"
+      style={{ width: '200px', height: '200px' }}
+    ></canvas>
+  );
+}
 
 function Incomes() {
   const [totalIncome, setTotalIncome] = useState(0);
@@ -46,14 +94,14 @@ function Incomes() {
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "Income Details Report",
-    onAfterPrint: () => alert("Successfully Downloaded !"),
+    documentTitle: 'Income Details Report',
+    onAfterPrint: () => alert('Successfully Downloaded !'),
   });
 
   const toggleSidebar = () => {
     setOpen(!open);
   };
-  // const [open, setOpen] = useState(false);
+
   function NavList() {
     return (
       <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -99,12 +147,12 @@ function Incomes() {
     <div>
       <div
         className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
-        style={{ backgroundColor: "#02353c" }}
+        style={{ backgroundColor: '#02353c' }}
       >
         <div className="flex flex-1 overflow-hidden">
           <div
             className={`sidebar w-68 bg-custom-color text-white ${
-              open ? "block" : "hidden"
+              open ? 'block' : 'hidden'
             }`}
           >
             <DefaultSidebar open={open} handleOpen={setOpen} />
@@ -112,8 +160,6 @@ function Incomes() {
           <div className="flex flex-col flex-1 overflow-auto">
             <AdminNavbar toggleSidebar={toggleSidebar} />
             <Card className="flex flex-1">
-              {/* <div ref={componentRef}> */}
-
               <Navbar className="mx-auto max-w-screen-xl px-6 py-3 sticky ">
                 <div className="flex items-center justify-between text-blue-gray-900">
                   <Typography
@@ -144,10 +190,11 @@ function Incomes() {
                   <NavList />
                 </Collapse>
               </Navbar>
-
               <button onClick={handlePrint} className="dwon_repot_income">
                 Download Report
               </button>
+              <div className="income_topic">Income Details</div>
+
               <div ref={componentRef}>
                 <h1 className="income_topic">Income Details</h1>
                 <div className="tbl_continer_incme">
@@ -168,7 +215,9 @@ function Incomes() {
                               <p className="sub_par_dis">{order.user}</p>
                             </td>
                             <td className="table_income_th">
-                              <p className="sub_par_dis">{order.paymentStatus}</p>
+                              <p className="sub_par_dis">
+                                {order.paymentStatus}
+                              </p>
                             </td>
                             <td className="table_income_th">
                               <p className="sub_par_dis">{order.orderStatus}</p>
@@ -177,7 +226,7 @@ function Incomes() {
                               <p className="sub_par_dis">
                                 {order.total
                                   ? `LKR ${order.total.toFixed(2)}`
-                                  : "Null"}
+                                  : 'Null'}
                               </p>
                             </td>
                           </tr>
@@ -187,6 +236,10 @@ function Incomes() {
                   <h2 className="tot_amout">
                     Total Income:LKR {totalIncome.toFixed(2)}
                   </h2>
+                  <PieChart
+                    style={{ width: '200px', height: '200px' }}
+                    orders={orders}
+                  />
                 </div>
               </div>
             </Card>
