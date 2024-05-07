@@ -244,17 +244,6 @@ export function DefaultSidebar() {
                       Employee Statics
                     </ListItem>
                   </Link>
-                  {/* <Link to="/cart-admin">
-                    <ListItem className="text-yellow-200">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Online-Cart-Stats
-                    </ListItem>
-                  </Link> */}
                 </List>
               </AccordionBody>
             </Accordion>
@@ -366,35 +355,24 @@ export function DefaultSidebar() {
                       Supplier Statics
                     </ListItem>
                   </Link>
-                  {/* <Link to="/cart-admin">
-                    <ListItem className="text-yellow-200">
-                      <ListItemPrefix>
-                        <ChevronRightIcon
-                          strokeWidth={3}
-                          className="w-5 h-3 text-yellow-200"
-                        />
-                      </ListItemPrefix>
-                      Online-Cart-Stats
-                    </ListItem>
-                  </Link> */}
                 </List>
               </AccordionBody>
             </Accordion>
 
             <Accordion
-              open={open === 4}
+              open={open === 8}
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 4 ? 'rotate-180' : ''
+                    open === 8 ? 'rotate-180' : ''
                   }`}
                 />
               }
             >
               <ListItem className="p-0 mr-5" selected={open === 1}>
                 <AccordionHeader
-                  onClick={() => handleOpen(4)}
+                  onClick={() => handleOpen(8)}
                   className="p-3 border-b-0 hover:bg-teal-800"
                 >
                   <ListItemPrefix>
