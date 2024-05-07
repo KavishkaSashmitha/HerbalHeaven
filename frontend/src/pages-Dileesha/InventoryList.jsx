@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Input } from '@material-tailwind/react';
 import { Card, Typography, Button, IconButton } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
+
 import { Footer } from '../components/Footer';
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
@@ -14,11 +14,8 @@ const InventoryList = () => {
 
   const [items, setItems] = useState([]);
   const [searchItem, setSearchItem] = useState('');
-  const [reorderItems, setReorderItems] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(4);
-  const [post, setPosts] = useState([]);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -32,32 +29,37 @@ const InventoryList = () => {
   }, [items]);
 
   const handleDelete = (id) => {
-    const confirmDelete = Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this Product!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true,
-    });
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this item?'
+    );
     if (confirmDelete) {
-      axios.delete(`http://localhost:8070/inventory/deleteInventoryItem/${id}`);
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'You will not be able to recover this Product!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true,
-      })
+      axios
+        .delete(`http://localhost:8070/inventory/deleteInventoryItem/${id}`)
         .then(() => {
           setItems(items.filter((item) => item._id !== id));
         })
         .catch((err) => console.log(err));
     }
   };
+
+  /*
+  const handleReorderList = () => {
+    const reorderItem = items.filter((item) => item.quantity < item.reorderLevel);
+    
+    const products = reorderItem
+    // Extract necessary fields and structure them according to the backend schem
+    // Send products array to the backend
+    axios.post('http://localhost:8070/inventory/addReorderItem',products )
+      .then((response) => {
+        console.log('Reorder items sent successfully:', response.data);
+        
+        // Optionally handle navigation here if needed
+      })
+      .catch((error) => {
+        console.error('Error sending reorder items:', error);
+      });
+  };
+  */
 
   const handleReorderList = () => {
     // Filter items based on the reorder condition
@@ -96,10 +98,22 @@ const InventoryList = () => {
     );
   });
 
-  return (
-    <div
-      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+  // Get current items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const paginatedItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
+  // Change page
+  const nextPage = () => setCurrentPage(currentPage + 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
+
+  //generate page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filteredItems.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  //end
   //handle publish
   const handlePublish = async (item) => {
     try {
@@ -122,6 +136,7 @@ const InventoryList = () => {
         price: item.cost,
         description: item.shortDescription,
         image: item.image,
+        category: item.category,
       };
 
       const response = await axios.post(
@@ -152,8 +167,7 @@ const InventoryList = () => {
 
   return (
     <div
-      className="flex flex-col h-screen overflow-auto overflow-x-hidden"
-
+      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: '#02353c' }}
     >
       <div className="flex flex-1 overflow-scroll">
@@ -217,7 +231,7 @@ const InventoryList = () => {
                   {[
                     'Product No',
                     'Product Name',
-                    'Short Description',
+                    // 'Short Description',
                     'category',
                     'Cost',
                     'Quantity',
@@ -226,6 +240,7 @@ const InventoryList = () => {
                     'Expiary Date',
                     'Image',
                     'Action',
+                    'Publish',
                   ].map((head, index) => (
                     <th
                       key={index}
@@ -263,7 +278,7 @@ const InventoryList = () => {
                         {item.productName}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    {/* <td className="p-4">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -271,7 +286,7 @@ const InventoryList = () => {
                       >
                         {item.shortDescription}
                       </Typography>
-                    </td>
+                    </td> */}
                     <td className="p-4">
                       <Typography
                         variant="small"
@@ -366,6 +381,16 @@ const InventoryList = () => {
                         onClick={() => handleDelete(item._id)}
                       >
                         Delete
+                      </Button>
+                    </td>
+                    <td>
+                      <Button
+                        className="ml-0 mt-2"
+                        color="yellow"
+                        onClick={() => handlePublish(item)}
+                        disabled={item.published} // Disable button if item is already published
+                      >
+                        {item.published ? 'Published' : 'Publish'}
                       </Button>
                     </td>
                   </tr>
