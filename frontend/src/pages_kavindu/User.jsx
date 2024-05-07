@@ -19,6 +19,8 @@ const User = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = React.useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Change this number to set the number of items per page
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -44,6 +46,13 @@ const User = () => {
     }
   };
 
+  // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <>
       <div className="flex flex-col h-screen overflow-hidden overflow-x-hidden">
@@ -62,6 +71,22 @@ const User = () => {
               <h1 className="text-3xl">List of Suppliers</h1>
               <div className="mb-5  flex justify-end">
                 <div>
+                <Link to="/ReOrderedList">
+                    <Button
+                      color="amber"
+                      className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    >
+                      ReOrdered List
+                    </Button>
+                  </Link>
+                  <Link to="/ReOrder">
+                    <Button
+                      color="amber"
+                      className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    >
+                      ReOrder
+                    </Button>
+                  </Link>
                   <Link to="/sup/addsup">
                     <Button
                       color="amber"
@@ -78,6 +103,7 @@ const User = () => {
                   </Button>
                 </div>
               </div>
+              <h4>search</h4>
               <Input
                 type="text"
                 placeholder="Search..."
@@ -85,6 +111,7 @@ const User = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="mb-4 border-blue-gray-100 bg-blue-gray-50/50"
               />
+
               <CardBody className="px-0 flex flex-col flex-1">
                 <div className="overflow-auto">
                   <table className="overflow-scroll mt-5 w-full min-w-max table-auto text-left border-blue-gray-100 bg-blue-gray-50/50">
@@ -93,9 +120,9 @@ const User = () => {
                         {[
                           "Name",
                           "Email",
-
-                          "Raw Material",
-
+                          "Raw Material_01",
+                          "Raw Material_02",
+                          "Raw Material_03",
                           "Mobile",
                           "Address",
                           "Action",
@@ -116,7 +143,7 @@ const User = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {users
+                      {currentItems
                         .filter((user) =>
                           Object.values(user)
                             .join(" ")
@@ -130,9 +157,9 @@ const User = () => {
                           >
                             <td className="p-4">{user.name}</td>
                             <td className="p-4">{user.email}</td>
-
-                            <td className="p-4">{user.rawMaterial}</td>
-
+                            <td className="p-4">{user.rawMaterial1}</td>
+                            <td className="p-4">{user.rawMaterial2}</td>
+                            <td className="p-4">{user.rawMaterial3}</td>
                             <td className="p-4">{user.mobile}</td>
                             <td className="p-4">{user.address}</td>
                             <td className="p-4">
@@ -147,7 +174,6 @@ const User = () => {
                                   ></i>
                                 </Button>
                               </Link>
-
                               <Button
                                 color="red"
                                 onClick={() => handleDelete(user._id)}
@@ -157,7 +183,6 @@ const User = () => {
                                   style={{ fontSize: "20px" }}
                                 ></i>
                               </Button>
-
                               <Link
                                 to={`/sup/material_report/${user._id}`}
                                 className="btn btn-warning "
@@ -179,7 +204,28 @@ const User = () => {
                   </table>
                 </div>
               </CardBody>
-              <CardFooter>
+              <CardFooter className="flex justify-between">
+                <nav>
+                  <ul className="flex justify-center">
+                    {Array.from(
+                      { length: Math.ceil(users.length / itemsPerPage) },
+                      (_, i) => (
+                        <li key={i}>
+                          <button
+                            onClick={() => paginate(i + 1)}
+                            className={`${
+                              currentPage === i + 1
+                                ? "bg-blue-500 text-white"
+                                : "bg-white text-blue-500"
+                            } font-medium px-4 py-2 mx-1 border border-gray-300 rounded-md`}
+                          >
+                            {i + 1}
+                          </button>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </nav>
                 <Footer />
               </CardFooter>
             </Card>

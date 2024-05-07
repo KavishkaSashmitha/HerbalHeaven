@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "jspdf-autotable";
-import { SidebarWithBurgerMenu } from "../components/navBar";
-import ProfileMenu from "../components/Profile";
 import { Footer } from "../components/Footer";
 import {
   Button,
@@ -13,7 +11,6 @@ import {
   CardFooter,
   IconButton,
   Avatar,
-  Input,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { Breadcrumbs } from "@material-tailwind/react";
@@ -100,16 +97,22 @@ export default function Posts() {
   };
 
   function filterData(searchKey) {
+    // Convert the search key to lowercase to allow case-insensitive matching
+    const lowerCaseSearchKey = searchKey.toLowerCase();
+
+    // Filter the 'post' list based on whether the specified properties include the search key
     const result = post.filter(
       (post) =>
-        post.name.toLowerCase().includes(searchKey) ||
-        post.jobrole.toLowerCase().includes(searchKey) ||
-        post.gender.toLowerCase().includes(searchKey) ||
-        post.mobile.toLowerCase().includes(searchKey) ||
-        post.email.toLowerCase().includes(searchKey) ||
-        post.address.toLowerCase().includes(searchKey) ||
-        post.age.toLowerCase().includes(searchKey)
+        post.name.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.jobrole.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.gender.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.mobile.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.email.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.address.toLowerCase().includes(lowerCaseSearchKey) ||
+        post.age.toString().toLowerCase().includes(lowerCaseSearchKey)
     );
+
+    // Update the filtered posts and reset the current page
     setFilteredPosts(result);
     setCurrentPage(1);
   }
@@ -117,11 +120,6 @@ export default function Posts() {
   const handleSearchArea = (e) => {
     const searchKey = e.currentTarget.value;
     filterData(searchKey);
-    // axios.get("http://localhost:8070/api/posts/posts").then((res) => {
-    //   if (res.data.success) {
-    //     filterData(res.data.existingPosts, searchKey);
-    //   }
-    // });
   };
 
   useEffect(() => {
@@ -213,8 +211,10 @@ export default function Posts() {
                     <div className="flex flex-row gap-2 shrink-0 sm:flex-row">
                       <Link to="/emp/add">
                         <Button
-                          style={{ backgroundColor: "#02353c", color: "white" }} // Set background color inline
-                          className="flex items-center gap-3"
+                          variant="gradient"
+                          color="orange"
+                          className="flex items-center gap-3 "
+                          href=""
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -265,7 +265,7 @@ export default function Posts() {
             </CardHeader>
             <CardBody className="p-4">
               <div className="overflow-x-auto ">
-                <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-blue-gray-200 opacity-95">
+                <table className="w-full divide-y divide-gray-200 dark:divide-gray-700 mt-4 rounded-lg text-left table-auto min-w-max bg-white opacity-95">
                   <thead>
                     <tr>
                       <th className="p-4  ">
@@ -444,8 +444,7 @@ export default function Posts() {
             </CardBody>
             <CardFooter className="flex items-center justify-between border-t border-transparent p-4">
               <Button
-                className=""
-                style={{ backgroundColor: "#02353c", color: "white" }}
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={prevPage}
@@ -456,8 +455,7 @@ export default function Posts() {
               <div className="flex items-center gap-2 ">
                 {pageNumbers.map((number) => (
                   <IconButton
-                    className=""
-                    style={{ backgroundColor: "#02353c", color: "white" }}
+                    className="bg-custom-color hover:bg-amber-800 text-cyan-50"
                     key={number}
                     variant={number === currentPage ? "outlined" : "text"}
                     size="sm"
@@ -468,8 +466,7 @@ export default function Posts() {
                 ))}
               </div>
               <Button
-                className=""
-                style={{ backgroundColor: "#02353c", color: "white" }}
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
                 variant="outlined"
                 size="sm"
                 onClick={nextPage}
@@ -481,8 +478,8 @@ export default function Posts() {
                 Next
               </Button>
             </CardFooter>
-            <Footer />
           </Card>
+          <Footer />
         </div>
       </div>
     </>

@@ -3,9 +3,15 @@ import axios from "axios";
 import { SidebarWithBurgerMenu } from "../../../components/navBar";
 import { useReactToPrint } from "react-to-print";
 import MaterialCost from "../Expens/MaterialCost";
-import './Income.css'
+import "./Income.css";
 import DeretOrders from "./DeretOrders";
-import { Card, Collapse, Navbar,IconButton,Typography } from "@material-tailwind/react";
+import {
+  Card,
+  Collapse,
+  Navbar,
+  IconButton,
+  Typography,
+} from "@material-tailwind/react";
 import { DefaultSidebar } from "../../../components/Manager-Sidebar";
 import AdminNavbar from "../../../components/AdminNavbar";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -57,7 +63,10 @@ function Incomes() {
           color="blue-gray"
           className="p-1 font-medium"
         >
-          <a href="/netincome" className="flex items-center hover:text-blue-500 transition-colors">
+          <a
+            href="/netincome"
+            className="flex items-center hover:text-blue-500 transition-colors"
+          >
             Income details
           </a>
         </Typography>
@@ -67,8 +76,11 @@ function Incomes() {
           color="blue-gray"
           className="p-1 font-medium"
         >
-          <a href="/dir" className="flex items-center hover:text-blue-500 transition-colors">
-           DirectOrder
+          <a
+            href="/dir"
+            className="flex items-center hover:text-blue-500 transition-colors"
+          >
+            DirectOrder
           </a>
         </Typography>
         <Typography
@@ -76,11 +88,7 @@ function Incomes() {
           variant="small"
           color="blue-gray"
           className="p-1 font-medium"
-        >
-          
-        
-         
-        </Typography>
+        ></Typography>
       </ul>
     );
   }
@@ -88,90 +96,103 @@ function Incomes() {
   const [openNav, setOpenNav] = React.useState(false);
 
   return (
-  
     <div>
       <div
-      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
-      style={{ backgroundColor: '#02353c' }}
-    >
-      <div className="flex flex-1 overflow-hidden">
-        <div
-          className={`sidebar w-68 bg-custom-color text-white ${
-            open ? 'block' : 'hidden'
-          }`}
-        >
-          <DefaultSidebar open={open} handleOpen={setOpen} />
-        </div>
-        <div className="flex flex-col flex-1 overflow-auto">
-          <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="flex flex-1">
-      {/* <div ref={componentRef}> */}
+        className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+        style={{ backgroundColor: "#02353c" }}
+      >
+        <div className="flex flex-1 overflow-hidden">
+          <div
+            className={`sidebar w-68 bg-custom-color text-white ${
+              open ? "block" : "hidden"
+            }`}
+          >
+            <DefaultSidebar open={open} handleOpen={setOpen} />
+          </div>
+          <div className="flex flex-col flex-1 overflow-auto">
+            <AdminNavbar toggleSidebar={toggleSidebar} />
+            <Card className="flex flex-1">
+              {/* <div ref={componentRef}> */}
 
-      <Navbar className="mx-auto max-w-screen-xl px-6 py-3 sticky ">
-      <div className="flex items-center justify-between text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          variant="h6"
-          className="mr-4 cursor-pointer py-1.5"
-        >
-          Income Details
-        </Typography>
-        <div className="hidden lg:block">
-          <NavList />
-        </div>
-        <IconButton
-          variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-          ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <XMarkIcon className="h-6 w-6" strokeWidth={2} />
-          ) : (
-            <Bars3Icon className="h-6 w-6" strokeWidth={2} />
-          )}
-        </IconButton>
-      </div>
-      <Collapse open={openNav}>
-        <NavList />
-      </Collapse>
-    </Navbar>
-   
-      
-      <button onClick={handlePrint} className="dwon_repot_income">
-        Download Report
-      </button>
-      <div  ref={componentRef} >
-        <h1 className="income_topic">Income Details</h1>
-        <div className="tbl_continer_incme">
-          <table className="table_income">
-            <thead>
-              <tr className="table_income_tr">
-                <th className="table_income_th">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-  {orders && orders.map((order, index) => (
-    <tr key={index}>
-      <td className="table_income_th">
-        <p className="sub_par_dis">
-          {order.total ? `LKR ${order.total.toFixed(2)}` : "Null"}
-        </p>
-      </td>
-    </tr>
-  ))}
-</tbody>
+              <Navbar className="mx-auto max-w-screen-xl px-6 py-3 sticky ">
+                <div className="flex items-center justify-between text-blue-gray-900">
+                  <Typography
+                    as="a"
+                    href="#"
+                    variant="h6"
+                    className="mr-4 cursor-pointer py-1.5"
+                  >
+                    Income Details
+                  </Typography>
+                  <div className="hidden lg:block">
+                    <NavList />
+                  </div>
+                  <IconButton
+                    variant="text"
+                    className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+                    ripple={false}
+                    onClick={() => setOpenNav(!openNav)}
+                  >
+                    {openNav ? (
+                      <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+                    ) : (
+                      <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+                    )}
+                  </IconButton>
+                </div>
+                <Collapse open={openNav}>
+                  <NavList />
+                </Collapse>
+              </Navbar>
 
-          </table>
-          <h2  className="tot_amout">Total Income:LKR {totalIncome.toFixed(2)}</h2>
+              <button onClick={handlePrint} className="dwon_repot_income">
+                Download Report
+              </button>
+              <div ref={componentRef}>
+                <h1 className="income_topic">Income Details</h1>
+                <div className="tbl_continer_incme">
+                  <table className="table_income">
+                    <thead>
+                      <tr className="table_income_tr">
+                        <th className="table_income_th">user</th>
+                        <th className="table_income_th">paymentStatus</th>
+                        <th className="table_income_th">orderStatus</th>
+                        <th className="table_income_th">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orders &&
+                        orders.map((order, index) => (
+                          <tr key={index}>
+                            <td className="table_income_th">
+                              <p className="sub_par_dis">{order.user}</p>
+                            </td>
+                            <td className="table_income_th">
+                              <p className="sub_par_dis">{order.paymentStatus}</p>
+                            </td>
+                            <td className="table_income_th">
+                              <p className="sub_par_dis">{order.orderStatus}</p>
+                            </td>
+                            <td className="table_income_th">
+                              <p className="sub_par_dis">
+                                {order.total
+                                  ? `LKR ${order.total.toFixed(2)}`
+                                  : "Null"}
+                              </p>
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  <h2 className="tot_amout">
+                    Total Income:LKR {totalIncome.toFixed(2)}
+                  </h2>
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
       </div>
-     
-    </Card>
-    </div>
-    </div>
-    </div>
     </div>
   );
 }

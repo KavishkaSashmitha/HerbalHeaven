@@ -64,7 +64,7 @@ export function SidebarWithBurgerMenu({}) {
         ) : (
           <Bars3Icon
             className="h-8 w-8 stroke-2 "
-            style={{ color: '#ff8f00' }}
+            style={{ color: '#c8e6c9' }}
           />
         )}
       </IconButton>
@@ -162,7 +162,7 @@ export function SidebarWithBurgerMenu({}) {
             </Link>
             
             
-            <Link to="/user/cart">
+            <Link to="/customer/cart">
               <Accordion open={open === 3}>
                 <ListItem className="p-0" selected={open === 3}>
                   <AccordionHeader

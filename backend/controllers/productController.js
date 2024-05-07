@@ -19,7 +19,28 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
+const createProduct = asyncHandler(async (req, res) => {
+  const { name, quantity, price, description, image } = req.body;
+
+  try {
+    const newProduct = new product({
+      name,
+      quantity,
+      price,
+      description,
+      image,
+    });
+
+    await newProduct.save();
+
+    res.status(201).json(newProduct);
+  } catch (error) {
+    res.status(400).json({ message: 'Failed to create product', error });
+  }
+});
+
 module.exports = {
   productList,
   getProductById,
+  createProduct, // Add the new createProduct method
 };

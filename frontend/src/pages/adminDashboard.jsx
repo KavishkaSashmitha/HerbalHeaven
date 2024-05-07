@@ -1,16 +1,38 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  Typography,
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Chip,
+  AccordionBody,
+  List,
+  AccordionHeader,
+  Accordion,
+} from '@material-tailwind/react';
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  Cog6ToothIcon,
+  InboxIcon,
+  PowerIcon,
+  PresentationChartBarIcon,
+  ShoppingBagIcon,
+  UserCircleIcon,
+} from '@heroicons/react/24/solid';
 import AdminNavbar from '../components/AdminNavbar';
 
-
-import { DefaultSidebar } from "../components/Manager-Sidebar";
-import CreateLoadingScreen from "../pages_Pasindu/LoadingScreen";
+import { DefaultSidebar } from '../components/Manager-Sidebar';
+import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 
 function AdminDashboard() {
   const [documents, setDocuments] = useState([]);
   const [loading, setloading] = useState([true]);
-
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -19,11 +41,11 @@ function AdminDashboard() {
     const fetchDocuments = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8070/api/posts/posts"
+          'http://localhost:8070/api/posts/posts'
         );
         setDocuments(response.data.existingPosts);
       } catch (error) {
-        console.error("Error fetching documents:", error);
+        console.error('Error fetching documents:', error);
       }
     };
 
@@ -45,7 +67,7 @@ function AdminDashboard() {
       <div className="flex h-screen overflow-scroll">
         <div
           className={`sidebar w-64 bg-custom-color text-white ${
-            open ? "block" : "hidden"
+            open ? 'block' : 'hidden'
           }`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
@@ -58,9 +80,9 @@ function AdminDashboard() {
               <div className="p-4 bg-gray-200 border-2 border-gray-200 rounded">
                 <div className="py-5">
                   <main className="h-full overflow-y-auto">
-                    <div className="container  mx-auto grid">
+                    <div className="container grid mx-auto">
                       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                        <div className="card w-full">
+                        <div className="w-full card">
                           <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                             <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                               <svg
@@ -82,7 +104,7 @@ function AdminDashboard() {
                           </div>
                         </div>
 
-                        <div className="card w-full">
+                        <div className="w-full card">
                           <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                             <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                               <svg
@@ -108,7 +130,7 @@ function AdminDashboard() {
                           </div>
                         </div>
 
-                        <div className="card w-full">
+                        <div className="w-full card">
                           <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                             <div className="p-3 mr-4 text-teal-500 bg-teal-200 rounded-full dark:text-orange-100 dark:bg-orange-500">
                               <svg
@@ -134,7 +156,7 @@ function AdminDashboard() {
                           </div>
                         </div>
 
-                        <div className="card w-full">
+                        <div className="w-full card">
                           <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                             <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                               <svg
@@ -165,9 +187,9 @@ function AdminDashboard() {
               <div className="p-4 bg-gray-200 border-2 border-gray-200 rounded">
                 <div className="py-5">
                   <main className="h-full overflow-y-auto">
-                    <div className="container  mx-auto grid">
+                    <div className="container grid mx-auto">
                       <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                        <div className="card w-full">
+                        <div className="w-full card">
                           <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                             <div className="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                               <svg
@@ -189,7 +211,7 @@ function AdminDashboard() {
                           </div>
                         </div>
 
-                        <div className="card w-full">
+                        <div className="w-full card">
                           <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                             <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                               <svg
@@ -215,7 +237,7 @@ function AdminDashboard() {
                           </div>
                         </div>
 
-                        <div className="card w-full">
+                        <div className="w-full card">
                           <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                             <div className="p-3 mr-4 text-teal-500 bg-teal-200 rounded-full dark:text-orange-100 dark:bg-orange-500">
                               <svg
@@ -242,7 +264,7 @@ function AdminDashboard() {
                           </div>
                         </div>
 
-                        <div className="card w-full">
+                        <div className="w-full card">
                           <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                             <div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                               <svg

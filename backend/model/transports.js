@@ -26,6 +26,11 @@ const TransportSchema = new mongoose.Schema({
     required: true,
   },
 
+  email: {
+    type: String,
+    required: true,
+  },
+
   vehicle_type: {
     type: String,
     required: true,
@@ -35,10 +40,11 @@ const TransportSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
   cost: {
     type: Map,
     of: Number,
-    required: true,
+    required: false,
     default: {},
   },
 });

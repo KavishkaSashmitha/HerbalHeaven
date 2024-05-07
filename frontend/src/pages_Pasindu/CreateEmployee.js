@@ -190,6 +190,88 @@ export default function CreatePost() {
     }));
   };
 
+  function handleKeyPressMobile(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 10;
+
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
+  function handleKeyPressAge(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 2;
+
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
+  function handleKeyPressNic(event) {
+    // Allow only numeric characters (digits)
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+
+    // Check the length of the input field
+    const isMaxLengthReached = currentValue.length >= 12;
+
+    // Prevent default if the character is not a digit or if max length is reached
+    if (!isDigit || isMaxLengthReached) {
+      event.preventDefault();
+    }
+  }
+
+  function handleKeyPress(event) {
+    // Get the character that the user is trying to type
+    const char = event.key;
+
+    const regex = /^[A-Za-z ]$/;
+
+    if (!regex.test(char)) {
+      event.preventDefault(); // Prevents the non-letter or non-space character from being typed
+    }
+  }
+
+  function handleKeyPressEmail(event) {
+    // Get the character that the user is trying to type
+    const char = event.key;
+    const input = event.target;
+
+    const endsWithDotCom = input.value.endsWith(".com");
+    const endsWithDotLk = input.value.endsWith(".lk");
+
+    if (
+      (endsWithDotCom && char !== "Backspace") ||
+      (endsWithDotLk && char !== "Backspace")
+    ) {
+      event.preventDefault(); // Prevents further characters after ".com"
+      return;
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -324,7 +406,7 @@ export default function CreatePost() {
               shadow={false}
               className="rounded-none bg-blue-gray-100"
             >
-              <div className="m-4">
+              <div className="m-4 ">
                 <Breadcrumbs>
                   <Link to="/">
                     <svg
@@ -394,7 +476,7 @@ export default function CreatePost() {
                             />
                             <button
                               type="button"
-                              className=" bg-amber-800 hover:bg-amber-900 text-white font-semibold
+                              className=" bg-custom-color hover:bg-amber-900 text-white font-semibold
                 py-2 px-4 rounded
                 focus:outline-none focus:ring-2 focus:ring-amber-400
                 transition duration-300 ease-in-out
@@ -544,6 +626,8 @@ export default function CreatePost() {
                                       value={state?.name}
                                       type="text"
                                       name="name"
+                                      onKeyPress={handleKeyPress}
+                                      required
                                       placeholder="Enter Employee Name"
                                       onChange={handInputChange}
                                       className={`peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 ${
@@ -640,6 +724,7 @@ export default function CreatePost() {
                                       type="number"
                                       name="nic"
                                       placeholder="Enter National ID"
+                                      onKeyPress={handleKeyPressNic}
                                       onChange={handInputChange}
                                       class={`${
                                         errors?.nic
@@ -671,6 +756,7 @@ export default function CreatePost() {
                                       type="number"
                                       name="mobile"
                                       placeholder="Enter Mobile Number"
+                                      onKeyPress={handleKeyPressMobile}
                                       onChange={handInputChange}
                                       class={`${
                                         errors?.mobile
@@ -698,6 +784,7 @@ export default function CreatePost() {
                                       name="email"
                                       placeholder="Enter Employee Email"
                                       onChange={handInputChange}
+                                      onKeyPress={handleKeyPressEmail}
                                       class={`${
                                         errors?.email
                                           ? "border-red-500"
@@ -749,8 +836,7 @@ export default function CreatePost() {
                                       value={state?.age}
                                       type="number"
                                       name="age"
-                                      min={18}
-                                      max={60}
+                                      onKeyPress={handleKeyPressAge}
                                       placeholder="Enter Age"
                                       onChange={handInputChange}
                                       class={`${
@@ -788,10 +874,9 @@ export default function CreatePost() {
                 </div>
               </div>
             </CardBody>
-            <CardFooter>
-              <Footer />
-            </CardFooter>
+            <CardFooter></CardFooter>
           </Card>
+          <Footer />
         </div>
       </div>
     </>

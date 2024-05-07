@@ -6,15 +6,22 @@ const supController = {
   //req ekn body ek gnnwa.req ekn body ek arn data base eke store krl record ek add krnw.success unoth res ek succes kiyl ywnwa nethnm error msg kk display krnwa.
   addsup: async (req, res) => {
     try {
-      const { name, email, age, rawMaterial, country, mobile, address } =
-        req.body;
+      const {
+        name,
+        email,
+        rawMaterial1,
+        rawMaterial2,
+        rawMaterial3,
+        mobile,
+        address,
+      } = req.body;
 
       if (
         !name ||
         !email ||
-        !age ||
-        !rawMaterial ||
-        !country ||
+        !rawMaterial1 ||
+        !rawMaterial2 ||
+        !rawMaterial3 ||
         !mobile ||
         !address
       )
@@ -23,9 +30,11 @@ const supController = {
       const newEmp = new Emp({
         name,
         email,
-        age,
-        rawMaterial,
-        country,
+
+        rawMaterial1,
+        rawMaterial2,
+        rawMaterial3,
+
         mobile,
         address,
       });
@@ -49,8 +58,6 @@ const supController = {
     }
   },
 
- 
-  
   //view only one suppliers details
 
   getEmployee: async (req, res) => {
@@ -66,14 +73,23 @@ const supController = {
 
   updateEmployee: async (req, res) => {
     try {
-      const { name, email, age, rawMaterial, country, mobile, address } =
-        req.body;
+      const {
+        name,
+        email,
+        rawMaterial1,
+        rawMaterial2,
+        rawMaterial3,
+        mobile,
+        address,
+      } = req.body;
       await Emp.findByIdAndUpdate(req.params.id, {
         name,
         email,
-        age,
-        rawMaterial,
-        country,
+
+        rawMaterial1,
+        rawMaterial2,
+        rawMaterial3,
+
         mobile,
         address,
       });
@@ -112,7 +128,7 @@ const supController = {
     }
   },
 
-  getAllPyment :async (req, res, next) => {
+  getAllPyment: async (req, res, next) => {
     let employees;
     try {
       employees = await Emp.find();
@@ -124,11 +140,6 @@ const supController = {
     }
     return res.status(200).json({ employees });
   },
-
-
 };
 
-
-
 module.exports = supController;
-
