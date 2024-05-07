@@ -98,11 +98,6 @@ const InventoryList = () => {
     );
   });
 
-
-  return (
-    <div
-      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
-
   //handle publish
   const handlePublish = async (item) => {
     try {
@@ -125,6 +120,7 @@ const InventoryList = () => {
         price: item.cost,
         description: item.shortDescription,
         image: item.image,
+        category: item.category,
       };
 
       const response = await axios.post(
@@ -156,7 +152,6 @@ const InventoryList = () => {
   return (
     <div
       className="flex flex-col h-screen overflow-auto overflow-x-hidden"
-
       style={{ backgroundColor: '#02353c' }}
     >
       <div className="flex flex-1 overflow-scroll">
@@ -220,9 +215,6 @@ const InventoryList = () => {
                   {[
                     'Product No',
                     'Product Name',
-
-                    'Short Description',
-
                     'category',
                     'Cost',
                     'Quantity',
@@ -231,9 +223,7 @@ const InventoryList = () => {
                     'Expiary Date',
                     'Image',
                     'Action',
-
                     'Publish',
-
                   ].map((head, index) => (
                     <th
                       key={index}
@@ -269,16 +259,6 @@ const InventoryList = () => {
                         className="font-normal"
                       >
                         {item.productName}
-                      </Typography>
-                    </td>
-
-                    <td className="p-4">
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {item.shortDescription}
                       </Typography>
                     </td>
 
@@ -378,7 +358,6 @@ const InventoryList = () => {
                         Delete
                       </Button>
                     </td>
-
                     <td>
                       <Button
                         className="ml-2 mt-5"
@@ -388,7 +367,6 @@ const InventoryList = () => {
                         {item.published ? 'Published' : 'Publish'}
                       </Button>
                     </td>
-
                   </tr>
                 ))}
               </tbody>
