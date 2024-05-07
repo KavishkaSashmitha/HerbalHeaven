@@ -98,22 +98,11 @@ const InventoryList = () => {
     );
   });
 
-  // Get current items
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const paginatedItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Change page
-  const nextPage = () => setCurrentPage(currentPage + 1);
-  const prevPage = () => setCurrentPage(currentPage - 1);
+  return (
+    <div
+      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
 
-  //generate page numbers
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(filteredItems.length / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  //end
   //handle publish
   const handlePublish = async (item) => {
     try {
@@ -167,7 +156,8 @@ const InventoryList = () => {
 
   return (
     <div
-      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+      className="flex flex-col h-screen overflow-auto overflow-x-hidden"
+
       style={{ backgroundColor: '#02353c' }}
     >
       <div className="flex flex-1 overflow-scroll">
@@ -231,7 +221,9 @@ const InventoryList = () => {
                   {[
                     'Product No',
                     'Product Name',
-                    // 'Short Description',
+
+                    'Short Description',
+
                     'category',
                     'Cost',
                     'Quantity',
@@ -278,7 +270,8 @@ const InventoryList = () => {
                         {item.productName}
                       </Typography>
                     </td>
-                    {/* <td className="p-4">
+
+                    <td className="p-4">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -286,7 +279,8 @@ const InventoryList = () => {
                       >
                         {item.shortDescription}
                       </Typography>
-                    </td> */}
+                    </td>
+
                     <td className="p-4">
                       <Typography
                         variant="small"
