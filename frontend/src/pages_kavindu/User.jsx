@@ -73,7 +73,7 @@ const User = () => {
                 <div>
                   <Link to="/ReOrderedList">
                     <Button
-                      color="amber"
+                      color="green"
                       className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     >
                       ReOrdered List
@@ -89,18 +89,18 @@ const User = () => {
                   </Link>
                   <Link to="/sup/addsup">
                     <Button
-                      color="amber"
+                      color="blue"
                       className="mr-3 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     >
                       Add Supplier
                     </Button>
                   </Link>
-                  <Button
+                  {/* <Button
                     color="red"
                     className="py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-black shadow-md shadow-amber-500/20 transition-all hover:shadow-lg hover:shadow-amber-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   >
                     Generate Report
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
               <h4>search</h4>
