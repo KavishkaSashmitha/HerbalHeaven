@@ -300,7 +300,7 @@ function MaterialReport() {
         </div>
         <div className="w-full h-screen overflow-scroll ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className=" overflow-auto">
+          <Card className=" overflow-auto ">
             <div class="overflow-scroll">
               <CardHeader
                 floated={false}
@@ -533,7 +533,7 @@ function MaterialReport() {
                   </div>
                 </div>
               </CardBody>
-              <CardFooter className="bg-white">
+              <CardFooter className="bg-custom-color">
                 <Footer />
               </CardFooter>
             </div>
