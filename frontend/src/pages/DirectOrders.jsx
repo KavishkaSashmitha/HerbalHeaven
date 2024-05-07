@@ -14,6 +14,7 @@ import {
 } from '@material-tailwind/react';
 import CreateLoadingScreen from '../pages_Pasindu/LoadingScreen';
 import { FaMoneyBill } from 'react-icons/fa6';
+import jsPDF from 'jspdf';
 
 const DirectOrdersTable = () => {
   const [directOrders, setDirectOrders] = useState([]);
@@ -28,6 +29,7 @@ const DirectOrdersTable = () => {
   const [mostRepeatedItemCount, setMostRepeatedItemCount] = useState(0);
   const [recentlySoldItem, setRecentlySoldItem] = useState(null);
   const [imageLoading, setImageLoading] = useState({});
+  const [reportGenerated, setReportGenerated] = useState(false);
 
   useEffect(() => {
     axios
@@ -113,6 +115,90 @@ const DirectOrdersTable = () => {
     return total;
   };
 
+  const generateReport = () => {
+    try {
+      const doc = new jsPDF();
+
+      // Load the logo image from a local path
+      const logoPath = 'logo/logo.png';
+      const logoDataUri = getBase64Image(logoPath);
+
+      // Add the logo to the PDF
+      doc.addImage(logoDataUri, 'PNG', 10, 10, 50, 50);
+
+      // Add your company name
+      const companyName = 'Your Company Name';
+      doc.setFontSize(18);
+      doc.text(companyName, 70, 30);
+
+      // Create table data
+      const tableData = directOrders.map((order, index) => {
+        const orderItems = order.items.map((item) => ({
+          productName: productDetails[item.productId]?.name || 'Unknown',
+          productImage:
+            productDetails[item.productId]?.image || 'Placeholder Image URL',
+          quantity: item.quantity,
+          totalAmount: item.totalAmount,
+          createdAt: new Date(item.createdAt).toLocaleString(), // Convert MongoDB date to JavaScript Date object
+        }));
+
+        return {
+          orderNumber: index + 1,
+          orderItems,
+          totalAmount: calculateOrderTotal(order.items),
+          orderDate: new Date(order.createdAt).toLocaleString(), // Convert MongoDB date to JavaScript Date object
+        };
+      });
+
+      // Add table using autoTable
+      doc.autoTable({
+        head: [['#', 'Product Name', 'Quantity', 'Total Amount', 'Created At']],
+        body: tableData.flatMap(
+          ({ orderNumber, orderItems, totalAmount, orderDate }) => {
+            const rows = orderItems.map(
+              ({
+                productName,
+
+                quantity,
+                totalAmount,
+                createdAt,
+              }) => [orderNumber, productName, quantity, totalAmount, createdAt]
+            );
+
+            // Insert an empty row to separate orders
+            rows.push(['', '', '', '', '', '']);
+            return rows;
+          }
+        ),
+        startY: 70,
+        theme: 'striped',
+        styles: { overflow: 'linebreak' },
+        columnStyles: {
+          1: { cellWidth: 80 }, // Adjust column width if needed
+          2: { cellWidth: 40 }, // Adjust column width if needed
+        },
+      });
+
+      // Save the PDF
+      doc.save('Herbal_Heaven_Direct_Sales.pdf');
+    } catch (error) {
+      console.error('Error generating report:', error);
+    }
+  };
+
+  // Function to convert image file to Data URI
+  const getBase64Image = (imgPath) => {
+    const img = new Image();
+    img.src = imgPath;
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    const dataURL = canvas.toDataURL('image/png');
+    return dataURL;
+  };
+
   if (loading) {
     return <div>{CreateLoadingScreen(loading)}</div>;
   }
@@ -169,11 +255,12 @@ const DirectOrdersTable = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
+
               <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mt-2">
                 <div className="card w-full hover:shadow-lg transition duration-300 ease-in-out">
-                  <div className="flex h-auto items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                  <div className="flex h-auto items-center p-5 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                     <div className="mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                      <FaMoneyBill className="h-12 w-12" />
+                      <FaMoneyBill className="h-10 w-10" />
                     </div>
                     <div>
                       <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -182,11 +269,12 @@ const DirectOrdersTable = () => {
                       <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
                         Rs.{totalAmountSum.toFixed(2)}
                       </p>
+                      <br />
                     </div>
                   </div>
                 </div>
                 <div className="card w-full hover:shadow-lg transition duration-300 ease-in-out">
-                  <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
+                  <div className="flex items-center p-5 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
                     <div className="mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
                       <img
                         src={
@@ -211,30 +299,11 @@ const DirectOrdersTable = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card w-full hover:shadow-lg transition duration-300 ease-in-out">
-                  <div className="flex items-center p-4 bg-gray-100 rounded-lg shadow-xl dark:bg-gray-800">
-                    <div className="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
-                      <img
-                        src={
-                          productDetails[recentlySoldItem]?.image ||
-                          'Placeholder Image URL'
-                        }
-                        className="h-12 w-12"
-                        alt="Recently Sold"
-                      />
-                    </div>
-                    <div>
-                      <p className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                        Recently Sold
-                      </p>
-                      <p className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        {productDetails[recentlySoldItem]?.name || 'Unknown'}
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
               <CardBody className="overflow-x-auto">
+                <Button variant="outlined" size="sm" onClick={generateReport}>
+                  Generate Report
+                </Button>
                 <table className="w-full bg-white shadow-md rounded-lg">
                   <thead>
                     <tr className="text-left">
