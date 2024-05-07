@@ -2,39 +2,42 @@ const mongoose = require('mongoose');
 
 //schema
 const reorderData = mongoose.Schema(
-  {products:[{
-    productID: {
-      type: String,
-      required: true,
-    },
-    productNo: {
-      type: Number,
-      required: true,
-    },
-    
-    productName: {
-      type: String,
-      required: true,
-      maxlength: 100,
-    },
+  {
+    products: [
+      {
+        productID: {
+          type: String,
+          required: true,
+        },
+        productNo: {
+          type: Number,
+          required: true,
+        },
 
-    category: {
-      type: String,
-      require: true,
-    },
+        productName: {
+          type: String,
+          required: true,
+          maxlength: 100,
+        },
 
-    quantity: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    reorderLevel: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
-    
-  }]} ,
+        category: {
+          type: String,
+          require: true,
+        },
+
+        quantity: {
+          type: Number,
+          required: true,
+          min: 0,
+        },
+        reorderLevel: {
+          type: Number,
+          required: true,
+          min: 0,
+        },
+      },
+    ],
+  },
   {
     timestamps: true,
   }

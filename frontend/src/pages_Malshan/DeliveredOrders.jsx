@@ -188,7 +188,7 @@ export default function Transports() {
                     </Link>
                     <Link to="">
                       <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                        <span>Expense Report</span>
+                        <span>Deliverd Orders</span>
 
                         <span class="font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
                       </li>
@@ -282,7 +282,7 @@ export default function Transports() {
                         </th>
                         <th className="p-4 ">
                           <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                            Owner Name
+                            Driver Name
                           </p>
                         </th>
                         <th className="p-4 ">

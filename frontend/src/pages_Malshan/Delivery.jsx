@@ -297,7 +297,7 @@ export default function Edit_Driver() {
             </Link>
             <Link to="">
               <li class="flex items-center font-sans text-sm antialiased font-normal leading-normal transition-colors duration-300 cursor-pointer text-blue-gray-900 hover:text-cyan-100">
-                <span>Update Transport</span>
+                <span>Delivery</span>
 
                 <span class=" font-sans text-sm antialiased font-normal leading-normal pointer-events-none select-none text-blue-gray-500"></span>
               </li>
@@ -320,7 +320,7 @@ export default function Edit_Driver() {
                 </svg>
               </div>
               <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white">
-                Update Transport Information
+                Delivery Information
               </h5>
             </div>
 
@@ -334,8 +334,8 @@ export default function Edit_Driver() {
                           <form class="flex flex-col gap-4 mt-12">
                             <div>
                               <div>
-                                <p className="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
-                                  <label>Owner Name</label>
+                                <p className="block mt-2 mb-1 font-sans antialiased font-medium leading-normal text-x1 text-blue-gray-900">
+                                  <label>Driver Name</label>
                                 </p>
                                 <select
                                   id="transportDropdown"
@@ -343,7 +343,7 @@ export default function Edit_Driver() {
                                   onChange={handleChange}
                                   className="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all"
                                 >
-                                  <option value="">Select Owner Name</option>
+                                  <option value="">Select Driver Name</option>
                                   {transport.map((item, index) => (
                                     <option key={index} value={item.d_name}>
                                       {capitalizeSecondPart(item.d_name)}
@@ -353,7 +353,7 @@ export default function Edit_Driver() {
                               </div>
 
                               <div>
-                                <p className="block mt-5 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                                <p className="block mt-5 mb-1 font-sans antialiased font-medium leading-normal text-x1 text-blue-gray-900">
                                   <label>Mobile</label>
                                 </p>
                                 <div className="relative h-10 w-full min-w-[200px]">
@@ -368,7 +368,7 @@ export default function Edit_Driver() {
                               </div>
 
                               <div>
-                                <p className="block mt-5 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                                <p className="block mt-5 mb-1 font-sans antialiased font-medium leading-normal text-x1 text-blue-gray-900">
                                   <label>Category</label>
                                 </p>
                                 <div className="relative h-10 w-full min-w-[200px]">
@@ -461,7 +461,7 @@ export default function Edit_Driver() {
                 <div class="grid grid-cols-2 gap-6">
                   <div class="p-6">
                     <div>
-                      <p className="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                      <p className="block mt-2 mb-1 font-sans antialiased font-medium leading-normal text-x1 text-blue-gray-900">
                         <label>Order Name</label>
                       </p>
                       <select
@@ -479,7 +479,7 @@ export default function Edit_Driver() {
                       </select>
                     </div>
                     <div>
-                      <p className="block mt-5 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                      <p className="block mt-5 mb-1 font-sans antialiased font-medium leading-normal text-x1 text-blue-gray-900">
                         <label>Shipping Address</label>
                       </p>
                       <div className="relative h-10 w-full min-w-[200px]">
