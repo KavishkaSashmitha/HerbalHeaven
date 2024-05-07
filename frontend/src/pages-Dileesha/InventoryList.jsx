@@ -120,6 +120,7 @@ const InventoryList = () => {
         price: item.cost,
         description: item.shortDescription,
         image: item.image,
+        category: item.category,
       };
 
       const response = await axios.post(

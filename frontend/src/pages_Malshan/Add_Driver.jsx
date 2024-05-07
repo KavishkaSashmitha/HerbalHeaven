@@ -65,10 +65,13 @@ export default class Add_Driver extends Component {
 
   validateEmail = () => {
     const { email } = this.state;
-    if (!email) {
-      return "Email is required";
-    }
-    return "";
+  if (!email) {
+    return "Email is required";
+  }
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    return "Invalid email format";
+  }
+  return "";
   };
 
   validateCategory = () => {
@@ -321,7 +324,7 @@ export default class Add_Driver extends Component {
                           <div class="relative h-10 w-full min-w-[200px]">
                             <input
                               value={this.state.email}
-                              type="text"
+                              type="mail"
                               name="email"
                               placeholder="Enter Email"
                               onChange={this.handleInputChange}
