@@ -1,12 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
-import Card from "../User/CardDetails";
-import CardBox from "./CardBox";
-import axios from "axios";
+import React, { useEffect, useState, useRef } from 'react';
+import Card from '../User/CardDetails';
+import CardBox from './CardBox';
+import axios from 'axios';
 import { SidebarWithBurgerMenu } from '../../components/navBar';
-import { FaAddressCard } from "react-icons/fa6";
-import { RiBankFill } from "react-icons/ri";
-import { useReactToPrint } from "react-to-print";
-const URL = "http://localhost:8070/cards";
+import { FaAddressCard } from 'react-icons/fa6';
+import { RiBankFill } from 'react-icons/ri';
+import { useReactToPrint } from 'react-to-print';
+import { Link } from 'react-router-dom';
+const URL = 'http://localhost:8070/cards';
 
 const fetchHandler = async () => {
   return await axios.get(URL).then((res) => res.data);
@@ -21,24 +22,21 @@ function Cards() {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "Card Details Report",
-    onAfterPrint: () => alert("Successfully Downloaded !"), //alret
+    documentTitle: 'Card Details Report',
+    onAfterPrint: () => alert('Successfully Downloaded !'), //alret
   });
   return (
     <div>
-       <SidebarWithBurgerMenu />
+      <SidebarWithBurgerMenu />
       <div className="ful-set-pay">
         <div className="ful-set-pay-card">
           <div className="btn-set-rwo">
-            <button
-              className="add-pay-btn"
-              onClick={() => {
-                window.location.href = "/addnewcard";
-              }}
-            >
-              <FaAddressCard className="add-pay-btn-icon" />
-              Add New Card
-            </button>
+            <Link to="/addnewcard">
+              <button className="add-pay-btn">
+                <FaAddressCard className="add-pay-btn-icon" />
+                Add New Card
+              </button>
+            </Link>
             {/* <button className="add-pay-btn">
               <RiBankFill className="add-pay-btn-icon" />
               Add New Bank Account
