@@ -1,114 +1,113 @@
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import Home from './pages/Home';
+import Home from "./pages/Home";
 
 //praveen
 
-import { SidebarWithBurgerMenu } from './components/navBar';
+import { SidebarWithBurgerMenu } from "./components/navBar";
 
-import Register from './pages/Register';
-import Dashboard from './pages/DashBoard';
-import EditProfile from './pages/EditProfile';
-import CustomerManager from './pages/CustomerManager';
-import CustomerReport from './pages/CustomerReport';
+import Register from "./pages/Register";
+import Dashboard from "./pages/DashBoard";
+import EditProfile from "./pages/EditProfile";
+import CustomerManager from "./pages/CustomerManager";
+import CustomerReport from "./pages/CustomerReport";
 
-import { EcommerceCard } from './pages/Products';
+import { EcommerceCard } from "./pages/Products";
 
-import Cart from './pages/cart';
+import Cart from "./pages/cart";
 
-import CreatPost from './pages_Pasindu/CreateEmployee';
-import EditPost from './pages_Pasindu/EditEmployee';
-import Posts from './pages_Pasindu/Employee';
-import PostDetails from './pages_Pasindu/EmployeeDetails';
-import 'react-toastify/dist/ReactToastify.css';
+import CreatPost from "./pages_Pasindu/CreateEmployee";
+import EditPost from "./pages_Pasindu/EditEmployee";
+import Posts from "./pages_Pasindu/Employee";
+import PostDetails from "./pages_Pasindu/EmployeeDetails";
+import "react-toastify/dist/ReactToastify.css";
 
-import Display_Employee_Details from './pages_Pasindu/Display_Employee_Details';
-import Employee_Dashboard from './pages_Pasindu/Employee_Dashboard';
+import Display_Employee_Details from "./pages_Pasindu/Display_Employee_Details";
+import Employee_Dashboard from "./pages_Pasindu/Employee_Dashboard";
 // import HiestSalary from "./pages_Pasindu/HiestSalary";
 
-import CreateUser from './pages_kavindu/CreateUser';
-import UpdateUser from './pages_kavindu/UpdateUser';
-import User from './pages_kavindu/User';
-import ReOrder from './pages_kavindu/ReOrder';
-import ReOrderedList from './pages_kavindu/ReOrderedList';
+import CreateUser from "./pages_kavindu/CreateUser";
+import UpdateUser from "./pages_kavindu/UpdateUser";
+import User from "./pages_kavindu/User";
+import ReOrder from "./pages_kavindu/ReOrder";
+import ReOrderedList from "./pages_kavindu/ReOrderedList";
 
-import AdminDashboard from './pages/adminDashboard';
+import AdminDashboard from "./pages/adminDashboard";
 
-import SalaryReport from './pages_Pasindu/SalaryReport';
-import DirectCartTable from './pages/DirectOrder';
+import SalaryReport from "./pages_Pasindu/SalaryReport";
+import DirectCartTable from "./pages/DirectOrder";
 
 //Kumesh-----------------------
 //import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 //Kumesh-user
 
-import Payment from './pages-Kumesh/User/Payment';
-import CardDetails from './pages-Kumesh/User/Cards';
-import AddCard from './pages-Kumesh/User/AddCard';
-import UpdateCard from './pages-Kumesh/User/UpdateCard';
-import PayPal from './pages-Kumesh/User/PayPal';
-import PaypalCheckOut from './pages-Kumesh/User/PaypalCheckOut';
-import PrintPage from './pages-Kumesh/User/PrintPage';
+import Payment from "./pages-Kumesh/User/Payment";
+import CardDetails from "./pages-Kumesh/User/Cards";
+import AddCard from "./pages-Kumesh/User/AddCard";
+import UpdateCard from "./pages-Kumesh/User/UpdateCard";
+import PayPal from "./pages-Kumesh/User/PayPal";
+import PaypalCheckOut from "./pages-Kumesh/User/PaypalCheckOut";
+import PrintPage from "./pages-Kumesh/User/PrintPage";
 
-import CashDelivery from './pages-Kumesh/User/CashDelivery';
+import CashDelivery from "./pages-Kumesh/User/CashDelivery";
 
 //Kumesh-Admin
-import NetIncome from './pages-Kumesh/Admin/Income/Incomes';
-import Expens from './pages-Kumesh/Admin/Expens/Expens';
+import NetIncome from "./pages-Kumesh/Admin/Income/Incomes";
+import Expens from "./pages-Kumesh/Admin/Expens/Expens";
 //Kumesh END-----------------------
 
-import EditOrder from './pages_Ridmi/EditOrder';
-import Order from './pages_Ridmi/Order';
-import './index.css';
+import EditOrder from "./pages_Ridmi/EditOrder";
+import Order from "./pages_Ridmi/Order";
+import "./index.css";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
-import MaterialReport from './pages_kavindu/MaterialCostReport';
+import MaterialReport from "./pages_kavindu/MaterialCostReport";
 
-import Transport from './pages_Malshan/Transport';
-import Add_Driver from './pages_Malshan/Add_Driver';
-import Edit_Driver from './pages_Malshan/Edit_Driver';
-import Driver_Details from './pages_Malshan/Driver_Details';
-import FuelReport from './pages_Malshan/FuelReport';
+import Transport from "./pages_Malshan/Transport";
+import Add_Driver from "./pages_Malshan/Add_Driver";
+import Edit_Driver from "./pages_Malshan/Edit_Driver";
+import Driver_Details from "./pages_Malshan/Driver_Details";
+import FuelReport from "./pages_Malshan/FuelReport";
 
-import OTPVerification from './pages/Manager-SignIn';
-import DeliveredOrders from './pages_Malshan/DeliveredOrders';
-import Delivery from './pages_Malshan/Delivery';
+import OTPVerification from "./pages/Manager-SignIn";
+import DeliveredOrders from "./pages_Malshan/DeliveredOrders";
+import Delivery from "./pages_Malshan/Delivery";
 
-import { useAuth } from './middleware/authContext';
-import { CustomerLogin } from './pages/Customer-login';
+import { useAuth } from "./middleware/authContext";
+import { CustomerLogin } from "./pages/Customer-login";
 
-import ProductList from './pages/Direct_Order_Products';
+import ProductList from "./pages/Direct_Order_Products";
 
-import CartAdminDashboard from './pages/Cart-AdminDashboard';
-import DirectOrdersTable from './pages/DirectOrders';
+import CartAdminDashboard from "./pages/Cart-AdminDashboard";
+import DirectOrdersTable from "./pages/DirectOrders";
 
-import './index.css';
+import "./index.css";
 
-import ImageUpload from './imageUpload';
+import ImageUpload from "./imageUpload";
 
-import ProtectedRoute from './middleware/ProtectedRoute';
+import ProtectedRoute from "./middleware/ProtectedRoute";
 
-import { CartAdmin, CartDetails } from './pages/Cart-Admin';
-import CartChart from './pages/Cart-Chart';
+import { CartAdmin, CartDetails } from "./pages/Cart-Admin";
+import CartChart from "./pages/Cart-Chart";
 
 //Dileesha
-import AddProduct from './pages-Dileesha/AddProduct';
-import UpdateProduct from './pages-Dileesha/UpdateProduct';
-import InventoryList from './pages-Dileesha/InventoryList';
-import InventoryReport from './pages-Dileesha/InventoryReport';
+import AddProduct from "./pages-Dileesha/AddProduct";
+import UpdateProduct from "./pages-Dileesha/UpdateProduct";
+import InventoryList from "./pages-Dileesha/InventoryList";
+import InventoryReport from "./pages-Dileesha/InventoryReport";
 
-import MyOrders from './pages_Ridmi/myOrders';
-import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
-import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
-import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
-import Immunity from './pages/ImmunityProducts';
+import MyOrders from "./pages_Ridmi/myOrders";
+import DeretOrders from "./pages-Kumesh/Admin/Income/DeretOrders";
+import MaterialCost from "./pages-Kumesh/Admin/Expens/MaterialCost";
+import EmpSalary from "./pages-Kumesh/Admin/Expens/EmpSalary";
 
 function App() {
   const { isLoggedIn } = useAuth();
