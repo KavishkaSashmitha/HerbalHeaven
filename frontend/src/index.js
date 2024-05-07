@@ -12,7 +12,12 @@ import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { NavbarSimple } from './components/navBar';
 import { CartProvider } from './components/cartContext';
+<<<<<<< Updated upstream
 import OTPVerification from './pages/Manager-SignIn';
+=======
+import OTPVerification from './interfaces/Otp';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+>>>>>>> Stashed changes
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -22,9 +27,14 @@ root.render(
     <ThemeProvider>
       <AuthProvider>
         <CartProvider>
+        <PayPalScriptProvider
+         options={{
+          "client-id": process.env.CLIENT_ID,
+       }}>
           <Router>
             <App />
           </Router>
+          </PayPalScriptProvider>
         </CartProvider>
       </AuthProvider>
     </ThemeProvider>
