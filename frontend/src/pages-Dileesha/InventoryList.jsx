@@ -2,9 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Input } from '@material-tailwind/react';
-import { Card, Typography, Button } from '@material-tailwind/react';
+import { Card, Typography, Button, IconButton } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 import { Footer } from '../components/Footer';
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
@@ -15,6 +15,10 @@ const InventoryList = () => {
   const [items, setItems] = useState([]);
   const [searchItem, setSearchItem] = useState('');
   const [reorderItems, setReorderItems] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4);
+  const [post, setPosts] = useState([]);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -28,37 +32,32 @@ const InventoryList = () => {
   }, [items]);
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete this item?'
-    );
+    const confirmDelete = Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this Product!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+    });
     if (confirmDelete) {
-      axios
-        .delete(`http://localhost:8070/inventory/deleteInventoryItem/${id}`)
+      axios.delete(`http://localhost:8070/inventory/deleteInventoryItem/${id}`);
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this Product!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+      })
         .then(() => {
           setItems(items.filter((item) => item._id !== id));
         })
         .catch((err) => console.log(err));
     }
   };
-
-  /*
-  const handleReorderList = () => {
-    const reorderItem = items.filter((item) => item.quantity < item.reorderLevel);
-    
-    const products = reorderItem
-    // Extract necessary fields and structure them according to the backend schem
-    // Send products array to the backend
-    axios.post('http://localhost:8070/inventory/addReorderItem',products )
-      .then((response) => {
-        console.log('Reorder items sent successfully:', response.data);
-        
-        // Optionally handle navigation here if needed
-      })
-      .catch((error) => {
-        console.error('Error sending reorder items:', error);
-      });
-  };
-  */
 
   const handleReorderList = () => {
     // Filter items based on the reorder condition
@@ -68,7 +67,7 @@ const InventoryList = () => {
 
     // Map the filtered items to the format expected by the backend
     const products = reorderItem.map((item) => ({
-      productID: item._id, // Assuming _id is the product ID in your schema
+      productID: item._id,
       productNo: item.productNo,
       productName: item.productName,
       category: item.category,
@@ -79,7 +78,6 @@ const InventoryList = () => {
     // Log the data to be sent (optional)
     console.log('Data to be sent:', products);
 
-    // Send the products array to the backend
     axios
       .post('http://localhost:8070/inventory/addReorderItem', { products })
       .then((response) => {
@@ -97,6 +95,64 @@ const InventoryList = () => {
       item.category.toLowerCase().includes(searchItem.toLowerCase())
     );
   });
+
+  // Get current items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const paginatedItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const nextPage = () => setCurrentPage(currentPage + 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
+
+  //generate page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filteredItems.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  //end
+  //handle publish
+  const handlePublish = async (item) => {
+    try {
+      // Check if all required fields are present in the item
+      if (
+        !item.productName ||
+        !item.quantity ||
+        !item.cost ||
+        !item.shortDescription ||
+        !item.image
+      ) {
+        console.error('Failed to create product: Missing required fields');
+        // Optionally, display an error message to the user or handle the error accordingly
+        return;
+      }
+
+      const newProductData = {
+        name: item.productName,
+        quantity: item.quantity,
+        price: item.cost,
+        description: item.shortDescription,
+        image: item.image,
+      };
+
+      const response = await axios.post(
+        'http://localhost:8070/api/products/save',
+        newProductData
+      );
+
+      if (response.status === 201) {
+        console.log('Product created successfully:', response.data);
+        // Optionally, update the state or perform any other actions
+      } else {
+        console.error('Failed to create product:', response.statusText);
+        // Optionally, display an error message to the user
+      }
+    } catch (error) {
+      console.error('Error creating product:', error.message);
+      // Optionally, display an error message to the user
+    }
+  };
 
   return (
     <div
@@ -117,7 +173,7 @@ const InventoryList = () => {
             <Typography
               variant="h6"
               color="blue-gray"
-              className="text-center text-3xl font-bold font-times bg-blue-gray-300 p-2 rounded-md"
+              className="text-center text-3xl font-bold font-times bg-blue-gray-100 p-2 rounded-md"
             >
               Inventory List
             </Typography>
@@ -164,7 +220,7 @@ const InventoryList = () => {
                   {[
                     'Product No',
                     'Product Name',
-                    'Short Description',
+                    // 'Short Description',
                     'category',
                     'Cost',
                     'Quantity',
@@ -173,10 +229,11 @@ const InventoryList = () => {
                     'Expiary Date',
                     'Image',
                     'Action',
+                    'Publish',
                   ].map((head, index) => (
                     <th
                       key={index}
-                      className="border-b border-blue-gray-100 bg-green-300 p-7"
+                      className="border-b border-blue-gray-100 bg-blue-gray-200 p-7"
                     >
                       <Typography
                         variant="small"
@@ -190,8 +247,8 @@ const InventoryList = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredItems.map((item) => (
-                  <tr key={item._id} className="even:bg-green-100 p-4">
+                {paginatedItems.map((item) => (
+                  <tr key={item._id} className="even:bg-blue-gray-50 p-4">
                     <td className="p-8">
                       <Typography
                         variant="small"
@@ -210,7 +267,7 @@ const InventoryList = () => {
                         {item.productName}
                       </Typography>
                     </td>
-                    <td className="p-4">
+                    {/* <td className="p-4">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -218,7 +275,7 @@ const InventoryList = () => {
                       >
                         {item.shortDescription}
                       </Typography>
-                    </td>
+                    </td> */}
                     <td className="p-4">
                       <Typography
                         variant="small"
@@ -315,6 +372,15 @@ const InventoryList = () => {
                         Delete
                       </Button>
                     </td>
+                    <td>
+                      <Button
+                        color="yellow"
+                        className="ml-0 mt-2 "
+                        onClick={() => handlePublish(item)}
+                      >
+                        Publish
+                      </Button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -328,6 +394,40 @@ const InventoryList = () => {
                 Add New Product
               </Button>
             </Link>
+            <div className="flex justify-end mt-4">
+              {/* Previous page button */}
+              <Button
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
+                variant="outlined"
+                size="sm"
+                onClick={prevPage}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <div className="flex items-center gap-2 ">
+                {pageNumbers.map((number) => (
+                  <IconButton
+                    className="bg-custom-color hover:bg-amber-800 text-cyan-50"
+                    key={number}
+                    variant={number === currentPage ? 'outlined' : 'text'}
+                    size="sm"
+                    onClick={() => setCurrentPage(number)}
+                  >
+                    {number}
+                  </IconButton>
+                ))}
+              </div>
+              <Button
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
+                variant="outlined"
+                size="sm"
+                onClick={nextPage}
+                disabled={indexOfLastItem >= filteredItems.length}
+              >
+                Next
+              </Button>
+            </div>
           </Card>
           <Footer />
         </div>
