@@ -64,7 +64,7 @@ const User = () => {
           >
             <DefaultSidebar open={open} handleOpen={setOpen} />
           </div>
-          <div className="flex flex-col flex-1 overflow-auto">
+          <div className="flex flex-col flex-1 overflow-auto ">
             <AdminNavbar toggleSidebar={toggleSidebar} />
 
             <Card className="flex flex-col flex-1 ml-2 mr-4">
@@ -226,9 +226,11 @@ const User = () => {
                     )}
                   </ul>
                 </nav>
-                <Footer />
               </CardFooter>
             </Card>
+            <div className="bg-custom-color">
+              <Footer />
+            </div>
           </div>
         </div>
       </div>
