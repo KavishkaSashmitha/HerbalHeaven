@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
-import card from './img/card.png';
-import tic from './img/tic.png';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { SidebarWithBurgerMenu } from '../../components/navBar';
+import React, { useState } from "react";
+import card from "./img/card.png";
+import tic from "./img/tic.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { SidebarWithBurgerMenu } from "../../components/navBar";
+import { useAuth } from "../../middleware/authContext";
 function AddCard() {
   const history = useNavigate();
+  const { token } = useAuth();
   const [inputs, setInputs] = useState({
-    fullname: '',
-    address: '',
-    city: '',
-    zip: '',
-    country: '',
-    cardholdername: '',
-    cardnumber: '',
-    expmonth: '',
+    fullname: "",
+    address: "",
+    city: "",
+    zip: "",
+    country: "",
+    cardholdername: "",
+    cardnumber: "",
+    expmonth: "",
     // expyear: "",
-    cvv: '',
+    cvv: "",
   });
 
   const handleChange = (e) => {
@@ -31,27 +33,35 @@ function AddCard() {
     console.log(inputs);
     sendRequest()
       .then(() => {
-        alert('Card details added successfully!');
+        alert("Card details added successfully!");
       })
       .catch((error) => {
-        console.error('Error adding card details:', error);
+        console.error("Error adding card details:", error);
       });
   };
 
   const sendRequest = async () => {
     await axios
-      .post('http://localhost:8070/cards', {
-        fullname: String(inputs.fullname),
-        address: String(inputs.address),
-        city: String(inputs.city),
-        zip: String(inputs.zip),
-        country: String(inputs.country),
-        cardholdername: String(inputs.cardholdername),
-        cardnumber: String(inputs.cardnumber),
-        expmonth: String(inputs.expmonth),
-        //expyear: String(inputs.expyear),
-        cvv: String(inputs.cvv),
-      })
+      .post(
+        "http://localhost:8070/cards",
+        {
+          fullname: String(inputs.fullname),
+          address: String(inputs.address),
+          city: String(inputs.city),
+          zip: String(inputs.zip),
+          country: String(inputs.country),
+          cardholdername: String(inputs.cardholdername),
+          cardnumber: String(inputs.cardnumber),
+          expmonth: String(inputs.expmonth),
+          //expyear: String(inputs.expyear),
+          cvv: String(inputs.cvv),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => res.data);
   };
   //function to get date from today which means not to input  date before today
@@ -208,12 +218,12 @@ function AddCard() {
                     value={inputs.cardnumber}
                     onChange={(event) => {
                       const inputValue = event.target.value;
-                      const sanitizedValue = inputValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
+                      const sanitizedValue = inputValue.replace(/[^\d]/g, ""); // Remove non-numeric characters
                       const formattedValue = sanitizedValue
-                        .replace(/(\d{4})/g, '$1-')
+                        .replace(/(\d{4})/g, "$1-")
                         .slice(0, 19); // Format to XXXX-XXXX-XXXX-XXXX
                       handleChange({
-                        target: { name: 'cardnumber', value: formattedValue },
+                        target: { name: "cardnumber", value: formattedValue },
                       });
                     }}
                     maxLength={19}
@@ -225,8 +235,8 @@ function AddCard() {
                     required
                     onKeyPress={(event) => {
                       if (
-                        event.key === '-' ||
-                        (!/\d/.test(event.key) && event.key !== 'Backspace')
+                        event.key === "-" ||
+                        (!/\d/.test(event.key) && event.key !== "Backspace")
                       ) {
                         // If the key pressed is a dash or not a digit (except Backspace)
                         event.preventDefault(); // Prevent default behavior (typing the key)
