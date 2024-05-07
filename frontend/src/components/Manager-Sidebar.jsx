@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import {
   Card,
   Typography,
@@ -12,7 +12,7 @@ import {
   Chip,
   Drawer,
   Input,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react';
 import {
   PresentationChartBarIcon,
   ShoppingBagIcon,
@@ -20,16 +20,16 @@ import {
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
-} from "@heroicons/react/24/solid";
+} from '@heroicons/react/24/solid';
 import {
   MagnifyingGlassIcon,
   Bars3Icon,
   XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
-import { useAuth } from "../middleware/authContext"; // Importing the useAuth hook from AuthContext
-import { useCart } from "./cartContext";
+} from '@heroicons/react/24/outline';
+import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
+import { useCart } from './cartContext';
 
 export function DefaultSidebar() {
   const [open, setOpen] = React.useState(0);
@@ -45,7 +45,7 @@ export function DefaultSidebar() {
         color="transparent"
         shadow={false}
         className="h-full overflow-y-scroll w-72 bg-custom-color"
-        style={{ borderRadius: "0" }}
+        style={{ borderRadius: '0' }}
       >
         <div className="p-4 mb-2">
           <Link to="/">
@@ -76,7 +76,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? "rotate-180" : ""
+                    open === 1 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -87,7 +87,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 1 ? "rotate-180" : ""
+                    open === 1 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -111,7 +111,7 @@ export function DefaultSidebar() {
               </ListItem>
               <AccordionBody className="py-1">
                 <List className="px-4">
-                  <Link to="/">
+                  <Link to="/cart-Admin">
                     <ListItem className="text-yellow-200 ">
                       <ListItemPrefix>
                         <ChevronRightIcon
@@ -154,7 +154,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 2 ? "rotate-180" : ""
+                    open === 2 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -199,7 +199,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 3 ? "rotate-180" : ""
+                    open === 3 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -264,7 +264,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 4 ? "rotate-180" : ""
+                    open === 4 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -320,7 +320,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 5 ? "rotate-180" : ""
+                    open === 5 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -387,7 +387,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 4 ? "rotate-180" : ""
+                    open === 4 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -443,7 +443,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 6 ? "rotate-180" : ""
+                    open === 6 ? 'rotate-180' : ''
                   }`}
                 />
               }
@@ -499,7 +499,7 @@ export function DefaultSidebar() {
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={` text-yellow-300 mx-auto h-4 w-4 transition-transform ${
-                    open === 7 ? "rotate-180" : ""
+                    open === 7 ? 'rotate-180' : ''
                   }`}
                 />
               }
