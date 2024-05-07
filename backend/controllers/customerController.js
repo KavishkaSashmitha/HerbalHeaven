@@ -14,9 +14,18 @@ const generateToken = (id) => {
 // @route POST /api/customer/create
 // @access public
 const signup = AsyncHandler(async (req, res) => {
-  const { name, email, password, mobileNumber, gender, age, address } = req.body;
+  const { name, email, password, mobileNumber, gender, age, address } =
+    req.body;
 
-  if (!name || !email || !password || !mobileNumber || !gender || !age || !address) {
+  if (
+    !name ||
+    !email ||
+    !password ||
+    !mobileNumber ||
+    !gender ||
+    !age ||
+    !address
+  ) {
     res.status(400);
     throw new Error('Please add all required fields');
   }
@@ -124,7 +133,10 @@ const updateProfile = AsyncHandler(async (req, res) => {
 
     // Check if a new password is provided
     if (req.body.newPassword) {
-      const isPasswordValid = await bcrypt.compare(req.body.currentPassword, customer.password);
+      const isPasswordValid = await bcrypt.compare(
+        req.body.currentPassword,
+        customer.password
+      );
       if (!isPasswordValid) {
         res.status(401);
         throw new Error('Incorrect current password');
@@ -170,7 +182,6 @@ const deleteProfile = AsyncHandler(async (req, res) => {
   }
 });
 
-
 const getAllCustomers = AsyncHandler(async (req, res) => {
   const customers = await Customer.find({}); // Retrieve all customers from the database
 
@@ -182,8 +193,6 @@ const getAllCustomers = AsyncHandler(async (req, res) => {
   }
 });
 
-
-
 module.exports = {
   signup,
   loginUser,
@@ -191,5 +200,4 @@ module.exports = {
   updateProfile,
   deleteProfile,
   getAllCustomers,
- 
 };

@@ -105,11 +105,10 @@ import InventoryList from "./pages-Dileesha/InventoryList";
 import InventoryReport from "./pages-Dileesha/InventoryReport";
 
 import MyOrders from "./pages_Ridmi/myOrders";
+import DeretOrders from "./pages-Kumesh/Admin/Income/DeretOrders";
+import MaterialCost from "./pages-Kumesh/Admin/Expens/MaterialCost";
+import EmpSalary from "./pages-Kumesh/Admin/Expens/EmpSalary";
 
-
-// import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
-// import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
-// import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -118,18 +117,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<EcommerceCard />} />
-
       <Route path="/signUp" element={<Register />} />
 
       <Route element={<ProtectedRoute />}>
-        {/* Kavishka */}
-
-        <Route path="/dashboard" element={<Dashboard />} />
-
-        <Route path="/user/cart" element={<Cart />} />
-        <Route path="/productCategory" element={<ProductList />} />
-        <Route path="/login" element={<CustomerLogin />} />
-
         {/*Kumesh*/}
         <Route path="/user/payment" element={<Payment />} />
         <Route path="/carddetails" element={<CardDetails />} />
@@ -142,10 +132,18 @@ function App() {
 
       <Route path="/" element={<Home />} />
 
-      {/* //Protected Routes  element={<ProtectedRoute manager />} */}
-      <Route>
+      {/* //Protected Routes  */}
+      <Route element={<ProtectedRoute manager />}>
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         {/* cart-related */}
+        {/* Kavishka */}
+
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/user/cart" element={<Cart />} />
+        <Route path="/productCategory" element={<ProductList />} />
+        <Route path="/login" element={<CustomerLogin />} />
+
         <Route path="/cart-Admin" element={<CartAdmin />} />
         <Route path="/productCategory" element={<ProductList />} />
         <Route path="/direct-cart" element={<DirectCartTable />} />
@@ -202,13 +200,11 @@ function App() {
         <Route path="/expensive" element={<Expens />} />
         <Route path="/cashdelivery" element={<CashDelivery />} />
         <Route path="/printpage" element={<PrintPage />} />
-        {/* <Route path="/dir" element={<DeretOrders />} />
+        <Route path="/dir" element={<DeretOrders />} />
         <Route path="/material" element={<MaterialCost />} />
-        <Route path="/employesalary" element={<EmpSalary />} /> */}
+        <Route path="/employesalary" element={<EmpSalary />} />
       </Route>
 
-      <Route path="/emp" element={<Posts />} />
-      <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
       {/*Kumesh Start */}
@@ -220,20 +216,9 @@ function App() {
       <Route path="/otp" element={<OTPVerification />} />
 
       {/* Pasindu */}
-      <Route path="/emp/add" element={<CreatPost />} />
+      {/* <Route path="/emp/add" element={<CreatPost />} />
       <Route path="/emp/edit/:id" element={<EditPost />} />
-      <Route path="/emp/:id" element={<PostDetails />} />
-
-      <Route path="/salaryreport" element={<SalaryReport />} />
-      {/* <Route path="/EmployeeChart" element={<EmployeeChart />} />
-      <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
-      <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} /> */}
-      <Route
-        path="/Display_Employee_Details/:id"
-        element={<Display_Employee_Details />}
-      />
-      <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
-      {/* <Route path="/HiestSalary" element={<HiestSalary />} /> */}
+      <Route path="/emp/:id" element={<PostDetails />} /> */}
 
       {/* Malshan */}
       <Route path="/transport" element={<Transport />} />
@@ -243,7 +228,6 @@ function App() {
       <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      <Route path="/salaryreport" element={<SalaryReport />} />
 
       {/*Dileesha*/}
       <Route path="/inventory/add" element={<AddProduct />} />
