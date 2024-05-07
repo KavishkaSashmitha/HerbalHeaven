@@ -494,7 +494,7 @@ export default function Transports() {
                               >
                                 <Button color="orange">
                                   <i
-                                    className="fas fa-file"
+                                    className="fas fa-report"
                                     style={{ fontSize: "15px" }}
                                   >
                                     {" "}
