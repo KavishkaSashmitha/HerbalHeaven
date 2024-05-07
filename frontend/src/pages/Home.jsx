@@ -243,7 +243,7 @@ function Home() {
         <Typography variant='' className='h2'>Product Categories</Typography>
       </div>
       <div className="mx-auto mb-10 max-w-7xl">
-        <video className="w-full h-full rounded-lg md-auto" controls autoPlay>
+        <video className="w-full h-full rounded-lg md-auto" autoplay loop muted>
           <source
             src={video}
             type="video/mp4"
