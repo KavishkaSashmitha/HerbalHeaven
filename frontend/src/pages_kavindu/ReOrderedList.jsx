@@ -175,9 +175,11 @@ const User = () => {
                     )}
                   </ul>
                 </nav>
-                <Footer />
               </CardFooter>
             </Card>
+            <div className="bg-custom-color">
+              <Footer />
+            </div>
           </div>
         </div>
       </div>
