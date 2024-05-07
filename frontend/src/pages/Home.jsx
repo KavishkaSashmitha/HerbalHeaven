@@ -26,7 +26,7 @@ import Slider from 'react-slick'; // Import Slider component from react-slick
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProfileMenu from '../components/Profile';
-import {  ChevronDownIcon } from '@heroicons/react/24/solid';
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 
 const Product = ({ product }) => {
@@ -62,7 +62,6 @@ const Product = ({ product }) => {
           onClick={() => addToCart(product)}
           disabled={!isLoggedIn} // Disable button if user is not logged in
           className="w-full hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
-        
         >
           Add to Cart
         </Button>
@@ -171,7 +170,7 @@ function Home() {
               Products
             </Button>
           </Link>
-          <Link to="/">
+          <Link to="/immunity">
             <Button
               variant="text"
               className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
@@ -223,23 +222,30 @@ function Home() {
           <Spinner />
         </div>
       )}
-   <div class="full-screen-background">
-   <div class="max-w-7xl mx-auto mt-10 mb-10 flex h-screen">
-  <div class="w-1/2 mt-20">
-      <p class='text-3xl text-gray-800'>Product Categories</p>
+      <div class="full-screen-background">
+        <div class="max-w-7xl mx-auto mt-10 mb-10 flex h-screen">
+          <div class="w-1/2 mt-20">
+            <p class="text-3xl text-gray-800">Product Categories</p>
             <p class="text-gray-800 mt-4">Explore our wide range of products</p>
             <p class="text-gray-800 text-home-1 ">
-  "Herbals are nature's pharmacy, offering a treasure trove of remedies derived from the earth's bounty, each leaf, root, and flower holding the potential for healing and wellness."
-</p>
-  </div>
-  <div class="w-1/2 h-full flex justify-around items-center">
-      <img src="img/products/p1.png" alt="Product 1" class="w-auto h-1/2 mb-80"/>
-      
-  </div>
-</div>
-</div>
+              "Herbals are nature's pharmacy, offering a treasure trove of
+              remedies derived from the earth's bounty, each leaf, root, and
+              flower holding the potential for healing and wellness."
+            </p>
+          </div>
+          <div class="w-1/2 h-full flex justify-around items-center">
+            <img
+              src="img/products/p1.png"
+              alt="Product 1"
+              class="w-auto h-1/2 mb-80"
+            />
+          </div>
+        </div>
+      </div>
       <div className="max-w-7xl mx-auto mb-10">
-        <Typography variant='' className='h2'>Product Categories</Typography>
+        <Typography variant="" className="h2">
+          Product Categories
+        </Typography>
       </div>
       <div className="max-w-7xl mx-auto mb-10">
         <video className="h-full w-full rounded-lg md-auto" controls autoPlay>
@@ -250,9 +256,7 @@ function Home() {
           Your browser does not support the video tag.
         </video>
       </div>
-      <div className="max-w-7xl mx-auto mb-10">
-        
-      </div>
+      <div className="max-w-7xl mx-auto mb-10"></div>
       <Link to="/admin-dashboard">
         <Typography>dashboard admin</Typography>
       </Link>

@@ -108,6 +108,7 @@ import MyOrders from './pages_Ridmi/myOrders';
 import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
 import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
 import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
+import Immunity from './pages/ImmunityProducts';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -148,6 +149,7 @@ function App() {
         <Route path="/direct-cart" element={<DirectCartTable />} />
         <Route path="/direct-orders" element={<DirectOrdersTable />} />
         <Route path="/cartAdmin-db" element={<CartAdminDashboard />} />
+        <Route path="/immunity" element={<Immunity />} />
 
         {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
