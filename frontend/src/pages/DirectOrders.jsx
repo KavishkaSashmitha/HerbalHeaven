@@ -118,7 +118,11 @@ const DirectOrdersTable = () => {
   const generateReport = () => {
     try {
       const doc = new jsPDF();
-
+      // Add current time
+      const now = new Date();
+      const currentTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+      doc.setFontSize(10);
+      doc.text(`Report generated on: ${currentTime}`, 10, 20);
       // Load the logo image from a local path
       const logoPath = 'logo/logo.png';
       const logoDataUri = getBase64Image(logoPath);
@@ -126,11 +130,14 @@ const DirectOrdersTable = () => {
       // Add the logo to the PDF
       doc.addImage(logoDataUri, 'PNG', 10, 10, 50, 50);
 
-      // Add your company name
-      const companyName = 'Your Company Name';
+      const companyName = 'Herbal Heaven';
       doc.setFontSize(18);
       doc.text(companyName, 70, 30);
-
+      doc.setFontSize(8); // Adjust font size as needed
+      doc.text('Company Address:', 140, 40);
+      doc.text('123 Main St, City, Country', 140, 45);
+      doc.text('Email: info@herbalheaven.com', 140, 50);
+      doc.text('Phone: +1234567890', 140, 55);
       // Create table data
       const tableData = directOrders.map((order, index) => {
         const orderItems = order.items.map((item) => ({
