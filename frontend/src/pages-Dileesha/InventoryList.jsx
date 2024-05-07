@@ -96,22 +96,10 @@ const InventoryList = () => {
     );
   });
 
-  // Get current items
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const paginatedItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+  return (
+    <div
+      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
 
-  // Change page
-  const nextPage = () => setCurrentPage(currentPage + 1);
-  const prevPage = () => setCurrentPage(currentPage - 1);
-
-  //generate page numbers
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(filteredItems.length / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  //end
   //handle publish
   const handlePublish = async (item) => {
     try {
@@ -144,6 +132,14 @@ const InventoryList = () => {
       if (response.status === 201) {
         console.log('Product created successfully:', response.data);
         // Optionally, update the state or perform any other actions
+        // Update the item to indicate it has been published
+        const updatedItems = items.map((i) => {
+          if (i._id === item._id) {
+            return { ...i, published: true };
+          }
+          return i;
+        });
+        setItems(updatedItems);
       } else {
         console.error('Failed to create product:', response.statusText);
         // Optionally, display an error message to the user
@@ -156,7 +152,8 @@ const InventoryList = () => {
 
   return (
     <div
-      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+      className="flex flex-col h-screen overflow-auto overflow-x-hidden"
+
       style={{ backgroundColor: '#02353c' }}
     >
       <div className="flex flex-1 overflow-scroll">
@@ -220,7 +217,7 @@ const InventoryList = () => {
                   {[
                     'Product No',
                     'Product Name',
-                    // 'Short Description',
+                    'Short Description',
                     'category',
                     'Cost',
                     'Quantity',
@@ -229,7 +226,6 @@ const InventoryList = () => {
                     'Expiary Date',
                     'Image',
                     'Action',
-                    'Publish',
                   ].map((head, index) => (
                     <th
                       key={index}
@@ -267,7 +263,7 @@ const InventoryList = () => {
                         {item.productName}
                       </Typography>
                     </td>
-                    {/* <td className="p-4">
+                    <td className="p-4">
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -275,7 +271,7 @@ const InventoryList = () => {
                       >
                         {item.shortDescription}
                       </Typography>
-                    </td> */}
+                    </td>
                     <td className="p-4">
                       <Typography
                         variant="small"
@@ -370,15 +366,6 @@ const InventoryList = () => {
                         onClick={() => handleDelete(item._id)}
                       >
                         Delete
-                      </Button>
-                    </td>
-                    <td>
-                      <Button
-                        color="yellow"
-                        className="ml-0 mt-2 "
-                        onClick={() => handlePublish(item)}
-                      >
-                        Publish
                       </Button>
                     </td>
                   </tr>

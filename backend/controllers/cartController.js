@@ -122,11 +122,8 @@ module.exports = {
   AddToCart,
   updateCart,
   deleteCartItems,
-
-
   updateCartQuantity,
   getAllCartDetails,
-
   updateCartQuantity,
   CartDetails,
 

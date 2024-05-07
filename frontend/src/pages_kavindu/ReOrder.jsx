@@ -16,10 +16,9 @@ import {
 } from "@material-tailwind/react";
 
 export default function Edit_Driver() {
-  const [items, setItems] = useState([]);
-  //   const [products, setProducts] = useState([]);
-  //   const [selectedProductName, setSelectedProductName] = useState("");
-  //   const [selectedProduct, setSelectedProduct] = useState("");
+  const [products, setProducts] = useState([]);
+  const [selectedProductName, setSelectedProductName] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState("");
 
   const [selectedUserName, setSelectedUserName] = useState("");
   const [selectedUser, setSelectedUser] = useState("Null");
@@ -28,21 +27,15 @@ export default function Edit_Driver() {
     name: "",
     mobile: "",
     email: "",
+    productName: "",
+    quantity: "",
   });
 
   const [open, setOpen] = useState(false);
   const toggleSidebar = () => {
     setOpen(!open);
   };
-  const {
-    name,
-    d_mobile,
-    category,
-    nic,
-    vehicle_No,
-    vehicle_type,
-    shippingAddress,
-  } = state;
+  const { name, mobile, email, quantity, productName } = state;
 
   const handleChange = (event) => {
     if (event && event.target && event.target.value) {
@@ -57,14 +50,16 @@ export default function Edit_Driver() {
     }
   };
 
-  //   const handleChangeOrder = (event) => {
-  //     const selectedProduct = event.target.value;
-  //     setSelectedProduct(selectedProduct);
-
-  //     // Find the corresponding transport object based on the selected owner name
-  //     const foundProduct = products.find((item) => item._id === selectedProduct);
-  //     setSelectedProduct(foundProduct);
-  //   };
+  const handleChangeOrder = (event) => {
+    const selectedItem = event.target.value;
+    setSelectedProductName(selectedItem);
+    // Find the corresponding transport object based on the selected owner name
+    const foundProduct = products[0]?.products?.find(
+      (item) => item.productName === selectedItem
+    );
+    console.log("foundProduct", foundProduct);
+    setSelectedProduct(foundProduct);
+  };
 
   // State variables for validation errors
   const [errors, setErrors] = useState({});
@@ -76,16 +71,12 @@ export default function Edit_Driver() {
       .catch((err) => console.log(err));
   }
 
-  const retrieveItems = () => {
+  function retrieveItems() {
     axios
       .get("http://localhost:8070/inventory/viewReorderItems")
-      .then((result) => setItems(result.data))
+      .then((result) => setProducts(result.data))
       .catch((err) => console.log(err));
-  };
-
-  const itemsPassedReorderLevel = items.filter(
-    (item) => item.quantity < item.reorderLevel
-  );
+  }
 
   useEffect(() => {
     retrieveReorder();
@@ -101,11 +92,11 @@ export default function Edit_Driver() {
     e.preventDefault();
 
     const data = {
-      d_name: selectedUser.name,
+      name: selectedUser.name,
       email: selectedUser.email,
       mobile: selectedUser.mobile,
-      //   productName: selectedProduct.productName,
-      //   quantity: selectedProduct.quantity,
+      productName: selectedProduct.productName,
+      quantity: selectedProduct.quantity,
     };
 
     // Check if any errors exist
@@ -116,7 +107,7 @@ export default function Edit_Driver() {
 
     Swal.fire({
       title: "Are you sure?",
-      text: "This will add a new Delivery.",
+      text: "This will add a new Order.",
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Yes, add it!",
@@ -137,18 +128,14 @@ export default function Edit_Driver() {
                 quantity: "",
                 errors: {},
               });
-              Swal.fire("Success", "Delivery added successfully!", "success");
+              Swal.fire("Success", "Order added successfully!", "success");
             } else {
-              Swal.fire("Error", "Failed to add Delivery", "error");
+              Swal.fire("Error", "Failed to add Order", "error");
             }
           })
           .catch((error) => {
-            console.error("Error adding Delivery:", error);
-            Swal.fire(
-              "Error",
-              "An error occurred while adding Delivery",
-              "error"
-            );
+            console.error("Error adding Order:", error);
+            Swal.fire("Error", "An error occurred while adding Order", "error");
           });
       }
     });
@@ -179,7 +166,7 @@ export default function Edit_Driver() {
         className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
         style={{ backgroundColor: "#02353c" }}
       >
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1 overflow-hidden bg-blue-gray-100">
           <div
             className={`sidebar w-68 bg-custom-color text-white ${open ? "block" : "hidden"}`}
           >
@@ -196,7 +183,7 @@ export default function Edit_Driver() {
                 <Card className="flex flex-col flex-1 ml-20 mr-20">
                   <div className="text-center mt-4">
                     <Typography variant="h3" color="black">
-                      Add New Supplier
+                      Re-Order Raw Material
                     </Typography>
                   </div>
 
@@ -252,21 +239,30 @@ export default function Edit_Driver() {
                           <label>Product Name</label>
                         </p>
                         <select
-                          id="transportDropdown"
-                          value={selectedUserName}
-                          onChange={handleChange}
+                          id="reorderDropdown"
+                          value={selectedProductName}
+                          onChange={handleChangeOrder}
                           className="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all"
                         >
-                          <option value="">Select Supplier Name</option>
-                          {items.map((item, index) => (
-                            <option
-                              key={index}
-                              value={item.products.productName}
-                            >
+                          <option value="">Select Product Name</option>
+                          {products[0]?.products?.map((item, index) => (
+                            <option key={index} value={item.productName}>
                               {capitalizeSecondPart(item.productName)}
                             </option>
                           ))}
                         </select>
+                      </div>
+                      <div className="mt-4 mb-4">
+                        <p className="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                          <label>Quantity</label>
+                        </p>
+                        <Input
+                          label="Quantity"
+                          value={selectedProduct?.quantity}
+                          size="lg"
+                          type="number"
+                          disabled
+                        />
                       </div>
                     </div>
                   </CardBody>
@@ -276,7 +272,7 @@ export default function Edit_Driver() {
                       type="submit"
                       onClick={handleSubmit}
                     >
-                      Add New Supplier
+                      Add New Order
                     </button>
                   </CardFooter>
                 </Card>
@@ -285,7 +281,9 @@ export default function Edit_Driver() {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className="bg-custom-color">
+        <Footer />
+      </div>
     </>
   );
 }

@@ -147,7 +147,7 @@ function UpdateUser() {
         className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
         style={{ backgroundColor: "#02353c" }}
       >
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1 overflow-hidden bg-blue-gray-100">
           <div
             className={`sidebar w-68 bg-custom-color text-white ${
               open ? "block" : "hidden"
@@ -380,7 +380,9 @@ function UpdateUser() {
         </div>
       </div>
 
-      <Footer />
+      <div className="bg-custom-color">
+        <Footer />
+      </div>
     </>
   );
 }

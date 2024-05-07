@@ -15,12 +15,60 @@ import {
 import { DefaultSidebar } from "../../../components/Manager-Sidebar";
 import AdminNavbar from "../../../components/AdminNavbar";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Chart from "chart.js/auto"; // Import Chart.js
 
 const URL = "http://localhost:8070/api/orders/ordersnet";
 
 const fetchHandler = async () => {
   return await axios.get(URL).then((res) => res.data);
 };
+
+function PieChart({ orders }) {
+  useEffect(() => {
+    generatePieChart(orders);
+  }, [orders]);
+
+  const generatePieChart = (orders) => {
+    const users = {};
+    orders.forEach((order) => {
+      users[order.user] = (users[order.user] || 0) + 1;
+    });
+
+    const ctx = document.getElementById("myPieChart");
+    if (Chart.getChart(ctx)) {
+      Chart.getChart(ctx).destroy();
+    }
+    new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: Object.keys(users),
+        datasets: [
+          {
+            label: "Users",
+            data: Object.values(users),
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.6)",
+              "rgba(54, 162, 235, 0.6)",
+              "rgba(255, 206, 86, 0.6)",
+              "rgba(75, 192, 192, 0.6)",
+              "rgba(153, 102, 255, 0.6)",
+              "rgba(255, 159, 64, 0.6)",
+            ],
+          },
+        ],
+      },
+    });
+  };
+
+  return (
+    <canvas
+      id="myPieChart"
+      width="200"
+      height="200"
+      style={{ width: "200px", height: "200px" }}
+    ></canvas>
+  );
+}
 
 function Incomes() {
   const [totalIncome, setTotalIncome] = useState(0);
@@ -53,7 +101,7 @@ function Incomes() {
   const toggleSidebar = () => {
     setOpen(!open);
   };
-  // const [open, setOpen] = useState(false);
+
   function NavList() {
     return (
       <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -112,8 +160,6 @@ function Incomes() {
           <div className="flex flex-col flex-1 overflow-auto">
             <AdminNavbar toggleSidebar={toggleSidebar} />
             <Card className="flex flex-1">
-              {/* <div ref={componentRef}> */}
-
               <Navbar className="mx-auto max-w-screen-xl px-6 py-3 sticky ">
                 <div className="flex items-center justify-between text-blue-gray-900">
                   <Typography
@@ -144,10 +190,11 @@ function Incomes() {
                   <NavList />
                 </Collapse>
               </Navbar>
-
               <button onClick={handlePrint} className="dwon_repot_income">
                 Download Report
               </button>
+              <div className="income_topic">Income Details</div>
+
               <div ref={componentRef}>
                 <h1 className="income_topic">Income Details</h1>
                 <div className="tbl_continer_incme">
@@ -168,7 +215,9 @@ function Incomes() {
                               <p className="sub_par_dis">{order.user}</p>
                             </td>
                             <td className="table_income_th">
-                              <p className="sub_par_dis">{order.paymentStatus}</p>
+                              <p className="sub_par_dis">
+                                {order.paymentStatus}
+                              </p>
                             </td>
                             <td className="table_income_th">
                               <p className="sub_par_dis">{order.orderStatus}</p>
@@ -187,6 +236,17 @@ function Incomes() {
                   <h2 className="tot_amout">
                     Total Income:LKR {totalIncome.toFixed(2)}
                   </h2>
+                  <div className="flex justify-center items-center h-screen">
+                    <div
+                      className="w-500 h-500 flex justify-center items-center"
+                      style={{
+                        width: "500px",
+                        height: "500px",
+                      }}
+                    >
+                      <PieChart orders={orders} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </Card>
