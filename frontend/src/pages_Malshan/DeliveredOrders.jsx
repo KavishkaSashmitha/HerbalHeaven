@@ -282,7 +282,7 @@ export default function Transports() {
                         </th>
                         <th className="p-4 ">
                           <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
-                            Owner Name
+                            Driver Name
                           </p>
                         </th>
                         <th className="p-4 ">

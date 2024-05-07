@@ -335,7 +335,7 @@ export default function Edit_Driver() {
                             <div>
                               <div>
                                 <p className="block mt-2 mb-1 font-sans antialiased font-medium leading-normal text-x1 text-blue-gray-900">
-                                  <label>Owner Name</label>
+                                  <label>Driver Name</label>
                                 </p>
                                 <select
                                   id="transportDropdown"
@@ -343,7 +343,7 @@ export default function Edit_Driver() {
                                   onChange={handleChange}
                                   className="peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all"
                                 >
-                                  <option value="">Select Owner Name</option>
+                                  <option value="">Select Driver Name</option>
                                   {transport.map((item, index) => (
                                     <option key={index} value={item.d_name}>
                                       {capitalizeSecondPart(item.d_name)}

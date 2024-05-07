@@ -68,6 +68,9 @@ export default class Add_Driver extends Component {
     if (!email) {
       return "Email is required";
     }
+    if (!email.includes('@')) {
+      return "Invalid Email !";
+    }
     return "";
   };
 
@@ -321,10 +324,16 @@ export default class Add_Driver extends Component {
                           <div class="relative h-10 w-full min-w-[200px]">
                             <input
                               value={this.state.email}
-                              type="text"
+                              type="mail"
                               name="email"
                               placeholder="Enter Email"
                               onChange={this.handleInputChange}
+                              onKeyPress={(event) => {
+                                const charCode = event.which ? event.which : event.keyCode;
+                                if (charCode !== 64) { // ASCII code for "@"
+                                  event.preventDefault();
+                                }
+                              }}
                               className={`${
                                 errors.email && "border-red-500"
                               }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
