@@ -3,15 +3,15 @@ import { Typography } from "@material-tailwind/react";
 const LINKS = [
   {
     title: "Product",
-    items: ["Herbals", "Oils", "Drugs"],
+    items: ["Herbals", "Oils", "Roots"],
   },
   {
     title: "Company",
-    items: ["About us", "Careers", "Press"],
+    items: ["About us", "Achivements", "Goals"],
   },
   {
     title: "Resource",
-    items: ["Blog", "Newsletter", "Events"],
+    items: ["Blog", "Newsletter", "Magazines"],
   },
 ];
 
@@ -23,7 +23,10 @@ export function Footer() {
       <div className="mx-auto w-full max-w-7xl px-8 mt-2">
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <div className="flex flex-col items-start justify-center">
-            <Typography variant="h4" className="mb-5 font-bold text-2xl text-green-500">
+            <Typography
+              variant="h4"
+              className="mb-5 font-bold text-2xl text-green-500"
+            >
               Herbal Heaven
             </Typography>
             <img
@@ -64,8 +67,13 @@ export function Footer() {
             className="mb-4 text-center font-normal text-blue-gray-100 md:mb-0"
           >
             &copy; {currentYear}{" "}
-            <a className="text-blue-gray-100" href="https://material-tailwind.com/">Herbal Heaven</a>. All
-            Rights Reserved.
+            <a
+              className="text-blue-gray-100"
+              href="https://material-tailwind.com/"
+            >
+              Herbal Heaven
+            </a>
+            . All Rights Reserved.
           </Typography>
           <div className="flex gap-4 text-green-400 sm:justify-center">
             <Typography
