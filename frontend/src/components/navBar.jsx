@@ -34,7 +34,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../middleware/authContext'; // Importing the useAuth hook from AuthContext
-
 import { useCart } from './cartContext';
 import { FaMoneyBill } from 'react-icons/fa6';
 

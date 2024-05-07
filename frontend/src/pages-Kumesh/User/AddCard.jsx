@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import card from "./img/card.png";
-import tic from "./img/tic.png";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import card from './img/card.png';
+import tic from './img/tic.png';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { SidebarWithBurgerMenu } from '../../components/navBar';
 function AddCard() {
   const history = useNavigate();
   const [inputs, setInputs] = useState({
-    fullname: "",
-    address: "",
-    city: "",
-    zip: "",
-    country: "",
-    cardholdername: "",
-    cardnumber: "",
-    expmonth: "",
-   // expyear: "",
-    cvv: "",
+    fullname: '',
+    address: '',
+    city: '',
+    zip: '',
+    country: '',
+    cardholdername: '',
+    cardnumber: '',
+    expmonth: '',
+    // expyear: "",
+    cvv: '',
   });
 
   const handleChange = (e) => {
@@ -31,17 +31,16 @@ function AddCard() {
     console.log(inputs);
     sendRequest()
       .then(() => {
-        alert("Card details added successfully!");
-        
+        alert('Card details added successfully!');
       })
       .catch((error) => {
-        console.error("Error adding card details:", error);
+        console.error('Error adding card details:', error);
       });
   };
 
   const sendRequest = async () => {
     await axios
-      .post("http://localhost:8070/cards", {
+      .post('http://localhost:8070/cards', {
         fullname: String(inputs.fullname),
         address: String(inputs.address),
         city: String(inputs.city),
@@ -66,12 +65,14 @@ function AddCard() {
 
   return (
     <div>
-       <SidebarWithBurgerMenu />
+      <SidebarWithBurgerMenu />
       <div className="Payment-full-box">
         <div className="Payment-full-box-set">
           <div>
             <h1 className="main-tpoic">Add New Card Here..</h1>
-            <p className="main-para">Saving the details of your credit/debit card</p>
+            <p className="main-para">
+              Saving the details of your credit/debit card
+            </p>
             <div className="method-set">
               <div className="method-one method-box">
                 <img src={tic} alt="tick" className="img-tic" />
@@ -83,24 +84,24 @@ function AddCard() {
               <div className="method-set-card">
                 <div className="bil-box">
                   <h1 className="main-topic-bil">
-                  <span className="number">1</span>Biling Information
+                    <span className="number">1</span>Biling Information
                   </h1>
                   <label className="paymnt-lable">FULL NAME</label>
                   <br></br>
                   <input
-  className="paymnt-inpt"
-  type="text"
-  name="fullname"
-  placeholder="Saman Perera"
-  value={inputs.fullnamename}
-  onChange={handleChange}
-  onKeyPress={(event) => {
-    // Check if the pressed key is a number or a special character, but allow spaces
-    if (!/[a-zA-Z\s]/.test(event.key)) {
-      event.preventDefault(); // Prevent default behavior (typing the key)
-    }
-  }}
-/>
+                    className="paymnt-inpt"
+                    type="text"
+                    name="fullname"
+                    placeholder="Saman Perera"
+                    value={inputs.fullnamename}
+                    onChange={handleChange}
+                    onKeyPress={(event) => {
+                      // Check if the pressed key is a number or a special character, but allow spaces
+                      if (!/[a-zA-Z\s]/.test(event.key)) {
+                        event.preventDefault(); // Prevent default behavior (typing the key)
+                      }
+                    }}
+                  />
                   <br></br>
                   <label className="paymnt-lable">BILLING ADDRESS</label>
                   <br></br>
@@ -119,19 +120,19 @@ function AddCard() {
                       <label className="paymnt-lable">CITY</label>
                       <br></br>
                       <input
-  className="paymnt-inpt"
-  type="text"
-  name="city"
-  placeholder="Gampaha"
-  value={inputs.city}
-  onChange={handleChange}
-  onKeyPress={(event) => {
-    // Check if the pressed key is a number or a special character, but allow spaces
-    if (!/[a-zA-Z\s]/.test(event.key)) {
-      event.preventDefault(); // Prevent default behavior (typing the key)
-    }
-  }}
-/>
+                        className="paymnt-inpt"
+                        type="text"
+                        name="city"
+                        placeholder="Gampaha"
+                        value={inputs.city}
+                        onChange={handleChange}
+                        onKeyPress={(event) => {
+                          // Check if the pressed key is a number or a special character, but allow spaces
+                          if (!/[a-zA-Z\s]/.test(event.key)) {
+                            event.preventDefault(); // Prevent default behavior (typing the key)
+                          }
+                        }}
+                      />
                       <br></br>
                     </div>
                     <div>
@@ -146,11 +147,12 @@ function AddCard() {
                         placeholder="11550"
                         minLength={5}
                         maxLength={5}
-                        pattern="[0-9]{5}"  // Use a regular expression to match exactly 5 digits
+                        pattern="[0-9]{5}" // Use a regular expression to match exactly 5 digits
                         title="Please enter a valid 5-digit ZIP code"
                         required
                         onKeyPress={(event) => {
-                          if (!/\d/.test(event.key)) { // If the key pressed is not a digit
+                          if (!/\d/.test(event.key)) {
+                            // If the key pressed is not a digit
                             event.preventDefault(); // Prevent default behavior (typing the key)
                           }
                         }}
@@ -172,7 +174,7 @@ function AddCard() {
                     <option value="" required disabled selected>
                       Select Country
                     </option>
-                   
+
                     <option value="india">India</option>
                     <option value="sri_lanka">Sri Lanka</option>
                   </select>
@@ -184,63 +186,71 @@ function AddCard() {
                   <label className="paymnt-lable">CARDHOLDER NAME</label>
                   <br></br>
                   <input
-  className="paymnt-inpt"
-  type="text"
-  name="cardholdername"
-  placeholder="Saman Perera"
-  value={inputs.cardholdername}
-  onChange={handleChange}
-  onKeyPress={(event) => {
-    // Check if the pressed key is a number or a special character, but allow spaces
-    if (!/[a-zA-Z\s]/.test(event.key)) {
-      event.preventDefault(); // Prevent default behavior (typing the key)
-    }
-  }}
-/>
+                    className="paymnt-inpt"
+                    type="text"
+                    name="cardholdername"
+                    placeholder="Saman Perera"
+                    value={inputs.cardholdername}
+                    onChange={handleChange}
+                    onKeyPress={(event) => {
+                      // Check if the pressed key is a number or a special character, but allow spaces
+                      if (!/[a-zA-Z\s]/.test(event.key)) {
+                        event.preventDefault(); // Prevent default behavior (typing the key)
+                      }
+                    }}
+                  />
                   <br></br>
                   <label className="paymnt-lable">CARD NUMBER</label>
                   <br></br>
                   <input
-  className="paymnt-inpt"
-  type="text"
-  value={inputs.cardnumber}
-  onChange={(event) => {
-    const inputValue = event.target.value;
-    const sanitizedValue = inputValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
-    const formattedValue = sanitizedValue.replace(/(\d{4})/g, '$1-').slice(0, 19); // Format to XXXX-XXXX-XXXX-XXXX
-    handleChange({ target: { name: 'cardnumber', value: formattedValue } });
-  }}
-  maxLength={19}
-  minLength={19}
-  name="cardnumber"
-  placeholder="5645-6456-7665-0456"
-  pattern="\d{4}-\d{4}-\d{4}-\d{4}"
-  title="Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX"
-  required
-  onKeyPress={(event) => {
-    if (event.key === '-' || (!/\d/.test(event.key) && event.key !== 'Backspace')) { // If the key pressed is a dash or not a digit (except Backspace)
-      event.preventDefault(); // Prevent default behavior (typing the key)
-    }
-  }}
-/>
+                    className="paymnt-inpt"
+                    type="text"
+                    value={inputs.cardnumber}
+                    onChange={(event) => {
+                      const inputValue = event.target.value;
+                      const sanitizedValue = inputValue.replace(/[^\d]/g, ''); // Remove non-numeric characters
+                      const formattedValue = sanitizedValue
+                        .replace(/(\d{4})/g, '$1-')
+                        .slice(0, 19); // Format to XXXX-XXXX-XXXX-XXXX
+                      handleChange({
+                        target: { name: 'cardnumber', value: formattedValue },
+                      });
+                    }}
+                    maxLength={19}
+                    minLength={19}
+                    name="cardnumber"
+                    placeholder="5645-6456-7665-0456"
+                    pattern="\d{4}-\d{4}-\d{4}-\d{4}"
+                    title="Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX"
+                    required
+                    onKeyPress={(event) => {
+                      if (
+                        event.key === '-' ||
+                        (!/\d/.test(event.key) && event.key !== 'Backspace')
+                      ) {
+                        // If the key pressed is a dash or not a digit (except Backspace)
+                        event.preventDefault(); // Prevent default behavior (typing the key)
+                      }
+                    }}
+                  />
                   <br></br>
                   <div className="method-set-card-form">
                     <div>
                       <label className="paymnt-lable">EXP MONTH</label>
                       <br></br>
                       <input
-  className="paymnt-inpt-one"
-  type="month"
-  name="expmonth"
-  value={inputs.expmonth}
-  onChange={handleChange}
-  placeholder="Desember 10"
-  min={getMinimumMonth()}
-  required
-/>
+                        className="paymnt-inpt-one"
+                        type="month"
+                        name="expmonth"
+                        value={inputs.expmonth}
+                        onChange={handleChange}
+                        placeholder="Desember 10"
+                        min={getMinimumMonth()}
+                        required
+                      />
                       <br></br>
                     </div>
-                    <div>
+                    {/* <div>
                       <label className="paymnt-lable">EXP YEAR</label>
                       <br></br>
                       <input
@@ -256,7 +266,7 @@ function AddCard() {
                         max="2100"
                       ></input>
                       <br></br>
-                    </div>
+                    </div> */}
                   </div>
                   <label className="paymnt-lable">CVV NUMBER</label>
                   <br></br>
@@ -273,7 +283,8 @@ function AddCard() {
                     maxLength={3}
                     pattern="[0-9]*"
                     onKeyPress={(event) => {
-                      if (!/\d/.test(event.key)) { // If the key pressed is not a digit
+                      if (!/\d/.test(event.key)) {
+                        // If the key pressed is not a digit
                         event.preventDefault(); // Prevent default behavior (typing the key)
                       }
                     }}
