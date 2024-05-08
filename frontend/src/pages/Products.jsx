@@ -37,7 +37,6 @@ const Product = ({ product, addToCart }) => {
               Rs.{product.price}
             </Typography>
           </div>
-          
         </div>
       </CardBody>
       <CardFooter className="pt-0">
@@ -111,9 +110,8 @@ export function EcommerceCard() {
     (product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.description.toLowerCase().includes(searchTerm.toLowerCase())
-);
+  );
 
-  
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
       <div
@@ -121,7 +119,7 @@ export function EcommerceCard() {
           position: 'absolute',
           top: 0,
           left: 0,
-          width: '100%', 
+          width: '100%',
           height: '100%',
           backgroundColor: '#02353c',
           backgroundSize: 'cover',

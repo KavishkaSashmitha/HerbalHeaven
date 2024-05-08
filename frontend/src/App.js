@@ -139,8 +139,6 @@ function App() {
         {/* cart-related */}
         {/* Kavishka */}
 
-        <Route path="/dashboard" element={<Dashboard />} />
-
         <Route path="/user/cart" element={<Cart />} />
         <Route path="/productCategory" element={<ProductList />} />
         <Route path="/login" element={<CustomerLogin />} />
