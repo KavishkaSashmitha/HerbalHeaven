@@ -149,7 +149,7 @@ function App() {
         <Route path="/direct-cart" element={<DirectCartTable />} />
         <Route path="/direct-orders" element={<DirectOrdersTable />} />
         <Route path="/cartAdmin-db" element={<CartAdminDashboard />} />
-        {/* <Route path="/immunity" element={<Immunity />} /> */}
+        <Route path="/immunity" element={<Immunity />} />
 
         {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
