@@ -75,27 +75,87 @@ const EmpSalary = () => {
   const generatePDF = () => {
     const doc = new jsPDF();
 
-    // Add logo image
-    const logoWidth = 50; // Adjust the width of the logo as needed
-    const logoHeight = 50; // Adjust the height of the logo as needed
+    // Function to convert image to base64
+    const getBase64FromImageUrl = (url, callback) => {
+        const img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            const dataURL = canvas.toDataURL('image/jpeg');
+            callback(dataURL);
+        };
+        img.src = url;
+    };
 
-    doc.text("Employees Salary Report", 70, 30); // Adjust the position of the title
+    // Path to your local logo image
+    const logoPath = 'logo/logo-1.png'; // Replace with your logo path
 
-    let yOffset = 50; // Adjust the initial vertical position
-    Object.entries(salaryByMonth).forEach(([month, salaries]) => {
-      doc.text(`${month} Salary:`, 10, yOffset);
-      yOffset += 10;
-      salaries.forEach((entry) => {
-        doc.text(`${entry.name}: LKR ${entry.amount.toFixed(2)}`, 20, yOffset);
-        yOffset += 7;
-      });
+    // Load local logo and add to PDF
+    getBase64FromImageUrl(logoPath, (logoDataURL) => {
+        const logoWidth = 50; // Adjust the width of the logo as needed
+        const logoHeight = 50; // Adjust the height of the logo as needed
+        doc.addImage(logoDataURL, 'JPEG', 10, 10, logoWidth, logoHeight); // Adjust the position of the logo
+
+        // Title
+        doc.setFontSize(16);
+        doc.setFont('helvetica', 'bold');
+        doc.text("Employees Salary Report", 70, 30); // Adjust the position of the title
+
+        // Content
+        // Content
+// Content
+// Content
+let yOffset = 50; // Adjust the initial vertical position
+const columnWidth = 80; // Adjust column width as needed
+
+// Header row
+doc.setFont('helvetica', 'bold');
+doc.setDrawColor(0); // Black color for border
+doc.setFillColor(200); // Gray color for header background
+doc.rect(10, yOffset, columnWidth * 2, 10, 'FD');
+doc.setTextColor(0); // Black color for text
+doc.text('Employee', 15, yOffset + 8);
+doc.text('Salary (LKR)', columnWidth + 15, yOffset + 8);
+
+// Data rows
+doc.setFont('helvetica', 'normal');
+yOffset += 10;
+Object.entries(salaryByMonth).forEach(([month, salaries]) => {
+    doc.setFont('helvetica', 'bold');
+   
+    
+    doc.text(`${month} Salary`, 15, yOffset + 4);
+    doc.setFont('helvetica', 'normal');
+    salaries.forEach((entry, index) => {
+        const rowHeight = 7;
+        const y = yOffset + (index * rowHeight) + 7;
+        doc.rect(10, y, columnWidth, rowHeight);
+        doc.text(entry.name, 15, y + 4);
+        doc.text(entry.amount.toFixed(2), columnWidth + 15, y + 4);
     });
+    yOffset += (salaries.length * 7) + 10; // Add space for header and data rows, plus some additional padding
+});
 
-    // Add total salary
-    doc.text(`Total Salary: LKR ${totalSalary.toFixed(2)}`, 10, yOffset);
+// Separator
+doc.setLineWidth(0.5);
 
-    doc.save("employees_salary_report.pdf");
-  };
+
+// Total Salary
+doc.setFont('helvetica', 'bold');
+
+doc.text('Total Salary', 15, yOffset + 12);
+doc.text(`LKR ${totalSalary.toFixed(2)}`, columnWidth + 15, yOffset + 12);
+
+        // Save PDF
+        doc.save("employees_salary_report.pdf");
+    });
+};
+
+
 
   return (
     <div>
