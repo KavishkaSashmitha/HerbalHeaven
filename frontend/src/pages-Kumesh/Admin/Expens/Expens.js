@@ -69,7 +69,7 @@ function Expens() {
             Transport
           </a>
         </Typography>
-        <Typography
+        {/* <Typography
           as="li"
           variant="small"
           color="blue-gray"
@@ -81,7 +81,7 @@ function Expens() {
           >
             Material
           </a>
-        </Typography>
+        </Typography> */}
         <Typography
           as="li"
           variant="small"
