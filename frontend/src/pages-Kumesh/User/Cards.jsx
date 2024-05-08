@@ -1,44 +1,53 @@
-import React, { useEffect, useState, useRef } from "react";
-import Card from "../User/CardDetails";
-import CardBox from "./CardBox";
-import axios from "axios";
+import React, { useEffect, useState, useRef } from 'react';
+import Card from '../User/CardDetails';
+import CardBox from './CardBox';
+import axios from 'axios';
 import { SidebarWithBurgerMenu } from '../../components/navBar';
-import { FaAddressCard } from "react-icons/fa6";
-import { RiBankFill } from "react-icons/ri";
-import { useReactToPrint } from "react-to-print";
-const URL = "http://localhost:8070/cards";
+import { FaAddressCard } from 'react-icons/fa6';
+import { RiBankFill } from 'react-icons/ri';
+import { useReactToPrint } from 'react-to-print';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../middleware/authContext';
 
-const fetchHandler = async () => {
-  return await axios.get(URL).then((res) => res.data);
+const URL = 'http://localhost:8070/cards';
+
+const fetchHandler = async (token) => {
+  return await axios
+    .get(URL, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => res.data);
 };
+
 function Cards() {
+  const { token } = useAuth();
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    fetchHandler().then((data) => setCards(data.cards));
-  }, []);
-  console.log(cards);
+    fetchHandler(token).then((data) => setCards(data.cards));
+  }, [token]);
+
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "Card Details Report",
-    onAfterPrint: () => alert("Successfully Downloaded !"), //alret
+    documentTitle: 'Card Details Report',
+    onAfterPrint: () => alert('Successfully Downloaded !'), //alert
   });
+
   return (
     <div>
-       <SidebarWithBurgerMenu />
+      <SidebarWithBurgerMenu />
       <div className="ful-set-pay">
         <div className="ful-set-pay-card">
           <div className="btn-set-rwo">
-            <button
-              className="add-pay-btn"
-              onClick={() => {
-                window.location.href = "/addnewcard";
-              }}
-            >
-              <FaAddressCard className="add-pay-btn-icon" />
-              Add New Card
-            </button>
+            <Link to="/addnewcard">
+              <button className="add-pay-btn">
+                <FaAddressCard className="add-pay-btn-icon" />
+                Add New Card
+              </button>
+            </Link>
             {/* <button className="add-pay-btn">
               <RiBankFill className="add-pay-btn-icon" />
               Add New Bank Account
@@ -47,7 +56,7 @@ function Cards() {
               Download Card Details Report
             </button>
           </div>
-          <div ref={componentRef}>
+          <div className="card-layout">
             <div className="card-details-box">
               {cards &&
                 cards.map((card, i) => (
@@ -58,27 +67,16 @@ function Cards() {
             </div>
             <div className="card-table-full">
               <table className="card-table">
-                <th className="card-thead">
-                  <th className="card-th" scope="col">
-                    Card holder name
-                  </th>
-                  <th className="card-th" scope="col">
-                    Address
-                  </th>
-
-                  <th className="card-th" scope="col">
-                    ACTIONS
-                  </th>
-                </th>
-
-                <tr className="card-tr">
-                  {cards &&
-                    cards.map((card, i) => (
-                      <div key={i}>
-                        <Card card={card} />
-                      </div>
-                    ))}
-                </tr>
+                <tbody>
+                  <tr className="card-tr">
+                    {cards &&
+                      cards.map((card, i) => (
+                        <td key={i}>
+                          <Card card={card} />
+                        </td>
+                      ))}
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>

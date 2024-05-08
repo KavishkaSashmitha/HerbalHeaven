@@ -430,7 +430,7 @@ function SalaryReport() {
 
     // Function to determine which month to display
     const determineMonthToDisplay = (monthIndex, day) => {
-      if (day > 10) {
+      if (day > 7) {
         // If the day of the month is greater than 10, return the current month
         return monthNames[monthIndex];
       } else {
@@ -452,6 +452,38 @@ function SalaryReport() {
   const toggleSidebar = () => {
     setOpen(!open);
   };
+
+  const handleHoursChange = (event) => {
+    // Extract the input value
+    let value = event.target.value;
+
+    // Ensure the value does not exceed 200
+    if (value === "" || (Number(value) <= 200 && Number(value) >= 0)) {
+      setHours(value); // Update the state with the valid value
+    }
+  };
+
+  function handleKeyPressHours(event) {
+    const charCode = event.which || event.keyCode;
+    const char = String.fromCharCode(charCode);
+    const isDigit = /[0-9]/.test(char);
+
+    // Get the current value of the input field
+    const currentValue = event.target.value;
+
+    // Calculate the number of digits currently in the input
+    const numberOfDigits = currentValue.replace(/[^0-9]/g, "").length;
+
+    // Check if the new input exceeds the maximum length of 730 characters
+    if (currentValue.length >= 730 && !isDigit) {
+      event.preventDefault(); // Prevent adding more characters if limit is reached
+    }
+
+    // Check if adding a new digit would exceed the limit of 3 digits
+    if (isDigit && numberOfDigits >= 3) {
+      event.preventDefault(); // Prevent adding more digits if limit is reached
+    }
+  }
 
   if (loading) {
     return <div>{createLoadingScreen(loading)}</div>;
@@ -629,10 +661,9 @@ function SalaryReport() {
                                       type="number"
                                       name="Workhours"
                                       value={hours}
-                                      onChange={(event) => {
-                                        setHours(event.target.value);
-                                      }}
-                                      placeholder="Working Hours"
+                                      onKeyPress={handleKeyPressHours}
+                                      onChange={handleHoursChange}
+                                      placeholder="Max = 200"
                                       class={`${
                                         errors.hours && "border-red-500"
                                       }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50

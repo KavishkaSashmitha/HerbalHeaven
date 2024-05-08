@@ -20,7 +20,7 @@ const getProductById = asyncHandler(async (req, res) => {
 });
 
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, quantity, price, description, image } = req.body;
+  const { name, quantity, price, description, image, category } = req.body;
 
   try {
     const newProduct = new product({
@@ -29,6 +29,7 @@ const createProduct = asyncHandler(async (req, res) => {
       price,
       description,
       image,
+      category,
     });
 
     await newProduct.save();

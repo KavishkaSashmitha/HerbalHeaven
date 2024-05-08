@@ -103,15 +103,13 @@ import AddProduct from './pages-Dileesha/AddProduct';
 import UpdateProduct from './pages-Dileesha/UpdateProduct';
 import InventoryList from './pages-Dileesha/InventoryList';
 import InventoryReport from './pages-Dileesha/InventoryReport';
+import InventoryStatistics from './pages-Dileesha/InventoryStatistics';
 
 import MyOrders from './pages_Ridmi/myOrders';
 import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
 import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
 import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
-
-// import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
-// import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
-// import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
+import Immunity from './pages/ImmunityProducts';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -152,6 +150,7 @@ function App() {
         <Route path="/direct-cart" element={<DirectCartTable />} />
         <Route path="/direct-orders" element={<DirectOrdersTable />} />
         <Route path="/cartAdmin-db" element={<CartAdminDashboard />} />
+        <Route path="/immunity" element={<Immunity />} />
 
         {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
@@ -208,8 +207,6 @@ function App() {
         <Route path="/employesalary" element={<EmpSalary />} />
       </Route>
 
-      <Route path="/emp" element={<Posts />} />
-      <Route path="/salaryreport" element={<SalaryReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
       {/*Kumesh Start */}
@@ -221,20 +218,9 @@ function App() {
       <Route path="/otp" element={<OTPVerification />} />
 
       {/* Pasindu */}
-      <Route path="/emp/add" element={<CreatPost />} />
+      {/* <Route path="/emp/add" element={<CreatPost />} />
       <Route path="/emp/edit/:id" element={<EditPost />} />
-      <Route path="/emp/:id" element={<PostDetails />} />
-
-      <Route path="/salaryreport" element={<SalaryReport />} />
-      {/* <Route path="/EmployeeChart" element={<EmployeeChart />} />
-      <Route path="/MonthlySalChart" element={<MonthlySalChart />} />
-      <Route path="/Emp_User_Chart/:id" element={<Emp_User_Chart />} /> */}
-      <Route
-        path="/Display_Employee_Details/:id"
-        element={<Display_Employee_Details />}
-      />
-      <Route path="/Employee_Dashboard" element={<Employee_Dashboard />} />
-      {/* <Route path="/HiestSalary" element={<HiestSalary />} /> */}
+      <Route path="/emp/:id" element={<PostDetails />} /> */}
 
       {/* Malshan */}
       <Route path="/transport" element={<Transport />} />
@@ -244,13 +230,12 @@ function App() {
       <Route path="/FuelReport/:id" element={<FuelReport />} />
       <Route path="/user/payment" element={<Payment />} />
 
-      <Route path="/salaryreport" element={<SalaryReport />} />
-
       {/*Dileesha*/}
       <Route path="/inventory/add" element={<AddProduct />} />
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
       <Route path="/inventory/report" element={<InventoryReport />} />
+      <Route path="/inventory/stat" element={<InventoryStatistics />} />
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>
