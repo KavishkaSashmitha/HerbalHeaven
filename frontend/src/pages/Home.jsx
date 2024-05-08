@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import ImageSlider from '../components/Slider';
-import { SidebarWithBurgerMenu } from '../components/navBar';
-import backgroundImage from '../assets/cool-background.png';
-import axios from 'axios';
-import Spinner from '../components/Spinner';
+import React, { useEffect, useState } from "react";
+import ImageSlider from "../components/Slider";
+import { SidebarWithBurgerMenu } from "../components/navBar";
+import backgroundImage from "../assets/cool-background.png";
+import axios from "axios";
+import Spinner from "../components/Spinner";
 import {
   Card,
   CardHeader,
@@ -19,30 +19,31 @@ import {
   Menu,
   MenuList,
   IconButton, // Import Dropdown component
-} from '@material-tailwind/react';
-import { useAuth } from '../middleware/authContext';
-import { Footer } from '../components/Footer';
-import Slider from 'react-slick'; // Import Slider component from react-slick
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import ProfileMenu from '../components/Profile';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import { Link } from 'react-router-dom';
+} from "@material-tailwind/react";
+import { useAuth } from "../middleware/authContext";
+import { Footer } from "../components/Footer";
+import Slider from "react-slick"; // Import Slider component from react-slick
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import ProfileMenu from "../components/Profile";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
+import video from "../../src/assets/Media1.mp4";
 
 const Product = ({ product }) => {
   const { addToCart, isLoggedIn } = useAuth(); // Accessing addToCart function from AuthProvider
 
   return (
-    <Card key={product._id} className="w-72 mb-4 bg-light-green-200">
+    <Card key={product._id} className="mb-4 w-72 bg-light-green-200">
       <CardHeader shadow={false} floated={false} className="h-48">
         <img
           src={product.image}
           alt="card-image"
-          className="h-full  w-full object-cover"
+          className="object-cover w-full h-full"
         />
       </CardHeader>
       <CardBody>
-        <div className="mb-2 flex items-center justify-between">
+        <div className="flex items-center justify-between mb-2">
           <div>
             <Typography color="blue-gray" className="font-bold variant-h3">
               {product.name}
@@ -58,10 +59,10 @@ const Product = ({ product }) => {
       </CardBody>
       <CardFooter className="pt-0">
         <Button
-          style={{ backgroundColor: '#ff8f00' }}
+          style={{ backgroundColor: "#ff8f00" }}
           onClick={() => addToCart(product)}
           disabled={!isLoggedIn} // Disable button if user is not logged in
-          className="w-full hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
+          className="w-full transition-transform duration-300 ease-in-out hover:scale-105 focus:scale-105 active:scale-100"
         >
           Add to Cart
         </Button>
@@ -72,14 +73,14 @@ const Product = ({ product }) => {
 
 function Home() {
   const images = [
-    '/slider/slider_1.png',
-    '/slider/slider_2.png',
-    '/slider/slider_3.png',
+    "/slider/slider_1.png",
+    "/slider/slider_2.png",
+    "/slider/slider_3.png",
   ];
 
-  const url = 'http://localhost:8070/api';
+  const url = "http://localhost:8070/api";
   const [data, setData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const { loading } = useAuth(); // Accessing loading state from AuthProvider
 
   const fetchInfo = () => {
@@ -109,7 +110,7 @@ function Home() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 1000,
-    cssEase: 'linear',
+    cssEase: "linear",
     responsive: [
       {
         breakpoint: 768,
@@ -129,12 +130,12 @@ function Home() {
           <ProfileMenu />
         </div>
       </div>
-      <div className="sticky top-0 bg-amber-800 h-16 px-6 sm:px-10 py-4  flex items-center justify-between z-50">
+      <div className="sticky top-0 z-50 flex items-center justify-between h-16 px-6 py-4 bg-amber-800 sm:px-10">
         <div className="flex items-center space-x-8 text-sm text-white">
           <Link to="/">
             <Button
               variant="text"
-              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+              className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
             >
               Home
             </Button>
@@ -143,13 +144,13 @@ function Home() {
             <MenuHandler>
               <Button
                 variant="text"
-                className="flex items-center  gap-3 text-white text-base font-normal capitalize tracking-normal"
+                className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
               >
-                Beauty Products{' '}
+                Beauty Products{" "}
                 <ChevronDownIcon
                   strokeWidth={2.5}
                   className={`h-3.5 w-3.5 transition-transform ${
-                    openMenu ? 'rotate-180' : ''
+                    openMenu ? "rotate-180" : ""
                   }`}
                 />
               </Button>
@@ -165,7 +166,7 @@ function Home() {
           <Link to="/">
             <Button
               variant="text"
-              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+              className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
             >
               Products
             </Button>
@@ -173,7 +174,7 @@ function Home() {
           <Link to="/immunity">
             <Button
               variant="text"
-              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+              className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
             >
               Immunity Products
             </Button>
@@ -181,7 +182,7 @@ function Home() {
           <Link to="/">
             <Button
               variant="text"
-              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+              className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
             >
               Oils
             </Button>
@@ -196,21 +197,21 @@ function Home() {
           type="search"
           placeholder="Search"
           containerProps={{
-            className: 'min-w-[288px]',
+            className: "min-w-[288px]",
           }}
           className="!border-t-green-300 pl-9 placeholder:text-green-300 focus:!border-green-300"
           labelProps={{
-            className: 'before:content-none after:content-none',
+            className: "before:content-none after:content-none",
           }}
-          style={{ backgroundColor: '#f0f4f8', color: '#1b5e20' }}
+          style={{ backgroundColor: "#f0f4f8", color: "#1b5e20" }}
           onChange={handleSearch}
         />
         <Button size="md" className="rounded-lg">
           Search
         </Button>
       </div>
-      <Slider {...settings} className="mt-4 mb-4 mx-auto max-w-7xl">
-        {' '}
+      <Slider {...settings} className="mx-auto mt-4 mb-4 max-w-7xl">
+        {" "}
         {/* Add margin-bottom */}
         {filteredData.slice(0, 5).map((product) => (
           <Product key={product._id} product={product} />
@@ -242,24 +243,19 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto mb-10">
+      <div className="mx-auto mb-10 max-w-7xl">
         <Typography variant="" className="h2">
           Product Categories
         </Typography>
       </div>
-      <div className="max-w-7xl mx-auto mb-10">
-        <video className="h-full w-full rounded-lg md-auto" controls autoPlay>
-          <source
-            src="https://docs.material-tailwind.com/demo.mp4"
-            type="video/mp4"
-          />
+      <div className="mx-auto mb-10 max-w-7xl">
+        <video className="w-full h-full rounded-lg md-auto" autoplay loop muted>
+          <source src={video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
-      <div className="max-w-7xl mx-auto mb-10"></div>
-      <Link to="/admin-dashboard">
-        <Typography>dashboard admin</Typography>
-      </Link>
+      <div className="mx-auto mb-10 max-w-7xl"></div>
+
       <Footer />
     </>
   );

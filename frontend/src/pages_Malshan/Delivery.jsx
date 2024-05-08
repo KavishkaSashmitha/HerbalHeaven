@@ -226,7 +226,9 @@ export default function Edit_Driver() {
                 shippingAddress: "",
                 errors: {},
               });
-              Swal.fire("Success", "Delivery added successfully!", "success");
+              window.location.assign("/deliveredOrders")
+              //Swal.fire("Success", "Delivery added successfully!", "success");
+              
             } else {
               Swal.fire("Error", "Failed to add Delivery", "error");
             }

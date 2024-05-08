@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import './EmpSalary.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilePdf } from '@fortawesome/free-solid-svg-icons'; // Assuming you have imported the faFilePdf icon
-import jsPDF from 'jspdf';
-
+import "./EmpSalary.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faFilePdf } from "@fortawesome/free-solid-svg-icons"; // Assuming you have imported the faFilePdf icon
+import jsPDF from "jspdf";
+import { DefaultSidebar } from "../../../components/Manager-Sidebar";
+import MonthlySalChart from "../../../pages_Pasindu/Emp_Tot_SalChart";
+import AdminNavbar from "../../../components/AdminNavbar";
+import { Card } from "@material-tailwind/react";
 
 const URL = "http://localhost:8070/api/posts/sallrypost";
 
@@ -13,6 +16,10 @@ const EmpSalary = () => {
   const [error, setError] = useState(null);
   const [totalSalary, setTotalSalary] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [open, setOpen] = useState(false);
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     const fetchHandler = async () => {
@@ -67,13 +74,13 @@ const EmpSalary = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF();
-    
+
     // Add logo image
     const logoWidth = 50; // Adjust the width of the logo as needed
     const logoHeight = 50; // Adjust the height of the logo as needed
-    
+
     doc.text("Employees Salary Report", 70, 30); // Adjust the position of the title
-    
+
     let yOffset = 50; // Adjust the initial vertical position
     Object.entries(salaryByMonth).forEach(([month, salaries]) => {
       doc.text(`${month} Salary:`, 10, yOffset);
@@ -83,59 +90,86 @@ const EmpSalary = () => {
         yOffset += 7;
       });
     });
-    
+
     // Add total salary
     doc.text(`Total Salary: LKR ${totalSalary.toFixed(2)}`, 10, yOffset);
-    
+
     doc.save("employees_salary_report.pdf");
   };
- 
 
   return (
     <div>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search by employee name..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className="search-input"
-        />
-        <FontAwesomeIcon icon={faSearch} className="search-icon" />
-        <button onClick={generatePDF} className="report-button">
-          <FontAwesomeIcon icon={faFilePdf} />
-          Generate Report
-        </button>
-      </div>
-      <h1 className="income_topic">Employees Salary</h1>
-      <div className="tbl_continer_incme">
-        <table className="table_income">
-          <thead>
-            <tr className="table_income_tr">
-              <th className="table_income_th">Month</th>
-              <th className="table_income_th">Employee</th>
-              <th className="table_income_th">Salary</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(salaryByMonth).map(([month, salaries], index) => (
-              <tr key={index}>
-                <td className="table_income_td">{month}</td>
-                <td className="table_income_td">
-                  {salaries.map((entry, idx) => (
-                      <div key={idx}>{entry.name}</div>
-                  ))}
-                </td>
-                <td className="table_income_td">
-                  {salaries.map((entry, idx) => (
-                      <div key={idx}>LKR {entry.amount.toFixed(2)}</div>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <h1 className="tot_amout">Total: LKR {totalSalary.toFixed(2)}</h1>
+      <div
+        className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
+        style={{ backgroundColor: "#02353c" }}
+      >
+        <div className="flex flex-1 overflow-hidden">
+          <div
+            className={`sidebar w-68 bg-custom-color text-white ${
+              open ? "block" : "hidden"
+            }`}
+          >
+            <DefaultSidebar open={open} handleOpen={setOpen} />
+          </div>
+          <div className="flex flex-col flex-1 overflow-auto">
+            <AdminNavbar toggleSidebar={toggleSidebar} />
+            <Card className="flex flex-1">
+              <div className="search-container">
+                <input
+                  type="text"
+                  placeholder="Search by employee name..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  className="search-input"
+                />
+                <FontAwesomeIcon icon={faSearch} className="search-icon" />
+                <button onClick={generatePDF} className="report-button">
+                  <FontAwesomeIcon icon={faFilePdf} />
+                  Generate Report
+                </button>
+              </div>
+              <h1 className="income_topic">Employees Salary</h1>
+              <div className="tbl_continer_incme">
+                <table className="table_income">
+                  <thead>
+                    <tr className="table_income_tr">
+                      <th className="table_income_th">Month</th>
+                      <th className="table_income_th">Employee</th>
+                      <th className="table_income_th">Salary</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(salaryByMonth).map(
+                      ([month, salaries], index) => (
+                        <tr key={index}>
+                          <td className="table_income_td">{month}</td>
+                          <td className="table_income_td">
+                            {salaries.map((entry, idx) => (
+                              <div key={idx}>{entry.name}</div>
+                            ))}
+                          </td>
+                          <td className="table_income_td">
+                            {salaries.map((entry, idx) => (
+                              <div key={idx}>LKR {entry.amount.toFixed(2)}</div>
+                            ))}
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+                <h1 className="tot_amout">
+                  Total: LKR {totalSalary.toFixed(2)}
+                </h1>
+              </div>
+              <div className="pt-3">
+                <div>
+                  <MonthlySalChart />
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
