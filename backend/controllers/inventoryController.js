@@ -126,33 +126,6 @@ const inventoryController = {
       return res.status(500).json({ msg: error.message });
     }
   },
-
-  // updateQuantity: async (req, res) => {
-  //   try {
-  //     const { productId } = req.params;
-  //     const { newQuantity } = req.body;
-
-  //     // Retrieve the product from the inventory
-  //     const product = await Inventory.findById(productId);
-
-  //     // Check if the product exists
-  //     if (!product) {
-  //       return res.status(404).json({ msg: 'Product not found.' });
-  //     }
-
-  //     // Update the quantity of the product
-  //     product.quantity = newQuantity;
-
-  //     // Save the updated product in the inventory
-  //     await product.save();
-
-  //     // Respond with a success message
-  //     return res.status(200).json({ msg: 'Quantity updated successfully.' });
-  //   } catch (error) {
-  //     console.error('Error updating quantity:', error);
-  //     return res.status(500).json({ msg: 'Internal server error.' });
-  //   }
-  // },
 };
 
 module.exports = inventoryController;

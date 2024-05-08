@@ -48,25 +48,6 @@ const InventoryList = () => {
     }
   };
 
-  /*
-  const handleReorderList = () => {
-    const reorderItem = items.filter((item) => item.quantity < item.reorderLevel);
-    
-    const products = reorderItem
-    // Extract necessary fields and structure them according to the backend schem
-    // Send products array to the backend
-    axios.post('http://localhost:8070/inventory/addReorderItem',products )
-      .then((response) => {
-        console.log('Reorder items sent successfully:', response.data);
-        
-        // Optionally handle navigation here if needed
-      })
-      .catch((error) => {
-        console.error('Error sending reorder items:', error);
-      });
-  };
-  */
-
   const handleReorderList = () => {
     // Filter items based on the reorder condition
     const reorderItem = items.filter(

@@ -26,33 +26,26 @@ const UpdateProduct = () => {
   const [open, setOpen] = React.useState(0);
 
   // Validation function for checking if a field is empty
-  const validateField = (field, fieldName) => {
-    if (typeof field === 'string' && field.trim() !== '') {
-      return true;
-    } else {
-      alert(`Please enter a valid ${fieldName}.`);
-      return false;
+  const validateField = (field) => {
+    if (typeof field === 'string') {
+      const isValid = field.trim() !== '';
+      const message = isValid ? '' : 'Field cannot be empty';
+      return { isValid, message };
     }
+    return { isValid: false, message: 'Invalid field type' };
   };
 
-  const validateNumberField = (field, fieldName) => {
-    if (!isNaN(field)) {
-      return true;
-    } else {
-      alert(`Please enter a valid ${fieldName}.`);
-      return false;
-    }
+  const validateNumberField = (field) => {
+    const isValid = !isNaN(field);
+    const message = isValid ? '' : 'Field must be a number';
+    return { isValid, message };
+  };
+  const validateDate = (date) => {
+    const isValid = !isNaN(new Date(date).getTime());
+    const message = isValid ? '' : 'Invalid date';
+    return { isValid, message };
   };
 
-  // Validation function for checking if a field is a valid date
-  const validateDate = (date, fieldName) => {
-    if (!isNaN(new Date(date).getTime())) {
-      return true;
-    } else {
-      alert(`Please enter a valid ${fieldName}.`);
-      return false;
-    }
-  };
   useEffect(() => {
     axios
       .get(`http://localhost:8070/inventory/getInventoryItem/${id}`)
@@ -293,11 +286,6 @@ const UpdateProduct = () => {
                       placeholder="Enter Cost"
                       value={cost}
                       onChange={(e) => setCost(e.target.value)}
-                      onKeyPress={(e) => {
-                        if (!/[0-9]/.test(e.key)) {
-                          e.preventDefault();
-                        }
-                      }}
                       className="bg-white"
                     />
                   </div>
@@ -311,11 +299,6 @@ const UpdateProduct = () => {
                       placeholder="Enter Quantity"
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
-                      onKeyPress={(e) => {
-                        if (!/[0-9]/.test(e.key)) {
-                          e.preventDefault();
-                        }
-                      }}
                       className="bg-white"
                     />
                   </div>
@@ -328,11 +311,6 @@ const UpdateProduct = () => {
                       placeholder="Enter Reorder Level"
                       value={reorderLevel}
                       onChange={(e) => setReorderLevel(e.target.value)}
-                      onKeyPress={(e) => {
-                        if (!/[0-9]/.test(e.key)) {
-                          e.preventDefault();
-                        }
-                      }}
                       className="bg-white"
                     />
                   </div>
