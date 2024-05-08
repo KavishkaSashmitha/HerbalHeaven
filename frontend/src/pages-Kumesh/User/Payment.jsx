@@ -168,18 +168,26 @@ function Payment() {
   const sendRequest = async () => {
     placeOrder();
     await axios
-      .post("http://localhost:8070/cards", {
-        fullname: String(inputs.fullname),
-        address: String(inputs.address),
-        city: String(inputs.city),
-        zip: String(inputs.zip),
-        country: String(inputs.country),
-        cardholdername: String(inputs.cardholdername),
-        cardnumber: String(inputs.cardnumber),
-        expmonth: String(inputs.expmonth),
-        //expyear: String(inputs.expyear),
-        cvv: String(inputs.cvv),
-      })
+      .post(
+        "http://localhost:8070/cards",
+        {
+          fullname: String(inputs.fullname),
+          address: String(inputs.address),
+          city: String(inputs.city),
+          zip: String(inputs.zip),
+          country: String(inputs.country),
+          cardholdername: String(inputs.cardholdername),
+          cardnumber: String(inputs.cardnumber),
+          expmonth: String(inputs.expmonth),
+          //expyear: String(inputs.expyear),
+          cvv: String(inputs.cvv),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => res.data);
   };
   // Function to calculate the total bill
