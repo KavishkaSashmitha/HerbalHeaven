@@ -187,9 +187,10 @@ function Home() {
           </Link>
         </div>
       </div>
-      <div>
+      <div className="w-full overflow-hidden p-5">
         <ImageSlider images={images} />
       </div>
+
       <div className="relative flex w-1/2 gap-2 md:auto search">
         <Input
           type="search"
