@@ -348,7 +348,11 @@ export default function CreatePost() {
           .catch((error) => {
             setCreating(false);
             // Handle error
-            Swal.fire("Error", "Failed to add employee", "error");
+            Swal.fire(
+              "Error",
+              error?.response?.data?.error ?? "Failed to add employee",
+              "error"
+            );
           })
           .finally(() => {
             setCreating(false);
