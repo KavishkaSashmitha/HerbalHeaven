@@ -193,7 +193,7 @@ function Incomes() {
               <button onClick={handlePrint} className="dwon_repot_income">
                 Download Report
               </button>
-              <div className="income_topic">Income Details</div>
+              {/* <div className="income_topic">Income Details</div> */}
 
               <div ref={componentRef}>
                 <h1 className="income_topic">Income Details</h1>
