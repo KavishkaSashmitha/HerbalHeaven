@@ -35,7 +35,7 @@ function FuelReport() {
   const [travelCost, setTravelCost] = useState("");
   const [category, setCategory] = useState("");
   const [costPerKm, setCostPerKm] = useState(0);
-  const [range, setRange] = useState("");
+  const [range, setRange] = useState("0.5");
   const [selectedMonth, setSelectedMonth] = useState(currentMonthName);
   const [errors, setErrors] = useState({});
 
@@ -56,6 +56,8 @@ function FuelReport() {
     };
     fetchPosts();
   }, []);
+
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -86,18 +88,34 @@ function FuelReport() {
   }, [id]);
 
   function CostCalculation() {
-    const travelCost = range * costPerKm;
-
-    setTravelCost(travelCost);
+    if (range > 0) {
+      const travelCost = parseFloat(range) * costPerKm;
+      setTravelCost(travelCost);
+    } else {
+      // Handle the case when range is not greater than 0
+      setTravelCost(0);
+    }
   }
+  
 
   function Generate() {
+    // Check if travelCost is less than or equal to 0
+    if (travelCost <= 0) {
+      Swal.fire({
+        title: "Error!",
+        text: "Travel cost must be a positive value.",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+      return; // Exit the function if travelCost is less than or equal to 0
+    }
+  
     Swal.fire({
       title: "Are you sure?",
-      text: "This will update the Travel Expense information.",
+      text: "This will download the Travel Expense information.",
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Yes, update it!",
+      confirmButtonText: "Yes, Download it!",
       cancelButtonText: "No, cancel!",
       reverseButtons: true,
     }).then((result) => {
@@ -109,17 +127,119 @@ function FuelReport() {
           })
           .then((res) => {
             if (res.data.success) {
-              Swal.fire({
-                title: "Updated!",
-                text: "Transport cost information has been updated.",
-                icon: "success",
-                confirmButtonText: "Ok",
-                reverseButtons: true,
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.href = "/transport";
-                }
+              // Generate PDF and download
+              const doc = new jsPDF();
+              const data = [
+                [`Owner Name : ${capitalizeSecondPart(ownerName)}`],
+                [`Vehicle Type : ${vehicleType}`],
+                [`Vehicle No : ${vehicleNo}`],
+                [`Vehicle Category : ${category}`],
+                [`Month : ${selectedMonth}`],
+                [`Travel Cost :, Rs.${travelCost} /=`],
+              ];
+  
+              // Add page number
+              const totalPages = doc.internal.getNumberOfPages();
+              for (let i = 1; i <= totalPages; i++) {
+                doc.setPage(i);
+                doc.setFontSize(10);
+                doc.text(
+                  `Page ${i} of ${totalPages}`,
+                  doc.internal.pageSize.width - 28,
+                  doc.internal.pageSize.height - 18
+                );
+              }
+  
+              // Add page border
+              for (let i = 1; i <= totalPages; i++) {
+                doc.setPage(i);
+                doc.rect(
+                  5,
+                  5,
+                  doc.internal.pageSize.width - 10,
+                  doc.internal.pageSize.height - 10,
+                  "S"
+                );
+              }
+  
+              // Add current time
+              const now = new Date();
+              const currentTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+              doc.setFontSize(7);
+              doc.text(`Report generated on: ${currentTime}`, 152, 10);
+  
+              // Add company logo
+              const logoImg = new Image();
+              logoImg.src = "/logo/logo.png"; // Assuming 'logo.png' is the path to your logo
+              doc.addImage(logoImg, "PNG", 90, 14, 40, 40); // Adjust position and size accordingly
+  
+              // Add company name
+              doc.setFontSize(25);
+              doc.setFont("helvetica", "bold");
+              // Print "Herbal Heaven" text
+              doc.text("Herbal Heaven", 80, 20);
+  
+              // Add company address, email, and phone number
+              doc.setFontSize(8); // Adjust font size as needed
+              doc.text("Company Address:", 10, 50);
+              doc.text("123 Main St, City, Country", 10, 55);
+              doc.text("Email: info@herbalheaven.com", 10, 60);
+              doc.text("Phone: +1234567890", 10, 65);
+  
+              // Add description
+              doc.setFontSize(12);
+              doc.text(
+                "This report contains transport cost for Herbal Heaven company(PVT)LTD.",
+                10,
+                doc.internal.pageSize.height - 50
+              );
+  
+              // Signature area
+              doc.setFontSize(10);
+              doc.text("__________________", 150, doc.internal.pageSize.height - 30);
+              doc.text("Signature", 160, doc.internal.pageSize.height - 20);
+  
+              // Generate the table
+              doc.autoTable({
+                head: [["Vehicle Details"]],
+                body: data.map((row) => [row[0]]), // Extracting only the first column from data
+                margin: { top: 90, right: 10, left: 10 },
+                theme: "striped",
+                headStyles: {
+                  fillColor: [41, 128, 185],
+                  textColor: 255,
+                  fontStyle: "bold",
+                  fontSize: 15,
+                  halign: "center",
+                  valign: "middle",
+                  lineWidth: 0.2,
+                  lineColor: [255, 255, 255],
+                  cellPadding: 3,
+                },
+                bodyStyles: {
+                  fontSize: 12,
+                  textColor: 50,
+                  fontStyle: "bold",
+                  fillColor: [238, 238, 238],
+                  halign: "center",
+                  valign: "middle",
+                  lineWidth: 0.2,
+                  lineColor: [255, 255, 255],
+                  cellPadding: 3,
+                },
+                alternateRowStyles: {
+                  fillColor: [255, 255, 255],
+                },
+                styles: {
+                  font: "Helvetica",
+                },
               });
+  
+              // Save the document
+              doc.save("Vehicle Cost.pdf");
+              
+              // Redirect to transport page after the PDF is downloaded
+              window.location.href = "/transport";
             }
           })
           .catch((error) => {
@@ -127,117 +247,9 @@ function FuelReport() {
           });
       }
     });
-
-    const doc = new jsPDF();
-    const data = [
-      [`Owner Name : ${capitalizeSecondPart(ownerName)}`],
-      [`Vehicle Type : ${vehicleType}`],
-      [`Vehicle No : ${vehicleNo}`],
-      [`Vehicle Category : ${category}`],
-      [`Month : ${selectedMonth}`],
-      [`Travel Cost :, Rs.${travelCost} /=`],
-    ];
-
-    // Add page number
-    const totalPages = doc.internal.getNumberOfPages();
-    for (let i = 1; i <= totalPages; i++) {
-      doc.setPage(i);
-      doc.setFontSize(10);
-      doc.text(
-        `Page ${i} of ${totalPages}`,
-        doc.internal.pageSize.width - 28,
-        doc.internal.pageSize.height - 18
-      );
-    }
-
-    // Add page border
-    for (let i = 1; i <= totalPages; i++) {
-      doc.setPage(i);
-      doc.rect(
-        5,
-        5,
-        doc.internal.pageSize.width - 10,
-        doc.internal.pageSize.height - 10,
-        "S"
-      );
-    }
-
-    // Add current time
-    const now = new Date();
-    const currentTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-    doc.setFontSize(7);
-    doc.text(`Report generated on: ${currentTime}`, 152, 10);
-
-    // Add company logo
-    const logoImg = new Image();
-    logoImg.src = "/logo/logo.png"; // Assuming 'logo.png' is the path to your logo
-    doc.addImage(logoImg, "PNG", 90, 14, 40, 40); // Adjust position and size accordingly
-
-    // Add company name
-    doc.setFontSize(25);
-    doc.setFont("helvetica", "bold");
-    // Print "Herbal Heaven" text
-    doc.text("Herbal Heaven", 80, 20);
-
-    // Add company address, email, and phone number
-    doc.setFontSize(8); // Adjust font size as needed
-    doc.text("Company Address:", 10, 50);
-    doc.text("123 Main St, City, Country", 10, 55);
-    doc.text("Email: info@herbalheaven.com", 10, 60);
-    doc.text("Phone: +1234567890", 10, 65);
-
-    // Add description
-    doc.setFontSize(12);
-    doc.text(
-      "This report contains transport cost for Herbal Heaven company(PVT)LTD.",
-      10,
-      doc.internal.pageSize.height - 50
-    );
-
-    // Signature area
-    doc.setFontSize(10);
-    doc.text("__________________", 150, doc.internal.pageSize.height - 30);
-    doc.text("Signature", 160, doc.internal.pageSize.height - 20);
-
-    // Generate the table
-    doc.autoTable({
-      head: [["Vehicle Details"]],
-      body: data.map((row) => [row[0]]), // Extracting only the first column from data
-      margin: { top: 90, right: 10, left: 10 },
-      theme: "striped",
-      headStyles: {
-        fillColor: [41, 128, 185],
-        textColor: 255,
-        fontStyle: "bold",
-        fontSize: 15,
-        halign: "center",
-        valign: "middle",
-        lineWidth: 0.2,
-        lineColor: [255, 255, 255],
-        cellPadding: 3,
-      },
-      bodyStyles: {
-        fontSize: 12,
-        textColor: 50,
-        fontStyle: "bold",
-        fillColor: [238, 238, 238],
-        halign: "center",
-        valign: "middle",
-        lineWidth: 0.2,
-        lineColor: [255, 255, 255],
-        cellPadding: 3,
-      },
-      alternateRowStyles: {
-        fillColor: [255, 255, 255],
-      },
-      styles: {
-        font: "Helvetica",
-      },
-    });
-
-    // Save the document
-    doc.save("Vehicle Cost.pdf");
   }
+  
+  
 
   useEffect(() => {
     if (category === "Own") {
@@ -539,6 +551,7 @@ function FuelReport() {
                                     name="Travel Distance"
                                     value={range}
                                     required
+                                    min={0.5}
                                     onChange={(event) => {
                                       setRange(event.target.value);
                                     }}
@@ -566,6 +579,7 @@ function FuelReport() {
                                   <input
                                     type="text"
                                     required
+                                    min={1}
                                     value={`Rs.${travelCost}`}
                                     disabled
                                     placeholder="Hourly Rate (Rupees)"
