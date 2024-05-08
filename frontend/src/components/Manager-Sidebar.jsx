@@ -400,7 +400,7 @@ export function DefaultSidebar() {
                       Dashboard
                     </ListItem>
                   </Link>
-                  <Link to="/inventory/report">
+                  <Link to="/inventory/stat">
                     <ListItem className="text-yellow-200">
                       <ListItemPrefix>
                         <ChevronRightIcon

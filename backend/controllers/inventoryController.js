@@ -104,25 +104,6 @@ const inventoryController = {
         category,
         image,
       });
-      //   { new: true }
-      // ); // Set { new: true } to return the updated document
-
-      // // Check if the quantity is lower than the reorder level
-      // if (updatedItem.quantity < updatedItem.reorderLevel) {
-      //   // Create a new entry in the reorder model
-      //   // Assuming you have a Reorder model defined with appropriate schema
-      //   const Reorder = require('../model/reorderModel');
-
-      //   const newReorder = new Reorder({
-      //     productNo: updatedItem.productNo,
-      //     productName: updatedItem.productName,
-      //     quantity: updatedItem.quantity,
-      //     reorderLevel: updatedItem.reorderLevel,
-      //   });
-
-      //   // Save the new reorder entry
-      //   await newReorder.save();
-      // }
 
       return res
         .status(200)
@@ -145,6 +126,33 @@ const inventoryController = {
       return res.status(500).json({ msg: error.message });
     }
   },
+
+  // updateQuantity: async (req, res) => {
+  //   try {
+  //     const { productId } = req.params;
+  //     const { newQuantity } = req.body;
+
+  //     // Retrieve the product from the inventory
+  //     const product = await Inventory.findById(productId);
+
+  //     // Check if the product exists
+  //     if (!product) {
+  //       return res.status(404).json({ msg: 'Product not found.' });
+  //     }
+
+  //     // Update the quantity of the product
+  //     product.quantity = newQuantity;
+
+  //     // Save the updated product in the inventory
+  //     await product.save();
+
+  //     // Respond with a success message
+  //     return res.status(200).json({ msg: 'Quantity updated successfully.' });
+  //   } catch (error) {
+  //     console.error('Error updating quantity:', error);
+  //     return res.status(500).json({ msg: 'Internal server error.' });
+  //   }
+  // },
 };
 
 module.exports = inventoryController;
