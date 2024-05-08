@@ -1,11 +1,11 @@
-const express = require("express");
-const ReOrder = require("../model/ReOrderSup");
-const sendEmail = require("../config/mailConfig");
+const express = require('express');
+const ReOrder = require('../model/ReOrderSup');
+const sendEmail = require('../config/mailConfig');
 
 const router = express.Router();
 
 // save posts
-router.post("/reorder/save", async (req, res) => {
+router.post('/reorder/save', async (req, res) => {
   try {
     let newReOrder = new ReOrder(req.body);
     const subject = `New ReOrder Update`;
@@ -18,22 +18,27 @@ router.post("/reorder/save", async (req, res) => {
     
     Your swift action in processing this order would be greatly appreciated as it is crucial for our operations. Kindly confirm receipt of this request and provide an estimated delivery date at your earliest convenience.
     
-    Thank you for your attention to this matter.`;
+    Thank you for your attention to this matter.`;
 
+    // Sending email
     await sendEmail(req.body.email, subject, text);
+
+    // Saving reorder
     await newReOrder.save();
+
     res.status(200).json({
-      success: "ReOrder saved successfully",
+      success: 'ReOrder saved successfully',
     });
   } catch (err) {
+    console.error('Error while saving reorder and sending email:', err);
     res.status(400).json({
-      error: err,
+      error: err.message,
     });
   }
 });
 
 // get posts
-router.get("/reorders", async (req, res) => {
+router.get('/reorders', async (req, res) => {
   try {
     const reorders = await ReOrder.find().exec();
     res.status(200).json({
@@ -49,18 +54,18 @@ router.get("/reorders", async (req, res) => {
 
 //delete post
 
-router.delete("/reorder/delete/:id", (req, res) => {
+router.delete('/reorder/delete/:id', (req, res) => {
   ReOrder.findByIdAndDelete(req.params.id)
     .exec()
     .then((deletedReOrder) => {
       return res.json({
-        message: "Delete Succesfully",
+        message: 'Delete Succesfully',
         deletedReOrder,
       });
     })
     .catch((err) => {
       return res.status(400).json({
-        message: "Delete unsuccesfully",
+        message: 'Delete unsuccesfully',
         err,
       });
     });

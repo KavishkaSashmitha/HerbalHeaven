@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { Footer } from '../components/Footer';
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
+import { toast } from 'react-toastify';
 
 const InventoryList = () => {
   const [open, setOpen] = React.useState(0);
@@ -145,6 +146,7 @@ const InventoryList = () => {
 
       if (response.status === 201) {
         console.log('Product created successfully:', response.data);
+        toast.success('Product Published');
         // Optionally, update the state or perform any other actions
       } else {
         console.error('Failed to create product:', response.statusText);

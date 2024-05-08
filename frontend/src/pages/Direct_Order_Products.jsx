@@ -75,8 +75,9 @@ const ProductList = () => {
           throw new Error('Failed to fetch product');
         }
         const productData = await response.json();
-        await postCartData(productData); // Add the scanned product to the cart
-        setScannedMessage(`Scanned successfully: ${data}`);
+        // Update products state with only the scanned product
+        setProducts([productData]);
+        setScannedMessage(`Scanned successfully: ${productData.name}`);
       } catch (error) {
         console.error('Error scanning QR code:', error.message);
         setScannedMessage(`Error scanning QR code: ${error.message}`);
@@ -177,6 +178,7 @@ const ProductList = () => {
       );
     }
   };
+  
 
   return (
     <div
@@ -191,9 +193,9 @@ const ProductList = () => {
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
         </div>
-        <div className="flex flex-col flex-1 overflow">
+        <div className="flex flex-col flex-1 ">
           <AdminNavbar toggleSidebar={toggleSidebar} />
-          <Card className="overflow-hidden mr-4 ml-4 flex flex-1">
+          <Card className="overflow-hidden mr-4 ml-4 flex ">
             <CardBody>
               <Breadcrumbs className="ml-2 mb-2 mt-2">
                 <Link to="/">
@@ -211,6 +213,22 @@ const ProductList = () => {
                   onChange={handleSearchInputChange}
                   className="rounded-lg p-2 w-full mb-4"
                 />
+              </div>
+              <div className="fixed bottom-0 right-0 mr-4 mb-4">
+                <Button onClick={() => setShowScanner(!showScanner)}>
+                  Toggle QR Scanner
+                </Button>
+                {showScanner && renderQrScanner()}
+                {selectedProducts.length > 0 && (
+                  <Button onClick={generateAndDownloadQRCode}>
+                    Generate QR Codes
+                  </Button>
+                )}
+                {scannedMessage && (
+                  <Typography color="red" className="mt-2">
+                    {scannedMessage}
+                  </Typography>
+                )}
               </div>
               <table className="w-full min-w-max table-auto text-left text-sm">
                 <thead>
@@ -290,20 +308,6 @@ const ProductList = () => {
             </CardBody>
           </Card>
         </div>
-      </div>
-      <div className="fixed bottom-0 right-0 mr-4 mb-4">
-        <Button onClick={() => setShowScanner(!showScanner)}>
-          Toggle QR Scanner
-        </Button>
-        {showScanner && renderQrScanner()}
-        {selectedProducts.length > 0 && (
-          <Button onClick={generateAndDownloadQRCode}>Generate QR Codes</Button>
-        )}
-        {scannedMessage && (
-          <Typography color="red" className="mt-2">
-            {scannedMessage}
-          </Typography>
-        )}
       </div>
     </div>
   );
