@@ -256,7 +256,9 @@ function Home() {
       </div>
       <div className="mx-auto mb-10 max-w-7xl"></div>
 
-      <Footer />
+      <div className="bg-custom-color">
+        <Footer />
+      </div>
     </>
   );
 }
