@@ -518,6 +518,7 @@ function MaterialReport() {
                                     id="selectMonth"
                                     type="text"
                                     value={selectedMonth}
+                                    disabled
                                     name="month"
                                     placeholder="Enter Month"
                                     onChange={handleMonthChange}
