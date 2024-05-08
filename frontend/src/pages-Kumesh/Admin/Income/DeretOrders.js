@@ -12,6 +12,7 @@ function DeretOrders() {
       try {
         const response = await axios.get(URL);
         console.log("Response data:", response.data);
+        
         if (response.data) {
           setDirectOrder(response.data);
           calculateTotalIncome(response.data);
@@ -38,11 +39,22 @@ function DeretOrders() {
     setTotalIncome(total);
   };
 
-  console.log(directOrder);
+  const generateReport = () => {
+    // Code to generate report
+    console.log("Generating report...");
+
+    // Code to print report
+    window.print();
+  };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6">Direct Order Details</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Direct Order Details</h1>
+        <button onClick={generateReport} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Generate & Print Report
+        </button>
+      </div>
       <div className="overflow-x-auto">
         <table className="w-full divide-y divide-gray-200">
           <thead className="bg-blue-500 text-white">
