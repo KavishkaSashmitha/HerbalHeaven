@@ -193,7 +193,7 @@ function Incomes() {
               <button onClick={handlePrint} className="dwon_repot_income">
                 Download Report
               </button>
-              <div className="income_topic">Income Details</div>
+              
 
               <div ref={componentRef}>
                 <h1 className="income_topic">Income Details</h1>
@@ -212,7 +212,7 @@ function Incomes() {
                         orders.map((order, index) => (
                           <tr key={index}>
                             <td className="table_income_th">
-                              <p className="sub_par_dis">{order.user}</p>
+                              <p className="sub_par_dis">{order.customer}</p>
                             </td>
                             <td className="table_income_th">
                               <p className="sub_par_dis">
