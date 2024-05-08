@@ -59,7 +59,7 @@ function Payment() {
       try {
         if (isLoggedIn) {
           const response = await axios.get(
-            "http://localhost:8070/api/user/cart",
+            "http://localhost:8070/api/customer/cart",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
