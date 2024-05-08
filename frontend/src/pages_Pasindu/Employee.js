@@ -201,7 +201,7 @@ export default function Posts() {
                 <div className="relative mr-8 overflow-hidden text-gray-700">
                   <div className="flex items-start justify-between flex-row sm:flex-row gap-8 mb-8">
                     <div className="">
-                      <h5 className="block font-sans text-x1 antialiased font-bold leading-snug tracking-normal text-gray-800">
+                      <h5 className="block font-sans text-2xl antialiased font-bold leading-snug tracking-normal text-gray-800">
                         Employee List
                       </h5>
                       <p className="block mt-1 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
