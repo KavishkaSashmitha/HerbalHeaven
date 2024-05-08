@@ -159,8 +159,6 @@ function Home() {
               <Link to="/cart-Admin">
                 <MenuItem>Cart</MenuItem>
               </Link>
-              <MenuItem>Menu Item 2</MenuItem>
-              <MenuItem>Menu Item 3</MenuItem>
             </MenuList>
           </Menu>
           <Link to="/">
@@ -189,9 +187,10 @@ function Home() {
           </Link>
         </div>
       </div>
-      <div>
+      <div className="w-full overflow-hidden p-5">
         <ImageSlider images={images} />
       </div>
+
       <div className="relative flex w-1/2 gap-2 md:auto search">
         <Input
           type="search"
@@ -244,19 +243,21 @@ function Home() {
         </div>
       </div>
       <div className="mx-auto mb-10 max-w-7xl">
-        <Typography variant="" className="h2">
+        {/* <Typography variant="" className="h2">
           Product Categories
-        </Typography>
+        </Typography> */}
       </div>
       <div className="mx-auto mb-10 max-w-7xl">
-        <video className="w-full h-full rounded-lg md-auto" autoplay loop muted>
+        <video className="w-full h-full rounded-lg md-auto">
           <source src={video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
       <div className="mx-auto mb-10 max-w-7xl"></div>
 
-      <Footer />
+      <div className="bg-custom-color">
+        <Footer />
+      </div>
     </>
   );
 }

@@ -82,3 +82,28 @@
   width: 160px;
   height: 160px;
 }
+
+/* Ensure the slider container is fixed to the right side */
+.slider-container {
+  width: 100%; /* Take up full width of the viewport */
+  max-width: 1700px; /* Set a maximum width for the slider container */
+  margin-left: auto; /* Auto margin on left (pushes container to the right) */
+  margin-right: 0; /* No margin on right */
+  overflow: hidden; /* Ensure no horizontal overflow */
+  position: relative; /* Establish positioning context */
+}
+
+/* Ensure the ImageSlider fills its container */
+.ImageSlider {
+  width: 100%; /* Ensure ImageSlider fills its container */
+  display: flex; /* Use flexbox for image slider */
+  transition: transform 0.3s ease; /* Optional: Add smooth transition */
+}
+
+/* Optional: Style for individual slides within the ImageSlider */
+.ImageSlider .slide {
+  flex: 0 0 100%; /* Each slide occupies 100% of ImageSlider width */
+  max-width: 100%; /* Ensure slides do not exceed container width */
+}
+
+
