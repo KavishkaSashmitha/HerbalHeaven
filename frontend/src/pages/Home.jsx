@@ -159,8 +159,6 @@ function Home() {
               <Link to="/cart-Admin">
                 <MenuItem>Cart</MenuItem>
               </Link>
-              <MenuItem>Menu Item 2</MenuItem>
-              <MenuItem>Menu Item 3</MenuItem>
             </MenuList>
           </Menu>
           <Link to="/">
@@ -249,7 +247,7 @@ function Home() {
         </Typography> */}
       </div>
       <div className="mx-auto mb-10 max-w-7xl">
-        <video className="w-full h-full rounded-lg md-auto" autoplay loop muted>
+        <video className="w-full h-full rounded-lg md-auto">
           <source src={video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>

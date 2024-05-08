@@ -212,7 +212,7 @@ function Incomes() {
                         orders.map((order, index) => (
                           <tr key={index}>
                             <td className="table_income_th">
-                              <p className="sub_par_dis">{order.user}</p>
+                              <p className="sub_par_dis">{order.customer}</p>
                             </td>
                             <td className="table_income_th">
                               <p className="sub_par_dis">
