@@ -70,7 +70,6 @@ function AdminNavbar({ toggleSidebar }) {
             <Link to="/all">
               <MenuItem>Customer</MenuItem>
             </Link>
-            
           </MenuList>
         </Menu>
       </div>
