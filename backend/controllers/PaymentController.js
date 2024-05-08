@@ -16,6 +16,8 @@ const getAllCard = async (req, res, next) => {
 
 //Insert card Details
 const addCard = async (req, res, next) => {
+  const user = req.customer;
+  if (!user) throw new Error("Customer not found");
   const {
     fullname,
     address,
@@ -43,6 +45,7 @@ const addCard = async (req, res, next) => {
       expmonth,
       expyear,
       cvv,
+      user: user.name,
     });
     await cards.save();
   } catch (err) {
@@ -122,15 +125,31 @@ const deleteCard = async (req, res, next) => {
     if (!deletedCard) {
       return res.status(404).json({ message: "Card not found" });
     }
- 
+
     return res.status(200).json({ card: deletedCard });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+const getUserCards = async (req, res) => {
+  let card;
+  try {
+    card = await Card.find({ user: req.customer.name });
+  } catch (err) {
+    console.log(err);
+  }
+  if (!card) {
+    return res.status(404).json({ message: "No cards Found" });
+  }
+
+  return res.status(200).json({ card });
+};
+
 exports.deleteCard = deleteCard;
 exports.getAllCard = getAllCard;
 exports.addCard = addCard;
 exports.getById = getById;
 exports.updateCard = updateCard;
+exports.getUserCards = getUserCards;

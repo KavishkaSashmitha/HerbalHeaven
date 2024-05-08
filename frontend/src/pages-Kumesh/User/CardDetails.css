@@ -23,7 +23,7 @@
 
 .card-set-pay {
   cursor: pointer;
-  background-color:rgb(218, 223, 215);
+  background-color: rgb(218, 223, 215);
   width: 350px;
   margin: 10px;
   font-weight: bold;
@@ -54,7 +54,6 @@
   width: 100%;
   table-layout: fixed;
   border-radius: 12px;
-  background-color: beige;
 }
 
 .card-table .card-caption {
@@ -69,7 +68,6 @@
 .card-td {
   width: 33.33%;
   font-size: 20px;
-
 }
 .card-table .card-th,
 .card-table .card-td {
@@ -109,22 +107,20 @@
   border-radius: 5px;
   background-color: red;
 }
-.ful-set-pay{
+.ful-set-pay {
   width: 100%;
   margin: 10px 0;
 }
-.ful-set-pay-card{
+.ful-set-pay-card {
   width: 80%;
   margin: 0 auto;
 }
-.card-table-full{
+.card-table-full {
   margin: 50px 0 0 0;
 }
-.card-thead{
+.card-thead {
   justify-content: space-between;
   width: 100%;
   display: flex;
   padding: 0 30px;
 }
-
-

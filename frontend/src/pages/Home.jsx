@@ -26,23 +26,24 @@ import Slider from 'react-slick'; // Import Slider component from react-slick
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProfileMenu from '../components/Profile';
-import {  ChevronDownIcon } from '@heroicons/react/24/solid';
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
+import video from '../../src/assets/Media1.mp4'
 
 const Product = ({ product }) => {
   const { addToCart, isLoggedIn } = useAuth(); // Accessing addToCart function from AuthProvider
 
   return (
-    <Card key={product._id} className="w-72 mb-4 bg-light-green-200">
+    <Card key={product._id} className="mb-4 w-72 bg-light-green-200">
       <CardHeader shadow={false} floated={false} className="h-48">
         <img
           src={product.image}
           alt="card-image"
-          className="h-full  w-full object-cover"
+          className="object-cover w-full h-full"
         />
       </CardHeader>
       <CardBody>
-        <div className="mb-2 flex items-center justify-between">
+        <div className="flex items-center justify-between mb-2">
           <div>
             <Typography color="blue-gray" className="font-bold variant-h3">
               {product.name}
@@ -61,7 +62,7 @@ const Product = ({ product }) => {
           style={{ backgroundColor: '#ff8f00' }}
           onClick={() => addToCart(product)}
           disabled={!isLoggedIn} // Disable button if user is not logged in
-          className="w-full hover:scale-105 focus:scale-105 active:scale-100 transition-transform duration-300 ease-in-out"
+          className="w-full transition-transform duration-300 ease-in-out hover:scale-105 focus:scale-105 active:scale-100"
         
         >
           Add to Cart
@@ -130,12 +131,12 @@ function Home() {
           <ProfileMenu />
         </div>
       </div>
-      <div className="sticky top-0 bg-amber-800 h-16 px-6 sm:px-10 py-4  flex items-center justify-between z-50">
+      <div className="sticky top-0 z-50 flex items-center justify-between h-16 px-6 py-4 bg-amber-800 sm:px-10">
         <div className="flex items-center space-x-8 text-sm text-white">
           <Link to="/">
             <Button
               variant="text"
-              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+              className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
             >
               Home
             </Button>
@@ -144,7 +145,7 @@ function Home() {
             <MenuHandler>
               <Button
                 variant="text"
-                className="flex items-center  gap-3 text-white text-base font-normal capitalize tracking-normal"
+                className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
               >
                 Beauty Products{' '}
                 <ChevronDownIcon
@@ -166,15 +167,15 @@ function Home() {
           <Link to="/">
             <Button
               variant="text"
-              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+              className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
             >
               Products
             </Button>
           </Link>
-          <Link to="/">
+          <Link to="/immunity">
             <Button
               variant="text"
-              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+              className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
             >
               Immunity Products
             </Button>
@@ -182,7 +183,7 @@ function Home() {
           <Link to="/">
             <Button
               variant="text"
-              className="flex items-center gap-3 text-white text-base font-normal  capitalize tracking-normal"
+              className="flex items-center gap-3 text-base font-normal tracking-normal text-white capitalize"
             >
               Oils
             </Button>
@@ -210,7 +211,7 @@ function Home() {
           Search
         </Button>
       </div>
-      <Slider {...settings} className="mt-4 mb-4 mx-auto max-w-7xl">
+      <Slider {...settings} className="mx-auto mt-4 mb-4 max-w-7xl">
         {' '}
         {/* Add margin-bottom */}
         {filteredData.slice(0, 5).map((product) => (
@@ -223,10 +224,10 @@ function Home() {
           <Spinner />
         </div>
       )}
-   <div class="full-screen-background">
-   <div class="max-w-7xl mx-auto mt-10 mb-10 flex h-screen">
-  <div class="w-1/2 mt-20">
-      <p class='text-3xl text-gray-800'>Product Categories</p>
+      <div class="full-screen-background">
+        <div class="max-w-7xl mx-auto mt-10 mb-10 flex h-screen">
+          <div class="w-1/2 mt-20">
+            <p class="text-3xl text-gray-800">Product Categories</p>
             <p class="text-gray-800 mt-4">Explore our wide range of products</p>
             <p class="text-gray-800 text-home-1 ">
   "Herbals are nature's pharmacy, offering a treasure trove of remedies derived from the earth's bounty, each leaf, root, and flower holding the potential for healing and wellness."
@@ -238,19 +239,19 @@ function Home() {
   </div>
 </div>
 </div>
-      <div className="max-w-7xl mx-auto mb-10">
+      <div className="mx-auto mb-10 max-w-7xl">
         <Typography variant='' className='h2'>Product Categories</Typography>
       </div>
-      <div className="max-w-7xl mx-auto mb-10">
-        <video className="h-full w-full rounded-lg md-auto" controls autoPlay>
+      <div className="mx-auto mb-10 max-w-7xl">
+        <video className="w-full h-full rounded-lg md-auto" autoplay loop muted>
           <source
-            src="https://docs.material-tailwind.com/demo.mp4"
+            src={video}
             type="video/mp4"
           />
           Your browser does not support the video tag.
         </video>
       </div>
-      <div className="max-w-7xl mx-auto mb-10">
+      <div className="mx-auto mb-10 max-w-7xl">
         
       </div>
       <Link to="/admin-dashboard">

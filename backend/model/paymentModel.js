@@ -4,7 +4,7 @@ const paymentSchema = mongoose.Schema(
   {
     fullname: {
       type: String,
-      required: true, 
+      required: true,
     },
     address: {
       type: String,
@@ -21,7 +21,7 @@ const paymentSchema = mongoose.Schema(
     },
     country: {
       type: String,
-      default: '',
+      default: "",
       required: true,
     },
     cardholdername: {
@@ -41,6 +41,10 @@ const paymentSchema = mongoose.Schema(
     //   required: true,
     // },
     cvv: {
+      type: String,
+      required: true,
+    },
+    user: {
       type: String,
       required: true,
     },

@@ -103,11 +103,13 @@ import AddProduct from './pages-Dileesha/AddProduct';
 import UpdateProduct from './pages-Dileesha/UpdateProduct';
 import InventoryList from './pages-Dileesha/InventoryList';
 import InventoryReport from './pages-Dileesha/InventoryReport';
+import InventoryStatistics from './pages-Dileesha/InventoryStatistics';
 
 import MyOrders from './pages_Ridmi/myOrders';
 import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
 import MaterialCost from './pages-Kumesh/Admin/Expens/MaterialCost';
 import EmpSalary from './pages-Kumesh/Admin/Expens/EmpSalary';
+import Immunity from './pages/ImmunityProducts';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -148,6 +150,7 @@ function App() {
         <Route path="/direct-cart" element={<DirectCartTable />} />
         <Route path="/direct-orders" element={<DirectOrdersTable />} />
         <Route path="/cartAdmin-db" element={<CartAdminDashboard />} />
+        <Route path="/immunity" element={<Immunity />} />
 
         {/* Pasindu */}
         <Route path="/emp/add" element={<CreatPost />} />
@@ -232,6 +235,7 @@ function App() {
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
       <Route path="/inventory/report" element={<InventoryReport />} />
+      <Route path="/inventory/stat" element={<InventoryStatistics />} />
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>
