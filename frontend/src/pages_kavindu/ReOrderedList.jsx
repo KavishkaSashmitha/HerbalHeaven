@@ -98,6 +98,7 @@ const User = () => {
                     <thead>
                       <tr>
                         {[
+                          "ProductId",
                           "Name",
                           "Email",
                           "Raw Material_01",
@@ -132,6 +133,7 @@ const User = () => {
                             key={reorder._id}
                             className="border-b border-blue-gray-100 bg-blue-gray-50/50"
                           >
+                            <td className="p-4">{reorder.productID}</td>
                             <td className="p-4">{reorder.name}</td>
                             <td className="p-4">{reorder.email}</td>
                             <td className="p-4">{reorder.productName}</td>
@@ -146,6 +148,20 @@ const User = () => {
                                   style={{ fontSize: "20px" }}
                                 ></i>
                               </Button>
+                              <Link
+                                to={`/sup/material_report/${reorder._id}`}
+                                className="btn btn-warning "
+                              >
+                                <Button
+                                  color="green"
+                                  className="btn btn-secondary ml-2"
+                                >
+                                  <i
+                                    className="fas fa-file"
+                                    style={{ fontSize: "20px" }}
+                                  ></i>
+                                </Button>
+                              </Link>
                             </td>
                           </tr>
                         ))}

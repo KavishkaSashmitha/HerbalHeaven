@@ -25,6 +25,11 @@ const ReOrderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  productID: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("supplierOrder", ReOrderSchema);
