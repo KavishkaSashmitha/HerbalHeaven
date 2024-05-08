@@ -28,7 +28,7 @@ import "slick-carousel/slick/slick-theme.css";
 import ProfileMenu from "../components/Profile";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
-import video from "../../src/assets/Media1.mp4";
+import video from "../../src/assets/Media.mp4";
 
 const Product = ({ product }) => {
   const { addToCart, isLoggedIn } = useAuth(); // Accessing addToCart function from AuthProvider
