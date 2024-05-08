@@ -31,10 +31,12 @@ router.delete(
 
 router.post('/uploadimg', fileUpload);
 
+// router.put('/updateQuantity/:productId', inventoryController.updateQuantity);
+
 // router.post('/sendEmail', hhmail);
 
-router.post("/addReorderItem",reorderController.addReorderItem);
-router.get("/viewReorderItems",reorderController.viewReorderItems);
-router.delete("/deleteReorderItem/:id",reorderController.deleteReorderItem)
+router.post('/addReorderItem', reorderController.addReorderItem);
+router.get('/viewReorderItems', reorderController.viewReorderItems);
+router.delete('/deleteReorderItem/:id', reorderController.deleteReorderItem);
 
 module.exports = router;

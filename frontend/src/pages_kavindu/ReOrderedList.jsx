@@ -81,7 +81,7 @@ const User = () => {
             <AdminNavbar toggleSidebar={toggleSidebar} />
 
             <Card className="flex flex-col flex-1 ml-2 mr-4">
-              <h1 className="text-3xl">List of Suppliers</h1>
+              <h1 className="text-3xl">Re-Ordered List</h1>
               <div className="mb-5  flex justify-end"></div>
               <h4>search</h4>
               <Input
@@ -175,9 +175,11 @@ const User = () => {
                     )}
                   </ul>
                 </nav>
-                <Footer />
               </CardFooter>
             </Card>
+            <div className="bg-custom-color">
+              <Footer />
+            </div>
           </div>
         </div>
       </div>
