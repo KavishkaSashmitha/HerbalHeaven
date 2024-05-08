@@ -33,7 +33,7 @@ export default function MyOrders() {
     const result = orders.filter(
       (order) =>
         order._id.toLowerCase().includes(searchKey) ||
-        order.user.toLowerCase().includes(searchKey) ||
+        order.customer.toLowerCase().includes(searchKey) ||
         order.shippingAddress.address.toLowerCase().includes(searchKey) ||
         order.shippingAddress.city.toLowerCase().includes(searchKey) ||
         order.total.toLowerCase().includes(searchKey)
@@ -113,7 +113,7 @@ export default function MyOrders() {
                 </td>
                 <td class="p-4 border-b border-blue-gray-50">
                   <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                    {order.user}
+                    {order.customer}
                   </p>
                 </td>
                 <td class="p-4 border-b border-blue-gray-50">

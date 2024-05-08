@@ -1,121 +1,60 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Stepper, Step, Button } from "@material-tailwind/react";
-
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { Stepper, Step } from '@material-tailwind/react';
 import {
   ShoppingCartIcon,
   CurrencyDollarIcon,
   ArchiveBoxIcon,
-} from "@heroicons/react/24/outline";
-import { useAuth } from "../../middleware/authContext";
-import { SidebarWithBurgerMenu } from "../../components/navBar";
-import { Link, useLocation } from "react-router-dom";
-import "./Payment.css";
-import card from "./img/card.png";
-import paypal from "./img/paypal.png";
-import amazon from "./img/amo.png";
-import tic from "./img/tic.png";
-import axios from "axios";
+} from '@heroicons/react/24/outline';
+import { useAuth } from '../../middleware/authContext';
+import axios from 'axios';
+import { SidebarWithBurgerMenu } from '../../components/navBar';
+import './Payment.css';
+import card from './img/card.png';
+import paypal from './img/paypal.png';
+import amazon from './img/amo.png';
+import tic from './img/tic.png';
 
 function Payment() {
   const location = useLocation();
+  const history = useNavigate();
   const [cart, setCart] = useState([]);
   const { isLoggedIn, token } = useAuth();
-
-  // const { token } = useAuth();
-
-  // useEffect(() => {
-  //   const fetchCartItems = async () => {
-  //     try {
-  //       if (isLoggedIn) {
-  //         const response = await axios.get(
-  //           "http://localhost:8070/api/user/cart",
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${token}`,
-  //             },
-  //           }
-  //         );
-  //         // Remove duplicate items from the cart
-  //         const uniqueCartItems = Array.from(
-  //           new Set(response.data.map((item) => item.name))
-  //         ).map((name) => {
-  //           return response.data.find((item) => item.name === name);
-  //         });
-  //         setCart(response.data);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching cart items:", error);
-  //     }
-  //   };
-
-  //   fetchCartItems();
-  // }, [isLoggedIn, token]);
-
-  console.log("cart", cart);
+  const [inputs, setInputs] = useState({
+    fullname: '',
+    address: '',
+    city: '',
+    zip: '',
+    country: '',
+    cardholdername: '',
+    cardnumber: '',
+    expmonth: '',
+    cvv: '',
+  });
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         if (isLoggedIn) {
           const response = await axios.get(
-            "http://localhost:8070/api/user/cart",
+            'http://localhost:8070/api/user/cart',
             {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
+              headers: { Authorization: `Bearer ${token}` },
             }
           );
-          // Remove duplicate items from the cart
           const uniqueCartItems = Array.from(
             new Set(response.data.map((item) => item.name))
-          ).map((name) => {
-            return response.data.find((item) => item.name === name);
-          });
+          ).map((name) => response.data.find((item) => item.name === name));
+          setCart(response.data);
         }
       } catch (error) {
-        console.error("Error fetching cart items:", error);
+        console.error('Error fetching cart items:', error);
       }
     };
 
     fetchCartItems();
   }, [isLoggedIn, token]);
 
-  // Define the steps with their corresponding route paths
-  const steps = [
-    {
-      icon: <ShoppingCartIcon className="h-5 w-5" color="green" />,
-      path: "/user/cart",
-    },
-    {
-      icon: <CurrencyDollarIcon className="h-5 w-5" color="green" />,
-      path: "/user/payment",
-    },
-    { icon: <ArchiveBoxIcon className="h-5 w-5" />, path: "/address" },
-  ];
-
-  // Find the index of the current step based on the route path
-  const activeStepIndex = steps.findIndex(
-    (step) => location.pathname === step.path
-  );
-  useEffect(() => {
-    setCart(location.state.selectedCartItems);
-  }, [location.state.selectedCartItems]);
-
-  //data insert part
-  const history = useNavigate();
-  const [inputs, setInputs] = useState({
-    fullname: "",
-    address: "",
-    city: "",
-    zip: "",
-    country: "",
-    cardholdername: "",
-    cardnumber: "",
-    expmonth: "",
-    //expyear: "",
-    cvv: "",
-  });
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -128,27 +67,26 @@ function Payment() {
     console.log(inputs);
     sendRequest()
       .then(() => {
-        alert("Card details Validated successfully!");
-        history("/address");
+        alert('Card details Validated successfully!');
+        history('/my-orders');
       })
       .catch((error) => {
-        console.error("Error adding card details:", error);
+        console.error('Error adding card details:', error);
       });
   };
+
   const placeOrder = async () => {
     await axios.post(
-      "http://localhost:8070/api/orders/order/save",
+      'http://localhost:8070/api/orders/order/save',
       {
         total: calculateTotalBill(),
-
         shippingAddress: {
           address: inputs.address,
           city: inputs.city,
           zip: inputs.zip,
         },
-        paymentStatus: "Paid",
-        orderStatus: "Preparing",
-
+        paymentStatus: 'Paid',
+        orderStatus: 'Preparing',
         items: cart.map(({ name, price, quantity, image }) => ({
           name,
           price,
@@ -159,7 +97,7 @@ function Payment() {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );
@@ -190,22 +128,37 @@ function Payment() {
       )
       .then((res) => res.data);
   };
-  // Function to calculate the total bill
+
   const calculateTotalBill = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
-  useEffect(() => {
-    setCart(location.state.selectedCartItems);
-  }, [location.state.selectedCartItems]);
 
-  //function to get date from today which means not to input  date before today
   const getMinimumMonth = () => {
     const today = new Date();
-    const month = today.getMonth() + 1; // Month is zero-indexed, so add 1
+    const month = today.getMonth() + 1;
     const year = today.getFullYear();
     const formattedMonth = month < 10 ? `0${month}` : `${month}`;
     return `${year}-${formattedMonth}`;
   };
+
+  const steps = [
+    {
+      icon: <ShoppingCartIcon className="h-5 w-5" color="green" />,
+      path: '/user/cart',
+    },
+    {
+      icon: <CurrencyDollarIcon className="h-5 w-5" color="green" />,
+      path: '/user/payment',
+    },
+  ];
+
+  const activeStepIndex = steps.findIndex(
+    (step) => location.pathname === step.path
+  );
+
+  useEffect(() => {
+    setCart(location.state.selectedCartItems);
+  }, [location.state.selectedCartItems]);
 
   return (
     <div className="w-auto px-24 py-4 step">
@@ -226,7 +179,7 @@ function Payment() {
           <div>
             <h1 className="main-tpoic">Payment</h1>
             <p className="main-para">
-              Choose your preffered payment method below
+              Choose your preferred payment method below
             </p>
             <div className="method-set">
               <div className="method-one method-box">
@@ -237,7 +190,7 @@ function Payment() {
               <div
                 className="method-two method-box"
                 onClick={() => {
-                  window.location.href = "/paypal";
+                  window.location.href = '/paypal';
                 }}
               >
                 <img
@@ -247,23 +200,16 @@ function Payment() {
                 />
                 <p className="paymnt-topic">Pay With Paypal</p>
               </div>
-
               <div
                 className="method-three method-box"
                 onClick={() => {
-                  window.location.href = "/cashdelivery";
+                  window.location.href = '/cashdelivery';
                 }}
               >
                 <img src={amazon} alt="amazon" className="img-paymt card-amo" />
                 <p className="paymnt-topic">pay with Cash on Delivery</p>
               </div>
-              {/* <div
-                className="method-four method-box"
-                onClick={() => {
-                  window.location.href = "/bankslip";
-                }}
-              >
-
+              {/* <div className="method-four method-box" onClick={() => { window.location.href = "/bankslip"; }}>
                 <img src={amazon} alt="amazon" className="img-paymt card-amo" />
                 <p className="paymnt-topic">pay with DirectTransfer</p>
               </div> */}
@@ -272,28 +218,21 @@ function Payment() {
               <div className="method-set-card">
                 <div className="bil-box">
                   <h1 className="main-topic-bil">
-                    <span className="number">1</span>Biling Information
+                    <span className="number">1</span>Billing Information
                   </h1>
                   <label className="paymnt-lable">FULL NAME</label>
-                  <br></br>
+                  <br />
                   <input
                     className="paymnt-inpt"
                     type="text"
                     name="fullname"
                     placeholder="Saman Perera"
-                    value={inputs.fullnamename}
+                    value={inputs.fullname}
                     onChange={handleChange}
-                    onKeyPress={(event) => {
-                      // Check if the pressed key is a number or a special character, but allow spaces
-                      if (!/[a-zA-Z\s]/.test(event.key)) {
-                        event.preventDefault(); // Prevent default behavior (typing the key)
-                      }
-                    }}
                   />
-
-                  <br></br>
+                  <br />
                   <label className="paymnt-lable">BILLING ADDRESS</label>
-                  <br></br>
+                  <br />
                   <input
                     className="paymnt-inpt"
                     type="text"
@@ -302,12 +241,12 @@ function Payment() {
                     onChange={handleChange}
                     placeholder="11/16, Wilabada Road, Gampaha."
                     required
-                  ></input>
-                  <br></br>
+                  />
+                  <br />
                   <div className="method-set-card-form">
                     <div>
                       <label className="paymnt-lable">CITY</label>
-                      <br></br>
+                      <br />
                       <input
                         className="paymnt-inpt"
                         type="text"
@@ -315,19 +254,12 @@ function Payment() {
                         placeholder="Gampaha"
                         value={inputs.city}
                         onChange={handleChange}
-                        onKeyPress={(event) => {
-                          // Check if the pressed key is a number or a special character, but allow spaces
-                          if (!/[a-zA-Z\s]/.test(event.key)) {
-                            event.preventDefault(); // Prevent default behavior (typing the key)
-                          }
-                        }}
                       />
-
-                      <br></br>
+                      <br />
                     </div>
                     <div>
                       <label className="paymnt-lable">ZIPCODE</label>
-                      <br></br>
+                      <br />
                       <input
                         className="paymnt-inpt-two"
                         type="text"
@@ -337,34 +269,24 @@ function Payment() {
                         placeholder="11550"
                         minLength={5}
                         maxLength={5}
-                        pattern="[0-9]{5}" // Use a regular expression to match exactly 5 digits
+                        pattern="[0-9]{5}"
                         title="Please enter a valid 5-digit ZIP code"
-                        required
-                        onKeyPress={(event) => {
-                          if (!/\d/.test(event.key)) {
-                            // If the key pressed is not a digit
-                            event.preventDefault(); // Prevent default behavior (typing the key)
-                          }
-                        }}
-                      ></input>
-                      <br></br>
+                      />
+                      <br />
                     </div>
                   </div>
-
                   <label className="paymnt-lable">COUNTRY</label>
-                  <br></br>
+                  <br />
                   <select
                     name="country"
-                    id="country"
                     value={inputs.country}
                     onChange={handleChange}
                     required
                     className="paymnt-inpt"
                   >
-                    <option value="" required disabled selected>
+                    <option value="" disabled selected>
                       Select Country
                     </option>
-
                     <option value="india">India</option>
                     <option value="sri_lanka">Sri Lanka</option>
                   </select>
@@ -374,7 +296,7 @@ function Payment() {
                     <span className="number">2</span>Credit Card Info
                   </h1>
                   <label className="paymnt-lable">CARDHOLDER NAME</label>
-                  <br></br>
+                  <br />
                   <input
                     className="paymnt-inpt"
                     type="text"
@@ -382,29 +304,22 @@ function Payment() {
                     placeholder="Saman Perera"
                     value={inputs.cardholdername}
                     onChange={handleChange}
-                    onKeyPress={(event) => {
-                      // Check if the pressed key is a number or a special character, but allow spaces
-                      if (!/[a-zA-Z\s]/.test(event.key)) {
-                        event.preventDefault(); // Prevent default behavior (typing the key)
-                      }
-                    }}
                   />
-
-                  <br></br>
+                  <br />
                   <label className="paymnt-lable">CARD NUMBER</label>
-                  <br></br>
+                  <br />
                   <input
                     className="paymnt-inpt"
                     type="text"
                     value={inputs.cardnumber}
                     onChange={(event) => {
                       const inputValue = event.target.value;
-                      const sanitizedValue = inputValue.replace(/[^\d]/g, ""); // Remove non-numeric characters
+                      const sanitizedValue = inputValue.replace(/[^\d]/g, '');
                       const formattedValue = sanitizedValue
-                        .replace(/(\d{4})/g, "$1-")
-                        .slice(0, 19); // Format to XXXX-XXXX-XXXX-XXXX
+                        .replace(/(\d{4})/g, '$1-')
+                        .slice(0, 19);
                       handleChange({
-                        target: { name: "cardnumber", value: formattedValue },
+                        target: { name: 'cardnumber', value: formattedValue },
                       });
                     }}
                     maxLength={19}
@@ -414,22 +329,12 @@ function Payment() {
                     pattern="\d{4}-\d{4}-\d{4}-\d{4}"
                     title="Please enter a valid card number in the format XXXX-XXXX-XXXX-XXXX"
                     required
-                    onKeyPress={(event) => {
-                      if (
-                        event.key === "-" ||
-                        (!/\d/.test(event.key) && event.key !== "Backspace")
-                      ) {
-                        // If the key pressed is a dash or not a digit (except Backspace)
-                        event.preventDefault(); // Prevent default behavior (typing the key)
-                      }
-                    }}
                   />
-
-                  <br></br>
+                  <br />
                   <div className="method-set-card-form">
                     <div>
                       <label className="paymnt-lable">EXPIRE DATE</label>
-                      <br></br>
+                      <br />
                       <input
                         className="paymnt-inpt-one"
                         type="month"
@@ -440,12 +345,11 @@ function Payment() {
                         min={getMinimumMonth()}
                         required
                       />
-
-                      <br></br>
+                      <br />
                     </div>
                     <div>
                       {/* <label className="paymnt-lable">EXP YEAR</label>
-                      <br></br>
+                      <br />
                       <input
                         className="paymnt-inpt-one"
                         type="number"
@@ -457,21 +361,15 @@ function Payment() {
                         placeholder="YYYY"
                         min="2024"
                         max="2100"
-                        onKeyPress={(event) => {
-                          if (!/\d/.test(event.key)) { // If the key pressed is not a digit
-                            event.preventDefault(); // Prevent default behavior (typing the key)
-                          }
-                        }}
-                      ></input>
-                      <br></br> */}
+                      />
+                      <br /> */}
                     </div>
                   </div>
                   <label className="paymnt-lable">CVV NUMBER</label>
-                  <br></br>
+                  <br />
                   <input
                     className="paymnt-inpt"
                     type="text"
-                    id="cvv"
                     name="cvv"
                     value={inputs.cvv}
                     onChange={handleChange}
@@ -480,20 +378,13 @@ function Payment() {
                     minLength={3}
                     maxLength={3}
                     pattern="[0-9]*"
-                    onKeyPress={(event) => {
-                      if (!/\d/.test(event.key)) {
-                        // If the key pressed is not a digit
-                        event.preventDefault(); // Prevent default behavior (typing the key)
-                      }
-                    }}
-                  ></input>
+                  />
                 </div>
               </div>
               <h1 className="paypal-para2">
-                Your Total Amount :LKR{" "}
+                Your Total Amount :LKR{' '}
                 <span className="price-pay">{calculateTotalBill()}</span>
               </h1>
-
               <div className="end-btn">
                 <button className="btn-pro">Place Order</button>
               </div>
@@ -504,4 +395,5 @@ function Payment() {
     </div>
   );
 }
+
 export default Payment;

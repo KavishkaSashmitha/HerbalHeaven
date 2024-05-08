@@ -9,28 +9,9 @@ const router = express.Router();
 router.post('/order/save', protect, async (req, res) => {
   try {
     let newOrder = new Orders({
-      user: req.user.name,
+      customer: req.customer.name,
       ...req.body,
     });
-
-    const items = req.body.items; // Assuming items are in req.body
-    for (const item of items) {
-      const { name, quantity } = item;
-      const product = await Inventory.findOne({ productName: name });
-      if (!product) {
-        return res
-          .status(404)
-          .json({ error: `Product with name ${name} not found.` });
-      }
-      if (product.quantity < quantity) {
-        return res
-          .status(400)
-          .json({ error: `Insufficient quantity for product ${name}.` });
-      }
-      product.quantity -= quantity; // Reduce inventory quantity
-      await product.save(); // Save the updated product
-    }
-
     await newOrder.save();
     return res.status(200).json({
       success: 'Order saved successfully',
@@ -45,7 +26,7 @@ router.post('/order/save', protect, async (req, res) => {
 //get user orders
 router.get('/my-orders', protect, async (req, res) => {
   try {
-    const orders = await Orders.find({ user: req.user.name }).exec();
+    const orders = await Orders.find({ customer: req.customer.name }).exec();
     return res.status(200).json({
       success: true,
       existingOrders: orders,
@@ -56,7 +37,12 @@ router.get('/my-orders', protect, async (req, res) => {
     });
   }
 });
-
+router.get('/api/customer/orders', protect, async (req, res) => {
+  const customerId = req.customerId; // Retrieve customer ID from request
+  // Fetch orders associated with the customer ID from the database
+  const orders = await Order.find({ customerId });
+  res.json({ success: true, existingOrders: orders });
+});
 //get posts
 
 router.get('/orders', async (req, res) => {

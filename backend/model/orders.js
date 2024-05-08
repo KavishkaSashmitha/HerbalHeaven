@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
   orderId: {
     type: String,
   },
-  user: {
+  customer: {
     type: String,
     required: true,
   },
@@ -44,7 +44,7 @@ const orderSchema = new mongoose.Schema({
       quantity: {
         type: Number,
         required: true,
-      }, 
+      },
       price: {
         type: Number,
         required: true,
@@ -57,15 +57,15 @@ const orderSchema = new mongoose.Schema({
 });
 
 function generateOrderId() {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let orderId = "ORD#";
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let orderId = 'ORD#';
   for (let i = 0; i < 6; i++) {
     orderId += characters.charAt(Math.floor(Math.random() * characters.length));
   }
   return orderId;
 }
 
-orderSchema.pre("save", async function (next) {
+orderSchema.pre('save', async function (next) {
   if (!this.orderId) {
     let orderId = generateOrderId();
     const exists = await mongoose.models.orders.findOne({ orderId });
@@ -78,4 +78,4 @@ orderSchema.pre("save", async function (next) {
   next();
 });
 
-module.exports = mongoose.model("orders", orderSchema);
+module.exports = mongoose.model('orders', orderSchema);
