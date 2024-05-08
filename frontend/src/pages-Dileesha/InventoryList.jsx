@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Input } from '@material-tailwind/react';
 import { Card, Typography, Button, IconButton } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 import { Footer } from '../components/Footer';
 import AdminNavbar from '../components/AdminNavbar';
 import { DefaultSidebar } from '../components/Manager-Sidebar';
@@ -29,9 +29,15 @@ const InventoryList = () => {
   }, [items]);
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete this item?'
-    );
+    const confirmDelete = Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this Employee!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+    });
     if (confirmDelete) {
       axios
         .delete(`http://localhost:8070/inventory/deleteInventoryItem/${id}`)
@@ -84,6 +90,14 @@ const InventoryList = () => {
       .post('http://localhost:8070/inventory/addReorderItem', { products })
       .then((response) => {
         console.log('Reorder items sent successfully:', response.data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Reorder list sent successfully!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
         // Optionally handle navigation or state updates here
       })
       .catch((error) => {
