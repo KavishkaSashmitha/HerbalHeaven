@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Input } from '@material-tailwind/react';
-import { Card, Typography, Button } from '@material-tailwind/react';
+import { Card, Typography, Button, IconButton } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 
 import { Footer } from '../components/Footer';
@@ -14,7 +14,8 @@ const InventoryList = () => {
 
   const [items, setItems] = useState([]);
   const [searchItem, setSearchItem] = useState('');
-  const [reorderItems, setReorderItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -68,7 +69,7 @@ const InventoryList = () => {
 
     // Map the filtered items to the format expected by the backend
     const products = reorderItem.map((item) => ({
-      productID: item._id, // Assuming _id is the product ID in your schema
+      productID: item._id,
       productNo: item.productNo,
       productName: item.productName,
       category: item.category,
@@ -79,7 +80,6 @@ const InventoryList = () => {
     // Log the data to be sent (optional)
     console.log('Data to be sent:', products);
 
-    // Send the products array to the backend
     axios
       .post('http://localhost:8070/inventory/addReorderItem', { products })
       .then((response) => {
@@ -98,6 +98,22 @@ const InventoryList = () => {
     );
   });
 
+  // Get current items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const paginatedItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const nextPage = () => setCurrentPage(currentPage + 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
+
+  //generate page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(filteredItems.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  //end
   //handle publish
   const handlePublish = async (item) => {
     try {
@@ -120,7 +136,6 @@ const InventoryList = () => {
         price: item.cost,
         description: item.shortDescription,
         image: item.image,
-        category: item.category,
       };
 
       const response = await axios.post(
@@ -131,14 +146,6 @@ const InventoryList = () => {
       if (response.status === 201) {
         console.log('Product created successfully:', response.data);
         // Optionally, update the state or perform any other actions
-        // Update the item to indicate it has been published
-        const updatedItems = items.map((i) => {
-          if (i._id === item._id) {
-            return { ...i, published: true };
-          }
-          return i;
-        });
-        setItems(updatedItems);
       } else {
         console.error('Failed to create product:', response.statusText);
         // Optionally, display an error message to the user
@@ -151,7 +158,7 @@ const InventoryList = () => {
 
   return (
     <div
-      className="flex flex-col h-screen overflow-auto overflow-x-hidden"
+      className="flex flex-col h-screen overflow-hidden overflow-x-hidden"
       style={{ backgroundColor: '#02353c' }}
     >
       <div className="flex flex-1 overflow-scroll">
@@ -168,7 +175,7 @@ const InventoryList = () => {
             <Typography
               variant="h6"
               color="blue-gray"
-              className="text-center text-3xl font-bold font-times bg-blue-gray-300 p-2 rounded-md"
+              className="text-center text-3xl font-bold font-times bg-blue-gray-100 p-2 rounded-md"
             >
               Inventory List
             </Typography>
@@ -215,6 +222,7 @@ const InventoryList = () => {
                   {[
                     'Product No',
                     'Product Name',
+                    // 'Short Description',
                     'category',
                     'Cost',
                     'Quantity',
@@ -227,7 +235,7 @@ const InventoryList = () => {
                   ].map((head, index) => (
                     <th
                       key={index}
-                      className="border-b border-blue-gray-100 bg-green-300 p-7"
+                      className="border-b border-blue-gray-100 bg-blue-gray-200 p-7"
                     >
                       <Typography
                         variant="small"
@@ -241,8 +249,8 @@ const InventoryList = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredItems.map((item) => (
-                  <tr key={item._id} className="even:bg-green-100 p-4">
+                {paginatedItems.map((item) => (
+                  <tr key={item._id} className="even:bg-blue-gray-50 p-4">
                     <td className="p-8">
                       <Typography
                         variant="small"
@@ -261,7 +269,15 @@ const InventoryList = () => {
                         {item.productName}
                       </Typography>
                     </td>
-
+                    {/* <td className="p-4">
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {item.shortDescription}
+                      </Typography>
+                    </td> */}
                     <td className="p-4">
                       <Typography
                         variant="small"
@@ -360,11 +376,11 @@ const InventoryList = () => {
                     </td>
                     <td>
                       <Button
-                        className="ml-2 mt-5"
+                        color="yellow"
+                        className="ml-0 mt-2 "
                         onClick={() => handlePublish(item)}
-                        disabled={item.published} // Disable button if item is already published
                       >
-                        {item.published ? 'Published' : 'Publish'}
+                        Publish
                       </Button>
                     </td>
                   </tr>
@@ -380,6 +396,40 @@ const InventoryList = () => {
                 Add New Product
               </Button>
             </Link>
+            <div className="flex justify-end mt-4">
+              {/* Previous page button */}
+              <Button
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
+                variant="outlined"
+                size="sm"
+                onClick={prevPage}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <div className="flex items-center gap-2 ">
+                {pageNumbers.map((number) => (
+                  <IconButton
+                    className="bg-custom-color hover:bg-amber-800 text-cyan-50"
+                    key={number}
+                    variant={number === currentPage ? 'outlined' : 'text'}
+                    size="sm"
+                    onClick={() => setCurrentPage(number)}
+                  >
+                    {number}
+                  </IconButton>
+                ))}
+              </div>
+              <Button
+                className="bg-custom-color hover:bg-amber-800 text-cyan-50"
+                variant="outlined"
+                size="sm"
+                onClick={nextPage}
+                disabled={indexOfLastItem >= filteredItems.length}
+              >
+                Next
+              </Button>
+            </div>
           </Card>
           <Footer />
         </div>
