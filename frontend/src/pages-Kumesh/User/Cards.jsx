@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Card from '../User/CardDetails';
-import CardBox from './CardBox';
-import axios from 'axios';
-import { SidebarWithBurgerMenu } from '../../components/navBar';
-import { FaAddressCard } from 'react-icons/fa6';
-import { RiBankFill } from 'react-icons/ri';
-import { useReactToPrint } from 'react-to-print';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../middleware/authContext';
+import React, { useEffect, useState, useRef } from "react";
+import Card from "../User/CardDetails";
+import CardBox from "./CardBox";
+import axios from "axios";
+import { SidebarWithBurgerMenu } from "../../components/navBar";
+import { FaAddressCard } from "react-icons/fa6";
+import { RiBankFill } from "react-icons/ri";
+import { useReactToPrint } from "react-to-print";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../middleware/authContext";
 
-const URL = 'http://localhost:8070/cards';
+const URL = "http://localhost:8070/cards/get/usercards";
 
 const fetchHandler = async (token) => {
   return await axios
@@ -26,16 +26,15 @@ function Cards() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    fetchHandler(token).then((data) => setCards(data.cards));
+    fetchHandler(token).then((data) => setCards(data.card));
   }, [token]);
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: 'Card Details Report',
-    onAfterPrint: () => alert('Successfully Downloaded !'), //alert
+    documentTitle: "Card Details Report",
+    onAfterPrint: () => alert("Successfully Downloaded !"), //alert
   });
-
   return (
     <div>
       <SidebarWithBurgerMenu />
