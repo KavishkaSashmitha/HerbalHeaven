@@ -103,6 +103,7 @@ import AddProduct from './pages-Dileesha/AddProduct';
 import UpdateProduct from './pages-Dileesha/UpdateProduct';
 import InventoryList from './pages-Dileesha/InventoryList';
 import InventoryReport from './pages-Dileesha/InventoryReport';
+import InventoryStatistics from './pages-Dileesha/InventoryStatistics';
 
 import MyOrders from './pages_Ridmi/myOrders';
 import DeretOrders from './pages-Kumesh/Admin/Income/DeretOrders';
@@ -234,6 +235,7 @@ function App() {
       <Route path="/inventory/update/:id" element={<UpdateProduct />} />
       <Route path="/inventory" element={<InventoryList />} />
       <Route path="/inventory/report" element={<InventoryReport />} />
+      <Route path="/inventory/stat" element={<InventoryStatistics />} />
 
       <Route path="/test" element={<ImageUpload />} />
     </Routes>
