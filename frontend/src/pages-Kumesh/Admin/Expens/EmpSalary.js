@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import './EmpSalary.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faFilePdf } from '@fortawesome/free-solid-svg-icons'; // Assuming you have imported the faFilePdf icon
-import jsPDF from 'jspdf';
+import "./EmpSalary.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faFilePdf } from "@fortawesome/free-solid-svg-icons"; // Assuming you have imported the faFilePdf icon
+import jsPDF from "jspdf";
+import MonthlySalChart from "../../../pages_Pasindu/Emp_Tot_SalChart";
 
 
 const URL = "http://localhost:8070/api/posts/sallrypost";
@@ -67,13 +68,13 @@ const EmpSalary = () => {
 
   const generatePDF = () => {
     const doc = new jsPDF();
-    
+
     // Add logo image
     const logoWidth = 50; // Adjust the width of the logo as needed
     const logoHeight = 50; // Adjust the height of the logo as needed
-    
+
     doc.text("Employees Salary Report", 70, 30); // Adjust the position of the title
-    
+
     let yOffset = 50; // Adjust the initial vertical position
     Object.entries(salaryByMonth).forEach(([month, salaries]) => {
       doc.text(`${month} Salary:`, 10, yOffset);
@@ -83,13 +84,12 @@ const EmpSalary = () => {
         yOffset += 7;
       });
     });
-    
+
     // Add total salary
     doc.text(`Total Salary: LKR ${totalSalary.toFixed(2)}`, 10, yOffset);
-    
+
     doc.save("employees_salary_report.pdf");
   };
- 
 
   return (
     <div>
@@ -123,12 +123,12 @@ const EmpSalary = () => {
                 <td className="table_income_td">{month}</td>
                 <td className="table_income_td">
                   {salaries.map((entry, idx) => (
-                      <div key={idx}>{entry.name}</div>
+                    <div key={idx}>{entry.name}</div>
                   ))}
                 </td>
                 <td className="table_income_td">
                   {salaries.map((entry, idx) => (
-                      <div key={idx}>LKR {entry.amount.toFixed(2)}</div>
+                    <div key={idx}>LKR {entry.amount.toFixed(2)}</div>
                   ))}
                 </td>
               </tr>
@@ -136,6 +136,11 @@ const EmpSalary = () => {
           </tbody>
         </table>
         <h1 className="tot_amout">Total: LKR {totalSalary.toFixed(2)}</h1>
+      </div>
+      <div className="pt-3">
+        <div>
+          <MonthlySalChart />
+        </div>
       </div>
     </div>
   );
