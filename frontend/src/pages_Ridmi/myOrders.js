@@ -41,6 +41,8 @@ export default function MyOrders() {
 
     setOrders(result);
   }
+  const createdAt = new Date('2024-05-08T12:34:56.789Z');
+  console.log(createdAt.toLocaleString()); // Output: 5/8/2024, 12:34:56 PM
 
   return (
     <>
@@ -97,6 +99,11 @@ export default function MyOrders() {
               <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
                 <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                   Actions
+                </p>
+              </th>
+              <th class="p-4 border-y border-blue-gray-100 bg-blue-gray-50/50">
+                <p class="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                  Created At
                 </p>
               </th>
             </tr>
@@ -164,6 +171,14 @@ export default function MyOrders() {
                     </p>
                   </div>
                 </td>
+                <td class="p-4 border-b border-blue-gray-50">
+                  <div class="flex items-center gap-3">
+                    <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                      {new Date(order.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                </td>
+
                 <td class="p-4 border-b border-blue-gray-50">
                   <OrderReceipt data={order} />
                 </td>

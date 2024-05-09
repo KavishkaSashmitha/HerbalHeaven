@@ -1,60 +1,65 @@
 const mongoose = require('mongoose');
 
-const orderSchema = new mongoose.Schema({
-  orderId: {
-    type: String,
-  },
-  customer: {
-    type: String,
-    required: true,
-  },
-  paymentStatus: {
-    type: String,
-    required: true,
-  },
-  orderStatus: {
-    type: String,
-    required: true,
-  },
-  total: {
-    type: Number,
-    required: false,
-  },
+const orderSchema = new mongoose.Schema(
+  {
+    orderId: {
+      type: String,
+    },
+    customer: {
+      type: String,
+      required: true,
+    },
+    paymentStatus: {
+      type: String,
+      required: true,
+    },
+    orderStatus: {
+      type: String,
+      required: true,
+    },
+    total: {
+      type: Number,
+      required: false,
+    },
 
-  shippingAddress: {
-    address: {
-      type: String,
-      required: true,
+    shippingAddress: {
+      address: {
+        type: String,
+        required: true,
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+      zip: {
+        type: String,
+        required: true,
+      },
     },
-    city: {
-      type: String,
-      required: true,
-    },
-    zip: {
-      type: String,
-      required: true,
-    },
+    items: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        image: {
+          type: String,
+        },
+      },
+    ],
   },
-  items: [
-    {
-      name: {
-        type: String,
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
-      price: {
-        type: Number,
-        required: true,
-      },
-      image: {
-        type: String,
-      },
-    },
-  ],
-});
+  {
+    timestamps: true,
+  }
+);
 
 function generateOrderId() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

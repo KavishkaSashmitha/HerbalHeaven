@@ -1,7 +1,7 @@
-import { useCallback } from "react";
-import { Button } from "@material-tailwind/react";
-import jsPDF from "jspdf";
-import "jspdf-autotable";
+import { useCallback } from 'react';
+import { Button } from '@material-tailwind/react';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default function OrderReceipt(order) {
   const data = order.data;
@@ -13,6 +13,7 @@ export default function OrderReceipt(order) {
       m.quantity,
       m.price.toFixed(2),
       m.image,
+      m.createdAt,
     ]);
 
     // Add page number
@@ -35,7 +36,7 @@ export default function OrderReceipt(order) {
         5,
         doc.internal.pageSize.width - 10,
         doc.internal.pageSize.height - 10,
-        "S"
+        'S'
       );
     }
 
@@ -47,32 +48,32 @@ export default function OrderReceipt(order) {
 
     // Add company logo
     const logoImg = new Image();
-    logoImg.src = "/logo/logo.png";
-    doc.addImage(logoImg, "PNG", 90, 14, 40, 40);
+    logoImg.src = '/logo/logo.png';
+    doc.addImage(logoImg, 'PNG', 90, 14, 40, 40);
 
     // Add company name
     doc.setFontSize(25);
-    doc.setFont("helvetica", "bold");
+    doc.setFont('helvetica', 'bold');
     // Print "Herbal Heaven" text
-    doc.text("Herbal Heaven", 80, 20);
+    doc.text('Herbal Heaven', 80, 20);
 
     // Add company address, email, and phone number
     doc.setFontSize(8);
-    doc.text("Company Address:", 10, 50);
-    doc.text("123 Main St, City, Country", 10, 55);
-    doc.text("Email: info@herbalheaven.com", 10, 60);
-    doc.text("Phone: +1234567890", 10, 65);
+    doc.text('Company Address:', 10, 50);
+    doc.text('123 Main St, City, Country', 10, 55);
+    doc.text('Email: info@herbalheaven.com', 10, 60);
+    doc.text('Phone: +1234567890', 10, 65);
 
     doc.setFontSize(25);
-    doc.setFont("helvetica", "bold");
-    doc.text("INVOICE", 92, 80);
+    doc.setFont('helvetica', 'bold');
+    doc.text('INVOICE', 92, 80);
 
     doc.setFontSize(15);
-    doc.setFont("helvetica", "bold");
+    doc.setFont('helvetica', 'bold');
     doc.text(data?.orderId, 92, 90);
 
     doc.setFontSize(8);
-    doc.text("Shipping Address:", 10, 95);
+    doc.text('Shipping Address:', 10, 95);
     doc.text(data?.shippingAddress.address, 10, 100);
     doc.text(data?.shippingAddress.city, 10, 105);
     doc.text(data?.shippingAddress.zip, 10, 110);
@@ -100,7 +101,7 @@ export default function OrderReceipt(order) {
       doc.internal.pageSize.height - 50,
       null,
       null,
-      "right"
+      'right'
     );
     doc.text(
       `Discount: Rs.0.00`,
@@ -108,7 +109,7 @@ export default function OrderReceipt(order) {
       doc.internal.pageSize.height - 40,
       null,
       null,
-      "right"
+      'right'
     );
     doc.text(
       `Total: Rs.${data?.total.toFixed(2)}`,
@@ -116,22 +117,22 @@ export default function OrderReceipt(order) {
       doc.internal.pageSize.height - 30,
       null,
       null,
-      "right"
+      'right'
     );
 
     // Item Table
     doc.autoTable({
-      head: [["Item", "QTY", "Price (Rs.)"]],
+      head: [['Item', 'QTY', 'Price (Rs.)']],
       body: itemData,
       margin: { top: 120, right: 10, left: 10 },
-      theme: "striped",
+      theme: 'striped',
       headStyles: {
         fillColor: [20, 74, 46],
         textColor: 255,
-        fontStyle: "bold",
+        fontStyle: 'bold',
         fontSize: 14,
-        halign: "center",
-        valign: "middle",
+        halign: 'center',
+        valign: 'middle',
         lineWidth: 0.2,
         lineColor: [255, 255, 255],
         cellPadding: 2,
@@ -139,10 +140,10 @@ export default function OrderReceipt(order) {
       bodyStyles: {
         fontSize: 10,
         textColor: 50,
-        fontStyle: "normal",
+        fontStyle: 'normal',
         fillColor: [238, 238, 238],
-        halign: "center",
-        valign: "middle",
+        halign: 'center',
+        valign: 'middle',
         lineWidth: 0.5,
         lineColor: [255, 255, 255],
         cellPadding: 3,
@@ -151,7 +152,7 @@ export default function OrderReceipt(order) {
         fillColor: [255, 255, 255],
       },
       styles: {
-        font: "Helvetica",
+        font: 'Helvetica',
       },
       didDrawCell: (data) => {
         if (data.column.index === 0 && data.row.index >= 0) {
@@ -164,7 +165,7 @@ export default function OrderReceipt(order) {
             const yOffset = (data.cell.height - imgHeight) / 2;
             doc.addImage(
               imageUrl,
-              "JPEG",
+              'JPEG',
               data.cell.x + xOffset,
               data.cell.y + yOffset,
               imgWidth,

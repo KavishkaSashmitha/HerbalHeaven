@@ -19,7 +19,6 @@ const postSchema = new mongoose.Schema({
   },
   nic: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
@@ -31,7 +30,6 @@ const postSchema = new mongoose.Schema({
   },
   age: {
     type: String,
-    required: true,
   },
   image: {
     type: String,
