@@ -29,6 +29,7 @@ export default function Edit_Driver() {
     email: "",
     productName: "",
     quantity: "",
+    productID: "",
   });
 
   const [open, setOpen] = useState(false);
@@ -97,6 +98,7 @@ export default function Edit_Driver() {
       mobile: selectedUser.mobile,
       productName: selectedProduct.productName,
       quantity: selectedProduct.quantity,
+      productID: selectedProduct.productID,
     };
 
     // Check if any errors exist
@@ -126,6 +128,7 @@ export default function Edit_Driver() {
                 email: "",
                 productName: "",
                 quantity: "",
+                productId: "",
                 errors: {},
               });
               Swal.fire("Success", "Order added successfully!", "success");
@@ -251,6 +254,19 @@ export default function Edit_Driver() {
                             </option>
                           ))}
                         </select>
+                      </div>
+
+                      <div className="mt-4 mb-4">
+                        <p className="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                          <label>Id</label>
+                        </p>
+                        <Input
+                          label="Id"
+                          value={selectedProduct?.productID}
+                          size="lg"
+                          type="text"
+                          disabled
+                        />
                       </div>
                       <div className="mt-4 mb-4">
                         <p className="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">

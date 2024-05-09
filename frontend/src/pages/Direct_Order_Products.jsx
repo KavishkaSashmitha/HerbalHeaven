@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardBody,
@@ -7,18 +7,19 @@ import {
   Button,
   Typography,
   Breadcrumbs,
-} from '@material-tailwind/react';
-import AdminNavbar from '../components/AdminNavbar';
-import { DefaultSidebar } from '../components/Manager-Sidebar';
-import { Link } from 'react-router-dom';
-import { QrReader } from 'react-qr-reader';
-import QRCode from 'qrcode';
+} from "@material-tailwind/react";
+import AdminNavbar from "../components/AdminNavbar";
+import { DefaultSidebar } from "../components/Manager-Sidebar";
+import { Link } from "react-router-dom";
+import { QrReader } from "react-qr-reader";
+import QRCode from "qrcode";
+import { toast } from "react-toastify";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(5);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
   const [directCart, setDirectCart] = useState({});
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -29,14 +30,14 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8070/api/products');
+        const response = await fetch("http://localhost:8070/api/products");
         if (!response.ok) {
-          throw new Error('Failed to fetch products');
+          throw new Error("Failed to fetch products");
         }
         const data = await response.json();
         setProducts(data);
       } catch (error) {
-        console.error('Error fetching products:', error.message);
+        console.error("Error fetching products:", error.message);
       }
     };
 
@@ -65,33 +66,33 @@ const ProductList = () => {
     setOpen(!open);
   };
   const handleScan = async (data) => {
-    console.log('Scanned result:', data);
+    console.log("Scanned result:", data);
     if (data) {
       try {
         const response = await fetch(
           `http://localhost:8070/api/products/${data}`
         );
         if (!response.ok) {
-          throw new Error('Failed to fetch product');
+          throw new Error("Failed to fetch product");
         }
         const productData = await response.json();
         // Update products state with only the scanned product
         setProducts([productData]);
         setScannedMessage(`Scanned successfully: ${productData.name}`);
       } catch (error) {
-        console.error('Error scanning QR code:', error.message);
+        console.error("Error scanning QR code:", error.message);
         setScannedMessage(`Error scanning QR code: ${error.message}`);
       }
     }
   };
 
   const handleError = (error) => {
-    console.error('QR code scanning error:', error);
+    console.error("QR code scanning error:", error);
     setScannedMessage(`QR code scanning error: ${error.message}`); // Set error message
   };
   const handleResult = async (result) => {
     // Handle the result of the QR code scanning process
-    console.log('Scanned result:', result);
+    console.log("Scanned result:", result);
     // Optionally, you can process the scanned result here
     if (result) {
       try {
@@ -99,13 +100,13 @@ const ProductList = () => {
           `http://localhost:8070/api/products/${result}`
         );
         if (!response.ok) {
-          throw new Error('Failed to fetch product');
+          throw new Error("Failed to fetch product");
         }
         const productData = await response.json();
         await postCartData(productData);
         setScannedMessage(`Scanned successfully: ${result}`); // Set scanned message
       } catch (error) {
-        console.error('Error scanning QR code:', error.message);
+        console.error("Error scanning QR code:", error.message);
         setScannedMessage(`Error scanning QR code: ${error.message}`); // Set error message
       } finally {
         setShowScanner(false); // Turn off the scanner
@@ -120,7 +121,7 @@ const ProductList = () => {
         onError={handleError}
         onScan={handleScan}
         onResult={handleResult}
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
       />
     </div>
   );
@@ -132,22 +133,23 @@ const ProductList = () => {
         quantity: 1,
       };
 
-      const response = await fetch('http://localhost:8070/api/directcart', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8070/api/directcart", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ item: directCartItem }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add item to cart');
+        throw new Error("Failed to add item to cart");
       }
 
       // Optionally, you can update state or show a success message here
-      console.log('Product added to cart successfully');
+      console.log("Product added to cart successfully");
+      toast.success("Item added");
     } catch (error) {
-      console.error('Error adding item to cart:', error.message);
+      console.error("Error adding item to cart:", error.message);
       // Handle error appropriately
     }
   };
@@ -157,7 +159,7 @@ const ProductList = () => {
       const product = selectedProducts[0];
       const qrCodeDataUrl = await QRCode.toDataURL(product.name);
 
-      const downloadLink = document.createElement('a');
+      const downloadLink = document.createElement("a");
       downloadLink.href = qrCodeDataUrl;
       downloadLink.download = `${product.name}-qrcode.png`;
       document.body.appendChild(downloadLink);
@@ -178,17 +180,16 @@ const ProductList = () => {
       );
     }
   };
-  
 
   return (
     <div
       className="flex flex-col h-screen overflow-auto overflow-x-hidden"
-      style={{ backgroundColor: '#02353c' }}
+      style={{ backgroundColor: "#02353c" }}
     >
       <div className="flex flex-1 overflow-scroll">
         <div
           className={`sidebar w-68 bg-custom-color text-white ${
-            open ? 'block' : 'hidden'
+            open ? "block" : "hidden"
           }`}
         >
           <DefaultSidebar open={open} handleOpen={setOpen} />
@@ -253,7 +254,7 @@ const ProductList = () => {
                         <img
                           src={product.image}
                           alt={product.name}
-                          style={{ width: '50px' }}
+                          style={{ width: "50px" }}
                         />
                       </td>
                       <td className="p-4">
@@ -284,7 +285,7 @@ const ProductList = () => {
                     color="blue-gray"
                     className="font-normal"
                   >
-                    Page {currentPage} of{' '}
+                    Page {currentPage} of{" "}
                     {Math.ceil(products.length / productsPerPage)}
                   </Typography>
                 </div>
@@ -297,7 +298,7 @@ const ProductList = () => {
                       onClick={() => paginate(index + 1)}
                       size="sm"
                       variant={
-                        currentPage === index + 1 ? 'filled' : 'outlined'
+                        currentPage === index + 1 ? "filled" : "outlined"
                       }
                     >
                       {index + 1}

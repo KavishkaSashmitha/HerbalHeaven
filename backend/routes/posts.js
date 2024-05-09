@@ -4,8 +4,15 @@ const Posts = require("../model/posts");
 const router = express.Router();
 
 //save posts
-router.post("/post/save", (req, res) => {
+router.post("/post/save", async (req, res) => {
   let newPost = new Posts(req.body);
+
+  const existingPost = await Posts.findOne({
+    $or: [{ email: req.body.email }, { nic: req.body.nic }],
+  });
+  if (existingPost) {
+    return res.status(400).json({ error: "Email or NIC already exists" });
+  }
 
   newPost
     .save()
@@ -24,7 +31,6 @@ router.post("/post/save", (req, res) => {
 //get posts
 
 router.get("/posts", (req, res) => {
-
   Posts.find()
     .exec()
     .then((posts) => {
@@ -112,10 +118,8 @@ router.put("/post/salary/:id", (req, res) => {
     });
 });
 
-
-
-
-router.get("/sallrypost", async (req, res) => { // Mark the function as async
+router.get("/sallrypost", async (req, res) => {
+  // Mark the function as async
   try {
     const salary = await Posts.find(); // Use await to wait for the promise to resolve
     if (!salary) {
@@ -127,7 +131,6 @@ router.get("/sallrypost", async (req, res) => { // Mark the function as async
     return res.status(500).json({ error: "Internal server error" }); // Handle errors
   }
 });
-
 
 //check user exist
 router.post("/check-user", async (req, res) => {

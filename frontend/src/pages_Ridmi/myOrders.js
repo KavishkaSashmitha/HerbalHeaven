@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
-import { useAuth } from '../middleware/authContext';
-import { getStatusColor } from './Order';
-import OrderReceipt from './OrderReceipt';
-import { SidebarWithBurgerMenu } from '../components/navBar';
-import ProfileMenu from '../components/Profile';
+import React, { useState, useEffect, useCallback } from "react";
+import axios from "axios";
+import { useAuth } from "../middleware/authContext";
+import { getStatusColor } from "./Order";
+import OrderReceipt from "./OrderReceipt";
+import { SidebarWithBurgerMenu } from "../components/navBar";
+import ProfileMenu from "../components/Profile";
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -13,7 +13,7 @@ export default function MyOrders() {
   const retriveOrder = useCallback(() => {
     if (!token) return;
     axios
-      .get('http://localhost:8070/api/orders/my-orders', {
+      .get("http://localhost:8070/api/orders/my-orders", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -125,7 +125,7 @@ export default function MyOrders() {
                 </td>
                 <td class="p-4 border-b border-blue-gray-50">
                   <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                    {order.shippingAddress.address},{' '}
+                    {order.shippingAddress.address},{" "}
                     {order.shippingAddress.city}, {order.shippingAddress.zip}
                   </p>
                 </td>

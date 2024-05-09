@@ -52,6 +52,24 @@ router.get('/reorders', async (req, res) => {
   }
 });
 
+//get a specific post
+
+router.get("/reorder/:id", (req, res) => {
+  let reorderId = req.params.id;
+
+  ReOrder.findById(reorderId)
+    .then((reorder) => {
+      return res.status(200).json({
+        success: true,
+        reorder,
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({ success: false, err });
+    });
+});
+
+
 //delete post
 
 router.delete('/reorder/delete/:id', (req, res) => {
@@ -68,6 +86,25 @@ router.delete('/reorder/delete/:id', (req, res) => {
         message: 'Delete unsuccesfully',
         err,
       });
+    });
+});
+
+//cost
+router.put("/materialCost/:id", (req, res) => {
+  const { id } = req.params;
+  const { month, productId, quantity, productName } = req.body;
+
+  const matcostUpdate = { [`Reorder.${month}${productName.toLowerCase()}`]: quantity };
+  ReOrder.findByIdAndUpdate(id, {
+    $set: matcostUpdate,
+  })
+    .then(() => {
+      return res.status(200).json({
+        success: "Updated Syccesfully",
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({ error: err });
     });
 });
 
