@@ -16,6 +16,7 @@ export default function Edit_Driver() {
     email: "",
     category: "",
     nic:"",
+    licence:"",
     vehicle_No: "",
     vehicle_type: "",
     
@@ -101,6 +102,8 @@ export default function Edit_Driver() {
       validationErrors.email = "Invalid email format";
     }
 
+    
+
     if (!formData.nic) {
       validationErrors.nic = "NIC is required";
     } else {
@@ -134,7 +137,7 @@ export default function Edit_Driver() {
       return;
     }
 
-    const { d_name, d_mobile, dob, email, category,nic, vehicle_No, vehicle_type} = formData;
+    const { d_name, d_mobile, dob, email, category,nic,licence, vehicle_No, vehicle_type} = formData;
 
     const data = {
       d_name: d_name,
@@ -143,6 +146,7 @@ export default function Edit_Driver() {
       dob: dob,
       category: category,
       nic: nic,
+      licence:licence,
       vehicle_No: vehicle_No,
       vehicle_type: vehicle_type,
     };
@@ -168,6 +172,7 @@ export default function Edit_Driver() {
                 email: '',
                 category: '',
                 nic: '',
+                licence:'',
                 vehicle_No: '',
                 vehicle_type: '',
               });
@@ -391,6 +396,31 @@ export default function Edit_Driver() {
                             {errors.nic && (
                               <span className="ml-1 text-sm text-red-500 sans">
                                 {errors.nic}
+                              </span>
+                            )}
+                            <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>
+                          </div>
+                      </div>
+
+                      <div>
+                          <p class="block mt-2 mb-1 font-sans text-x1 antialiased font-medium leading-normal text-blue-gray-900">
+                            <label>Driving Licence No.</label>
+                          </p>
+                          <div class="relative h-10 w-full min-w-[200px]">
+                            <input
+                              value={formData.licence}
+                              type="text"
+                              name="licence"
+                              placeholder="Enter licence"
+                              onChange={handleInputChange}
+                              className={`${
+                                errors.licence && "border-red-500"
+                              }peer bg-white h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent !border-t-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:!border-t-gray-900 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            `}
+                            />
+                            {errors.licence && (
+                              <span className="ml-1 text-sm text-red-500 sans">
+                                {errors.licence}
                               </span>
                             )}
                             <label class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all before:content-none after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all after:content-none peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"></label>

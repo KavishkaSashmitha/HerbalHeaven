@@ -117,6 +117,7 @@ export default function Transports() {
         transport.d_mobile.toLowerCase().includes(lowerCaseSearchKey) ||
         transport.dob.toLowerCase().includes(lowerCaseSearchKey) ||
         transport.nic.toLowerCase().includes(lowerCaseSearchKey) ||
+        transport.licence.toLowerCase().includes(lowerCaseSearchKey)||
         transport.vehicle_type.toLowerCase().includes(lowerCaseSearchKey) ||
         transport.category.toLowerCase().includes(lowerCaseSearchKey) ||
         transport.vehicle_No.toLowerCase().includes(lowerCaseSearchKey)
@@ -332,6 +333,11 @@ export default function Transports() {
                         </th>
                         <th className="p-4 ">
                           <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
+                            Driving Licence No.
+                          </p>
+                        </th>
+                        <th className="p-4 ">
+                          <p className="block font-sans antialiased font-bold leading-none text-x1 text-blue-gray-900 ">
                             Vehicle Type
                           </p>
                         </th>
@@ -424,6 +430,16 @@ export default function Transports() {
                                       ? transport.nic.slice(0, 9) + "v"
                                       : transport.nic
                                     : "NIC not available"}
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td className="p-4 ">
+                            <div className="flex items-center gap-3">
+                              <div className="flex flex-col">
+                                <p className="block font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
+                                  {transport.licence}
                                 </p>
                               </div>
                             </div>

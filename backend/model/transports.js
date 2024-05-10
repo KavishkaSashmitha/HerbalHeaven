@@ -47,6 +47,10 @@ const TransportSchema = new mongoose.Schema({
     required: false,
     default: {},
   },
+  licence:{
+    type:String,
+    required:true,
+  }
 });
 
 module.exports = mongoose.model("transports", TransportSchema);
