@@ -74,11 +74,7 @@ const InventoryReport = () => {
 
       // Add description
       pdf.setFontSize(12);
-      pdf.text(
-        'This report contains inventory details of Herbal Heaven company(PVT)LTD.',
-        10,
-        pdf.internal.pageSize.height - 50
-      );
+      pdf.text('', 10, pdf.internal.pageSize.height - 50);
       pdf.save('inventory_report.pdf');
     });
   };
@@ -176,6 +172,14 @@ const InventoryReport = () => {
       <div>
         <Typography variant="h4" className="text-center font-bold text-4xl">
           Inventory Report
+        </Typography>
+        <Typography
+          variant="h2"
+          className="text-center font- text-4xl"
+          style={{ fontSize: '24px' }}
+        >
+          This report contains inventory details of Herbal Heaven
+          company(PVT)LTD.
         </Typography>
         {generateTable(expiredItems, false, true, 'Expired Products')}
 
