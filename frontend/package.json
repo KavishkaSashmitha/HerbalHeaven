@@ -15,7 +15,7 @@
     "apexcharts": "^3.48.0",
     "axios": "^1.6.8",
     "chart.js": "^4.4.2",
-    "cloudinary": "^1.41.3",
+    "cloudinary": "^2.7.0",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
